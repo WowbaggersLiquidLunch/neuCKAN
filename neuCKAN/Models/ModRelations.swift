@@ -2,20 +2,86 @@
 //  ModRelations.swift
 //  neuCKAN
 //
-//  Created by 冀卓疌 on 19-11-06.
-//  Copyright © 2019 Wowbagger & His Liquid Lunch. All rights reserved.
+//  Created by you on 19-11-06.
+//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
+import AppKit
+import Foundation
 import SwiftUI
 
-struct ModRelations: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+/**
+The mod's relationship to other mods.
 
-struct ModRelations_Previews: PreviewProvider {
-    static var previews: some View {
-        ModRelations()
-    }
+This is equivalent to a **Relationship** ["type"][0] in a .ckan file.
+
+`ModRelations` objects are for the relationship fields in `ModRelease` objects. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+
+At its most basic, a **Relationship** field in a .ckan file is an array of objects, each being a name and identifier:
+
+```
+"depends" : [
+	{ "name" : "ModuleManager" },
+	{ "name" : "RealFuels" },
+	{ "name" : "RealSolarSystem" }
+]
+```
+
+Each relationship is an array of entries, each entry must have a `name` field in a .ckan file.
+
+The optional fields `min_version`, `max_version`, and `version` in a .ckan file may more precisely describe which versions are needed:
+
+```
+"depends" : [
+	{ "name" : "ModuleManager",   "min_version" : "2.1.5" },
+	{ "name" : "RealSolarSystem", "min_version" : "7.3"   },
+	{ "name" : "RealFuels" }
+]
+```
+
+It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same object in a .ckan file.
+
+CKAN clients implementing CKAN metadata specification version v1.26 or later must support an alternate form of relationship consisting of an `any_of` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
+
+For example:
+
+```
+"depends": [
+	{
+		"any_of": [
+			{ "name": "TextureReplacer"          },
+			{ "name": "TextureReplacerReplaced"  },
+			{ "name": "SigmaReplacements-Skybox" },
+			{ "name": "DiRT"                     }
+		]
+	}
+]
+```
+
+The `ModRelations` struct is designed to translate and handle the above `any_of` feature.
+
+[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
+*/
+struct ModRelations: Hashable, Codable {
+	
+	/**
+	A toggle between matching all or matching some dependencies.
+	
+	This is equivalent to a **any_of** key in a .ckan file.
+	*/
+	let unselective: Bool
+	
+	/**
+	A list of `ModRelation` objects.
+	
+	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
+	*/
+	let modRelations: [ModRelation]?
+	
+	/**
+	A list of `ModRelations` objects
+	
+	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
+	*/
+	let modRelationsSet: [ModRelations]?
 }
