@@ -2,8 +2,8 @@
 //  neuCKANUITests.swift
 //  neuCKANUITests
 //
-//  Created by 冀卓疌 on 19-10-31.
-//  Copyright © 2019 Wowbagger & His Liquid Lunch. All rights reserved.
+//  Created by you on 2019-10-31.
+//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import XCTest
