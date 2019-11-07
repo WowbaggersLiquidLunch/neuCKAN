@@ -15,7 +15,7 @@ Mod resources.
 
 This is equivalent to the **resources** [attribute][0] in a .ckan file.
 
-The `resources` field describes additional information that a user or program may wish to know about the mod, but which are not required for its installation or indexing. Presently the following fields are described. Unless specified otherwise, these are `URL`s:
+The `ModResources` struct describes additional information that a user or program may wish to know about the mod, but which are not required for its installation or indexing. Presently the following fields are described. Unless specified otherwise, these are `URL`s:
 - `homepage` : The preferred landing page for the mod.
 - `bugTracker` : The mod's bugtracker if it exists.
 - `license` : The mod's license.
