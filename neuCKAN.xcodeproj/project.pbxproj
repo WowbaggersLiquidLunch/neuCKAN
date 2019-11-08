@@ -14,6 +14,15 @@
 		B451D564236B9D5500441195 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B451D562236B9D5500441195 /* Main.storyboard */; };
 		B451D570236B9D5500441195 /* neuCKANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D56F236B9D5500441195 /* neuCKANTests.swift */; };
 		B451D57B236B9D5500441195 /* neuCKANUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D57A236B9D5500441195 /* neuCKANUITests.swift */; };
+		B46E75702372782200C09306 /* InstallationDirectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E756F2372782200C09306 /* InstallationDirectives.swift */; };
+		B46E757223727BC700C09306 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757123727BC700C09306 /* Version.swift */; };
+		B46E7576237290DD00C09306 /* ModRelations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E7575237290DD00C09306 /* ModRelations.swift */; };
+		B46E75792372995C00C09306 /* ModRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E75782372995C00C09306 /* ModRelation.swift */; };
+		B46E757B2372A73C00C09306 /* ModResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757A2372A73C00C09306 /* ModResources.swift */; };
+		B46E757D2372B13400C09306 /* ModHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757C2372B13400C09306 /* ModHash.swift */; };
+		B49B8651236C1BB400DF758C /* CKAN.schema.json in Resources */ = {isa = PBXBuildFile; fileRef = B49B8650236C1BB400DF758C /* CKAN.schema.json */; };
+		B49B8653236C1C3F00DF758C /* ModRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* ModRelease.swift */; };
+		B49B8655236C23F300DF758C /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +57,16 @@
 		B451D576236B9D5500441195 /* neuCKANUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = neuCKANUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B451D57A236B9D5500441195 /* neuCKANUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = neuCKANUITests.swift; sourceTree = "<group>"; };
 		B451D57C236B9D5500441195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B46E756F2372782200C09306 /* InstallationDirectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationDirectives.swift; sourceTree = "<group>"; };
+		B46E757123727BC700C09306 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		B46E7575237290DD00C09306 /* ModRelations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModRelations.swift; sourceTree = "<group>"; };
+		B46E7577237294E300C09306 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B46E75782372995C00C09306 /* ModRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModRelation.swift; sourceTree = "<group>"; };
+		B46E757A2372A73C00C09306 /* ModResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModResources.swift; sourceTree = "<group>"; };
+		B46E757C2372B13400C09306 /* ModHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModHash.swift; sourceTree = "<group>"; };
+		B49B8650236C1BB400DF758C /* CKAN.schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = CKAN.schema.json; path = neuCKAN/Resources/CKAN.schema.json; sourceTree = SOURCE_ROOT; };
+		B49B8652236C1C3F00DF758C /* ModRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModRelease.swift; sourceTree = "<group>"; };
+		B49B8654236C23F300DF758C /* Mod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +97,7 @@
 		B451D54D236B9D5400441195 = {
 			isa = PBXGroup;
 			children = (
+				B46E7577237294E300C09306 /* README.md */,
 				B451D558236B9D5400441195 /* neuCKAN */,
 				B451D56E236B9D5500441195 /* neuCKANTests */,
 				B451D579236B9D5500441195 /* neuCKANUITests */,
@@ -98,8 +118,10 @@
 		B451D558236B9D5400441195 /* neuCKAN */ = {
 			isa = PBXGroup;
 			children = (
+				B49B864C236C0D6600DF758C /* Models */,
 				B451D559236B9D5400441195 /* AppDelegate.swift */,
 				B451D55B236B9D5400441195 /* ViewController.swift */,
+				B49B864F236C191D00DF758C /* Resources */,
 				B451D560236B9D5500441195 /* Assets.xcassets */,
 				B451D562236B9D5500441195 /* Main.storyboard */,
 				B451D565236B9D5500441195 /* Info.plist */,
@@ -125,6 +147,37 @@
 				B451D57C236B9D5500441195 /* Info.plist */,
 			);
 			path = neuCKANUITests;
+			sourceTree = "<group>";
+		};
+		B472D266236F732100491E9D /* CKAN */ = {
+			isa = PBXGroup;
+			children = (
+				B49B8650236C1BB400DF758C /* CKAN.schema.json */,
+			);
+			path = CKAN;
+			sourceTree = "<group>";
+		};
+		B49B864C236C0D6600DF758C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B49B8654236C23F300DF758C /* Mod.swift */,
+				B49B8652236C1C3F00DF758C /* ModRelease.swift */,
+				B46E757123727BC700C09306 /* Version.swift */,
+				B46E756F2372782200C09306 /* InstallationDirectives.swift */,
+				B46E75782372995C00C09306 /* ModRelation.swift */,
+				B46E7575237290DD00C09306 /* ModRelations.swift */,
+				B46E757A2372A73C00C09306 /* ModResources.swift */,
+				B46E757C2372B13400C09306 /* ModHash.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B49B864F236C191D00DF758C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B472D266236F732100491E9D /* CKAN */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,7 +243,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Wowbagger & His Liquid Lunch";
 				TargetAttributes = {
 					B451D555236B9D5400441195 = {
@@ -231,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B49B8651236C1BB400DF758C /* CKAN.schema.json in Resources */,
 				B451D561236B9D5500441195 /* Assets.xcassets in Resources */,
 				B451D564236B9D5500441195 /* Main.storyboard in Resources */,
 			);
@@ -257,9 +311,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B46E757B2372A73C00C09306 /* ModResources.swift in Sources */,
+				B49B8653236C1C3F00DF758C /* ModRelease.swift in Sources */,
+				B46E757D2372B13400C09306 /* ModHash.swift in Sources */,
 				B451D55F236B9D5400441195 /* neuCKAN.xcdatamodeld in Sources */,
 				B451D55C236B9D5400441195 /* ViewController.swift in Sources */,
+				B46E75792372995C00C09306 /* ModRelation.swift in Sources */,
+				B46E75702372782200C09306 /* InstallationDirectives.swift in Sources */,
+				B46E757223727BC700C09306 /* Version.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
+				B46E7576237290DD00C09306 /* ModRelations.swift in Sources */,
+				B49B8655236C23F300DF758C /* Mod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = neuCKAN/neuCKAN.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9VQ37Q32QV;
@@ -445,6 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = neuCKAN/neuCKAN.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9VQ37Q32QV;
