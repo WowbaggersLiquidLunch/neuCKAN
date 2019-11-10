@@ -69,7 +69,7 @@ struct ModRelations: Hashable, Codable {
 	
 	This is equivalent to a **any_of** key in a .ckan file.
 	*/
-	let unselective: Bool
+	let isUnselective: Bool
 	
 	/**
 	A list of `ModRelation` objects.
