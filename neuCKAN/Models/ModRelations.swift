@@ -74,14 +74,16 @@ struct ModRelations: Hashable, Codable {
 	/**
 	A list of `ModRelation` objects.
 	
-	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
+	- Note: At least one of `ModRelation` and `ModRelations` fields must be `nil`.
 	*/
 	let modRelations: Set<ModRelation>?
 	
 	/**
 	A list of `ModRelations` objects
 	
-	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
+	This represents an **any_of** array in a .ckan file.
+	
+	- Note: At least one of `ModRelation` and `ModRelations` fields must be `nil`.
 	*/
 	let modRelationsSet: Set<ModRelations>?
 }
