@@ -372,6 +372,8 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	*/
 	let successor: [ModRelations]?
 	
+	//	resources (optional)
+	
 	/**
 	Mod resources.
 	
@@ -381,7 +383,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	*/
 	let resources: ModResources?
 	
-	//	special-use fields
+	//	special-use fields (optional)
 	
 	/**
 	The type of package.
