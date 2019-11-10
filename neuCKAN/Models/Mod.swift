@@ -36,6 +36,6 @@ A `Mod` object contains all releases of the same mod, as identified by the same 
 */
 struct Mod: Hashable, Codable, Identifiable {
 	let id: String
-	let modReleases: [ModRelease]
+	var modReleases: [ModRelease]
 }
 
