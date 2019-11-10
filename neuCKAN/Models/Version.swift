@@ -24,6 +24,11 @@ When comparing two version numbers, first the `epoch` of each are compared, then
 struct Version: Hashable, Codable{
 	
 	/**
+	The original version string verbatim from the .ckan file.
+	*/
+	let originalString: String
+	
+	/**
 	The fail-safe insurance to the versioning sequence.
 	
 	`epoch` is a single (generally small) unsigned integer. It may be omitted, in which case zero is assumed. CKAN provides it to allow mistakes in the version numbers of older versions of a package, and also a package's previous version numbering schemes, to be left behind.
@@ -42,7 +47,20 @@ struct Version: Hashable, Codable{
 	let version: [Int]
 	
 	/**
-	The original version string verbatim from the .ckan file.
+	The release version suffix.
+	
+	This is mostly used for denoting a pre-release version. The string follows a `"-"`, and is composed of alphsnumerical characters and `"."`, such as `"alpha"`, `"1337"`, or practically anything. For more information, see [semantic versioning][0]
+	
+	[0]: https://semver.org/#spec-item-9
 	*/
-	let originalString: String
+	let releaseSuffix: String?
+	
+	/**
+	The metadata suffix.
+	
+	The string follows a `"+"`, and is composed of alphsnumerical characters and `".", such as `"alpha"`, `"1337"`, or practically anything. For more information, see [semantic versioning][0]
+	
+	[0]: https://semver.org/#spec-item-10
+	*/
+	let metadataSuffix: String?
 }
