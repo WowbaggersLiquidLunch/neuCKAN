@@ -76,12 +76,12 @@ struct ModRelations: Hashable, Codable {
 	
 	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
 	*/
-	let modRelations: [ModRelation]?
+	let modRelations: Set<ModRelation>?
 	
 	/**
 	A list of `ModRelations` objects
 	
 	At least one of `ModRelation` and `ModRelations` fields must be `nil`.
 	*/
-	let modRelationsSet: [ModRelations]?
+	let modRelationsSet: Set<ModRelations>?
 }
