@@ -107,8 +107,8 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	- The `"MIT"` license is always taken to mean [the Expat license][2]. __This is not honoured by the neuCKAN project.__
 	- The creative commons licenses are permitted without a version number, indicating the author did not specify which version applies.
 	- Stripping of trailing zeros is not recognised.
-	- (v1.2) `"WTFPL"` is recognised as a valid license.
-	- (v1.18) `"Unlicense"` is recognised as a valid license.
+	- `"WTFPL"` is recognised as a valid license. (Since CKAN Metadata Specification v1.2)
+	- `"Unlicense"` is recognised as a valid license. (Since CKAN Metadata Specification v1.18)
 	
 	The following license strings are also valid and indicate other licensing not described above:
 	- `"open-source"`: Other Open Source Initiative (OSI) approved license.
