@@ -13,7 +13,7 @@ import SwiftUI
 /**
 A version type containing both an epoch and a semantic versioning sequence.
 
-This is equivalent to the **veraion** [attribute][0] in a .ckan file.
+This is equivalent to the **version** [attribute][0] in a .ckan file.
 
 It translates a .ckan file's `"[epoch:]version"` version string into a `Int Optional`: `epoch`, and an `Int Array`: `version`.
 
