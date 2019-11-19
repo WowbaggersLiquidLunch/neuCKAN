@@ -80,4 +80,18 @@ indirect enum ModRelations: Hashable {
 	A set of `ModRelations` instances with an "AND" relationship
 	*/
 	case allOfRelations(Set<ModRelations>)
+	
+	/**
+	Recursively provide a string representation for the `ModRelations` instance.
+	*/
+	func toString() -> String {
+		switch self {
+		case let .leafRelation(relation):
+			return relation.toString()
+		case let .anyOfRelations(relations):
+			return "(\(relations.map { $0.toString() }.joined(separator: " ∨ ")))"
+		case let .allOfRelations(relations):
+			return "(\(relations.map { $0.toString() }.joined(separator: " ∧ ")))"
+		}
+	}
 }
