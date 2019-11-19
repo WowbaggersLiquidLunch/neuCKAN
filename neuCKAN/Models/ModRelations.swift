@@ -65,9 +65,9 @@ The `ModRelations` struct is designed to translate and handle the above `any_of`
 indirect enum ModRelations: Hashable {
 	
 	/**
-	A set of `ModRelation` instances.
+	A `ModRelation` instance.
 	*/
-	case leafRelations(Set<ModRelation>)
+	case leafRelation(ModRelation)
 	
 	/**
 	A set of `ModRelations` instances with an "OR" relationship
