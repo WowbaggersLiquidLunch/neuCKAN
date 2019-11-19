@@ -62,28 +62,22 @@ The `ModRelations` struct is designed to translate and handle the above `any_of`
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-struct ModRelations: Hashable, Codable {
+indirect enum ModRelations: Hashable {
 	
 	/**
-	A toggle between matching all or matching some dependencies.
-	
-	This is equivalent to a **any_of** key in a .ckan file.
+	A set of `ModRelation` instances.
 	*/
-	let isUnselective: Bool
+	case leafRelations(Set<ModRelation>)
 	
 	/**
-	A list of `ModRelation` objects.
-	
-	- Note: At least one of `ModRelation` and `ModRelations` fields must be `nil`.
-	*/
-	let modRelations: Set<ModRelation>?
-	
-	/**
-	A list of `ModRelations` objects
+	A set of `ModRelations` instances with an "OR" relationship
 	
 	This represents an **any_of** array in a .ckan file.
-	
-	- Note: At least one of `ModRelation` and `ModRelations` fields must be `nil`.
 	*/
-	let modRelationsSet: Set<ModRelations>?
+	case anyOfRelations(Set<ModRelations>)
+	
+	/**
+	A set of `ModRelations` instances with an "AND" relationship
+	*/
+	case allOfRelations(Set<ModRelations>)
 }
