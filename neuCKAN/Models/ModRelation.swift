@@ -101,4 +101,27 @@ struct ModRelation: Hashable, Codable, Identifiable {
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
 	let versionMax: Version?
+	
+	/**
+	Provide a string representation for the `ModRelation` instance.
+	
+	- Returns
+		- `"id"` if no versions are specified in the relation.
+		- `"id ( ≥ minimum version)"` if only the minimum version is specified.
+		- `"id ( ≤ maximum version)"` if only the maximum version is specified.
+		- `"id [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
+	*/
+	func toString() -> String {
+		if let version = version {
+			return self.id + " (\(version.originalString))"
+		} else if let versionMin = versionMin, let versionMax = versionMax {
+			return self.id + " [\(versionMin.originalString), \(versionMax.originalString)]"
+		} else if let versionMin = versionMin {
+			return self.id + " (≥ \(versionMin.originalString)"
+		} else if let versionMax = versionMax {
+			return self.id + " (≤ \(versionMax.originalString))"
+		} else {
+			return id
+		}
+	}
 }
