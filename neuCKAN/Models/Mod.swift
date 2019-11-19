@@ -34,7 +34,7 @@ A `Mod` instance contains all releases of the same mod, as identified by the sam
 [5]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
-struct Mod: Hashable, Codable, Identifiable {
+struct Mod: Hashable, Identifiable {
 	let id: String
 	var modReleases: [Version: ModRelease]
 }
