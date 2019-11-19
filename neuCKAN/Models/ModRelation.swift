@@ -13,11 +13,11 @@ import SwiftUI
 /**
 The mod's relationship to another other mod.
 
-This is equivalent to an object in the **Relationship** ["type"][0] in a .ckan file.
+This is equivalent to an instance in the **Relationship** ["type"][0] in a .ckan file.
 
-`ModRelation` objects are building blocks for the relationship fields in `ModRelease` objects. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+`ModRelation` instances are building blocks for the relationship fields in `ModRelease` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
-At its most basic, a **Relationship** field in a .ckan file is an array of objects, each being a name and identifier:
+At its most basic, a **Relationship** field in a .ckan file is an array of instances, each being a name and identifier:
 
 ```
 "depends" : [
@@ -39,9 +39,9 @@ The optional fields `min_version`, `max_version`, and `version` in a .ckan file 
 ]
 ```
 
-It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same object in a .ckan file.
+It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same instance in a .ckan file.
 
-The `ModRelation` struct translate a single object in .ckan files' **Relationship** field, following the same principle.
+The `ModRelation` struct translate a single instance in .ckan files' **Relationship** field, following the same principle.
 
 neuCKAN must respect the optional version fields if present.
 
