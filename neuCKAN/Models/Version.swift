@@ -21,7 +21,56 @@ When comparing two version numbers, first the `epoch` of each are compared, then
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 */
-struct Version: Hashable, Codable{
+struct Version: Hashable, Codable, Comparable{
+	static func < (lhs: Version, rhs: Version) -> Bool {
+		if let lhs = lhs.epoch, let rhs = rhs.epoch {
+			return lhs < rhs
+		} else {
+			semVerLoop: for i in 0..<min(lhs.version.count, rhs.version.count) {
+				if lhs.version[i] == rhs.version[i] {
+					continue semVerLoop
+				} else {
+					return lhs.version[i] < rhs.version[i]
+				}
+			}
+			if lhs.version.count == rhs.version.count {
+				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
+					return lhs < rhs
+				} else {
+					return lhs.originalString < rhs.originalString
+				}
+			} else {
+				return lhs.version.count < rhs.version.count
+			}
+		}
+	}
+	
+	static func > (lhs: Version, rhs: Version) -> Bool {
+		if let lhs = lhs.epoch, let rhs = rhs.epoch {
+			return lhs > rhs
+		} else {
+			semVerLoop: for i in 0..<min(lhs.version.count, rhs.version.count) {
+				if lhs.version[i] == rhs.version[i] {
+					continue semVerLoop
+				} else {
+					return lhs.version[i] > rhs.version[i]
+				}
+			}
+			if lhs.version.count == rhs.version.count {
+				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
+					return lhs > rhs
+				} else {
+					return lhs.originalString > rhs.originalString
+				}
+			} else {
+				return lhs.version.count > rhs.version.count
+			}
+		}
+	}
+	
+	static func == (lhs: Version, rhs: Version) -> Bool {
+		!(lhs < rhs || lhs > rhs)
+	}
 	
 	/**
 	The original version string verbatim from the .ckan file.
@@ -35,7 +84,7 @@ struct Version: Hashable, Codable{
 	
 	- Note: The purpose of epochs is to allow CKAN to leave behind mistakes in version numbering, and to cope with situations where the version numbering scheme changes. It is not intended to cope with version numbers containing strings of letters which the package management system cannot interpret (such as ALPHA or pre-), or with silly orderings.
 	*/
-	let epoch: Int?
+	private let epoch: Int?
 	
 	/**
 	The primary versioning sequence.
@@ -44,7 +93,7 @@ struct Version: Hashable, Codable{
 	
 	`version` is the main part of the version number. In application to mods, it is usually the version number of the original mod from which the CKAN file is created. Usually this will be in the same format as that specified by the mod author(s); however, it may need to be reformatted to fit into the package management system's format and comparison scheme.
 	*/
-	let version: [Int]
+	private let version: [Int]
 	
 	/**
 	The release version suffix.
@@ -53,7 +102,7 @@ struct Version: Hashable, Codable{
 	
 	[0]: https://semver.org/#spec-item-9
 	*/
-	let releaseSuffix: String?
+	private let releaseSuffix: String?
 	
 	/**
 	The metadata suffix.
