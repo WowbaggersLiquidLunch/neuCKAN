@@ -164,7 +164,7 @@ struct ModRelease: Hashable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#comment
 	*/
-	fileprivate let comment: String?
+//	private let comment: String?
 	
 	/**
 	Author(s) of the mod release.
