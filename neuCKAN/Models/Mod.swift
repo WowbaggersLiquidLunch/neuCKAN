@@ -37,9 +37,7 @@ A `Mod` instance contains all releases of the same mod, as identified by the sam
 struct Mod: Hashable, Identifiable {
 	let id: String
 	var name: String {
-		get {
-			modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist"
-		}
+		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist"
 	}
 	var modReleases: [Version: ModRelease]
 }
