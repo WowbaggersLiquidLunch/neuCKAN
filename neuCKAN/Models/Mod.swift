@@ -37,6 +37,38 @@ A `Mod` instance contains all releases of the same mod, as identified by the sam
 struct Mod: Hashable, Identifiable {
 	
 	/**
+	Mod name.
+	
+	This is the human readable name of the mod, and may contain any printable characters.
+	
+	This is equivalent to the **name** [attribute][0] in a .ckan file.
+	
+	For example:
+	- "Ferram Aerospace Research (FAR)"
+	- "Real Solar System".
+	
+	- Note: This is a computed instance property from a stored `name` property in the corresponding instance of `ModRelease` structure.
+	
+	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
+	*/
+	var name: String {
+		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist"
+	}
+	
+	/**
+	A short, one line description of the mod and what it does.
+	
+	This is equivalent to the **abstract** [attribute][0] in a .ckan file.
+	
+	- Note: This is a computed instance property from a stored `abstruct` property in the corresponding instance of `ModRelease` structure.
+	
+	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
+	*/
+	var abstruct: String {
+		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod description does not exist"
+	}
+	
+	/**
 	The globally unique identifier for the mod.
 	
 	This is equivalent to the **identifier** [attribute][0] in a .ckan file.
@@ -56,25 +88,6 @@ struct Mod: Hashable, Identifiable {
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
 	let id: String
-	
-	/**
-	Mod name.
-	
-	This is the human readable name of the mod, and may contain any printable characters.
-	
-	This is equivalent to the **name** [attribute][0] in a .ckan file.
-	
-	For example:
-	- "Ferram Aerospace Research (FAR)"
-	- "Real Solar System".
-	
-	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
-	
-	- Note: This is a computed instance property from a stored `name` property in the corresponding instance of `ModRelease` structure.
-	*/
-	var name: String {
-		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist"
-	}
 	
 	/**
 	A collection of _mod releases_ of the same mod, with their associated _version numbers_.
