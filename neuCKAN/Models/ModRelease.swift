@@ -447,4 +447,36 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_content_type
 	*/
 	let fileType: String?
+	
+	private enum CodingKeys: String, CodingKey {
+		case metadataSpecVersion = "spec_version"
+		case name
+		case abstract
+		case id = "identifier"
+		case downloadLink = "download"
+		case licenses = "license"
+		case version
+		case installationDirectives = "install"
+		case author
+		case description
+		case status = "release_status"
+		case kspVersion = "ksp_version"
+		case kspVersionMin = "ksp_version_min"
+		case kspVersionMax = "ksp_version_max"
+		case kspVersionVerbatim = "ksp_version_strict"
+		case tags
+		case locales = "localization"
+		case dependencies = "depends"
+		case recommendations = "recommends"
+		case suggestions = "suggests"
+		case supportedMods = "supports"
+		case conflicts
+		case successors = "replaced-by"
+		case resources
+		case kind
+		case equivalents = "provides"
+		case size = "download_size"
+		case hash = "download_hash"
+		case fileType = "download_content_type"
+	}
 }
