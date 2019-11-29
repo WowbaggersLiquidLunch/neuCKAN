@@ -28,7 +28,7 @@ A **ModRelease** instance contains all metadata of a mod release, as made availa
 [5]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
-struct ModRelease: Hashable, Identifiable {
+struct ModRelease: Hashable, Codable, Identifiable {
 	//	mandatory fields
 	
 	/**
