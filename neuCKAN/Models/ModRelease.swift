@@ -342,7 +342,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#supports
 	*/
-	let elevatorCompanions: [ModRelations]?
+	let supportedMods: [ModRelations]?
 	
 	/**
 	Mod conflicts.
@@ -370,7 +370,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#replaced-by
 	*/
-	let successor: [ModRelations]?
+	let successors: [ModRelations]?
 	
 	//	resources (optional)
 	
