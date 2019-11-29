@@ -51,9 +51,7 @@ struct Mod: Hashable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
-	var name: String {
-		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist"
-	}
+	var name: String { modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist" }
 	
 	/**
 	A short, one line description of the mod and what it does.
@@ -64,9 +62,7 @@ struct Mod: Hashable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
-	var abstruct: String {
-		modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod description does not exist"
-	}
+	var abstruct: String { modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod description does not exist" }
 	
 	/**
 	The globally unique identifier for the mod.
