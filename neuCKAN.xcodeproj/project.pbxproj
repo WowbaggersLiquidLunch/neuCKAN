@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B44EC4112391F23D00E849B6 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = B44EC4102391F23D00E849B6 /* ZIPFoundation */; };
 		B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D559236B9D5400441195 /* AppDelegate.swift */; };
 		B451D55C236B9D5400441195 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D55B236B9D5400441195 /* ViewController.swift */; };
 		B451D55F236B9D5400441195 /* neuCKAN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B451D55D236B9D5400441195 /* neuCKAN.xcdatamodeld */; };
@@ -20,6 +21,7 @@
 		B46E75792372995C00C09306 /* ModRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E75782372995C00C09306 /* ModRelation.swift */; };
 		B46E757B2372A73C00C09306 /* ModResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757A2372A73C00C09306 /* ModResources.swift */; };
 		B46E757D2372B13400C09306 /* ModHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757C2372B13400C09306 /* ModHash.swift */; };
+		B474A0EE2390F994009C95AB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474A0ED2390F994009C95AB /* Data.swift */; };
 		B49B8651236C1BB400DF758C /* CKAN.schema.json in Resources */ = {isa = PBXBuildFile; fileRef = B49B8650236C1BB400DF758C /* CKAN.schema.json */; };
 		B49B8653236C1C3F00DF758C /* ModRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* ModRelease.swift */; };
 		B49B8655236C23F300DF758C /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
@@ -64,6 +66,7 @@
 		B46E75782372995C00C09306 /* ModRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModRelation.swift; sourceTree = "<group>"; };
 		B46E757A2372A73C00C09306 /* ModResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModResources.swift; sourceTree = "<group>"; };
 		B46E757C2372B13400C09306 /* ModHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModHash.swift; sourceTree = "<group>"; };
+		B474A0ED2390F994009C95AB /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B49B8650236C1BB400DF758C /* CKAN.schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = CKAN.schema.json; path = neuCKAN/Resources/CKAN.schema.json; sourceTree = SOURCE_ROOT; };
 		B49B8652236C1C3F00DF758C /* ModRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModRelease.swift; sourceTree = "<group>"; };
 		B49B8654236C23F300DF758C /* Mod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod.swift; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44EC4112391F23D00E849B6 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				B49B864C236C0D6600DF758C /* Models */,
-				B451D559236B9D5400441195 /* AppDelegate.swift */,
-				B451D55B236B9D5400441195 /* ViewController.swift */,
+				B474A0EF2390FE01009C95AB /* Controllers */,
 				B49B864F236C191D00DF758C /* Resources */,
 				B451D560236B9D5500441195 /* Assets.xcassets */,
 				B451D562236B9D5500441195 /* Main.storyboard */,
@@ -157,9 +160,19 @@
 			path = CKAN;
 			sourceTree = "<group>";
 		};
+		B474A0EF2390FE01009C95AB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B451D559236B9D5400441195 /* AppDelegate.swift */,
+				B451D55B236B9D5400441195 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		B49B864C236C0D6600DF758C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B474A0ED2390F994009C95AB /* Data.swift */,
 				B49B8654236C23F300DF758C /* Mod.swift */,
 				B49B8652236C1C3F00DF758C /* ModRelease.swift */,
 				B46E757123727BC700C09306 /* Version.swift */,
@@ -196,6 +209,9 @@
 			dependencies = (
 			);
 			name = neuCKAN;
+			packageProductDependencies = (
+				B44EC4102391F23D00E849B6 /* ZIPFoundation */,
+			);
 			productName = neuCKAN;
 			productReference = B451D556236B9D5400441195 /* neuCKAN.app */;
 			productType = "com.apple.product-type.application";
@@ -268,6 +284,9 @@
 				Base,
 			);
 			mainGroup = B451D54D236B9D5400441195;
+			packageReferences = (
+				B44EC40F2391F23D00E849B6 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = B451D557236B9D5400441195 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -318,6 +337,7 @@
 				B451D55C236B9D5400441195 /* ViewController.swift in Sources */,
 				B46E75792372995C00C09306 /* ModRelation.swift in Sources */,
 				B46E75702372782200C09306 /* InstallationDirectives.swift in Sources */,
+				B474A0EE2390F994009C95AB /* Data.swift in Sources */,
 				B46E757223727BC700C09306 /* Version.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
 				B46E7576237290DD00C09306 /* ModRelations.swift in Sources */,
@@ -649,6 +669,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B44EC40F2391F23D00E849B6 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B44EC4102391F23D00E849B6 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B44EC40F2391F23D00E849B6 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B451D55D236B9D5400441195 /* neuCKAN.xcdatamodeld */ = {
