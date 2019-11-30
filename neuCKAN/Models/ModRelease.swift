@@ -8,7 +8,6 @@
 
 import AppKit
 import Foundation
-import SwiftUI
 
 /**
 A single _mod release_.

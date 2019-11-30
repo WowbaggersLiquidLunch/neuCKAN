@@ -8,7 +8,6 @@
 
 import AppKit
 import Foundation
-import SwiftUI
 
 /**
 A version type containing both an epoch and a semantic versioning sequence.
