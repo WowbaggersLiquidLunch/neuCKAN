@@ -61,7 +61,15 @@ The `ModRelations` struct is designed to translate and handle the above `any_of`
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-indirect enum ModRelations: Hashable {
+indirect enum ModRelations: Hashable, Codable {
+	init(from decoder: Decoder) throws {
+		<#code#>
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		<#code#>
+	}
+	
 	
 	/**
 	A `ModRelation` instance.
