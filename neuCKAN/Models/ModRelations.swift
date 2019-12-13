@@ -102,3 +102,7 @@ indirect enum ModRelations: Hashable, Codable {
 		}
 	}
 }
+
+extension ModRelations: CustomStringConvertible {
+	var description: String { toString() }
+}
