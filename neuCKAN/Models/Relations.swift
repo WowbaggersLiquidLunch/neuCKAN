@@ -1,5 +1,5 @@
 //
-//  ModRelations.swift
+//  Relations.swift
 //  neuCKAN
 //
 //  Created by you on 19-11-06.
@@ -14,7 +14,7 @@ The mod's relationship to other mods.
 
 This is equivalent to a **Relationship** ["type"][0] in a .ckan file.
 
-`ModRelations` instances are for the relationship fields in `ModRelease` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+`Relations` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
 At its most basic, a **Relationship** field in a .ckan file is an array of instances, each being a name and identifier:
 
@@ -57,11 +57,11 @@ For example:
 ]
 ```
 
-The `ModRelations` struct is designed to translate and handle the above `any_of` feature.
+The `Relations` struct is designed to translate and handle the above `any_of` feature.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-indirect enum ModRelations: Hashable, Codable {
+indirect enum Relations: Hashable, Codable {
 	init(from decoder: Decoder) throws {
 		<#code#>
 	}
@@ -72,24 +72,24 @@ indirect enum ModRelations: Hashable, Codable {
 	
 	
 	/**
-	A `ModRelation` instance.
+	A `Relation` instance.
 	*/
-	case leafRelation(ModRelation)
+	case leafRelation(Relation)
 	
 	/**
-	A set of `ModRelations` instances with an "OR" relationship
+	A set of `Relations` instances with an "OR" relationship
 	
 	This represents an **any_of** array in a .ckan file.
 	*/
-	case anyOfRelations(Set<ModRelations>)
+	case anyOfRelations(Set<Relations>)
 	
 	/**
-	A set of `ModRelations` instances with an "AND" relationship
+	A set of `Relations` instances with an "AND" relationship
 	*/
-	case allOfRelations(Set<ModRelations>)
+	case allOfRelations(Set<Relations>)
 	
 	/**
-	Recursively provide a string representation for the `ModRelations` instance.
+	Recursively provide a string representation for the `Relations` instance.
 	*/
 	func toString() -> String {
 		switch self {
@@ -103,6 +103,6 @@ indirect enum ModRelations: Hashable, Codable {
 	}
 }
 
-extension ModRelations: CustomStringConvertible {
+extension Relations: CustomStringConvertible {
 	var description: String { toString() }
 }

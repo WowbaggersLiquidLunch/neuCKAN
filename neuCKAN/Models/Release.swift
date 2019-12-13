@@ -17,7 +17,7 @@ A mod release is a version or distribution of a mod released to public on [CKAN]
 - [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 - [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 
-A **ModRelease** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **ModRelease** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 
 [0]: https://github.com/KSP-CKAN/CKAN
 [1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann
@@ -27,7 +27,7 @@ A **ModRelease** instance contains all metadata of a mod release, as made availa
 [5]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
-struct ModRelease: Hashable, Codable, Identifiable {
+struct Release: Hashable, Codable, Identifiable {
 	//	MARK: - mandatory fields
 	
 	/**
@@ -308,7 +308,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#depends
 	*/
-	let dependencies: [ModRelations]?
+	let dependencies: [Relations]?
 	
 	/**
 	Mod recommendations.
@@ -319,7 +319,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#recommends
 	*/
-	let recommendations: [ModRelations]?
+	let recommendations: [Relations]?
 	
 	/**
 	Mod suggestions.
@@ -330,7 +330,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#suggests
 	*/
-	let suggestions: [ModRelations]?
+	let suggestions: [Relations]?
 	
 	/**
 	Other mods supported by the mod release.
@@ -341,7 +341,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#supports
 	*/
-	let supportedMods: [ModRelations]?
+	let supportedMods: [Relations]?
 	
 	/**
 	Mod conflicts.
@@ -352,7 +352,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#conflicts
 	*/
-	let conflicts: [ModRelations]?
+	let conflicts: [Relations]?
 	
 	/**
 	The mod dies, and a new one is born.
@@ -369,7 +369,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#replaced-by
 	*/
-	let successors: [ModRelations]?
+	let successors: [Relations]?
 		
 	/**
 	Mod resources.
@@ -378,7 +378,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#resources
 	*/
-	let resources: ModResources?
+	let resources: Resources?
 	
 	//	MARK: - special-use fields (optional)
 	
@@ -406,7 +406,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#provides
 	*/
-	let equivalents: [ModRelations]?
+	let equivalents: [Relations]?
 	
 	/**
 	Mod size.
@@ -428,7 +428,7 @@ struct ModRelease: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_hash
 	*/
-	let hash: ModHash?
+	let hash: Hash?
 	
 	/**
 	Type of downloaded mod file.

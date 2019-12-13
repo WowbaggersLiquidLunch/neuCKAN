@@ -21,7 +21,7 @@ A mod release is a version or distribution of a mod released to public on [CKAN]
 - [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 - [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 
-A **ModRelease** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **ModRelease** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 
 A `Mod` instance contains all releases of the same mod, as identified by the same `id`.
 
@@ -46,7 +46,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- "Ferram Aerospace Research (FAR)"
 	- "Real Solar System".
 	
-	- Note: This is a computed instance property from a stored `name` property in the corresponding instance of `ModRelease` structure.
+	- Note: This is a computed instance property from a stored `name` property in the corresponding instance of `Release` structure.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
@@ -57,7 +57,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	This is equivalent to the **abstract** [attribute][0] in a .ckan file.
 	
-	- Note: This is a computed instance property from a stored `abstruct` property in the corresponding instance of `ModRelease` structure.
+	- Note: This is a computed instance property from a stored `abstruct` property in the corresponding instance of `Release` structure.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
@@ -92,7 +92,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 	- [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 	
-	A **ModRelease** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **ModRelease** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+	A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 	
 	***
 	
@@ -111,6 +111,6 @@ struct Mod: Hashable, Codable, Identifiable {
 	[6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 	[7]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 	*/
-	var modReleases: [Version: ModRelease]
+	var modReleases: [Version: Release]
 }
 

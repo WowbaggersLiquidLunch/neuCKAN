@@ -1,5 +1,5 @@
 //
-//  ModHash.swift
+//  Hash.swift
 //  neuCKAN
 //
 //  Created by you on 19-11-06.
@@ -18,7 +18,7 @@ It's the SHA1 and SHA256 calculated hashes of the resulting file downloaded.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_hash
 */
-struct ModHash: Hashable, Codable {
+struct Hash: Hashable, Codable {
 	let sha1: String?
 	let sha256: String?
 }
