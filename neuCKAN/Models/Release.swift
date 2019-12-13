@@ -1,5 +1,5 @@
 //
-//  Mod.swift
+//  Release.swift
 //  neuCKAN
 //
 //  Created by you on 19-11-01.
