@@ -30,7 +30,7 @@ A typical set of installation directives only has **file** and **install_to** at
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 */
 struct InstallationDirectives: Hashable, Codable {
-	//	source directives
+	//	MARK: - source directives
 	
 	/**
 	The file or directory root that this directive pertains to.
@@ -61,7 +61,7 @@ struct InstallationDirectives: Hashable, Codable {
 	*/
 	let fickleRootByRegex: String?
 	
-	//	destination directive
+	//	MARK: - destination directive
 	
 	/**
 	The target location where the matched file(s) or directory(s) should be installed.
@@ -89,7 +89,7 @@ struct InstallationDirectives: Hashable, Codable {
 	//	optional directives
 	
 	/**
-	The name to give the matching directory(s) or file(s) when they're installed.
+	The name to give to the matching directory(s) or file(s) when they're installed.
 	
 	This is equivalent to the **as** attribute in a .ckan file.
 	
