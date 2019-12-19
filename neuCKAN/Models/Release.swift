@@ -445,6 +445,7 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let fileType: String?
 	
+	//	maps between Swift names and JSON names; adds conformance to Codable
 	private enum CodingKeys: String, CodingKey {
 		case metadataSpecVersion = "spec_version"
 		case name
