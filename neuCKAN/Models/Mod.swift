@@ -50,7 +50,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
-	var name: String { modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod name does not exist" }
+	var name: String { releases.max(by: { $0.version > $1.version })?.name ?? "mod name does not exist" }
 	
 	/**
 	A short, one line description of the mod and what it does.
@@ -61,7 +61,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
-	var abstruct: String { modReleases[modReleases.keys.sorted(by: >)[0]]?.name ?? "mod description does not exist" }
+	var abstract: String { releases.max(by: { $0.version > $1.version })?.abstract ?? "mod abstract dores not exist" }
 	
 	/**
 	The globally unique identifier for the mod.
@@ -94,14 +94,6 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 	
-	***
-	
-	A version number is a set of numbers that identify a unique evolution (i.e. release) of a mod.
-	
-	The `Version` structure that stores a version nymber is equivalent to the **version** [attribute][7] in a .ckan file. It translates a .ckan file's `"[epoch:]version"` version string into a `Int Optional`: `epoch`, and an `Int Array`: `version`.
-	
-	When comparing two version numbers, first the `epoch` of each are compared, then the `version` if epoch is equal. epoch is compared numerically. The `version` is compared in sequence of its elements.
-	
 	[0]: https://github.com/KSP-CKAN/CKAN
 	[1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann
 	[2]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9_Liebe
@@ -111,6 +103,10 @@ struct Mod: Hashable, Codable, Identifiable {
 	[6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 	[7]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 	*/
-	var modReleases: [Version: Release]
+	var releases: [Release] {
+		didSet {
+			self.releases.sort(by: { $0.version > $1.version })
+		}
+	}
 }
 
