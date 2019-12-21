@@ -8,6 +8,7 @@
 
 import AppKit
 import Foundation
+import os.log
 
 /**
 The mod's relationship to other mods.
@@ -62,14 +63,23 @@ The `Relations` struct is designed to translate and handle the above `any_of` fe
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
 indirect enum Relations: Hashable, Codable {
+	
+	/**
+	Initialises a `Relations` instance by decoding from the given `decoder`.
+	*/
 	init(from decoder: Decoder) throws {
-		<#code#>
+		let relationsData = try? Data(from: decoder)
+		let relations = relationsData!.parsed(by: relationsParser(parses:))
+		self = relations!
 	}
 	
+	/**
+	Encodes a `Relations` instance`.
+	*/
 	func encode(to encoder: Encoder) throws {
-		<#code#>
+		var container = encoder.unkeyedContainer()
+		try container.encode(self.toJSON())
 	}
-	
 	
 	/**
 	A `Relation` instance.
@@ -89,7 +99,9 @@ indirect enum Relations: Hashable, Codable {
 	case allOfRelations(Set<Relations>)
 	
 	/**
-	Recursively provide a string representation for the `Relations` instance.
+	Recursively provide a String representation for the `Relations` instance.
+	
+	- Returns: A String representation for the `Relations` instance.
 	*/
 	func toString() -> String {
 		switch self {
@@ -101,8 +113,61 @@ indirect enum Relations: Hashable, Codable {
 			return "(\(relations.map { $0.toString() }.joined(separator: " ∧ ")))"
 		}
 	}
+	
+	/**
+	Recursively provide a String representation of a JSON representation for the `Relations` instance.
+	
+	- Returns: A String representation of a JSON representation for the `Relations` instance.
+	*/
+	func toJSON() -> String {
+		switch self {
+		case let .leafRelation(relation):
+			return relation.toJSON()
+		case let .anyOfRelations(relations):
+			return "\"any_off\": [\(relations.map { $0.toJSON() }.joined(separator: ", "))]"
+		case let .allOfRelations(relations):
+			return "[\(relations.map { $0.toJSON() }.joined(separator: ", "))]"
+		}
+	}
 }
+
 
 extension Relations: CustomStringConvertible {
 	var description: String { toString() }
+}
+
+
+//	Extends `Data` to enable flexible parsing
+extension Data {
+	
+	/**
+	Parses JSON data in this `Data` object by the given predicate.
+	
+	- Parameter jsonParser: A closure that parses `Data` into `Relations?`
+	
+	- Returns: A `Relations` instance from the JSON data in this `Data` object, or `nil` if an error orcurs or if the JSON data is empty.
+	*/
+	func parsed(by jsonParser: (Data) -> Relations?) -> Relations?{
+		return jsonParser(self)
+	}
+}
+
+
+//	Extendes `Relation` to provide a String representation of a JSON representation for the `Relation` instance.
+extension Relation {
+	
+	/**
+	Provide a String representation of a JSON representation for the `Relation` instance.
+	
+	- Returns: A String representation of a JSON representation for the `Relation` instance.
+	*/
+	func toJSON() -> String{
+		var jsonObjectAsDictionary: [String: String] = ["name": name]
+		
+		if let version = version { jsonObjectAsDictionary["version"] = version.originalString }
+		if let versionMin = versionMin { jsonObjectAsDictionary["min_version"] = versionMin.originalString }
+		if let versionMax = versionMax { jsonObjectAsDictionary["max_version"] = versionMax.originalString }
+		
+		return "{ \(jsonObjectAsDictionary.map { "\($0.key): \($0.value)" }.joined(separator: ", ")) }"
+	}
 }
