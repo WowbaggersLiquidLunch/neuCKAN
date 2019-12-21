@@ -308,7 +308,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#depends
 	*/
-	let dependencies: [Relations]?
+	let dependencies: Relations?
 	
 	/**
 	Mod recommendations.
@@ -319,7 +319,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#recommends
 	*/
-	let recommendations: [Relations]?
+	let recommendations: Relations?
 	
 	/**
 	Mod suggestions.
@@ -330,7 +330,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#suggests
 	*/
-	let suggestions: [Relations]?
+	let suggestions: Relations?
 	
 	/**
 	Other mods supported by the mod release.
@@ -341,7 +341,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#supports
 	*/
-	let supportedMods: [Relations]?
+	let supportedMods: Relations?
 	
 	/**
 	Mod conflicts.
@@ -352,7 +352,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#conflicts
 	*/
-	let conflicts: [Relations]?
+	let conflicts: Relations?
 	
 	/**
 	The mod dies, and a new one is born.
@@ -369,7 +369,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#replaced-by
 	*/
-	let successors: [Relations]?
+	let successors: Relations?
 		
 	/**
 	Mod resources.
@@ -406,7 +406,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#provides
 	*/
-	let equivalents: [Relations]?
+	let equivalents: Relations?
 	
 	/**
 	Mod size.
