@@ -125,7 +125,7 @@ struct Relation: Hashable, Codable {
 	}
 	
 	/**
-	Provide a string representation for the `Relation` instance.
+	Provide a String representation for the `Relation` instance.
 	
 	- Returns
 		- `"id"` if no versions are specified in the relation.
