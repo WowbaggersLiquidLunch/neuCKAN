@@ -116,6 +116,14 @@ struct Relation: Hashable, Codable {
 	*/
 	let versionMax: Version?
 	
+	//	maps between Swift names and JSON names; adds conformance to Codable
+	private enum CodingKeys: String, CodingKey {
+		case name
+		case version
+		case versionMin = "min_version"
+		case versionMax = "max_version"
+	}
+	
 	/**
 	Provide a string representation for the `Relation` instance.
 	
