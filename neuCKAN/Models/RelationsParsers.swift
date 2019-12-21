@@ -16,7 +16,7 @@ This function first serialises the JSON data from `data` and type cast it to `[A
 
 - Parameter data: A Data object contatining JSON data.
 
-- Returns: a `Relations` instance from the JSON data in `data`, or `nil` if an error orcurs or if the JSON data is empty.
+- Returns: A `Relations` instance from the JSON data in `data`, or `nil` if an error orcurs or if the JSON data is empty.
 */
 func relationsParser(parses data: Data) -> Relations? {
 	//	It is technically possible to have a JSON object, instead of a JSON array, on the top-level. However the CKAN metadata specification forbids it.
@@ -39,7 +39,7 @@ Returns a `Relations` instance from given `[Any]`.
 
 - Parameter serialisedData: An `[Any]` contatining serialised JSON data.
 
-- Returns: a `Relations` instance from the JSON data in `serialisedData`, or `nil` if an error orcurs or if the JSON data is empty.
+- Returns: A `Relations` instance from the JSON data in `serialisedData`, or `nil` if an error orcurs or if the JSON data is empty.
 */
 fileprivate func relationsParser(parses serialisedData: [Any]) -> Set<Relations>? {
 	//	these String values are defined by the CKAN metadata specification
