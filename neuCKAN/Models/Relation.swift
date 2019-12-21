@@ -46,8 +46,8 @@ neuCKAN must respect the optional version fields if present.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-struct Relation: Hashable, Codable, Identifiable {
-	//	mandatory field
+struct Relation: Hashable, Codable {
+	//	MARK: - mandatory field
 	
 	/**
 	The globally unique identifier for the mod.
@@ -68,9 +68,24 @@ struct Relation: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
-	let id: String
+//	let id: String
 	
-	//	optional fields
+	/**
+	Mod name.
+	
+	This is the human readable name of the mod, and may contain any printable characters.
+	
+	This is equivalent to the **name** [attribute][0] in a .ckan file.
+	
+	For example:
+	- "Ferram Aerospace Research (FAR)"
+	- "Real Solar System".
+	
+	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
+	*/
+	let name: String
+	
+	//	MARK: - optional fields
 	
 	/**
 	Mod version.
@@ -112,15 +127,15 @@ struct Relation: Hashable, Codable, Identifiable {
 	*/
 	func toString() -> String {
 		if let version = version {
-			return self.id + " (\(version.originalString))"
+			return self.name + " (\(version.originalString))"
 		} else if let versionMin = versionMin, let versionMax = versionMax {
-			return self.id + " [\(versionMin.originalString), \(versionMax.originalString)]"
+			return self.name + " [\(versionMin.originalString), \(versionMax.originalString)]"
 		} else if let versionMin = versionMin {
-			return self.id + " (≥ \(versionMin.originalString)"
+			return self.name + " (≥ \(versionMin.originalString)"
 		} else if let versionMax = versionMax {
-			return self.id + " (≤ \(versionMax.originalString))"
+			return self.name + " (≤ \(versionMax.originalString))"
 		} else {
-			return id
+			return name
 		}
 	}
 }
