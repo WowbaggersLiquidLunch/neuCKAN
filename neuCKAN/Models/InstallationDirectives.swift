@@ -30,7 +30,7 @@ A typical set of installation directives only has **file** and **install_to** at
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 */
 struct InstallationDirectives: Hashable, Codable {
-	//	MARK: - source directives
+	//	MARK: - Source Directives
 	
 	/**
 	The file or directory root that this directive pertains to.
@@ -61,7 +61,7 @@ struct InstallationDirectives: Hashable, Codable {
 	*/
 	let fickleRootByRegex: String?
 	
-	//	MARK: - destination directive
+	//	MARK: - Destination Directive
 	
 	/**
 	The target location where the matched file(s) or directory(s) should be installed.

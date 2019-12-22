@@ -28,7 +28,7 @@ A **Release** instance contains all metadata of a mod release, as made available
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
 struct Release: Hashable, Codable, Identifiable {
-	//	MARK: - mandatory fields
+	//	MARK: - Mandatory Fields
 	
 	/**
 	The version number of the CKAN specification used to create this .ckan file.
@@ -143,7 +143,7 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let version: Version
 	
-	//	MARK: - optional fields
+	//	MARK: - Optional Fields
 	
 	/**
 	A list of installation directives for the mod release.
@@ -380,7 +380,7 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let resources: Resources?
 	
-	//	MARK: - special-use fields (optional)
+	//	MARK: - Special-Use Fields (Optional)
 	
 	/**
 	The type of package.

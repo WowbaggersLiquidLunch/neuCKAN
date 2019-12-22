@@ -47,7 +47,7 @@ neuCKAN must respect the optional version fields if present.
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
 struct Relation: Hashable, Codable {
-	//	MARK: - mandatory field
+	//	MARK: - Mandatory Field
 	
 	/**
 	The globally unique identifier for the mod.
@@ -85,7 +85,7 @@ struct Relation: Hashable, Codable {
 	*/
 	let name: String
 	
-	//	MARK: - optional fields
+	//	MARK: - Optional Fields
 	
 	/**
 	Mod version.
