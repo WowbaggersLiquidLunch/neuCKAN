@@ -64,22 +64,41 @@ The `Relations` struct is designed to translate and handle the above `any_of` fe
 */
 indirect enum Relations: Hashable, Codable {
 	
+	//	MARK: - Codable Conformance
+	
 	/**
 	Initialises a `Relations` instance by decoding from the given `decoder`.
+	
+	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
-		let relationsData = try? Data(from: decoder)
-		let relations = relationsData!.parsed(by: relationsParser(parses:))
-		self = relations!
+		var relationsSet = try decodeRelations(from: decoder)
+		
+		if relationsSet.count == 1 {
+			self = relationsSet.popFirst()!
+		} else {
+			self = .allOfRelations(relationsSet)
+		}
 	}
 	
 	/**
 	Encodes a `Relations` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
 	*/
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.unkeyedContainer()
-		try container.encode(self.toJSON())
+		switch self {
+		case .leafRelation(let relation):
+			try container.encode(relation)
+		case .allOfRelations(let relations):
+			try container.encode(contentsOf: relations)
+		case .anyOfRelations(let relations):
+			try container.encode(RelationsIntermediateLayerTranslationService(Relations.anyOfRelations(relations)))
+		}
 	}
+	
+	//	MARK: - Enumeration Cases
 	
 	/**
 	A `Relation` instance.
@@ -98,6 +117,8 @@ indirect enum Relations: Hashable, Codable {
 	*/
 	case allOfRelations(Set<Relations>)
 	
+	//	MARK: - Instance Method
+	
 	/**
 	Recursively provide a String representation for the `Relations` instance.
 	
@@ -113,61 +134,97 @@ indirect enum Relations: Hashable, Codable {
 			return "(\(relations.map { $0.toString() }.joined(separator: " ∧ ")))"
 		}
 	}
-	
-	/**
-	Recursively provide a String representation of a JSON representation for the `Relations` instance.
-	
-	- Returns: A String representation of a JSON representation for the `Relations` instance.
-	*/
-	func toJSON() -> String {
-		switch self {
-		case let .leafRelation(relation):
-			return relation.toJSON()
-		case let .anyOfRelations(relations):
-			return "\"any_off\": [\(relations.map { $0.toJSON() }.joined(separator: ", "))]"
-		case let .allOfRelations(relations):
-			return "[\(relations.map { $0.toJSON() }.joined(separator: ", "))]"
-		}
-	}
 }
 
 
+//	MARK: - CustomStringConvertible Conformance
+
+//	Extendes `Relations` to add printablility.
 extension Relations: CustomStringConvertible {
 	var description: String { toString() }
 }
 
 
-//	Extends `Data` to enable flexible parsing
-extension Data {
+//	MARK: -
+
+/**
+A service struct that for intermediate `"any_of"` JSON values.
+*/
+struct RelationsIntermediateLayerTranslationService: Codable {
 	
 	/**
-	Parses JSON data in this `Data` object by the given predicate.
+	Initialises a `Relations` instance by decoding from the given `decoder`.
 	
-	- Parameter jsonParser: A closure that parses `Data` into `Relations?`
-	
-	- Returns: A `Relations` instance from the JSON data in this `Data` object, or `nil` if an error orcurs or if the JSON data is empty.
+	- Parameter decoder: The decoder to read data from.
 	*/
-	func parsed(by jsonParser: (Data) -> Relations?) -> Relations?{
-		return jsonParser(self)
+	init(from decoder: Decoder) throws {
+		var relationsSet = try decodeRelations(from: decoder)
+		
+		if relationsSet.count == 1 {
+			relations = relationsSet.popFirst()!
+		} else {
+			relations = Relations.anyOfRelations(relationsSet)
+		}
+	}
+	
+	/**
+	Encodes a `Relations` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
+	*/
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(relations, forKey: .relations)
+	}
+	
+	/**
+	A memberwise initialiser.
+	*/
+	init(_ relations: Relations) {
+		self.relations = relations
+	}
+	
+	let relations: Relations
+	
+	private enum CodingKeys: String, CodingKey {
+		case relations = "any_of"
 	}
 }
 
 
-//	Extendes `Relation` to provide a String representation of a JSON representation for the `Relation` instance.
-extension Relation {
+/**
+Decodes a set of `Relations` from the given decoder.
+
+- Parameter decoder: The decoder to read data from.
+
+- Returns: An instance of `Set<Relations>` decoded from the given decoder.
+*/
+fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Relations> {
+	var relationsSet: Set<Relations> = []
 	
-	/**
-	Provide a String representation of a JSON representation for the `Relation` instance.
+	//	Create an unkeyed container holding the current level of JSON values.
+	var unkeyedValues = try decoder.unkeyedContainer()
 	
-	- Returns: A String representation of a JSON representation for the `Relation` instance.
-	*/
-	func toJSON() -> String{
-		var jsonObjectAsDictionary: [String: String] = ["name": name]
+	//	"Loop" through values in the unkeyed container.
+	//	The unkeyed container does not conform to the `Sequence` protocol, but its `currentIndex` property grows by 1 every time when a value is decoded successfully.
+	while unkeyedValues.count! > unkeyedValues.currentIndex {
+		let containerIndexBeforeLoop = unkeyedValues.currentIndex
 		
-		if let version = version { jsonObjectAsDictionary["version"] = version.originalString }
-		if let versionMin = versionMin { jsonObjectAsDictionary["min_version"] = versionMin.originalString }
-		if let versionMax = versionMax { jsonObjectAsDictionary["max_version"] = versionMax.originalString }
+		if let relation = try? unkeyedValues.decode(Relation.self) {
+			relationsSet.insert(Relations.leafRelation(relation))
+		} else if let intermediateRelations = try? unkeyedValues.decode(RelationsIntermediateLayerTranslationService.self) {
+			relationsSet.insert(intermediateRelations.relations)
+		} else if let relations = try? unkeyedValues.decode(Relations.self) {
+			relationsSet.insert(relations)
+		}
 		
-		return "{ \(jsonObjectAsDictionary.map { "\($0.key): \($0.value)" }.joined(separator: ", ")) }"
+		//	If the unkeyed container's current index didn't increase by 1 during this loop, then the the unkeyed value at the current index was not decoded, and will not be in future loops. There is no way to increment the index manually, so the unkeyed container will keep trying for the same value. The best choice is to break out of the loop.
+		if unkeyedValues.currentIndex <= containerIndexBeforeLoop {
+			//	TODO: Include the corresponding JSON value in the log.
+			os_log("Unable to decode value #%d in unkeyed container.", type: .debug, unkeyedValues.currentIndex)
+			break
+		}
 	}
+	
+	return relationsSet
 }
