@@ -12,11 +12,11 @@ import Foundation
 /**
 The mod's relationship to another other mod.
 
-This is equivalent to an instance in the **Relationship** ["type"][0] in a .ckan file.
+This is equivalent to an instance in the ["Relationship" "type"][0] in a .ckan file.
 
 `Relation` instances are building blocks for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
-At its most basic, a **Relationship** field in a .ckan file is an array of instances, each being a name and identifier:
+At its most basic, a "Relationship" field in a .ckan file is an array of instances, each being a name and identifier:
 
 ```
 "depends" : [
@@ -40,7 +40,7 @@ The optional fields `min_version`, `max_version`, and `version` in a .ckan file 
 
 It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same instance in a .ckan file.
 
-The `Relation` struct translate a single instance in .ckan files' **Relationship** field, following the same principle.
+The `Relation` struct translate a single instance in .ckan files' "Relationship" field, following the same principle.
 
 neuCKAN must respect the optional version fields if present.
 
@@ -52,7 +52,7 @@ struct Relation: Hashable, Codable {
 	/**
 	The globally unique identifier for the mod.
 	
-	This is equivalent to the **identifier** [attribute][0] in a .ckan file.
+	This is equivalent to the ["identifier" attribute][0] in a .ckan file.
 	
 	This is how the mod will be referred to by other CKAN documents. It may only consist of ASCII-letters, ASCII-digits and `-` (dash).
 	
@@ -75,7 +75,7 @@ struct Relation: Hashable, Codable {
 	
 	This is the human readable name of the mod, and may contain any printable characters.
 	
-	This is equivalent to the **name** [attribute][0] in a .ckan file.
+	This is equivalent to the ["name" attribute][0] in a .ckan file.
 	
 	For example:
 	- "Ferram Aerospace Research (FAR)"
@@ -90,7 +90,7 @@ struct Relation: Hashable, Codable {
 	/**
 	Mod version.
 	
-	This is equivalent to the **version** [attribute][0] in a .ckan file.
+	This is equivalent to the ["version" attribute][0] in a .ckan file.
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	
@@ -101,7 +101,7 @@ struct Relation: Hashable, Codable {
 	/**
 	Mod minimum version.
 	
-	This is equivalent to the **min_version** attribute in a .ckan file.
+	This is equivalent to the `"min_version"` attribute in a .ckan file.
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
@@ -110,13 +110,13 @@ struct Relation: Hashable, Codable {
 	/**
 	Mod maximum version.
 	
-	This is equivalent to the **max_version** attribute in a .ckan file.
+	This is equivalent to the `"max_version"` attribute in a .ckan file.
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
 	let versionMax: Version?
 	
-	//	maps between Swift names and JSON names; adds conformance to Codable
+	//	Maps between Swift names and JSON names; adds Codable conformance.
 	private enum CodingKeys: String, CodingKey {
 		case name
 		case version

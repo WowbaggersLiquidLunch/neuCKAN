@@ -17,7 +17,7 @@ A mod release is a version or distribution of a mod released to public on [CKAN]
 - [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 - [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 
-A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+A `Release` instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a `Release` instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 
 [0]: https://github.com/KSP-CKAN/CKAN
 [1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann
@@ -33,7 +33,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The version number of the CKAN specification used to create this .ckan file.
 	
-	This is equivalent to the **spec_version** [attribute][0] in a .ckan file.
+	This is equivalent to the ["spec_version" attribute][0] in a .ckan file.
 	
 	In a .ckan file, the value is formatted as `vx.x` string (eg: `"v1.2"`), and it's the minimum version of the reference CKAN client that will read this file. For compatibility with CKAN pre-release clients, and the CKAN v1.0 client, the special integer 1 is encouraged by CKAN project.
 	
@@ -46,7 +46,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	This is the human readable name of the mod, and may contain any printable characters.
 	
-	This is equivalent to the **name** [attribute][0] in a .ckan file.
+	This is equivalent to the ["name" attribute][0] in a .ckan file.
 	
 	For example:
 	- "Ferram Aerospace Research (FAR)"
@@ -59,7 +59,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A short, one line description of the mod and what it does.
 	
-	This is equivalent to the **abstract** [attribute][0] in a .ckan file.
+	This is equivalent to the ["abstract" attribute][0] in a .ckan file.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
@@ -68,7 +68,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The globally unique identifier for the mod.
 	
-	This is equivalent to the **identifier** [attribute][0] in a .ckan file.
+	This is equivalent to the ["identifier" attribute][0] in a .ckan file.
 	
 	This is how the mod will be referred to by other CKAN documents. It may only consist of ASCII-letters, ASCII-digits and `-` (dash).
 	
@@ -89,7 +89,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A fully formed URL, indicating where the described version of the mod may be downloaded.
 	
-	This is equivalent to the **download** [attribute][0] in a .ckan file.
+	This is equivalent to the ["download" attribute][0] in a .ckan file.
 	
 	- Note: This field is not required if `self.kind` is `"metapackage"`.
 	
@@ -100,7 +100,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The license(s), under which the mod is released.
 	
-	This is equivalent to the **license** [attribute][0] in a .ckan file.
+	This is equivalent to the ["license" attribute][0] in a .ckan file.
 	
 	The CKAN project limits allowable mod licenses to the same rules as per the [Debian license specification][1], with the following modifications:
 	- The `"MIT"` license is always taken to mean [the Expat license][2]. __This is not honoured by the neuCKAN project.__
@@ -135,7 +135,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod version.
 	
-	This is equivalent to the **version** [attribute][0] in a .ckan file.
+	This is equivalent to the ["version" attribute][0] in a .ckan file.
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	
@@ -148,7 +148,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A list of installation directives for the mod release.
 	
-	This is equivalent to the **install** [attribute][0] in a .ckan file.
+	This is equivalent to the ["install" attribute][0] in a .ckan file.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 	*/
@@ -157,7 +157,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A comment field for the mod release.
 	
-	This is equivalent to the **install** [attribute][0] in a .ckan file.
+	This is equivalent to the ["install" attribute][0] in a .ckan file.
 	
 	This is ignored. It is not displayed to users, nor used by neuCKAN. Its primarily used to convey information to humans examining the CKAN file manually
 	
@@ -168,7 +168,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Author(s) of the mod release.
 	
-	This is equivalent to the **author** [attribute][0] in a .ckan file.
+	This is equivalent to the ["author" attribute][0] in a .ckan file.
 	
 	No restrictions are placed on this field.
 	
@@ -179,7 +179,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A free form, long text description of the mod release.
 	
-	This is equivalent to the **description** [attribute][0] in a .ckan file.
+	This is equivalent to the ["description" attribute][0] in a .ckan file.
 	
 	It's suitable for displaying detailed information about the mod release.
 	
@@ -190,7 +190,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The status of the mod release.
 	
-	This is equivalent to the **release_status** [attribute][0] in a .ckan file.
+	This is equivalent to the ["release_status" attribute][0] in a .ckan file.
 	
 	The value can be one of `"stable"`, `"testing"` or `"development"`, in order of decreasing stability. If not specified, a value of `"stable"` is assumed.
 	
@@ -201,7 +201,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The version of KSP release this mod is targeting.
 	
-	This is equivalent to the **ksp_version** [attribute][0] in a .ckan file.
+	This is equivalent to the ["ksp_version" attribute][0] in a .ckan file.
 	
 	In a .ckan file, this may be the string `"any"`, a number, e.g. `"0.23.5"`, or may contain only the first two parts of the version string, e.g. `"0.25"`. In the latter example, any release version starting with `"0.25"` is acceptable.
 	
@@ -212,7 +212,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The minimum version of KSP required by the mod release.
 	
-	This is equivalent to the **ksp_version_min** [attribute][0] in a .ckan file.
+	This is equivalent to the ["ksp_version_min" attribute][0] in a .ckan file.
 	
 	It is an error to have both `kspVersionMin` and the `kspVersion` not `nil`.
 	
@@ -223,7 +223,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The maximum version of KSP required by the mod release.
 	
-	This is equivalent to the **ksp_version_max** [attribute][0] in a .ckan file.
+	This is equivalent to the ["ksp_version_max" attribute][0] in a .ckan file.
 	
 	It is an error to have both `kspVersionMax` and the `kspVersion` not `nil`.
 	
@@ -234,7 +234,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Whether checks for KSP version verbatim.
 	
-	This is equivalent to the **ksp_version_strict** [attribute][0] in a .ckan file.
+	This is equivalent to the ["ksp_version_strict" attribute][0] in a .ckan file.
 	
 	If `true`, the mod will only be installed if the user's KSP version is exactly targeted by the mod.
 	
@@ -251,9 +251,9 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Tags for the mod release.
 	
-	This is equivalent to the **tags** [attribute][0] in a .ckan file.
+	This is equivalent to the ["tags" attribute][0] in a .ckan file.
 	
-	The `tags` field describes keywords that a user or program may use to classify or filter the mods in a list, but it's are not required. The keywords may include general descriptions of how the mod interacts with or alters KSP or specific descriptions of what has been added or changed from stock gameplay. Tags may contain lowercase alphanumeric characters or hyphens.
+	The `"tags"` field describes keywords that a user or program may use to classify or filter the mods in a list, but it's are not required. The keywords may include general descriptions of how the mod interacts with or alters KSP or specific descriptions of what has been added or changed from stock gameplay. Tags may contain lowercase alphanumeric characters or hyphens.
 	
 	For example:
 	
@@ -279,7 +279,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A list of locales for the mod release.
 	
-	This is equivalent to the **localization** [attribute][0] in a .ckan file.
+	This is equivalent to the ["localization" attribute][0] in a .ckan file.
 	
 	The locales are coded in KSP's naming convention:
 	
@@ -302,7 +302,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod dependencies.
 	
-	This is equivalent to the **depends** [attribute][0] in a .ckan file.
+	This is equivalent to the ["depends" attribute][0] in a .ckan file.
 	
 	Dependencies must be installed along with the current mod release being installed.
 	
@@ -311,31 +311,31 @@ struct Release: Hashable, Codable, Identifiable {
 	let dependencies: Relations?
 	
 	/**
-	Mod recommendations.
+	Other mods recommended by the mod release.
 	
-	This is equivalent to the **recommends** [attribute][0] in a .ckan file.
+	This is equivalent to the ["recommends" attribute][0] in a .ckan file.
 	
-	This is a strong recommendation, and recommended mods will be installed by default unless the user requests otherwise through the preferences settings.
+	This is a strong recommendation, and by default these mods will be installed unless the user requests otherwise through the preferences settings.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#recommends
 	*/
-	let recommendations: Relations?
+	let recommendedMods: Relations?
 	
 	/**
-	Mod suggestions.
+	Other mods suggested by the mod release.
 	
-	This is equivalent to the **suggests** [attribute][0] in a .ckan file.
+	This is equivalent to the ["suggests" attribute][0] in a .ckan file.
 	
-	This is a weak recommendation, and by default these mods will not be installed unless the user requests otherwise through the preferences settings.
+	This is a weak recommendation, and by default these mods will **not** be installed unless the user requests otherwise through the preferences settings.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#suggests
 	*/
-	let suggestions: Relations?
+	let suggestedMods: Relations?
 	
 	/**
 	Other mods supported by the mod release.
 	
-	This is equivalent to the **supports** [attribute][0] in a .ckan file.
+	This is equivalent to the ["supports" attribute][0] in a .ckan file.
 	
 	These supported mods may not interact or enhance the mod, but they will work correctly with it. These mods should not be installed, this is an informational field only.
 	
@@ -346,7 +346,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod conflicts.
 	
-	This is equivalent to the **conflicts** [attribute][0] in a .ckan file.
+	This is equivalent to the ["conflicts" attribute][0] in a .ckan file.
 	
 	The current mod will not be installed if any of these mods are already on the system, unless forced by the user.
 	
@@ -357,13 +357,13 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The mod dies, and a new one is born.
 	
-	This is equivalent to the **replaced-by** [attribute][0] in a .ckan file.
+	This is equivalent to the ["replaced-by" attribute][0] in a .ckan file.
 	
 	The current mod will not be installed if any of these mods are already on the system, unless forced by the user.
 	
-	This is a way to mark a specific mod identifier as being obsoleted and tell the client what it has been replaced by. It contains a single mod that should be selected for installation if a replace command is performed on this mod, while this mod is uninstalled. If this mod identifier is brought back to life, an epoch change should be applied. A 'replaced_by' **Relationship** should be added to the .ckan file of the final release of the mod being replaced. The listed mod should include a `"provides"` relationship either to this mod, or one of this mod's listed `"provides"` in the .ckan file.
+	This is a way to mark a specific mod identifier as being obsoleted and tell the client what it has been replaced by. It contains a single mod that should be selected for installation if a replace command is performed on this mod, while this mod is uninstalled. If this mod identifier is brought back to life, an epoch change should be applied. A `"replaced_by"` `Relationship` should be added to the .ckan file of the final release of the mod being replaced. The listed mod should include a `"provides"` relationship either to this mod, or one of this mod's listed `"provides"` in the .ckan file.
 	
-	A `replaced_by` field in a .ckan file differs from other **Relationship** fields in two ways:
+	A `replaced_by` field in a .ckan file differs from other `Relationship` fields in two ways:
 	- It is not an array. Only a single mod can be defined as the replacement.
 	- Only `"version"` and `"min_version"` options are permitted.
 	
@@ -374,7 +374,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod resources.
 	
-	This is equivalent to the **resources** [attribute][0] in a .ckan file.
+	This is equivalent to the ["resources" attribute][0] in a .ckan file.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#resources
 	*/
@@ -385,7 +385,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	The type of package.
 	
-	This is equivalent to the **kind** [attribute][0] in a .ckan file.
+	This is equivalent to the ["kind" attribute][0] in a .ckan file.
 	
 	This field defaults to `"package"`, the other option (and presently the only time the field is explicitly declared) is `"metapackage"`.
 	
@@ -396,13 +396,13 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	A list of identifiers, that this mod is equivalent to.
 	
-	This is equivalent to the **provides** [attribute][0] in a .ckan file.
+	This is equivalent to the ["provides" attribute][0] in a .ckan file.
 	
 	This field is intended for mods that require one of a selection of texture downloads, or one of a selection of mods which provide equivalent functionality. It is recommended that this field be used sparingly, as all mods with the same `equivalants` string are essentially declaring they can be used interchangeably.
 	
 	It is considered acceptable to use this field if a mod is renamed, and the old name of the mod is listed in the `equivalents` field. This allows for mods to be renamed without updating all other mods which depend upon it.
 	
-	A module may both be equivalent in functionality, and `conflict` with the same functionality. This allows relationships that ensure only one set of assets are installed. For example, `CustomBiomesRSS` and `CustomBiomesKerbal` both are equivalent in functionality and conflict with `CustomBiomesData`, ensuring that both cannot be installed at the same time.
+	A module may both be equivalent in functionality, and `conflict` with the same functionality. This allows relationships that ensure only one set of assets are installed. For example, CustomBiomesRSS and CustomBiomesKerbal both are equivalent in functionality and conflict with CustomBiomesData, ensuring that both cannot be installed at the same time.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#provides
 	*/
@@ -411,7 +411,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod size.
 	
-	This is equivalent to the **download_size** [attribute][0] in a .ckan file.
+	This is equivalent to the ["download_size" attribute][0] in a .ckan file.
 	
 	`size` is the number of bytes to expect when downloading from `downloadLink`.
 	
@@ -422,7 +422,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Mod hash digests.
 	
-	This is equivalent to the **download_hash** [attribute][0] in a .ckan file.
+	This is equivalent to the ["download_hash" attribute][0] in a .ckan file.
 	
 	It's the SHA1 and SHA256 calculated hashes of the resulting file downloaded.
 	
@@ -433,7 +433,7 @@ struct Release: Hashable, Codable, Identifiable {
 	/**
 	Type of downloaded mod file.
 	
-	This is equivalent to the **download_content_type** [attribute][0] in a .ckan file.
+	This is equivalent to the ["download_content_type" attribute][0] in a .ckan file.
 	
 	For example:
 	
@@ -445,7 +445,7 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let fileType: String?
 	
-	//	maps between Swift names and JSON names; adds conformance to Codable
+	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
 		case metadataSpecVersion = "spec_version"
 		case name
@@ -465,8 +465,8 @@ struct Release: Hashable, Codable, Identifiable {
 		case tags
 		case locales = "localization"
 		case dependencies = "depends"
-		case recommendations = "recommends"
-		case suggestions = "suggests"
+		case recommendedMods = "recommends"
+		case suggestedMods = "suggests"
 		case supportedMods = "supports"
 		case conflicts
 		case successors = "replaced-by"

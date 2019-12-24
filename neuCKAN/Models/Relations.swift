@@ -13,11 +13,11 @@ import os.log
 /**
 The mod's relationship to other mods.
 
-This is equivalent to a **Relationship** ["type"][0] in a .ckan file.
+This is equivalent to a ["Relationship" type][0] in a .ckan file.
 
 `Relations` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
-At its most basic, a **Relationship** field in a .ckan file is an array of instances, each being a name and identifier:
+At its most basic, a `Relationship` field in a .ckan file is an array of instances, each being a name and identifier:
 
 ```
 "depends" : [
@@ -39,9 +39,9 @@ The optional fields `min_version`, `max_version`, and `version` in a .ckan file 
 ]
 ```
 
-It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same instance in a .ckan file.
+It is an error to mix `"version"` (which specifies an exact version) with either `"min_version"` or `"max_version"` in the same instance in a .ckan file.
 
-CKAN clients implementing CKAN metadata specification version v1.26 or later must support an alternate form of relationship consisting of an `any_of` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
+CKAN clients implementing CKAN metadata specification version v1.26 or later must support an alternate form of relationship consisting of an `"any_of"` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
 
 For example:
 
@@ -108,7 +108,7 @@ indirect enum Relations: Hashable, Codable {
 	/**
 	A set of `Relations` instances with an "OR" relationship
 	
-	This represents an **any_of** array in a .ckan file.
+	This represents an `"any_of"` array in a .ckan file.
 	*/
 	case anyOfRelations(Set<Relations>)
 	

@@ -12,7 +12,7 @@ import Foundation
 /**
 Mod resources.
 
-This is equivalent to the **resources** [attribute][0] in a .ckan file.
+This is equivalent to the ["resources" attribute][0] in a .ckan file.
 
 The `Resources` struct describes additional information that a user or program may wish to know about the mod, but which are not required for its installation or indexing. Presently the following fields are described. Unless specified otherwise, these are `URL`s:
 - `homepage` : The preferred landing page for the mod.

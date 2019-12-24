@@ -12,7 +12,7 @@ import Foundation
 /**
 A _mod_.
 
-A mod is defined by its **identifier** attribute in a .ckan file. The attribute is equivalent to the `id` field in a `Mod` struct.
+A mod is defined by its ["identifier" attribute][identifier] in a .ckan file. The attribute is equivalent to the `id` field in a `Mod` struct.
 
 A `Mod` struct aggregates all _releases_ of the same mod under/with the same `id`.
 
@@ -21,10 +21,11 @@ A mod release is a version or distribution of a mod released to public on [CKAN]
 - [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 - [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 
-A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+A `Release` instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a `Release` instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 
 A `Mod` instance contains all releases of the same mod, as identified by the same `id`.
 
+[identifier]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 [0]: https://github.com/KSP-CKAN/CKAN
 [1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann
 [2]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9_Liebe
@@ -40,7 +41,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	This is the human readable name of the mod, and may contain any printable characters.
 	
-	This is equivalent to the **name** [attribute][0] in a .ckan file.
+	This is equivalent to the ["name" attribute][0] in a .ckan file.
 	
 	For example:
 	- "Ferram Aerospace Research (FAR)"
@@ -55,7 +56,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	/**
 	A short, one line description of the mod and what it does.
 	
-	This is equivalent to the **abstract** [attribute][0] in a .ckan file.
+	This is equivalent to the ["abstract" attribute][0] in a .ckan file.
 	
 	- Note: This is a computed instance property from a stored `abstruct` property in the corresponding instance of `Release` structure.
 	
@@ -66,7 +67,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	/**
 	The globally unique identifier for the mod.
 	
-	This is equivalent to the **identifier** [attribute][0] in a .ckan file.
+	This is equivalent to the ["identifier" attribute][0] in a .ckan file.
 	
 	This is how the mod will be referred to by other CKAN documents. It may only consist of ASCII-letters, ASCII-digits and `-` (dash).
 	
@@ -92,7 +93,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 	- [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 	
-	A **Release** instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a **Release** instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+	A `Release` instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a `Release` instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
 	
 	[0]: https://github.com/KSP-CKAN/CKAN
 	[1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann

@@ -12,7 +12,7 @@ import Foundation
 /**
 Mod hash digests.
 
-This is equivalent to the **download_hash** [attribute][0] in a .ckan file.
+This is equivalent to the ["download_hash" attribute][0] in a .ckan file.
 
 It's the SHA1 and SHA256 calculated hashes of the resulting file downloaded.
 
