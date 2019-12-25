@@ -37,4 +37,15 @@ struct Resources: Hashable, Codable {
 	let spacedock: URL?
 	let curse: URL?
 	let manual: URL?
+	
+	private enum CodingKeys: String, CodingKey {
+		case homepage
+		case bugTracker = "bugtracker"
+		case license
+		case repository
+		case ci
+		case spacedock
+		case curse
+		case manual
+	}
 }
