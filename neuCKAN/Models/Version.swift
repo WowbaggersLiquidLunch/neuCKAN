@@ -174,14 +174,13 @@ struct Version: Hashable, Codable {
 
 //	Extends Version to add comformance to Comparable and Equatable protocols.
 extension Version: Comparable, Equatable {
+	//	Compares verisons exactly how the CKAN metadata specification wants it, but better.
 	static func < (lhs: Version, rhs: Version) -> Bool {
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
 			return lhs < rhs
 		} else {
-			semVerLoop: for i in 0..<min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
-				if lhs.quasiSemanticVersion[i] == rhs.quasiSemanticVersion[i] {
-					continue semVerLoop
-				} else {
+			for i in 0..<min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
+				if lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
 					return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
 				}
 			}
