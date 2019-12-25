@@ -6,7 +6,6 @@
 //  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
-import AppKit
 import Foundation
 import os.log
 
