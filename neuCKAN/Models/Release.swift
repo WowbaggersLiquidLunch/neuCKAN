@@ -378,7 +378,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#resources
 	*/
-	let resources: [String: URL]?
+	let resources: Resources?
 	
 	//	MARK: - Special-Use Fields (Optional)
 	
