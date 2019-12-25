@@ -1,12 +1,13 @@
 //
-//  Release.swift
-//  neuCKAN
+//	Release.swift
+//	neuCKAN
 //
-//  Created by you on 19-11-01.
-//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 19-11-01.
+//	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation
+
 
 /**
 A single _mod release_.
@@ -129,7 +130,7 @@ struct Release: Hashable, Codable, Identifiable {
 	[1]: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/#license-specification
 	[2]: https://www.debian.org/legal/licenses/mit
 	*/
-	let licenses: [String]
+	let licenses: StringFuckery
 	
 	/**
 	Mod version.
@@ -151,7 +152,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 	*/
-	let installationDirectives: InstallationDirectives?
+	let installationDirectives: [InstallationDirectives]?
 	
 	/**
 	A comment field for the mod release.
@@ -173,7 +174,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#author
 	*/
-	let author: [String]?
+	let author: StringFuckery?
 	
 	/**
 	A free form, long text description of the mod release.
@@ -184,7 +185,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#description
 	*/
-	let description: [String]?
+	let description: String?
 	
 	/**
 	The status of the mod release.
@@ -273,7 +274,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#tags
 	*/
-	let tags: [String]?
+	let tags: Set<String>?
 	
 	/**
 	A list of locales for the mod release.
@@ -294,7 +295,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#localizations
 	*/
-	let locales: [String]?
+	let locales: Set<String>?
 	
 	//	relationships (optional)
 	
@@ -377,7 +378,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#resources
 	*/
-	let resources: Resources?
+	let resources: [String: URL]?
 	
 	//	MARK: - Special-Use Fields (Optional)
 	
@@ -405,7 +406,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#provides
 	*/
-	let equivalents: Relations?
+	let equivalents: [String]?
 	
 	/**
 	Mod size.

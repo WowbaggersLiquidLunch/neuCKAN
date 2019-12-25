@@ -1,15 +1,16 @@
 //
-//  CKANFuckery.swift
-//  neuCKAN
+//	CKANFuckery.swift
+//	neuCKAN
 //
-//  Created by you on 19-12-25.
-//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 19-12-25.
+//	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 //	Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
 
 import Foundation
 import os.log
+
 
 /**
 A string of a set of strings.

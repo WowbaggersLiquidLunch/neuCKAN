@@ -1,12 +1,13 @@
 //
-//  Version.swift
-//  neuCKAN
+//	Version.swift
+//	neuCKAN
 //
-//  Created by you on 19-11-05.
-//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 19-11-05.
+//	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation
+
 
 /**
 A version type containing both an epoch and a semantic versioning sequence.

@@ -1,12 +1,13 @@
 //
-//  Relation.swift
-//  neuCKAN
+//	Relation.swift
+//	neuCKAN
 //
-//  Created by you on 19-11-06.
-//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 19-11-06.
+//	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation
+
 
 /**
 The mod's relationship to another other mod.
