@@ -139,7 +139,7 @@ indirect enum Relations: Hashable, Codable {
 
 //	MARK: - CustomStringConvertible Conformance
 
-//	Extendes `Relations` to add printablility.
+//	Extendes Relations to add printablility.
 extension Relations: CustomStringConvertible {
 	var description: String { toString() }
 }
