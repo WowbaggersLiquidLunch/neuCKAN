@@ -12,63 +12,48 @@ import Foundation
 /**
 A version type containing both an epoch and a semantic versioning sequence.
 
-This is equivalent to the **version** [attribute][0] in a .ckan file.
+This is equivalent to the ["version" attribute][0] in a .ckan file.
 
-It translates a .ckan file's `"[epoch:]version"` version string into a `Int Optional`: `epoch`, and an `Int Array`: `version`.
+It translates a .ckan file's `"[epoch:]version"` version string into a `epoch` constant of `Int?` type, and an `version` constant of `[Int]` type.
 
 When comparing two version numbers, first the `epoch` of each are compared, then the `version` if epoch is equal. epoch is compared numerically. The `version` is compared in sequence of its elements.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 */
-struct Version: Hashable, Codable, Comparable{
-	static func < (lhs: Version, rhs: Version) -> Bool {
-		if let lhs = lhs.epoch, let rhs = rhs.epoch {
-			return lhs < rhs
-		} else {
-			semVerLoop: for i in 0..<min(lhs.version.count, rhs.version.count) {
-				if lhs.version[i] == rhs.version[i] {
-					continue semVerLoop
-				} else {
-					return lhs.version[i] < rhs.version[i]
-				}
-			}
-			if lhs.version.count == rhs.version.count {
-				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
-					return lhs < rhs
-				} else {
-					return lhs.originalString < rhs.originalString
-				}
-			} else {
-				return lhs.version.count < rhs.version.count
-			}
-		}
+struct Version: Hashable, Codable {
+	
+	/**
+	Initialises a `Version` instance from the given version string.
+	
+	- Parameter versionString: The version string as defined by the CKAN metadata specification.
+	*/
+	init(from versionString: String) {
+		self.originalString = versionString
+		let dissectedVersion = Version.getDissectedVersion(from: versionString)
+		self.epoch = dissectedVersion.epoch
+		self.quasiSemanticVersion = dissectedVersion.quasiSemanticVersion
+		self.releaseSuffix = dissectedVersion.releaseSuffix
+		self.metadataSuffix = dissectedVersion.metadataSuffix
 	}
 	
-	static func > (lhs: Version, rhs: Version) -> Bool {
-		if let lhs = lhs.epoch, let rhs = rhs.epoch {
-			return lhs > rhs
-		} else {
-			semVerLoop: for i in 0..<min(lhs.version.count, rhs.version.count) {
-				if lhs.version[i] == rhs.version[i] {
-					continue semVerLoop
-				} else {
-					return lhs.version[i] > rhs.version[i]
-				}
-			}
-			if lhs.version.count == rhs.version.count {
-				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
-					return lhs > rhs
-				} else {
-					return lhs.originalString > rhs.originalString
-				}
-			} else {
-				return lhs.version.count > rhs.version.count
-			}
-		}
+	/**
+	Initialises a `Version` instance by decoding from the given `decoder`.
+	
+	- Parameter decoder: The decoder to read data from.
+	*/
+	init(from decoder: Decoder) throws {
+		let versionString = try decoder.singleValueContainer().decode(String.self)
+		self = Version(from: versionString)
 	}
 	
-	static func == (lhs: Version, rhs: Version) -> Bool {
-		!(lhs < rhs || lhs > rhs)
+	/**
+	Encodes a `Version` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
+	*/
+	func encode(to encoder: Encoder) throws {
+		var encoder = encoder.singleValueContainer()
+		try encoder.encode(originalString)
 	}
 	
 	/**
@@ -79,7 +64,7 @@ struct Version: Hashable, Codable, Comparable{
 	/**
 	The fail-safe insurance to the versioning sequence.
 	
-	`epoch` is a single (generally small) unsigned integer. It may be omitted, in which case zero is assumed. CKAN provides it to allow mistakes in the version numbers of older versions of a package, and also a package's previous version numbering schemes, to be left behind.
+	`epoch` is a single (generally small) integer. It may be omitted, in which case zero is assumed. CKAN provides it to allow mistakes in the version numbers of older versions of a package, and also a package's previous version numbering schemes, to be left behind.
 	
 	- Note: The purpose of epochs is to allow CKAN to leave behind mistakes in version numbering, and to cope with situations where the version numbering scheme changes. It is not intended to cope with version numbers containing strings of letters which the package management system cannot interpret (such as ALPHA or pre-), or with silly orderings.
 	*/
@@ -88,11 +73,13 @@ struct Version: Hashable, Codable, Comparable{
 	/**
 	The primary versioning sequence.
 	
-	This is equivalent to the **mod_version** attribute in a .ckan file.
+	This is equivalent to the ["mod_version" attribute][mod version] in a .ckan file.
 	
-	`version` is the main part of the version number. In application to mods, it is usually the version number of the original mod from which the CKAN file is created. Usually this will be in the same format as that specified by the mod author(s); however, it may need to be reformatted to fit into the package management system's format and comparison scheme.
+	`quasiSemanticVersion` is the main part of the version number. In application to mods, it is usually the version number of the original mod from which the CKAN file is created. Usually this will be in the same format as that specified by the mod author(s); however, it may need to be reformatted to fit into the package management system's format and comparison scheme.
+	
+	[mod version]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 	*/
-	private let version: [Int]
+	private let quasiSemanticVersion: [VersionSegmentsCluster]
 	
 	/**
 	The release version suffix.
@@ -106,9 +93,137 @@ struct Version: Hashable, Codable, Comparable{
 	/**
 	The metadata suffix.
 	
-	The string follows a `"+"`, and is composed of alphsnumerical characters and `".", such as `"alpha"`, `"1337"`, or practically anything. For more information, see [semantic versioning][0]
+	The string follows a `"+"`, and is composed of alphsnumerical characters and `"."`, such as `"alpha"`, `"1337"`, or practically anything. For more information, see [semantic versioning][0]
 	
 	[0]: https://semver.org/#spec-item-10
 	*/
 	let metadataSuffix: String?
+	
+	private typealias VersionSegmentsCluster = [VersionSegment]
+	
+	/**
+	The smallest comparable unit in CKAN metadata's `"mod_version"` attribute.
+	
+	Because the CKAN metadata specification does not enforce a versioning standard, a special type is required for the sake of flexibility and compatibility. The `VersionSegmentsCluster` type implements [the comparison scheme as described in the specification][version ordering], but favors semantic versioning when in face of ambiguity.
+	
+	[version ordering]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
+	*/
+	fileprivate enum VersionSegment: Hashable, Comparable, Equatable {
+		case numerical(Int)
+		case nonNumerical(String?)	//	FIXME: This case doesn't need to be optional, because a string can be "".
+		
+		static func < (lhs: Version.VersionSegment, rhs: Version.VersionSegment) -> Bool {
+			switch (lhs, rhs) {
+			case (.numerical(let lhs), .numerical(let rhs)):
+				return lhs < rhs
+			case (.nonNumerical(let lhs), .nonNumerical(let rhs)):
+				return lhs < rhs
+			default:
+				return false
+			}
+		}
+	}
+	
+	/**
+	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffic parts from the given complete version string.
+	*/
+	private static func getDissectedVersion(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegmentsCluster], releaseSuffix: String?, metadataSuffix: String?) {
+		//	FIXME: Find a way to use Substrings instead, for efficienccy.
+		let versionStringSplitByColons: [String] = versionString.components(separatedBy: ":")
+		let versionStringRemainSplitByPluses: [String] = versionStringSplitByColons.last?.components(separatedBy: "+") ?? []
+		let versionStringRemainSplitByMinuses: [String] = versionStringRemainSplitByPluses.first?.components(separatedBy: "-") ?? []
+		let versionStringRemainSplitByDots: [String] = versionStringRemainSplitByMinuses.first?.components(separatedBy: ".") ?? []
+		
+		/**
+		Returns a non-numerical characters-leading version segments cluster parsed from the given version string.
+		*/
+		func getNonNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
+			var segmentCluster: VersionSegmentsCluster = []
+			let segment = versionString.prefix(while: { !("0"..."9" ~= $0) })
+			let remainingSegments = segment.suffix(from: segment.endIndex)
+			segmentCluster.append(VersionSegment.nonNumerical(String(segment)))
+			if !remainingSegments.isEmpty {
+				segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
+			}
+			
+			/**
+			Returns a numerical characters-leading version segments cluster parsed from the given version string.
+			*/
+			func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
+				var segmentCluster: VersionSegmentsCluster = []
+				let segment = versionString.prefix(while: { ("0"..."9" ~= $0) })
+				let remainingSegments = segment.suffix(from: segment.endIndex)
+				segmentCluster.append(VersionSegment.numerical(Int(String(segment))!))
+				if !remainingSegments.isEmpty {
+					segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
+				}
+				return segmentCluster
+			}
+			
+			return segmentCluster
+		}
+		
+		let epoch: Int? = versionStringSplitByColons.count > 1 ? Int(versionStringSplitByColons[0]) : nil
+		let metadataSuffix: String? = versionStringRemainSplitByPluses.count > 1 ? versionStringRemainSplitByPluses.last : nil
+		let releaseSuffix: String? = versionStringRemainSplitByMinuses.count > 1 ? versionStringRemainSplitByMinuses.last : nil
+		let quasiSemanticVersion: [VersionSegmentsCluster] = versionStringRemainSplitByDots.map { getNonNumericalLeadingCluster(from: $0) }
+		
+		return (epoch: epoch, quasiSemanticVersion: quasiSemanticVersion, releaseSuffix: releaseSuffix, metadataSuffix: metadataSuffix)
+	}
+}
+
+
+//	Extends Version to add comformance to Comparable and Equatable protocols.
+extension Version: Comparable, Equatable {
+	static func < (lhs: Version, rhs: Version) -> Bool {
+		if let lhs = lhs.epoch, let rhs = rhs.epoch {
+			return lhs < rhs
+		} else {
+			semVerLoop: for i in 0..<min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
+				if lhs.quasiSemanticVersion[i] == rhs.quasiSemanticVersion[i] {
+					continue semVerLoop
+				} else {
+					return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
+				}
+			}
+			if lhs.quasiSemanticVersion.count == rhs.quasiSemanticVersion.count {
+				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
+					return lhs < rhs
+				} else {
+					return lhs.originalString < rhs.originalString
+				}
+			} else {
+				return lhs.quasiSemanticVersion.count < rhs.quasiSemanticVersion.count
+			}
+		}
+	}
+}
+
+
+//	Extends Array, so it knows how to compare 2 VersionSegment instances.
+fileprivate extension Array where Element == Version.VersionSegment {
+	static func < (lhs: [Element], rhs: [Element]) -> Bool {
+		for i in 0..<Swift.min(lhs.count, rhs.count) {
+			if lhs[i] < rhs[i] {
+				return true
+			}
+		}
+		return lhs.count < rhs.count
+	}
+}
+
+
+//	Extendes Optional for String? comparison.
+extension Optional: Comparable where Wrapped == String {
+	public static func < (lhs: Optional<Wrapped>, rhs: Optional<Wrapped>) -> Bool {
+		if let lhs = lhs {
+			if let rhs = rhs {
+				return lhs < rhs
+			} else {
+				return false
+			}
+		} else {
+			return rhs != nil
+		}
+	}
 }
