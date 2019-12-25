@@ -17,7 +17,7 @@ A mod release is a version or distribution of a mod released to public on [CKAN]
 - [Ferram Aerospace Research v0.15.9	"Liebe"][2]
 - [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
 
-A `Release` instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a `Release` instance conforms to [the CKAN metadate specification][5] \(currently v1.26), which is put concisely in [the specification's json schema][6].
+A `Release` instance contains all metadata of a mod release, as made available on [the CKAN metadata repository][4]. In a way of speech, the structure of a `Release` instance conforms to [the CKAN metadate specification][5] \(currently v1.27), which is put concisely in [the specification's json schema][6].
 
 [0]: https://github.com/KSP-CKAN/CKAN
 [1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann

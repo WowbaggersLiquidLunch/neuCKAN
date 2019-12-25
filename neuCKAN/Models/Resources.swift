@@ -37,6 +37,7 @@ struct Resources: Hashable, Codable {
 	let spacedock: URL?
 	let curse: URL?
 	let manual: URL?
+	let netkan: URL?
 	
 	private enum CodingKeys: String, CodingKey {
 		case homepage
@@ -47,5 +48,6 @@ struct Resources: Hashable, Codable {
 		case spacedock
 		case curse
 		case manual
+		case netkan = "metanetkan"
 	}
 }
