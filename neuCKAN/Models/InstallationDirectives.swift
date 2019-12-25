@@ -29,41 +29,125 @@ A typical set of installation directives only has `"file"` and `"install_to"` at
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 */
 struct InstallationDirectives: Hashable, Codable {
+	
+	//	MARK: - Codable Conformance
+	
+	/**
+	Initialises a `InstallationDirectives` instance by decoding from the given `decoder`.
+	
+	- Parameter decoder: The decoder to read data from.
+	*/
+	init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		
+		if let directive = try? values.decode(String.self, forKey: .consistent) {
+			source = .consistent(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .inconsistent) {
+			source = .inconsistent(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .consistentByRegex) {
+			source = .consistentByRegex(directive)
+		} else {
+			source = .consistent("")
+		}
+		
+		destination = try values.decode(String.self, forKey: .destination)
+		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
+		componentsExcluded = try? values.decode([String].self, forKey: .componentsExcluded)
+		componentsExcludedByRegex = try? values.decode([String].self, forKey: .componentsExcludedByRegex)
+		componentsIncludedExclusively = try? values.decode([String].self, forKey: .componentsIncludedExclusively)
+		componentsIncludedExclusivelyByRegex = try? values.decode([String].self, forKey: .componentsIncludedExclusivelyByRegex)
+		sourceDirectiveMatchesFiles = try? values.decode(Bool.self, forKey: .sourceDirectiveMatchesFiles)
+	}
+	
+	/**
+	Encodes a `InstallationDirectives` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
+	*/
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		switch source {
+		case .consistent(let directive):
+			try container.encode(directive, forKey: .consistent)
+		case .inconsistent(let directive):
+			try container.encode(directive, forKey: .inconsistent)
+		case .consistentByRegex(let directive):
+			try container.encode(directive, forKey: .consistentByRegex)
+		}
+		
+		try container.encode(destination, forKey: .destination)
+		
+		if let directive = newPathNameOnInstallation {
+			try container.encode(directive, forKey: .newPathNameOnInstallation)
+		}
+		
+		if let directive = componentsExcluded {
+			try container.encode(directive, forKey: .componentsExcluded)
+		}
+		
+		if let directive = componentsExcludedByRegex {
+			try container.encode(directive, forKey: .componentsExcludedByRegex)
+		}
+		
+		if let directive = componentsIncludedExclusively {
+			try container.encode(directive, forKey: .componentsIncludedExclusively)
+		}
+		
+		if let directive = componentsIncludedExclusivelyByRegex {
+			try container.encode(directive, forKey: .componentsIncludedExclusivelyByRegex)
+		}
+		
+		if let directive = sourceDirectiveMatchesFiles {
+			try container.encode(directive, forKey: .sourceDirectiveMatchesFiles)
+		}
+	}
+	
 	//	MARK: - Source Directives
 	
 	/**
-	The file or directory root that this directive pertains to.
-	
-	This is equivalent to the `"file"` attribute in a .ckan file.
-	
-	All leading directories are stripped from the start of the filename during install. For example, `MyMods/KSP/Foo` will be installed into `GameData/Foo`.
+	The source location from which the matched file(s) or directory(s) should be installed.
 	*/
-	let constantRoot: String?
+	let source: SourceDirective
 	
 	/**
-	The top-most directory that matches exactly the name specified. (since CKAN v1.4)
-	
-	This is equivalent to the `"find"` attribute in a .ckan file.
-
-	This is particularly useful when distributions have structures that change by releases.
+	A representation of source directives as defined by the CKAN metadata specification.
 	*/
-	let variableRoot: String?
-	
-	/**
-	The top-most directory that matches the specified regular expression. (since CKAN v1.10)
-	
-	This is equivalent to the `"find_regexp"` attribute in a .ckan file.
-	
-	This is particularly useful when distributions have structures that change by releases, but `variableRoot` is insufficient because multiple directories or files contain the same name. Directories' separators will have been normalised to forward-slashes first, and the trailing slash for each directory removed before the regular expression is run.
-	
-	- Warning: Use sparingly and with caution, regular expressions are prone to hard-to-spot mistakes.
-	*/
-	let variableRootByRegex: String?
+	enum SourceDirective: Hashable {
+		/**
+		The file or directory root that this directive pertains to.
+		
+		This is equivalent to the `"file"` attribute in a .ckan file.
+		
+		All leading directories are stripped from the start of the filename during install. For example, `MyMods/KSP/Foo` will be installed into `GameData/Foo`.
+		*/
+		case consistent(String)
+		
+		/**
+		The top-most directory that matches exactly the name specified. (since CKAN v1.4)
+		
+		This is equivalent to the `"find"` attribute in a .ckan file.
+		
+		This is particularly useful when distributions have structures that change by releases.
+		*/
+		case inconsistent(String)
+		
+		/**
+		The top-most directory that matches the specified regular expression. (since CKAN v1.10)
+		
+		This is equivalent to the `"find_regexp"` attribute in a .ckan file.
+		
+		This is particularly useful when distributions have structures that change by releases, but `inconsistent` is insufficient because multiple directories or files contain the same name. Directories' separators will have been normalised to forward-slashes first, and the trailing slash for each directory removed before the regular expression is run.
+		
+		- Warning: Use sparingly and with caution, regular expressions are prone to hard-to-spot mistakes.
+		*/
+		case consistentByRegex(String)
+	}
 	
 	//	MARK: - Destination Directive
 	
 	/**
-	The target location where the matched file(s) or directory(s) should be installed.
+	The target location to which the matched file(s) or directory(s) should be installed.
 	
 	This is equivalent to the `"install_to"` attribute in a .ckan file.
 	
@@ -83,7 +167,7 @@ struct InstallationDirectives: Hashable, Codable {
 	
 	Subfolder paths under a matched directory will be preserved, but directories will only be created when installing to `GameData/`, `Tutorial/`, or `Scenarios/`.
 	*/
-	let destinationDirectory: String
+	let destination: String
 	
 	//	optional directives
 	
@@ -103,14 +187,14 @@ struct InstallationDirectives: Hashable, Codable {
 	
 	They must match a file or directory names, e.g. `"Thumbs.db"`, or `"Source"`. They're case-insensitive.
 	*/
-	let excludedComponents: [String]?
+	let componentsExcluded: [String]?
 	
 	/**
 	Regular expressions that match against file parts that should not be installed.
 	
 	This is equivalent to the `"filter_regexp"` attribute in a .ckan file.
 	*/
-	let excludedComponentsByRegex: [String]?
+	let componentsExcludedByRegex: [String]?
 	
 	/**
 	File parts that should be installed.
@@ -119,20 +203,34 @@ struct InstallationDirectives: Hashable, Codable {
 	
 	They must match a file or directory names, e.g. `"Settings.cfg"`, or `"Plugin"`. They're case-insensitive.
 	*/
-	let exclusivelyIncludedComponents: [String]?
+	let componentsIncludedExclusively: [String]?
 	
 	/**
 	Regular expressions that match against file parts that should be installed.
 	
 	This is equivalent to the `"include_only_regexp"` attribute in a .ckan file.
 	*/
-	let exclusivelyIncludedComponentsByRegex: [String]?
+	let componentsIncludedExclusivelyByRegex: [String]?
 	
 	/**
-	Whether `variableRoot` and `variableRootByRegex` matches files in addition to directories.
+	Whether `inconsistent` and `consistentByRegex` matches files in addition to directories.
 	
 	This is equivalent to the `"find_matches_files"` attribute in a .ckan file.
 	*/
-	let variableRootMatchesFiles: Bool
+	let sourceDirectiveMatchesFiles: Bool?
+	
+	//	Maps between Swift names and JSON names; adds to Codable conformance.
+	private enum CodingKeys: String, CodingKey {
+		case consistent = "file"
+		case inconsistent = "find"
+		case consistentByRegex = "find_regexp"
+		case destination = "install_to"
+		case newPathNameOnInstallation = "as"
+		case componentsExcluded = "filter"
+		case componentsExcludedByRegex = "filter_regexp"
+		case componentsIncludedExclusively = "include_only"
+		case componentsIncludedExclusivelyByRegex = "include_only_regexp"
+		case sourceDirectiveMatchesFiles = "find_matches_files"
+	}
 }
 
