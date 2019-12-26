@@ -94,7 +94,7 @@ indirect enum Relations: Hashable, Codable {
 		case .allOfRelations(let relations):
 			try container.encode(contentsOf: relations)
 		case .anyOfRelations(let relations):
-			try container.encode(RelationsIntermediateLayerTranslationService(Relations.anyOfRelations(relations)))
+			try container.encode(IntermediateRelationsService(Relations.anyOfRelations(relations)))
 		}
 	}
 	
@@ -150,7 +150,7 @@ extension Relations: CustomStringConvertible {
 /**
 A service struct that for intermediate `"any_of"` JSON values.
 */
-struct RelationsIntermediateLayerTranslationService: Codable {
+struct IntermediateRelationsService: Codable {
 	
 	/**
 	Initialises a `Relations` instance by decoding from the given `decoder`.
@@ -212,7 +212,7 @@ fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Relations>
 		
 		if let relation = try? unkeyedValues.decode(Relation.self) {
 			relationsSet.insert(Relations.leafRelation(relation))
-		} else if let intermediateRelations = try? unkeyedValues.decode(RelationsIntermediateLayerTranslationService.self) {
+		} else if let intermediateRelations = try? unkeyedValues.decode(IntermediateRelationsService.self) {
 			relationsSet.insert(intermediateRelations.relations)
 		} else if let relations = try? unkeyedValues.decode(Relations.self) {
 			relationsSet.insert(relations)
