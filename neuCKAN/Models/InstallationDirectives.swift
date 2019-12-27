@@ -170,7 +170,7 @@ struct InstallationDirectives: Hashable, Codable {
 	*/
 	let destination: String
 	
-	//	optional directives
+	//	MARK: - Optional Directives
 	
 	/**
 	The name to give to the matching directory(s) or file(s) when they're installed.
