@@ -108,7 +108,7 @@ struct Version: Hashable, Codable {
 	
 	[version ordering]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 	*/
-	fileprivate enum VersionSegment: Hashable, Comparable, Equatable {
+	fileprivate enum VersionSegment: Hashable, Comparable {
 		case numerical(Int)
 		case nonNumerical(String?)	//	FIXME: This case doesn't need to be optional, because a string can be "".
 		
@@ -173,8 +173,8 @@ struct Version: Hashable, Codable {
 }
 
 
-//	Extends Version to add comformance to Comparable and Equatable protocols.
-extension Version: Comparable, Equatable {
+//	Extends Version to add comformance to Comparable protocols.
+extension Version: Comparable {
 	//	Compares verisons exactly how the CKAN metadata specification wants it, but better.
 	static func < (lhs: Version, rhs: Version) -> Bool {
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
