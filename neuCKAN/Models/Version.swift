@@ -37,13 +37,30 @@ struct Version: Hashable, Codable {
 	}
 	
 	/**
+	Initialises a `Version` instance from the given version number.
+	
+	This initialiser takes care of CKAN metadata files that do not respect the current specification, and use numbers for versions.
+	
+	- Parameter versionDigits: The version number that doesn't abide in form by the CKAN metadata specification.
+	*/
+	init(from versionDigits: Double) {
+		//	Create a string representation of the digits, and remove trailing 0s.
+		self.init(from: String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
+	}
+	
+	/**
 	Initialises a `Version` instance by decoding from the given `decoder`.
 	
 	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
-		let versionString = try decoder.singleValueContainer().decode(String.self)
-		self = Version(from: versionString)
+		if let versionString = try? decoder.singleValueContainer().decode(String.self) {
+			self = Version(from: versionString)
+		} else if let versionDigits = try? decoder.singleValueContainer().decode(Double.self) {
+			self = Version(from: versionDigits)
+		} else {
+			self = Version(from: "")
+		}
 	}
 	
 	/**
