@@ -123,17 +123,22 @@ struct Relation: Hashable, Codable {
 		case versionMin = "min_version"
 		case versionMax = "max_version"
 	}
-	
+}
+
+
+//	MARK: - CustomStringConvertible Conformance
+
+extension Relation: CustomStringConvertible {
 	/**
-	Provide a String representation for the `Relation` instance.
+	A description of the relation.
 	
 	- Returns
-		- `"id"` if no versions are specified in the relation.
-		- `"id ( ≥ minimum version)"` if only the minimum version is specified.
-		- `"id ( ≤ maximum version)"` if only the maximum version is specified.
-		- `"id [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
+	- `"mod's name"` if no versions are specified in the relation.
+	- `"mod's name ( ≥ minimum version)"` if only the minimum version is specified.
+	- `"mod's name ( ≤ maximum version)"` if only the maximum version is specified.
+	- `"mod's name [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
 	*/
-	func toString() -> String {
+	var description: String {
 		if let version = version {
 			return self.name + " (\(version.originalString))"
 		} else if let versionMin = versionMin, let versionMax = versionMax {

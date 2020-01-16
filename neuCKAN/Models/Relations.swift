@@ -124,14 +124,14 @@ indirect enum Relations: Hashable, Codable {
 	
 	- Returns: A String representation for the `Relations` instance.
 	*/
-	func toString() -> String {
+	var logicExpression: String {
 		switch self {
 		case let .leafRelation(relation):
-			return relation.toString()
+			return String(describing: relation)
 		case let .anyOfRelations(relations):
-			return "(\(relations.map { $0.toString() }.joined(separator: " ∨ ")))"
+			return "(\(relations.map { String(describing: $0) }.joined(separator: " ∨ ")))"
 		case let .allOfRelations(relations):
-			return "(\(relations.map { $0.toString() }.joined(separator: " ∧ ")))"
+			return "(\(relations.map { String(describing: $0) }.joined(separator: " ∧ ")))"
 		}
 	}
 }
@@ -139,9 +139,8 @@ indirect enum Relations: Hashable, Codable {
 
 //	MARK: - CustomStringConvertible Conformance
 
-//	Extendes Relations to add printablility.
 extension Relations: CustomStringConvertible {
-	var description: String { toString() }
+	var description: String { logicExpression }
 }
 
 
