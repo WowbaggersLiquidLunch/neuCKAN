@@ -220,6 +220,8 @@ struct InstallationDirectives: Hashable, Codable {
 	*/
 	let sourceDirectiveMatchesFiles: Bool?
 	
+	//	Mark: -
+	
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
 		case consistent = "file"

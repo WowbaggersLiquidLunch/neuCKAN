@@ -116,6 +116,8 @@ struct Relation: Hashable, Codable {
 	*/
 	let versionMax: Version?
 	
+	//	MARK: -
+	
 	//	Maps between Swift names and JSON names; adds Codable conformance.
 	private enum CodingKeys: String, CodingKey {
 		case name
