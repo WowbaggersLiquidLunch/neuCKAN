@@ -132,9 +132,9 @@ struct Relation: Hashable, Codable {
 
 extension Relation: CustomStringConvertible {
 	/**
-	A description of the relation.
+	A logic expression describing the relation.
 	
-	- Returns
+	The value will be one of the following
 	- `"mod's name"` if no versions are specified in the relation.
 	- `"mod's name ( ≥ minimum version)"` if only the minimum version is specified.
 	- `"mod's name ( ≤ maximum version)"` if only the maximum version is specified.

@@ -120,9 +120,7 @@ indirect enum Relations: Hashable, Codable {
 	//	MARK: - Instance Method
 	
 	/**
-	Recursively provide a String representation for the `Relations` instance.
-	
-	- Returns: A String representation for the `Relations` instance.
+	A logic expression describing the `Relations` instance.
 	*/
 	var logicExpression: String {
 		switch self {
