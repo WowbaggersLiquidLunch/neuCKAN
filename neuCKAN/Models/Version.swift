@@ -9,6 +9,8 @@
 import Foundation
 
 
+fileprivate let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
+
 /**
 A version type containing both an epoch and a semantic versioning sequence.
 
@@ -28,8 +30,9 @@ struct Version: Hashable, Codable {
 	- Parameter versionString: The version string as defined by the CKAN metadata specification.
 	*/
 	init(from versionString: String) {
-		self.originalString = versionString
-		let dissectedVersion = Version.getDissectedVersion(from: versionString)
+		let finalVersionString = versionString == "any" ? versionlessVersionString : versionString
+		self.originalString = finalVersionString
+		let dissectedVersion = Version.getDissectedVersion(from: finalVersionString)
 		self.epoch = dissectedVersion.epoch
 		self.quasiSemanticVersion = dissectedVersion.quasiSemanticVersion
 		self.releaseSuffix = dissectedVersion.releaseSuffix

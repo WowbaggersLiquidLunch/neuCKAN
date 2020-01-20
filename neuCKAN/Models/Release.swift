@@ -203,7 +203,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	This is equivalent to the ["ksp_version" attribute][0] in a .ckan file.
 	
-	In a .ckan file, this may be the string `"any"`, a number, e.g. `"0.23.5"`, or may contain only the first two parts of the version string, e.g. `"0.25"`. In the latter example, any release version starting with `"0.25"` is acceptable.
+	In a .ckan file, this may be the string `"any"` which will be changed to` "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"` in neuCKAN internally, a number, e.g. `"0.23.5"`, or may contain only the first two parts of the version string, e.g. `"0.25"`. In the latter example, any release version starting with `"0.25"` is acceptable.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
 	*/
