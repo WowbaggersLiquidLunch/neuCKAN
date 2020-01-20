@@ -126,7 +126,6 @@ struct Relation: Hashable, Codable {
 	}
 }
 
-
 //	MARK: - CustomStringConvertible Conformance
 
 extension Relation: CustomStringConvertible {

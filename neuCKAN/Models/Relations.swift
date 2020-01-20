@@ -133,13 +133,11 @@ indirect enum Relations: Hashable, Codable {
 	}
 }
 
-
 //	MARK: - CustomStringConvertible Conformance
 
 extension Relations: CustomStringConvertible {
 	var description: String { logicExpression }
 }
-
 
 //	MARK: -
 
@@ -186,7 +184,6 @@ struct IntermediateRelationsService: Codable {
 		case relations = "any_of"
 	}
 }
-
 
 /**
 Decodes a set of `Relations` from the given decoder.

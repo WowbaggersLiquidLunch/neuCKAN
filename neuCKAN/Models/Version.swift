@@ -191,7 +191,6 @@ struct Version: Hashable, Codable {
 	}
 }
 
-
 //	Extends Version to add comformance to Comparable protocols.
 extension Version: Comparable {
 	//	Compares verisons exactly how the CKAN metadata specification wants it, but better.
@@ -217,7 +216,6 @@ extension Version: Comparable {
 	}
 }
 
-
 //	Extends Array, so it knows how to compare 2 VersionSegment instances.
 fileprivate extension Array where Element == Version.VersionSegment {
 	static func < (lhs: [Element], rhs: [Element]) -> Bool {
@@ -229,7 +227,6 @@ fileprivate extension Array where Element == Version.VersionSegment {
 		return lhs.count < rhs.count
 	}
 }
-
 
 //	Extendes Optional for String? comparison.
 extension Optional: Comparable where Wrapped == String {
