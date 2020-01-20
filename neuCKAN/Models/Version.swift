@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 fileprivate let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
 
 /**

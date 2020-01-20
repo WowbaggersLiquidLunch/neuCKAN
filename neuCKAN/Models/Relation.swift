@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /**
 The mod's relationship to another other mod.
 

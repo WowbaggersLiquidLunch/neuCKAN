@@ -11,7 +11,6 @@
 import Foundation
 import os.log
 
-
 /**
 A string of a set of strings.
 */

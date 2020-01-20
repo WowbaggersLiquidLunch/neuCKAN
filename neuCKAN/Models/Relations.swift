@@ -9,7 +9,6 @@
 import Foundation
 import os.log
 
-
 /**
 The mod's relationship to other mods.
 
