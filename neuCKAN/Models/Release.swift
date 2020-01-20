@@ -199,7 +199,7 @@ struct Release: Hashable, Codable, Identifiable {
 	let status: String?
 	
 	/**
-	The version of KSP release this mod is targeting.
+	The version of KSP release this mod release is targeting.
 	
 	This is equivalent to the ["ksp_version" attribute][0] in a .ckan file.
 	
