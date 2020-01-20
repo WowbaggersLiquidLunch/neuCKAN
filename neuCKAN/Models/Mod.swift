@@ -37,6 +37,16 @@ A `Mod` instance contains all releases of the same mod, as identified by the sam
 struct Mod: Hashable, Codable, Identifiable {
 	
 	/**
+	Instanciates `Mod` from the given `Release` instance.
+	
+	- Parameter release: The `Release` instance to from which to instanciates `Mod`.
+	*/
+	init(_ release: Release) {
+		self.id = release.id
+		self.releases = [release]
+	}
+	
+	/**
 	Mod name.
 	
 	This is the human readable name of the mod, and may contain any printable characters.
@@ -107,6 +117,17 @@ struct Mod: Hashable, Codable, Identifiable {
 	var releases: [Release] {
 		didSet {
 			self.releases.sort(by: { $0.version > $1.version })
+		}
+	}
+	
+	/**
+	Insert a mod release into a mods array.
+	
+	The `Release` instance is only inserted if it doesn't already exists.
+	*/
+	mutating func insert(_ release: Release) {
+		if !releases.contains(release) {
+			releases.append(release)
 		}
 	}
 }
