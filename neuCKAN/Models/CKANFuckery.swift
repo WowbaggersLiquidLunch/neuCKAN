@@ -63,3 +63,13 @@ enum StringFuckery: Hashable, Codable {
 	case strings(Set<String>)
 }
 
+extension StringFuckery: CustomStringConvertible {
+	var description: String {
+		switch self {
+		case .string(let string):
+			return string
+		case .strings(let strings):
+			return strings.joined(separator: ", ")
+		}
+	}
+}
