@@ -36,9 +36,9 @@ A `Mod` instance contains all releases of the same mod, as identified by the sam
 struct Mod: Hashable, Codable, Identifiable {
 	
 	/**
-	Instanciates `Mod` from the given `Release` instance.
+	Instantiates `Mod` from the given `Release` instance.
 	
-	- Parameter release: The `Release` instance to from which to instanciates `Mod`.
+	- Parameter release: The `Release` instance to from which to instantiates `Mod`.
 	*/
 	init(_ release: Release) {
 		self.id = release.id
