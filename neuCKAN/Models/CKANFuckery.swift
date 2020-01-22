@@ -6,70 +6,83 @@
 //	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
-//	Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
-
 import Foundation
 import os.log
 
 /**
-A string of a set of strings.
+An item, or a list thereof.
+
+Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
 */
-enum StringFuckery: Hashable, Codable {
+enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & WithDefault>: Hashable, Codable {
 	
 	/**
-	Initialises a `StringFuckery` instance by decoding from the given `decoder`.
+	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
 	
 	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
 		if let container = try? decoder.unkeyedContainer() {
 			var values = container
-			var stringSet: Set<String> = []
+			var itemSet: Set<Item> = []
 			while values.count! > values.currentIndex {
 				let indexBeforeLoop = values.currentIndex
-				if let newString  = try? values.decode(String.self) {
-					stringSet.insert(newString)
+				if let newItem  = try? values.decode(Item.self) {
+					itemSet.insert(newItem)
 				}
 				if values.currentIndex <= indexBeforeLoop {
 					os_log("Unable to decode value #%d in unkeyed container.", type: .debug, values.currentIndex)
 					break
 				}
 			}
-			self = .strings(stringSet)
+			self = .items(itemSet)
 		} else if let value = try? decoder.singleValueContainer() {
-			self = .string((try? value.decode(String.self)) ?? "")
+			self = .item((try? value.decode(Item.self)) ?? Item.defaultInstance)
 		} else {
-			self = .string("")
+			self = .item(Item.defaultInstance)
 		}
 	}
 	
 	/**
-	Encodes a `StringFuckery` instance`.
+	Encodes a `CKANFuckery` instance`.
 	
 	- Parameter encoder: The encoder to encode data to.
 	*/
 	func encode(to encoder: Encoder) throws {
 		switch self {
-		case .string(let value):
+		case .item(let value):
 			var container = encoder.singleValueContainer()
 			try container.encode(value)
-		case .strings(let values):
+		case .items(let values):
 			var container = encoder.unkeyedContainer()
 			try container.encode(values)
 		}
 	}
 	
-	case string(String)
-	case strings(Set<String>)
+	case item(Item)
+	case items(Set<Item>)
 }
 
-extension StringFuckery: CustomStringConvertible {
+//	Conformance to CustomStringConvertible allows an instance of CKANFuckery to be displayed in a human-readable format.
+extension CKANFuckery: CustomStringConvertible {
+	/// A human-readable representation of its content.
 	var description: String {
 		switch self {
-		case .string(let string):
-			return string
-		case .strings(let strings):
-			return strings.joined(separator: ", ")
+		case .item(let item):
+			return String(describing: item)
+		case .items(let items):
+			return items.map{ String(describing: $0) }.joined(separator: ", ")
 		}
 	}
+}
+
+///	A type that provides a default instance when requested.
+protocol WithDefault {
+	///	An instance of this type with a predefined composition.
+	static var defaultInstance: Self { get }
+}
+
+extension String: WithDefault {
+	///	A default String instance: `""`.
+	static let defaultInstance: String = ""
 }

@@ -129,7 +129,7 @@ struct Release: Hashable, Codable, Identifiable {
 	[1]: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/#license-specification
 	[2]: https://www.debian.org/legal/licenses/mit
 	*/
-	let licenses: StringFuckery
+	let licenses: CKANFuckery<String>
 	
 	/**
 	Mod version.
@@ -143,6 +143,7 @@ struct Release: Hashable, Codable, Identifiable {
 	let version: Version
 	
 	//	MARK: - Optional Fields
+	//	All optional fields must be of Optional types.
 	
 	/**
 	A list of installation directives for the mod release.
@@ -173,7 +174,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#author
 	*/
-	let author: StringFuckery?
+	let author: CKANFuckery<String>?
 	
 	/**
 	A free form, long text description of the mod release.

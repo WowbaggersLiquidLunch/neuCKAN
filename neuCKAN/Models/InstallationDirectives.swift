@@ -52,10 +52,10 @@ struct InstallationDirectives: Hashable, Codable {
 		
 		destination = try values.decode(String.self, forKey: .destination)
 		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
-		componentsExcluded = try? values.decode(StringFuckery.self, forKey: .componentsExcluded)
-		componentsExcludedByRegex = try? values.decode(StringFuckery.self, forKey: .componentsExcludedByRegex)
-		componentsIncludedExclusively = try? values.decode(StringFuckery.self, forKey: .componentsIncludedExclusively)
-		componentsIncludedExclusivelyByRegex = try? values.decode(StringFuckery.self, forKey: .componentsIncludedExclusivelyByRegex)
+		componentsExcluded = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcluded)
+		componentsExcludedByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcludedByRegex)
+		componentsIncludedExclusively = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusively)
+		componentsIncludedExclusivelyByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusivelyByRegex)
 		sourceDirectiveMatchesFiles = try? values.decode(Bool.self, forKey: .sourceDirectiveMatchesFiles)
 	}
 	
@@ -187,14 +187,14 @@ struct InstallationDirectives: Hashable, Codable {
 	
 	They must match a file or directory names, e.g. `"Thumbs.db"`, or `"Source"`. They're case-insensitive.
 	*/
-	let componentsExcluded: StringFuckery?
+	let componentsExcluded: CKANFuckery<String>?
 	
 	/**
 	Regular expressions that match against file parts that should not be installed.
 	
 	This is equivalent to the `"filter_regexp"` attribute in a .ckan file.
 	*/
-	let componentsExcludedByRegex: StringFuckery?
+	let componentsExcludedByRegex: CKANFuckery<String>?
 	
 	/**
 	File parts that should be installed.
@@ -203,14 +203,14 @@ struct InstallationDirectives: Hashable, Codable {
 	
 	They must match a file or directory names, e.g. `"Settings.cfg"`, or `"Plugin"`. They're case-insensitive.
 	*/
-	let componentsIncludedExclusively: StringFuckery?
+	let componentsIncludedExclusively: CKANFuckery<String>?
 	
 	/**
 	Regular expressions that match against file parts that should be installed.
 	
 	This is equivalent to the `"include_only_regexp"` attribute in a .ckan file.
 	*/
-	let componentsIncludedExclusivelyByRegex: StringFuckery?
+	let componentsIncludedExclusivelyByRegex: CKANFuckery<String>?
 	
 	/**
 	Whether `inconsistent` and `consistentByRegex` matches files in addition to directories.
