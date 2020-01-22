@@ -164,7 +164,7 @@ struct Version: Hashable, Codable {
 			let remainingSegments = segment.suffix(from: segment.endIndex)
 			segmentCluster.append(VersionSegment.nonNumerical(String(segment)))
 			if !remainingSegments.isEmpty {
-				segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
+				segmentCluster.append(contentsOf: getNumericalLeadingCluster(from: String(remainingSegments)))
 			}
 			return segmentCluster
 		}
