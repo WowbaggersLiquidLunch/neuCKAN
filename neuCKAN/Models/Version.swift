@@ -153,6 +153,8 @@ struct Version: Hashable, Codable {
 		let versionStringRemainSplitByMinuses: [String] = versionStringRemainSplitByPluses.first?.components(separatedBy: "-") ?? []
 		let versionStringRemainSplitByDots: [String] = versionStringRemainSplitByMinuses.first?.components(separatedBy: ".") ?? []
 		
+		//	TODO: Refactor getNonNumericalLeadingCluster(from:) and getNumericalLeadingCluster(from:); DRY.
+		
 		/**
 		Returns a non-numerical characters-leading version segments cluster parsed from the given version string.
 		*/
@@ -164,21 +166,20 @@ struct Version: Hashable, Codable {
 			if !remainingSegments.isEmpty {
 				segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
 			}
-			
-			/**
-			Returns a numerical characters-leading version segments cluster parsed from the given version string.
-			*/
-			func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
-				var segmentCluster: VersionSegmentsCluster = []
-				let segment = versionString.prefix(while: { ("0"..."9" ~= $0) })
-				let remainingSegments = segment.suffix(from: segment.endIndex)
-				segmentCluster.append(VersionSegment.numerical(Int(String(segment))!))
-				if !remainingSegments.isEmpty {
-					segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
-				}
-				return segmentCluster
+			return segmentCluster
+		}
+		
+		/**
+		Returns a numerical characters-leading version segments cluster parsed from the given version string.
+		*/
+		func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
+			var segmentCluster: VersionSegmentsCluster = []
+			let segment = versionString.prefix(while: { ("0"..."9" ~= $0) })
+			let remainingSegments = segment.suffix(from: segment.endIndex)
+			segmentCluster.append(VersionSegment.numerical(Int(String(segment))!))
+			if !remainingSegments.isEmpty {
+				segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
 			}
-			
 			return segmentCluster
 		}
 		
