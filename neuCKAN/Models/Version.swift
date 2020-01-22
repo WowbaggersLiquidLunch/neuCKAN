@@ -98,7 +98,7 @@ struct Version: Hashable, Codable {
 	
 	[mod version]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 	*/
-	private let quasiSemanticVersion: [VersionSegmentsCluster]
+	private let quasiSemanticVersion: [VersionSegment]
 	
 	/**
 	The release version suffix.
@@ -118,20 +118,20 @@ struct Version: Hashable, Codable {
 	*/
 	let metadataSuffix: String?
 	
-	private typealias VersionSegmentsCluster = [VersionSegment]
+	private typealias VersionSegment = [CKANVersionSmallestComparableUnit]
 	
 	/**
 	The smallest comparable unit in CKAN metadata's `"mod_version"` attribute.
 	
-	Because the CKAN metadata specification does not enforce a versioning standard, a special type is required for the sake of flexibility and compatibility. The `VersionSegmentsCluster` type implements [the comparison scheme as described in the specification][version ordering], but favors semantic versioning when in face of ambiguity.
+	Because the CKAN metadata specification does not enforce a versioning standard, a special type is required for the sake of flexibility and compatibility. The `VersionSegment` type implements [the comparison scheme as described in the specification][version ordering], but favors semantic versioning when in face of ambiguity.
 	
 	[version ordering]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 	*/
-	fileprivate enum VersionSegment: Hashable, Comparable {
+	fileprivate enum CKANVersionSmallestComparableUnit: Hashable, Comparable {
 		case numerical(Int)
 		case nonNumerical(String)
 		
-		static func < (lhs: Version.VersionSegment, rhs: Version.VersionSegment) -> Bool {
+		static func < (lhs: Version.CKANVersionSmallestComparableUnit, rhs: Version.CKANVersionSmallestComparableUnit) -> Bool {
 			switch (lhs, rhs) {
 			case (.numerical(let lhs), .numerical(let rhs)):
 				return lhs < rhs
@@ -146,7 +146,7 @@ struct Version: Hashable, Codable {
 	/**
 	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffic parts from the given complete version string.
 	*/
-	private static func getDissectedVersion(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegmentsCluster], releaseSuffix: String?, metadataSuffix: String?) {
+	private static func getDissectedVersion(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegment], releaseSuffix: String?, metadataSuffix: String?) {
 		//	FIXME: Find a way to use Substrings instead, for efficienccy.
 		let versionStringSplitByColons: [String] = versionString.components(separatedBy: ":")
 		let versionStringRemainSplitByPluses: [String] = versionStringSplitByColons.last?.components(separatedBy: "+") ?? []
@@ -158,35 +158,35 @@ struct Version: Hashable, Codable {
 		/**
 		Returns a non-numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNonNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
-			var segmentCluster: VersionSegmentsCluster = []
-			let segment = versionString.prefix(while: { !("0"..."9" ~= $0) })
-			let remainingSegments = segment.suffix(from: segment.endIndex)
-			segmentCluster.append(VersionSegment.nonNumerical(String(segment)))
-			if !remainingSegments.isEmpty {
-				segmentCluster.append(contentsOf: getNumericalLeadingCluster(from: String(remainingSegments)))
+		func getNonNumericalLeadingCluster(from versionSubString: String) -> VersionSegment {
+			var versionSegment: VersionSegment = []
+			let nextComparableUnit = versionString.prefix(while: { !("0"..."9" ~= $0) })
+			let remainingComparableUnits = nextComparableUnit.suffix(from: nextComparableUnit.endIndex)
+			versionSegment.append(CKANVersionSmallestComparableUnit.nonNumerical(String(nextComparableUnit)))
+			if !remainingComparableUnits.isEmpty {
+				versionSegment.append(contentsOf: getNumericalLeadingCluster(from: String(remainingComparableUnits)))
 			}
-			return segmentCluster
+			return versionSegment
 		}
 		
 		/**
 		Returns a numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegmentsCluster {
-			var segmentCluster: VersionSegmentsCluster = []
-			let segment = versionString.prefix(while: { ("0"..."9" ~= $0) })
-			let remainingSegments = segment.suffix(from: segment.endIndex)
-			segmentCluster.append(VersionSegment.numerical(Int(String(segment))!))
-			if !remainingSegments.isEmpty {
-				segmentCluster.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingSegments)))
+		func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegment {
+			var versionSegment: VersionSegment = []
+			let nextComparableUnit = versionString.prefix(while: { ("0"..."9" ~= $0) })
+			let remainingComparableUnits = nextComparableUnit.suffix(from: nextComparableUnit.endIndex)
+			versionSegment.append(CKANVersionSmallestComparableUnit.numerical(Int(String(nextComparableUnit))!))
+			if !remainingComparableUnits.isEmpty {
+				versionSegment.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingComparableUnits)))
 			}
-			return segmentCluster
+			return versionSegment
 		}
 		
 		let epoch: Int? = versionStringSplitByColons.count > 1 ? Int(versionStringSplitByColons[0]) : nil
 		let metadataSuffix: String? = versionStringRemainSplitByPluses.count > 1 ? versionStringRemainSplitByPluses.last : nil
 		let releaseSuffix: String? = versionStringRemainSplitByMinuses.count > 1 ? versionStringRemainSplitByMinuses.last : nil
-		let quasiSemanticVersion: [VersionSegmentsCluster] = versionStringRemainSplitByDots.map { getNonNumericalLeadingCluster(from: $0) }
+		let quasiSemanticVersion: [VersionSegment] = versionStringRemainSplitByDots.map { getNonNumericalLeadingCluster(from: $0) }
 		
 		return (epoch: epoch, quasiSemanticVersion: quasiSemanticVersion, releaseSuffix: releaseSuffix, metadataSuffix: metadataSuffix)
 	}
@@ -217,8 +217,8 @@ extension Version: Comparable {
 	}
 }
 
-//	Extends Array, so it knows how to compare 2 VersionSegment instances.
-fileprivate extension Array where Element == Version.VersionSegment {
+//	Extends Array, so it knows how to compare 2 CKANVersionSmallestComparableUnit instances.
+fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
 	static func < (lhs: [Element], rhs: [Element]) -> Bool {
 		for i in 0..<Swift.min(lhs.count, rhs.count) {
 			if lhs[i] < rhs[i] {
