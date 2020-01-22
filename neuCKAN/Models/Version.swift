@@ -158,9 +158,9 @@ struct Version: Hashable, Codable {
 		/**
 		Returns a non-numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNonNumericalLeadingCluster(from versionSubString: String) -> VersionSegment {
+		func getNonNumericalLeadingCluster(from versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
-			let nextComparableUnit = versionString.prefix(while: { !("0"..."9" ~= $0) })
+			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) })
 			let remainingComparableUnits = nextComparableUnit.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.nonNumerical(String(nextComparableUnit)))
 			if !remainingComparableUnits.isEmpty {
@@ -172,9 +172,9 @@ struct Version: Hashable, Codable {
 		/**
 		Returns a numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNumericalLeadingCluster(from versionSubString: String) -> VersionSegment {
+		func getNumericalLeadingCluster(from versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
-			let nextComparableUnit = versionString.prefix(while: { ("0"..."9" ~= $0) })
+			let nextComparableUnit = versionSegmentSubString.prefix(while: { ("0"..."9" ~= $0) })
 			let remainingComparableUnits = nextComparableUnit.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.numerical(Int(String(nextComparableUnit))!))
 			if !remainingComparableUnits.isEmpty {
