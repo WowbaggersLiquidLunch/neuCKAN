@@ -61,7 +61,7 @@ struct Version: Hashable, Codable {
 		} else if let versionDigits = try? decoder.singleValueContainer().decode(Double.self) {
 			self = Version(from: versionDigits)
 		} else {
-			self = Version(from: "")
+			self = Version(from: String.defaultInstance)
 		}
 	}
 	
@@ -129,7 +129,7 @@ struct Version: Hashable, Codable {
 	*/
 	fileprivate enum VersionSegment: Hashable, Comparable {
 		case numerical(Int)
-		case nonNumerical(String?)	//	FIXME: This case doesn't need to be optional, because a string can be "".
+		case nonNumerical(String)
 		
 		static func < (lhs: Version.VersionSegment, rhs: Version.VersionSegment) -> Bool {
 			switch (lhs, rhs) {
