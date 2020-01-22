@@ -31,11 +31,11 @@ struct Version: Hashable, Codable {
 	init(from versionString: String) {
 		let finalVersionString = versionString == "any" ? versionlessVersionString : versionString
 		self.originalString = finalVersionString
-		let dissectedVersion = Version.getDissectedVersion(from: finalVersionString)
-		self.epoch = dissectedVersion.epoch
-		self.quasiSemanticVersion = dissectedVersion.quasiSemanticVersion
-		self.releaseSuffix = dissectedVersion.releaseSuffix
-		self.metadataSuffix = dissectedVersion.metadataSuffix
+		let deconstructedVersion = Version.deconstruct(from: finalVersionString)
+		self.epoch = deconstructedVersion.epoch
+		self.quasiSemanticVersion = deconstructedVersion.quasiSemanticVersion
+		self.releaseSuffix = deconstructedVersion.releaseSuffix
+		self.metadataSuffix = deconstructedVersion.metadataSuffix
 	}
 	
 	/**
@@ -146,7 +146,7 @@ struct Version: Hashable, Codable {
 	/**
 	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffic parts from the given complete version string.
 	*/
-	private static func getDissectedVersion(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegment], releaseSuffix: String?, metadataSuffix: String?) {
+	private static func deconstruct(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegment], releaseSuffix: String?, metadataSuffix: String?) {
 		//	FIXME: Find a way to use Substrings instead, for efficienccy.
 		let versionStringSplitByColons: [String] = versionString.components(separatedBy: ":")
 		let versionStringRemainSplitByPluses: [String] = versionStringSplitByColons.last?.components(separatedBy: "+") ?? []
@@ -158,13 +158,13 @@ struct Version: Hashable, Codable {
 		/**
 		Returns a non-numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNonNumericalLeadingCluster(from versionSegmentSubString: String) -> VersionSegment {
+		func nonNumericalLeadingComparableUnits(of versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) })
-			let remainingComparableUnits = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
+			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.nonNumerical(String(nextComparableUnit)))
-			if !remainingComparableUnits.isEmpty {
-				versionSegment.append(contentsOf: getNumericalLeadingCluster(from: String(remainingComparableUnits)))
+			if !remainingVersionSegmentSubString.isEmpty {
+				versionSegment.append(contentsOf: numericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
 			return versionSegment
 		}
@@ -172,13 +172,13 @@ struct Version: Hashable, Codable {
 		/**
 		Returns a numerical characters-leading version segments cluster parsed from the given version string.
 		*/
-		func getNumericalLeadingCluster(from versionSegmentSubString: String) -> VersionSegment {
+		func numericalLeadingComparableUnits(of versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { ("0"..."9" ~= $0) })
-			let remainingComparableUnits = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
+			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.numerical(Int(String(nextComparableUnit))!))
-			if !remainingComparableUnits.isEmpty {
-				versionSegment.append(contentsOf: getNonNumericalLeadingCluster(from: String(remainingComparableUnits)))
+			if !remainingVersionSegmentSubString.isEmpty {
+				versionSegment.append(contentsOf: nonNumericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
 			return versionSegment
 		}
@@ -186,7 +186,7 @@ struct Version: Hashable, Codable {
 		let epoch: Int? = versionStringSplitByColons.count > 1 ? Int(versionStringSplitByColons[0]) : nil
 		let metadataSuffix: String? = versionStringRemainSplitByPluses.count > 1 ? versionStringRemainSplitByPluses.last : nil
 		let releaseSuffix: String? = versionStringRemainSplitByMinuses.count > 1 ? versionStringRemainSplitByMinuses.last : nil
-		let quasiSemanticVersion: [VersionSegment] = versionStringRemainSplitByDots.map { getNonNumericalLeadingCluster(from: $0) }
+		let quasiSemanticVersion: [VersionSegment] = versionStringRemainSplitByDots.map { nonNumericalLeadingComparableUnits(of: $0) }
 		
 		return (epoch: epoch, quasiSemanticVersion: quasiSemanticVersion, releaseSuffix: releaseSuffix, metadataSuffix: metadataSuffix)
 	}
