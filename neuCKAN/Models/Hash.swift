@@ -6,6 +6,8 @@
 //	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
+//	TODO: Reimplement with either Swift Crypto or Apple CryptoKit.
+
 import Foundation
 
 /**
