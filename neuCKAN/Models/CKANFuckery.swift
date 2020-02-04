@@ -14,7 +14,7 @@ An item, or a list thereof.
 
 Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
 */
-enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & WithDefault>: Hashable, Codable {
+enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & Defaultable>: Hashable, Codable {
 	
 	/**
 	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
@@ -77,12 +77,12 @@ extension CKANFuckery: CustomStringConvertible {
 }
 
 ///	A type that provides a default instance when requested.
-protocol WithDefault {
+protocol Defaultable {
 	///	An instance of this type with a predefined composition.
 	static var defaultInstance: Self { get }
 }
 
-extension String: WithDefault {
+extension String: Defaultable {
 	///	A default String instance: `""`.
 	static let defaultInstance: String = ""
 }
