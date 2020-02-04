@@ -113,7 +113,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	[6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 	[7]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 	*/
-	var releases: [Release] {
+	private(set) var releases: [Release] {
 		didSet {
 			self.releases.sort(by: { $0.version > $1.version })
 		}
