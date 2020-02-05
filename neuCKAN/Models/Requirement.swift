@@ -37,7 +37,7 @@ struct Requirement: Hashable, Codable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
-//	let id: String
+	var id: String?
 	
 	/**
 	Mod name.
