@@ -1,5 +1,5 @@
 //
-//	Relation.swift
+//	Requirement.swift
 //	neuCKAN
 //
 //	Created by you on 19-11-06.
@@ -13,7 +13,7 @@ The mod's relationship to another other mod.
 
 This is equivalent to an instance in the ["Relationship" "type"][0] in a .ckan file.
 
-`Relation` instances are building blocks for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+`Requirement` instances are building blocks for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
 At its most basic, a "Relationship" field in a .ckan file is an array of instances, each being a name and identifier:
 
@@ -39,13 +39,13 @@ The optional fields `min_version`, `max_version`, and `version` in a .ckan file 
 
 It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same instance in a .ckan file.
 
-The `Relation` struct translate a single instance in .ckan files' "Relationship" field, following the same principle.
+The `Requirement` struct translate a single instance in .ckan files' "Relationship" field, following the same principle.
 
 neuCKAN must respect the optional version fields if present.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-struct Relation: Hashable, Codable {
+struct Requirement: Hashable, Codable {
 	//	MARK: - Mandatory Field
 	
 	/**
@@ -128,7 +128,7 @@ struct Relation: Hashable, Codable {
 
 //	MARK: - CustomStringConvertible Conformance
 
-extension Relation: CustomStringConvertible {
+extension Requirement: CustomStringConvertible {
 	/**
 	A logic expression describing the relation.
 	

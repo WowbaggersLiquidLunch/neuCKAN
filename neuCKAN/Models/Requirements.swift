@@ -1,5 +1,5 @@
 //
-//	Relations.swift
+//	Requirements.swift
 //	neuCKAN
 //
 //	Created by you on 19-11-06.
@@ -9,12 +9,14 @@
 import Foundation
 import os.log
 
+//	FIXME: Find a more appropriate name than "Requirements".
+
 /**
 The mod's relationship to other mods.
 
 This is equivalent to a ["Relationship" type][0] in a .ckan file.
 
-`Relations` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+`Requirements` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
 At its most basic, a `Relationship` field in a .ckan file is an array of instances, each being a name and identifier:
 
@@ -57,43 +59,43 @@ For example:
 ]
 ```
 
-The `Relations` struct is designed to translate and handle the above `any_of` feature.
+The `Requirements` struct is designed to translate and handle the above `any_of` feature.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-indirect enum Relations: Hashable, Codable {
+indirect enum Requirements: Hashable, Codable {
 	
 	//	MARK: - Codable Conformance
 	
 	/**
-	Initialises a `Relations` instance by decoding from the given `decoder`.
+	Initialises a `Requirements` instance by decoding from the given `decoder`.
 	
 	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
-		var relationsSet = try decodeRelations(from: decoder)
+		var requirementsSet = try decodeRelations(from: decoder)
 		
-		if relationsSet.count == 1 {
-			self = relationsSet.popFirst()!
+		if requirementsSet.count == 1 {
+			self = requirementsSet.popFirst()!
 		} else {
-			self = .allOfRelations(relationsSet)
+			self = .conjunction(requirementsSet)
 		}
 	}
 	
 	/**
-	Encodes a `Relations` instance`.
+	Encodes a `Requirements` instance`.
 	
 	- Parameter encoder: The encoder to encode data to.
 	*/
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.unkeyedContainer()
 		switch self {
-		case .leafRelation(let relation):
-			try container.encode(relation)
-		case .allOfRelations(let relations):
-			try container.encode(contentsOf: relations)
-		case .anyOfRelations(let relations):
-			try container.encode(IntermediateRelationsService(Relations.anyOfRelations(relations)))
+		case .leaf(let requirement):
+			try container.encode(requirement)
+		case .conjunction(let requirements):
+			try container.encode(contentsOf: requirements)
+		case .disjunction(let requirements):
+			try container.encode(IntermediateDisjunctionService(Requirements.disjunction(requirements)))
 		}
 	}
 	
@@ -102,40 +104,40 @@ indirect enum Relations: Hashable, Codable {
 	/**
 	A `Relation` instance.
 	*/
-	case leafRelation(Relation)
+	case leaf(Requirement)
 	
 	/**
-	A set of `Relations` instances with an "OR" relationship
+	A set of `Requirements` instances with an "OR" relationship
 	
 	This represents an `"any_of"` array in a .ckan file.
 	*/
-	case anyOfRelations(Set<Relations>)
+	case disjunction(Set<Requirements>)
 	
 	/**
-	A set of `Relations` instances with an "AND" relationship
+	A set of `Requirements` instances with an "AND" relationship
 	*/
-	case allOfRelations(Set<Relations>)
+	case conjunction(Set<Requirements>)
 	
 	//	MARK: - Instance Method
 	
 	/**
-	A logic expression describing the `Relations` instance.
+	A logic expression describing the `Requirements` instance.
 	*/
 	var logicExpression: String {
 		switch self {
-		case let .leafRelation(relation):
-			return String(describing: relation)
-		case let .anyOfRelations(relations):
-			return "(\(relations.map { String(describing: $0) }.joined(separator: " ∨ ")))"
-		case let .allOfRelations(relations):
-			return "(\(relations.map { String(describing: $0) }.joined(separator: " ∧ ")))"
+		case let .leaf(requirement):
+			return String(describing: requirement)
+		case let .disjunction(requirements):
+			return "(\(requirements.map { String(describing: $0) }.joined(separator: " ∨ ")))"
+		case let .conjunction(requirements):
+			return "(\(requirements.map { String(describing: $0) }.joined(separator: " ∧ ")))"
 		}
 	}
 }
 
 //	MARK: - CustomStringConvertible Conformance
 
-extension Relations: CustomStringConvertible {
+extension Requirements: CustomStringConvertible {
 	var description: String { logicExpression }
 }
 
@@ -144,56 +146,56 @@ extension Relations: CustomStringConvertible {
 /**
 A service struct that for intermediate `"any_of"` JSON values.
 */
-struct IntermediateRelationsService: Codable {
+struct IntermediateDisjunctionService: Codable {
 	
 	/**
-	Initialises a `Relations` instance by decoding from the given `decoder`.
+	Initialises a `Requirements` instance by decoding from the given `decoder`.
 	
 	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
-		var relationsSet = try decodeRelations(from: decoder)
+		var requirementsSet = try decodeRelations(from: decoder)
 		
-		if relationsSet.count == 1 {
-			relations = relationsSet.popFirst()!
+		if requirementsSet.count == 1 {
+			requirements = requirementsSet.popFirst()!
 		} else {
-			relations = Relations.anyOfRelations(relationsSet)
+			requirements = Requirements.disjunction(requirementsSet)
 		}
 	}
 	
 	/**
-	Encodes a `Relations` instance`.
+	Encodes a `Requirements` instance`.
 	
 	- Parameter encoder: The encoder to encode data to.
 	*/
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(relations, forKey: .relations)
+		try container.encode(requirements, forKey: .requirements)
 	}
 	
 	/**
 	A memberwise initialiser.
 	*/
-	init(_ relations: Relations) {
-		self.relations = relations
+	init(_ requirements: Requirements) {
+		self.requirements = requirements
 	}
 	
-	let relations: Relations
+	let requirements: Requirements
 	
 	private enum CodingKeys: String, CodingKey {
-		case relations = "any_of"
+		case requirements = "any_of"
 	}
 }
 
 /**
-Decodes a set of `Relations` from the given decoder.
+Decodes a set of `Requirements` from the given decoder.
 
 - Parameter decoder: The decoder to read data from.
 
-- Returns: An instance of `Set<Relations>` decoded from the given decoder.
+- Returns: An instance of `Set<Requirements>` decoded from the given decoder.
 */
-fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Relations> {
-	var relationsSet: Set<Relations> = []
+fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Requirements> {
+	var requirementsSet: Set<Requirements> = []
 	
 	//	Create an unkeyed container holding the current level of JSON values.
 	var unkeyedValues = try decoder.unkeyedContainer()
@@ -203,12 +205,12 @@ fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Relations>
 	while unkeyedValues.count! > unkeyedValues.currentIndex {
 		let containerIndexBeforeLoop = unkeyedValues.currentIndex
 		
-		if let relation = try? unkeyedValues.decode(Relation.self) {
-			relationsSet.insert(Relations.leafRelation(relation))
-		} else if let intermediateRelations = try? unkeyedValues.decode(IntermediateRelationsService.self) {
-			relationsSet.insert(intermediateRelations.relations)
-		} else if let relations = try? unkeyedValues.decode(Relations.self) {
-			relationsSet.insert(relations)
+		if let requirement = try? unkeyedValues.decode(Requirement.self) {
+			requirementsSet.insert(Requirements.leaf(requirement))
+		} else if let intermediateDisjunction = try? unkeyedValues.decode(IntermediateDisjunctionService.self) {
+			requirementsSet.insert(intermediateDisjunction.requirements)
+		} else if let requirements = try? unkeyedValues.decode(Requirements.self) {
+			requirementsSet.insert(requirements)
 		}
 		
 		//	If the unkeyed container's current index didn't increase by 1 during this loop, then the the unkeyed value at the current index was not decoded, and will not be in future loops. There is no way to increment the index manually, so the unkeyed container will keep trying for the same value. The best choice is to break out of the loop.
@@ -219,5 +221,5 @@ fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Relations>
 		}
 	}
 	
-	return relationsSet
+	return requirementsSet
 }
