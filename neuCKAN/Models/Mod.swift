@@ -123,6 +123,8 @@ struct Mod: Hashable, Codable, Identifiable {
 	Insert a mod release into a mods array.
 	
 	The `Release` instance is only inserted if it doesn't already exists.
+	
+	- Complexity: O(1) on average, over many calls to insert(_:) on the same mod.
 	*/
 	mutating func insert(_ release: Release) {
 		if !releases.contains(release) {

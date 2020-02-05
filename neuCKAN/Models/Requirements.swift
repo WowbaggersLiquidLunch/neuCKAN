@@ -12,54 +12,15 @@ import os.log
 //	FIXME: Find a more appropriate name than "Requirements".
 
 /**
-The mod's relationship to other mods.
+A group of mod releases that form a certain relationship with the mod release.
 
-This is equivalent to a ["Relationship" type][0] in a .ckan file.
+This is equivalent to an object in a ["Relationship" field][0] in CKAN metadata.
 
 `Requirements` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
 
-At its most basic, a `Relationship` field in a .ckan file is an array of instances, each being a name and identifier:
+- Note: It is an error to mix `"version"` (which specifies an exact version) with either `"min_version"` or `"max_version"` in the same instance in a .ckan file.
 
-```
-"depends" : [
-	{ "name" : "ModuleManager" },
-	{ "name" : "RealFuels" },
-	{ "name" : "RealSolarSystem" }
-]
-```
-
-Each relationship is an array of entries, each entry must have a `name` field in a .ckan file.
-
-The optional fields `min_version`, `max_version`, and `version` in a .ckan file may more precisely describe which versions are needed:
-
-```
-"depends" : [
-	{ "name" : "ModuleManager",   "min_version" : "2.1.5" },
-	{ "name" : "RealSolarSystem", "min_version" : "7.3"   },
-	{ "name" : "RealFuels" }
-]
-```
-
-It is an error to mix `"version"` (which specifies an exact version) with either `"min_version"` or `"max_version"` in the same instance in a .ckan file.
-
-CKAN clients implementing CKAN metadata specification version v1.26 or later must support an alternate form of relationship consisting of an `"any_of"` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
-
-For example:
-
-```
-"depends": [
-	{
-		"any_of": [
-			{ "name": "TextureReplacer"          },
-			{ "name": "TextureReplacerReplaced"  },
-			{ "name": "SigmaReplacements-Skybox" },
-			{ "name": "DiRT"                     }
-		]
-	}
-]
-```
-
-The `Requirements` struct is designed to translate and handle the above `any_of` feature.
+- See Also: `Requirement`
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
@@ -107,9 +68,26 @@ indirect enum Requirements: Hashable, Codable {
 	case leaf(Requirement)
 	
 	/**
-	A set of `Requirements` instances with an "OR" relationship
+	A set of `Requirements` instances with an "OR" relationship.
 	
-	This represents an `"any_of"` array in a .ckan file.
+	This represents an `"any_of"` array in a CKAN metadata.
+	
+	CKAN metadata specification since version v1.26 specifies an alternate form of relationship consisting of an `"any_of"` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
+	
+	For example:
+	
+	```
+	"depends": [
+		{
+			"any_of": [
+				{ "name": "TextureReplacer"          },
+				{ "name": "TextureReplacerReplaced"  },
+				{ "name": "SigmaReplacements-Skybox" },
+				{ "name": "DiRT"                     }
+			]
+		}
+	]
+	```
 	*/
 	case disjunction(Set<Requirements>)
 	

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+A nerdy and mathematically incorrect expression for CKAN metadata's `"any"` version.
+*/
 fileprivate let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
 
 /**
@@ -118,12 +121,21 @@ struct Version: Hashable, Codable {
 	*/
 	let metadataSuffix: String?
 	
+	/**
+	A series of alternating strings and integers.
+	
+	An instance of this type represents a part of the content separated by dots in a version string.
+	
+	- See Also: `CKANVersionSmallestComparableUnit`
+	*/
 	private typealias VersionSegment = [CKANVersionSmallestComparableUnit]
 	
 	/**
 	The smallest comparable unit in CKAN metadata's `"mod_version"` attribute.
 	
-	Because the CKAN metadata specification does not enforce a versioning standard, a special type is required for the sake of flexibility and compatibility. The `VersionSegment` type implements [the comparison scheme as described in the specification][version ordering], but favors semantic versioning when in face of ambiguity.
+	CKAN metadata specification [specifies][version ordering] that each contiguous chunk of non-numeric or numeric characters in a version string should be evaluated collectively.
+	
+	- See Also: `VersionSegment`
 	
 	[version ordering]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 	*/
@@ -194,7 +206,7 @@ struct Version: Hashable, Codable {
 
 //	Extends Version to add comformance to Comparable protocols.
 extension Version: Comparable {
-	//	Compares verisons exactly how the CKAN metadata specification wants it, but better.
+	//	Compares verisons exactly how the CKAN metadata specification wants it, but better, but favors semantic versioning when in face of ambiguity.
 	static func < (lhs: Version, rhs: Version) -> Bool {
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
 			return lhs < rhs

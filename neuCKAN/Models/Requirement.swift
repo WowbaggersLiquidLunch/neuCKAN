@@ -9,41 +9,11 @@
 import Foundation
 
 /**
-The mod's relationship to another other mod.
+A range of release versions of a mod.
 
-This is equivalent to an instance in the ["Relationship" "type"][0] in a .ckan file.
+This type serves as a building block of `Requirements`
 
-`Requirement` instances are building blocks for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
-
-At its most basic, a "Relationship" field in a .ckan file is an array of instances, each being a name and identifier:
-
-```
-"depends" : [
-{ "name" : "ModuleManager" },
-{ "name" : "RealFuels" },
-{ "name" : "RealSolarSystem" }
-]
-```
-
-Each relationship is an array of entries, each entry must have a `name` field in a .ckan file.
-
-The optional fields `min_version`, `max_version`, and `version` in a .ckan file may more precisely describe which versions are needed:
-
-```
-"depends" : [
-{ "name" : "ModuleManager",   "min_version" : "2.1.5" },
-{ "name" : "RealSolarSystem", "min_version" : "7.3"   },
-{ "name" : "RealFuels" }
-]
-```
-
-It is an error to mix `version` (which specifies an exact version) with either `min_version` or `max_version` in the same instance in a .ckan file.
-
-The `Requirement` struct translate a single instance in .ckan files' "Relationship" field, following the same principle.
-
-neuCKAN must respect the optional version fields if present.
-
-[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
+- See Also: `Requirements`
 */
 struct Requirement: Hashable, Codable {
 	//	MARK: - Mandatory Field
