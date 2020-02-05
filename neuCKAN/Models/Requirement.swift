@@ -37,7 +37,7 @@ struct Requirement: Hashable, Codable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
-	var id: String?
+	let id: String
 	
 	/**
 	Mod name.
@@ -52,7 +52,7 @@ struct Requirement: Hashable, Codable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
-	let name: String
+	var name: String?
 	
 	//	MARK: - Optional Fields
 	
@@ -89,7 +89,7 @@ struct Requirement: Hashable, Codable {
 	
 	//	Maps between Swift names and JSON names; adds Codable conformance.
 	private enum CodingKeys: String, CodingKey {
-		case name
+		case id = "name"
 		case version
 		case versionMin = "min_version"
 		case versionMax = "max_version"
@@ -109,14 +109,15 @@ extension Requirement: CustomStringConvertible {
 	- `"mod's name [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
 	*/
 	var description: String {
+		guard let name = name else { return "mod by ID \(id) not found" }
 		if let version = version {
-			return self.name + " (\(version.originalString))"
+			return name + " (\(version.originalString))"
 		} else if let versionMin = versionMin, let versionMax = versionMax {
-			return self.name + " [\(versionMin.originalString), \(versionMax.originalString)]"
+			return name + " [\(versionMin.originalString), \(versionMax.originalString)]"
 		} else if let versionMin = versionMin {
-			return self.name + " (≥ \(versionMin.originalString)"
+			return name + " (≥ \(versionMin.originalString)"
 		} else if let versionMax = versionMax {
-			return self.name + " (≤ \(versionMax.originalString))"
+			return name + " (≤ \(versionMax.originalString))"
 		} else {
 			return name
 		}
