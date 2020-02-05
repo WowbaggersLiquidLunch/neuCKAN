@@ -69,8 +69,6 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	This is equivalent to the ["identifier" attribute][0] in a .ckan file.
 	
-	This is how the mod will be referred to by other CKAN documents. It may only consist of ASCII-letters, ASCII-digits and `-` (dash).
-	
 	For example:
 	- "FAR"
 	- "RealSolarSystem".
@@ -78,8 +76,6 @@ struct Release: Hashable, Codable, Identifiable {
 	The identifier is used whenever the mod is referenced (by `dependencies`, `conflicts`, and elsewhere).
 	
 	The identifier is both case sensitive for machines, and unique regardless of capitalization for human consumption and case-ignorant systems. For example: the hypothetical identifier `"MyMod"` must always be expressed as `"MyMod"` everywhere, but another module cannot assume the `"mymod"` identifier.
-	
-	- Attention: If the mod would generate a `FOR` pass in ModuleManager, then the identifier should be same as the `"ModuleManager"` name. For most mods, this means the identifier should be the name of the directory in `GameData/` in which the mod would be installed, or the name of the `.dll` with any version and the ".dll" suffix removed.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
