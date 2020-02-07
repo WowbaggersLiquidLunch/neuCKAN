@@ -42,7 +42,9 @@ struct Requirement: Hashable, Codable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
-	var name: String?
+	var name: String? {
+		Synecdoche.mods[id]?.name
+	}
 	
 	//	MARK: - Optional Fields
 	
