@@ -91,6 +91,7 @@ struct Requirement: Hashable, Codable {
 //	MARK: - CustomStringConvertible Conformance
 
 extension Requirement: CustomStringConvertible {
+	//	TODO: Recursively handle a release's equivalents without running into an infinite loop.
 	/**
 	A logic expression describing the relation.
 	

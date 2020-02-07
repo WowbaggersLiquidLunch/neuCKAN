@@ -389,6 +389,8 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let kind: String?
 	
+	//	TODO: Recursively handle equivalents without running into an infinite loop.
+	
 	/**
 	A list of identifiers, that this mod is equivalent to.
 	
