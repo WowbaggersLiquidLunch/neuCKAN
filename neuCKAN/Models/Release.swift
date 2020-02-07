@@ -41,7 +41,7 @@ struct Release: Hashable, Codable, Identifiable {
 	let metadataSpecVersion: Version
 	
 	/**
-	Mod name.
+	The mod's name.
 	
 	This is the human readable name of the mod, and may contain any printable characters.
 	
@@ -65,7 +65,7 @@ struct Release: Hashable, Codable, Identifiable {
 	let abstract: String
 	
 	/**
-	The globally unique identifier for the mod.
+	The mod's globally unique identifier.
 	
 	This is equivalent to the ["identifier" attribute][0] in a .ckan file.
 	
