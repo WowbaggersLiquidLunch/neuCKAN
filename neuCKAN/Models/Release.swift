@@ -404,19 +404,21 @@ struct Release: Hashable, Codable, Identifiable {
 	*/
 	let equivalents: [String]?
 	
+	//	TODO: Add instance property "archive" that include "size", "hash", and "cache"
+	
 	/**
-	Mod size.
+	The mod's download's size.
 	
 	This is equivalent to the ["download_size" attribute][0] in a .ckan file.
 	
-	`size` is the number of bytes to expect when downloading from `downloadLink`.
+	`archiveSize` is the number of bytes to expect when downloading from `downloadLink`.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_size
 	*/
-	let size: Int?
+	let archiveSize: Int?
 	
 	/**
-	Mod hash digests.
+	The mod's download's hash digests.
 	
 	This is equivalent to the ["download_hash" attribute][0] in a .ckan file.
 	
@@ -424,7 +426,7 @@ struct Release: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_hash
 	*/
-	let hash: Hash?
+	let archiveHash: Hash?
 	
 	/**
 	Type of downloaded mod file.
@@ -471,8 +473,8 @@ struct Release: Hashable, Codable, Identifiable {
 		case resources
 		case kind
 		case equivalents = "provides"
-		case size = "download_size"
-		case hash = "download_hash"
+		case archiveSize = "download_size"
+		case archiveHash = "download_hash"
 		case fileType = "download_content_type"
 	}
 }
