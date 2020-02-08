@@ -9,17 +9,11 @@
 import Foundation
 
 /**
-A collection of a _mod_'s releases arranged in reverse chronological order.
-
-A mod is defined by its ["identifier" attribute][identifier] in a .ckan file. The attribute is equivalent to the `id` field in a `Mod` struct. A `Mod` instance aggregates all _releases_ of the same mod under/with the same `id`.
-
-A mod release is a version or distribution of a mod released to public on [CKAN][0]. Each mod release has a version number unique from its sibling releases of the same mod. For example, the following are 3 releases of the same mod "Farram Aerospace Reseach":
-- [Ferram Aerospace Research v0.15.9.1	"Liepmann"][1]
-- [Ferram Aerospace Research v0.15.9	"Liebe"][2]
-- [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
+A collection of a mod's releases arranged in reverse chronological order.
 
 The read-only `releases` instance property is an array of all the releases. The releases are sorted to reverse chronological order by comparison of their versions whenever `releases` changes.
 
+- See Also: `Mod`.
 - See Also: `Release`.
 
 [identifier]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
