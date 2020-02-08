@@ -11,9 +11,11 @@ import Foundation
 /**
 A collection of a mod's releases arranged in reverse chronological order.
 
+A mod is identified and accessible fron an enclosing `Mods` instance by its `id`.
+
 The read-only `releases` instance property is an array of all the releases. The releases are sorted to reverse chronological order by comparison of their versions whenever `releases` changes.
 
-- See Also: `Mod`.
+- See Also: `Mods`.
 - See Also: `Release`.
 
 [identifier]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
@@ -62,6 +64,17 @@ struct Mod: Hashable, Codable, Identifiable {
 	let id: String
 	
 	/**
+	A collection of mod releases of the same mod.
+	
+	- See Also: `Release`.
+	*/
+	private var releases: [Release] {
+		didSet {
+			self.releases.sort(by: { $0.version > $1.version })
+		}
+	}
+	
+	/**
 	The mod's name.
 	
 	This is the human readable name of the mod, and may contain any printable characters.
@@ -84,27 +97,6 @@ struct Mod: Hashable, Codable, Identifiable {
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
 	var abstract: String { releases.max(by: { $0.version > $1.version })?.abstract ?? "mod abstract dores not exist" }
-	
-	/**
-	A collection of _mod releases_ of the same mod.
-	
-	A mod release is a version or distribution of a mod released to public on [CKAN][0]. Each mod release has a version number unique from its sibling releases of the same mod. For example, the following are 3 releases of the same mod "Farram Aerospace Reseach":
-	- [Ferram Aerospace Research v0.15.9.1	"Liepmann"][1]
-	- [Ferram Aerospace Research v0.15.9	"Liebe"][2]
-	- [Ferram Aerospace Research v0.15.8.1	"Lewis"][3]
-		
-	- See Also: `Release`.
-	
-	[0]: https://github.com/KSP-CKAN/CKAN
-	[1]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9.1_Liepmann
-	[2]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.9_Liebe
-	[3]: https://github.com/ferram4/Ferram-Aerospace-Research/releases/tag/v0.15.8.1_Lewis
-	*/
-	private(set) var releases: [Release] {
-		didSet {
-			self.releases.sort(by: { $0.version > $1.version })
-		}
-	}
 	
 	/**
 	Add a new release into the mod.
