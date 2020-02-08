@@ -162,7 +162,6 @@ struct Mod: Hashable, Codable, Identifiable {
 }
 
 //	MARK: - Collection Conformance
-
 extension Mod: Collection {	
 	
 	typealias Index = Array<Release>.Index
