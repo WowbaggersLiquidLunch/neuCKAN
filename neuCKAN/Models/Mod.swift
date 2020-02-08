@@ -119,7 +119,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Parameter release: The release instance to be added in this collection.
 	
-	- Complexity: O(1) on average, over many calls to insert(_:) on the same mod.
+	- Complexity: O(n), where n is the count of releases in the collection.
 	*/
 	mutating func insert(_ release: Release) {
 		if !releases.contains(release) {
@@ -136,7 +136,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Returns: The mod release collection itself.
 	
-	- Complexity: O(1) on average, over many calls to insert(_:) on the same mod.
+	- Complexity: O(n), where n is the count of releases in the collection.
 	*/
 	mutating func inserted(_ release: Release) -> Mod {
 		insert(release)
@@ -152,7 +152,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Returns: The mod release of the specified version.
 	
-	- Complexity: O(1)
+	- Complexity: O(n), where n is the count of releases in the collection.
 	*/
 	subscript(version: Version) -> Release? {
 		get {
@@ -198,7 +198,7 @@ extension Mod: Collection {
 	
 	- Returns: The mod release at the specified reverse-chronological position.
 	
-	- Complexity: O(1)
+	- Complexity: O(1).
 	*/
 	subscript(position: Index) -> Release? { releases[position] }
 	
