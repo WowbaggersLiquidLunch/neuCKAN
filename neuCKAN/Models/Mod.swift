@@ -194,5 +194,5 @@ extension Mod: Collection {
 	
 	- Complexity: O(1).
 	*/
-	subscript(position: Index) -> Release? { releases[position] }
+	subscript(position: Index) -> Release { releases[position] }
 }
