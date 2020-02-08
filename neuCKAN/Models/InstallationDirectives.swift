@@ -28,82 +28,9 @@ A typical set of installation directives only has `"file"` and `"install_to"` at
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 */
-struct InstallationDirectives: Hashable, Codable {
+struct InstallationDirectives: Hashable {
 	
-	//	MARK: - Codable Conformance
-	
-	/**
-	Initialises a `InstallationDirectives` instance by decoding from the given `decoder`.
-	
-	- Parameter decoder: The decoder to read data from.
-	*/
-	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		
-		if let directive = try? values.decode(String.self, forKey: .consistent) {
-			source = .consistent(directive)
-		} else if let directive = try? values.decode(String.self, forKey: .inconsistent) {
-			source = .inconsistent(directive)
-		} else if let directive = try? values.decode(String.self, forKey: .consistentByRegex) {
-			source = .consistentByRegex(directive)
-		} else {
-			source = .consistent("")
-		}
-		
-		destination = try values.decode(String.self, forKey: .destination)
-		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
-		componentsExcluded = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcluded)
-		componentsExcludedByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcludedByRegex)
-		componentsIncludedExclusively = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusively)
-		componentsIncludedExclusivelyByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusivelyByRegex)
-		sourceDirectiveMatchesFiles = try? values.decode(Bool.self, forKey: .sourceDirectiveMatchesFiles)
-	}
-	
-	/**
-	Encodes a `InstallationDirectives` instance`.
-	
-	- Parameter encoder: The encoder to encode data to.
-	*/
-	func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		
-		switch source {
-		case .consistent(let directive):
-			try container.encode(directive, forKey: .consistent)
-		case .inconsistent(let directive):
-			try container.encode(directive, forKey: .inconsistent)
-		case .consistentByRegex(let directive):
-			try container.encode(directive, forKey: .consistentByRegex)
-		}
-		
-		try container.encode(destination, forKey: .destination)
-		
-		if let directive = newPathNameOnInstallation {
-			try container.encode(directive, forKey: .newPathNameOnInstallation)
-		}
-		
-		if let directive = componentsExcluded {
-			try container.encode(directive, forKey: .componentsExcluded)
-		}
-		
-		if let directive = componentsExcludedByRegex {
-			try container.encode(directive, forKey: .componentsExcludedByRegex)
-		}
-		
-		if let directive = componentsIncludedExclusively {
-			try container.encode(directive, forKey: .componentsIncludedExclusively)
-		}
-		
-		if let directive = componentsIncludedExclusivelyByRegex {
-			try container.encode(directive, forKey: .componentsIncludedExclusivelyByRegex)
-		}
-		
-		if let directive = sourceDirectiveMatchesFiles {
-			try container.encode(directive, forKey: .sourceDirectiveMatchesFiles)
-		}
-	}
-	
-	//	MARK: - Source Directives
+	//	MARK: Source Directive
 	
 	/**
 	The source location from which the matched file(s) or directory(s) should be installed.
@@ -114,6 +41,7 @@ struct InstallationDirectives: Hashable, Codable {
 	A representation of source directives as defined by the CKAN metadata specification.
 	*/
 	enum SourceDirective: Hashable {
+		
 		/**
 		The file or directory root that this directive pertains to.
 		
@@ -218,8 +146,70 @@ struct InstallationDirectives: Hashable, Codable {
 	This is equivalent to the `"find_matches_files"` attribute in a .ckan file.
 	*/
 	let sourceDirectiveMatchesFiles: Bool?
+}
+
+//	MARK: - Codable Conformance
+extension InstallationDirectives: Codable {
+	/**
+	Initialises a `InstallationDirectives` instance by decoding from the given `decoder`.
 	
-	//	Mark: -
+	- Parameter decoder: The decoder to read data from.
+	*/
+	init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		
+		//	MARK: Decode Source Directive
+		if let directive = try? values.decode(String.self, forKey: .consistent) {
+			source = .consistent(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .inconsistent) {
+			source = .inconsistent(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .consistentByRegex) {
+			source = .consistentByRegex(directive)
+		} else {
+			source = .consistent("")
+		}
+		
+		//	MARK: Decode Destination Directive
+		destination = try values.decode(String.self, forKey: .destination)
+		
+		//	MARK: Decode Optional Directive
+		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
+		componentsExcluded = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcluded)
+		componentsExcludedByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcludedByRegex)
+		componentsIncludedExclusively = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusively)
+		componentsIncludedExclusivelyByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusivelyByRegex)
+		sourceDirectiveMatchesFiles = try? values.decode(Bool.self, forKey: .sourceDirectiveMatchesFiles)
+	}
+	
+	/**
+	Encodes a `InstallationDirectives` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
+	*/
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		//	MARK: Encode Source Directive
+		switch source {
+		case .consistent(let directive):
+			try container.encode(directive, forKey: .consistent)
+		case .inconsistent(let directive):
+			try container.encode(directive, forKey: .inconsistent)
+		case .consistentByRegex(let directive):
+			try container.encode(directive, forKey: .consistentByRegex)
+		}
+		
+		//	MARK: Decode Destination Directive
+		try container.encode(destination, forKey: .destination)
+		
+		//	MARK: Decode Optional Directive
+		if let directive = newPathNameOnInstallation { try container.encode(directive, forKey: .newPathNameOnInstallation) }
+		if let directive = componentsExcluded { try container.encode(directive, forKey: .componentsExcluded) }
+		if let directive = componentsExcludedByRegex { try container.encode(directive, forKey: .componentsExcludedByRegex) }
+		if let directive = componentsIncludedExclusively { try container.encode(directive, forKey: .componentsIncludedExclusively) }
+		if let directive = componentsIncludedExclusivelyByRegex { try container.encode(directive, forKey: .componentsIncludedExclusivelyByRegex) }
+		if let directive = sourceDirectiveMatchesFiles { try container.encode(directive, forKey: .sourceDirectiveMatchesFiles) }
+	}
 	
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
@@ -235,4 +225,3 @@ struct InstallationDirectives: Hashable, Codable {
 		case sourceDirectiveMatchesFiles = "find_matches_files"
 	}
 }
-

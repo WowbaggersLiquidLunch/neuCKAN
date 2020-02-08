@@ -15,8 +15,9 @@ This type serves as a building block of `Requirements`
 
 - See Also: `Requirements`
 */
-struct Requirement: Hashable, Codable {
-	//	MARK: - Mandatory Field
+struct Requirement: Hashable {
+	
+	//	MARK: Mandatory Field
 	
 	/**
 	The globally unique identifier for the mod.
@@ -48,6 +49,8 @@ struct Requirement: Hashable, Codable {
 	
 	//	MARK: - Optional Fields
 	
+	//	TODO: Check for confict between version, versionMin, and versionMax.
+	
 	/**
 	Mod version.
 	
@@ -76,20 +79,9 @@ struct Requirement: Hashable, Codable {
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
 	let versionMax: Version?
-	
-	//	MARK: -
-	
-	//	Maps between Swift names and JSON names; adds Codable conformance.
-	private enum CodingKeys: String, CodingKey {
-		case id = "name"
-		case version
-		case versionMin = "min_version"
-		case versionMax = "max_version"
-	}
 }
 
 //	MARK: - CustomStringConvertible Conformance
-
 extension Requirement: CustomStringConvertible {
 	//	TODO: Recursively handle a release's equivalents without running into an infinite loop.
 	/**
@@ -114,5 +106,16 @@ extension Requirement: CustomStringConvertible {
 		} else {
 			return name
 		}
+	}
+}
+
+//	MARK: - Codable Conformance
+extension Requirement: Codable {
+	//	Maps between Swift names and JSON names; adds Codable conformance.
+	private enum CodingKeys: String, CodingKey {
+		case id = "name"
+		case version
+		case versionMin = "min_version"
+		case versionMax = "max_version"
 	}
 }

@@ -27,7 +27,7 @@ While all currently defined resources are `URL`s, future revisions of the CKAN m
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#resources
 */
-struct Resources: Hashable, Codable {
+struct Resources: Hashable {
 	let homepage: URL?
 	let bugTracker: URL?
 	let license: URL?
@@ -37,7 +37,10 @@ struct Resources: Hashable, Codable {
 	let curse: URL?
 	let manual: URL?
 	let netkan: URL?
-	
+}
+
+//	MARK: - Codable Conformance
+extension Resources: Codable {
 	private enum CodingKeys: String, CodingKey {
 		case homepage
 		case bugTracker = "bugtracker"

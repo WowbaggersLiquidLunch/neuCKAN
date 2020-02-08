@@ -19,7 +19,7 @@ When comparing two version numbers, first the `epoch` of each are compared, then
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 */
-struct Version: Hashable, Codable {
+struct Version: Hashable {
 	
 	/**
 	Initialises a `Version` instance from the given version string.
@@ -46,31 +46,6 @@ struct Version: Hashable, Codable {
 	init(from versionDigits: Double) {
 		//	Create a string representation of the digits, and remove trailing 0s.
 		self.init(from: String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
-	}
-	
-	/**
-	Initialises a `Version` instance by decoding from the given `decoder`.
-	
-	- Parameter decoder: The decoder to read data from.
-	*/
-	init(from decoder: Decoder) throws {
-		if let versionString = try? decoder.singleValueContainer().decode(String.self) {
-			self = Version(from: versionString)
-		} else if let versionDigits = try? decoder.singleValueContainer().decode(Double.self) {
-			self = Version(from: versionDigits)
-		} else {
-			self = Version(from: String.defaultInstance)
-		}
-	}
-	
-	/**
-	Encodes a `Version` instance`.
-	
-	- Parameter encoder: The encoder to encode data to.
-	*/
-	func encode(to encoder: Encoder) throws {
-		var encoder = encoder.singleValueContainer()
-		try encoder.encode(originalString)
 	}
 	
 	/**
@@ -143,6 +118,7 @@ struct Version: Hashable, Codable {
 		case numerical(Int)
 		case nonNumerical(String)
 		
+		//	Comparable conformance
 		static func < (lhs: Version.CKANVersionSmallestComparableUnit, rhs: Version.CKANVersionSmallestComparableUnit) -> Bool {
 			switch (lhs, rhs) {
 			case (.numerical(let lhs), .numerical(let rhs)):
@@ -204,7 +180,36 @@ struct Version: Hashable, Codable {
 	}
 }
 
-//	Extends Version to add comformance to Comparable protocols.
+//	MARK: - Codable Conformance
+extension Version: Codable {
+
+	/**
+	Initialises a `Version` instance by decoding from the given `decoder`.
+	
+	- Parameter decoder: The decoder to read data from.
+	*/
+	init(from decoder: Decoder) throws {
+		if let versionString = try? decoder.singleValueContainer().decode(String.self) {
+			self = Version(from: versionString)
+		} else if let versionDigits = try? decoder.singleValueContainer().decode(Double.self) {
+			self = Version(from: versionDigits)
+		} else {
+			self = Version(from: String.defaultInstance)
+		}
+	}
+	
+	/**
+	Encodes a `Version` instance`.
+	
+	- Parameter encoder: The encoder to encode data to.
+	*/
+	func encode(to encoder: Encoder) throws {
+		var encoder = encoder.singleValueContainer()
+		try encoder.encode(originalString)
+	}
+}
+
+//	MARK: - Comparable Conformance
 extension Version: Comparable {
 	//	Compares verisons exactly how the CKAN metadata specification wants it, but better, but favors semantic versioning when in face of ambiguity.
 	static func < (lhs: Version, rhs: Version) -> Bool {

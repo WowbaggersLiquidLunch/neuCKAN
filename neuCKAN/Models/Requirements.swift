@@ -24,44 +24,8 @@ This is equivalent to an object in a ["Relationship" field][0] in CKAN metadata.
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 */
-indirect enum Requirements: Hashable, Codable {
-	
-	//	MARK: - Codable Conformance
-	
-	/**
-	Initialises a `Requirements` instance by decoding from the given `decoder`.
-	
-	- Parameter decoder: The decoder to read data from.
-	*/
-	init(from decoder: Decoder) throws {
-		var requirementsSet = try decodeRelations(from: decoder)
+indirect enum Requirements: Hashable {
 		
-		if requirementsSet.count == 1 {
-			self = requirementsSet.popFirst()!
-		} else {
-			self = .conjunction(requirementsSet)
-		}
-	}
-	
-	/**
-	Encodes a `Requirements` instance`.
-	
-	- Parameter encoder: The encoder to encode data to.
-	*/
-	func encode(to encoder: Encoder) throws {
-		var container = encoder.unkeyedContainer()
-		switch self {
-		case .leaf(let requirement):
-			try container.encode(requirement)
-		case .conjunction(let requirements):
-			try container.encode(contentsOf: requirements)
-		case .disjunction(let requirements):
-			try container.encode(IntermediateDisjunctionService(Requirements.disjunction(requirements)))
-		}
-	}
-	
-	//	MARK: - Enumeration Cases
-	
 	/**
 	A `Relation` instance.
 	*/
@@ -96,8 +60,6 @@ indirect enum Requirements: Hashable, Codable {
 	*/
 	case conjunction(Set<Requirements>)
 	
-	//	MARK: - Instance Method
-	
 	/**
 	A logic expression describing the `Requirements` instance.
 	*/
@@ -114,17 +76,12 @@ indirect enum Requirements: Hashable, Codable {
 }
 
 //	MARK: - CustomStringConvertible Conformance
-
 extension Requirements: CustomStringConvertible {
 	var description: String { logicExpression }
 }
 
-//	MARK: -
-
-/**
-A service struct that for intermediate `"any_of"` JSON values.
-*/
-struct IntermediateDisjunctionService: Codable {
+//	MARK: - Codable Conformance
+extension Requirements: Codable {
 	
 	/**
 	Initialises a `Requirements` instance by decoding from the given `decoder`.
@@ -132,12 +89,12 @@ struct IntermediateDisjunctionService: Codable {
 	- Parameter decoder: The decoder to read data from.
 	*/
 	init(from decoder: Decoder) throws {
-		var requirementsSet = try decodeRelations(from: decoder)
+		var requirementsSet = try Requirements.decodeRequirements(from: decoder)
 		
 		if requirementsSet.count == 1 {
-			requirements = requirementsSet.popFirst()!
+			self = requirementsSet.popFirst()!
 		} else {
-			requirements = Requirements.disjunction(requirementsSet)
+			self = .conjunction(requirementsSet)
 		}
 	}
 	
@@ -147,57 +104,95 @@ struct IntermediateDisjunctionService: Codable {
 	- Parameter encoder: The encoder to encode data to.
 	*/
 	func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(requirements, forKey: .requirements)
+		var container = encoder.unkeyedContainer()
+		switch self {
+		case .leaf(let requirement):
+			try container.encode(requirement)
+		case .conjunction(let requirements):
+			try container.encode(contentsOf: requirements)
+		case .disjunction(let requirements):
+			try container.encode(IntermediateDisjunctionService(Requirements.disjunction(requirements)))
+		}
 	}
 	
 	/**
-	A memberwise initialiser.
+	A service struct that for intermediate `"any_of"` JSON values.
 	*/
-	init(_ requirements: Requirements) {
-		self.requirements = requirements
-	}
-	
-	let requirements: Requirements
-	
-	private enum CodingKeys: String, CodingKey {
-		case requirements = "any_of"
-	}
-}
-
-/**
-Decodes a set of `Requirements` from the given decoder.
-
-- Parameter decoder: The decoder to read data from.
-
-- Returns: An instance of `Set<Requirements>` decoded from the given decoder.
-*/
-fileprivate func decodeRelations(from decoder: Decoder) throws -> Set<Requirements> {
-	var requirementsSet: Set<Requirements> = []
-	
-	//	Create an unkeyed container holding the current level of JSON values.
-	var unkeyedValues = try decoder.unkeyedContainer()
-	
-	//	"Loop" through values in the unkeyed container.
-	//	The unkeyed container does not conform to the `Sequence` protocol, but its `currentIndex` property grows by 1 every time when a value is decoded successfully.
-	while unkeyedValues.count! > unkeyedValues.currentIndex {
-		let containerIndexBeforeLoop = unkeyedValues.currentIndex
+	private struct IntermediateDisjunctionService: Codable {
 		
-		if let requirement = try? unkeyedValues.decode(Requirement.self) {
-			requirementsSet.insert(Requirements.leaf(requirement))
-		} else if let intermediateDisjunction = try? unkeyedValues.decode(IntermediateDisjunctionService.self) {
-			requirementsSet.insert(intermediateDisjunction.requirements)
-		} else if let requirements = try? unkeyedValues.decode(Requirements.self) {
-			requirementsSet.insert(requirements)
+		/**
+		Initialises a `Requirements` instance by decoding from the given `decoder`.
+		
+		- Parameter decoder: The decoder to read data from.
+		*/
+		init(from decoder: Decoder) throws {
+			var requirementsSet = try decodeRequirements(from: decoder)
+			
+			if requirementsSet.count == 1 {
+				requirements = requirementsSet.popFirst()!
+			} else {
+				requirements = Requirements.disjunction(requirementsSet)
+			}
 		}
 		
-		//	If the unkeyed container's current index didn't increase by 1 during this loop, then the the unkeyed value at the current index was not decoded, and will not be in future loops. There is no way to increment the index manually, so the unkeyed container will keep trying for the same value. The best choice is to break out of the loop.
-		if unkeyedValues.currentIndex <= containerIndexBeforeLoop {
-			//	TODO: Include the corresponding JSON value in the log.
-			os_log("Unable to decode value #%d in unkeyed container.", type: .debug, unkeyedValues.currentIndex)
-			break
+		/**
+		Encodes a `Requirements` instance`.
+		
+		- Parameter encoder: The encoder to encode data to.
+		*/
+		func encode(to encoder: Encoder) throws {
+			var container = encoder.container(keyedBy: CodingKeys.self)
+			try container.encode(requirements, forKey: .requirements)
+		}
+		
+		/**
+		A memberwise initialiser.
+		*/
+		init(_ requirements: Requirements) {
+			self.requirements = requirements
+		}
+		
+		let requirements: Requirements
+		
+		private enum CodingKeys: String, CodingKey {
+			case requirements = "any_of"
 		}
 	}
 	
-	return requirementsSet
+	/**
+	Decodes a set of `Requirements` from the given decoder.
+	
+	- Parameter decoder: The decoder to read data from.
+	
+	- Returns: An instance of `Set<Requirements>` decoded from the given decoder.
+	*/
+	private static func decodeRequirements(from decoder: Decoder) throws -> Set<Requirements> {
+		var requirementsSet: Set<Requirements> = []
+		
+		//	Create an unkeyed container holding the current level of JSON values.
+		var unkeyedValues = try decoder.unkeyedContainer()
+		
+		//	"Loop" through values in the unkeyed container.
+		//	The unkeyed container does not conform to the `Sequence` protocol, but its `currentIndex` property grows by 1 every time when a value is decoded successfully.
+		while unkeyedValues.count! > unkeyedValues.currentIndex {
+			let containerIndexBeforeLoop = unkeyedValues.currentIndex
+			
+			if let requirement = try? unkeyedValues.decode(Requirement.self) {
+				requirementsSet.insert(Requirements.leaf(requirement))
+			} else if let intermediateDisjunction = try? unkeyedValues.decode(IntermediateDisjunctionService.self) {
+				requirementsSet.insert(intermediateDisjunction.requirements)
+			} else if let requirements = try? unkeyedValues.decode(Requirements.self) {
+				requirementsSet.insert(requirements)
+			}
+			
+			//	If the unkeyed container's current index didn't increase by 1 during this loop, then the the unkeyed value at the current index was not decoded, and will not be in future loops. There is no way to increment the index manually, so the unkeyed container will keep trying for the same value. The best choice is to break out of the loop.
+			if unkeyedValues.currentIndex <= containerIndexBeforeLoop {
+				//	TODO: Include the corresponding JSON value in the log.
+				os_log("Unable to decode value #%d in unkeyed container.", type: .debug, unkeyedValues.currentIndex)
+				break
+			}
+		}
+		
+		return requirementsSet
+	}
 }

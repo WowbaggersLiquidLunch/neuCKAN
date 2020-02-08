@@ -14,7 +14,26 @@ An item, or a list thereof.
 
 Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
 */
-enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & Defaultable>: Hashable, Codable {
+enum CKANFuckery<Item: Hashable & CustomStringConvertible & Defaultable>: Hashable {
+	case item(Item)
+	case items(Set<Item>)
+}
+
+//	MARK: - CustomStringConvertible Conformance
+extension CKANFuckery: CustomStringConvertible {
+	/// A human-readable representation of its content.
+	var description: String {
+		switch self {
+		case .item(let item):
+			return String(describing: item)
+		case .items(let items):
+			return items.map{ String(describing: $0) }.joined(separator: ", ")
+		}
+	}
+}
+
+//	MARK: -Codable Conformance
+extension CKANFuckery: Codable where Item: Codable {
 	
 	/**
 	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
@@ -58,23 +77,9 @@ enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & Defaultabl
 			try container.encode(values)
 		}
 	}
-	
-	case item(Item)
-	case items(Set<Item>)
 }
 
-//	Conformance to CustomStringConvertible allows an instance of CKANFuckery to be displayed in a human-readable format.
-extension CKANFuckery: CustomStringConvertible {
-	/// A human-readable representation of its content.
-	var description: String {
-		switch self {
-		case .item(let item):
-			return String(describing: item)
-		case .items(let items):
-			return items.map{ String(describing: $0) }.joined(separator: ", ")
-		}
-	}
-}
+//	MARK: -
 
 ///	A type that provides a default instance when requested.
 protocol Defaultable {

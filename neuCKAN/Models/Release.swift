@@ -26,8 +26,9 @@ A `Release` instance contains all metadata of a mod release, as made available o
 [5]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
-struct Release: Hashable, Codable, Identifiable {
-	//	MARK: - Mandatory Fields
+struct Release: Hashable, Identifiable {
+	
+	//	MARK: Mandatory Fields
 	
 	/**
 	The version number of the CKAN specification used to create this .ckan file.
@@ -444,9 +445,10 @@ struct Release: Hashable, Codable, Identifiable {
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#download_content_type
 	*/
 	let fileType: String?
-	
-	//	MARK: -
-	
+}
+
+//	MARK: - Codable Conformance
+extension Release: Codable {
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
 		case metadataSpecVersion = "spec_version"
