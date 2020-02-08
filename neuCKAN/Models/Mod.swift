@@ -171,7 +171,7 @@ struct Mod: Hashable, Codable, Identifiable {
 
 extension Mod: Collection {	
 	
-	typealias Index = Array<Any>.Index
+	typealias Index = Array<Release>.Index
 	
 	/**
 	The position of the latest release in a nonempty mod rrelease collection.
