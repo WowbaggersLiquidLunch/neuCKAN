@@ -9,11 +9,6 @@
 import Foundation
 
 /**
-A nerdy and mathematically incorrect expression for CKAN metadata's `"any"` version.
-*/
-fileprivate let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
-
-/**
 A version type containing both an epoch and a semantic versioning sequence.
 
 This is equivalent to the ["version" attribute][0] in a .ckan file.
@@ -32,7 +27,7 @@ struct Version: Hashable, Codable {
 	- Parameter versionString: The version string as defined by the CKAN metadata specification.
 	*/
 	init(from versionString: String) {
-		let finalVersionString = versionString == "any" ? versionlessVersionString : versionString
+		let finalVersionString = versionString == "any" ? Version.versionlessVersionString : versionString
 		self.originalString = finalVersionString
 		let deconstructedVersion = Version.deconstruct(from: finalVersionString)
 		self.epoch = deconstructedVersion.epoch
@@ -77,6 +72,11 @@ struct Version: Hashable, Codable {
 		var encoder = encoder.singleValueContainer()
 		try encoder.encode(originalString)
 	}
+	
+	/**
+	A nerdy and mathematically incorrect expression for CKAN metadata's `"any"` version.
+	*/
+	static private let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
 	
 	/**
 	The original version string verbatim from the .ckan file.
