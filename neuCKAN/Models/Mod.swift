@@ -190,6 +190,15 @@ extension Mod: Collection {
 	var endIndex: Index { releases.endIndex }
 	
 	/**
+	Returns the position immediately after the given position.
+	
+	- Parameter position: A valid polition of the mod release collection. `position` must be less than `endIndex`.
+	
+	- Returns: The position value immediately after `position.`
+	*/
+	func index(after position: Index) -> Index { releases.index(after: position) }
+	
+	/**
 	Accesses the mod release at the specified reverse-chronological position.
 	
 	This subscript provides read-only access. For write access, use `subscript(version:)`.
@@ -201,13 +210,4 @@ extension Mod: Collection {
 	- Complexity: O(1).
 	*/
 	subscript(position: Index) -> Release? { releases[position] }
-	
-	/**
-	Returns the position immediately after the given position.
-	
-	- Parameter position: A valid polition of the mod release collection. `position` must be less than `endIndex`.
-	
-	- Returns: The position value immediately after `position.`
-	*/
-	func index(after position: Index) -> Index { releases.index(after: position) }
 }
