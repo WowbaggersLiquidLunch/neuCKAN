@@ -37,9 +37,9 @@ enum CKANFuckery<Item: Hashable & Codable & CustomStringConvertible & Defaultabl
 			}
 			self = .items(itemSet)
 		} else if let value = try? decoder.singleValueContainer() {
-			self = .item((try? value.decode(Item.self)) ?? Item.defaultInstance)
+			self = .item((try? value.decode(Item.self)) ?? .defaultInstance)
 		} else {
-			self = .item(Item.defaultInstance)
+			self = .item(.defaultInstance)
 		}
 	}
 	
@@ -82,7 +82,18 @@ protocol Defaultable {
 	static var defaultInstance: Self { get }
 }
 
+///	A type that provides a default empty representation.
+protocol EmptyRepresentable {
+	/// An empty instance of the type.
+	static var emptyInstance: Self { get }
+}
+
 extension String: Defaultable {
 	///	A default String instance: `""`.
-	static let defaultInstance: String = ""
+	static var defaultInstance: String { emptyInstance }
+}
+
+extension String: EmptyRepresentable {
+	/// An empty String instance: `""`.
+	static let emptyInstance: String = ""
 }
