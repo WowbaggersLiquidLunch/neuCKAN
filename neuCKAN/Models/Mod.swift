@@ -37,7 +37,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	/**
 	Instantiates a mod release collection from inserting the given release into the given collection.
 	*/
-	init(updatingFrom mod: Mod, with release: Release) {
+	init(superseding mod: Mod, with release: Release) {
 		var modCopy = mod
 		self = modCopy.inserted(release)
 	}
