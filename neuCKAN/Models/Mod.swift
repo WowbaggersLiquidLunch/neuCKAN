@@ -170,7 +170,7 @@ extension Mod: Collection {
 	/**
 	The mod’s “past the end” position—i.e. the position one greater than the last valid subscript argument.
 	
-	When you need a range that includes the earliest release of a mod, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
+	When you need a range that includes the earliest release of the mod, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
 	
 	If the mod has no releases, `endIndex` is equal to `startIndex`.
 	*/
