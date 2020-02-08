@@ -38,6 +38,8 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	/**
 	Instantiates a mod release collection from inserting the given release into the given collection.
+	
+	- Complexity: O(_n_), where _n_ is the count of existing releases in the given mod.
 	*/
 	init(superseding mod: Mod, with release: Release) {
 		var modCopy = mod
@@ -105,7 +107,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Parameter release: The release instance to be added in this collection.
 	
-	- Complexity: O(n), where n is the count of releases in the collection.
+	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
 	mutating func insert(_ release: Release) {
 		if !releases.contains(release) {
@@ -122,7 +124,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Returns: The mod release collection itself.
 	
-	- Complexity: O(n), where n is the count of releases in the collection.
+	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
 	mutating func inserted(_ release: Release) -> Mod {
 		insert(release)
@@ -138,7 +140,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Returns: The mod release of the specified version.
 	
-	- Complexity: O(n), where n is the count of releases in the collection.
+	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
 	subscript(version: Version) -> Release? {
 		get {
