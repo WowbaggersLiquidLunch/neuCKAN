@@ -94,31 +94,29 @@ struct Release: Hashable, Identifiable {
 	let downloadLink: URL
 	
 	/**
-	The license(s), under which the mod is released.
+	The licence(s), under which the mod is released.
 	
 	This is equivalent to the ["license" attribute][0] in a .ckan file.
 	
-	The CKAN project limits allowable mod licenses to the same rules as per the [Debian license specification][1], with the following modifications:
-	- The `"MIT"` license is always taken to mean [the Expat license][2]. __This is not honoured by the neuCKAN project.__
-	- The creative commons licenses are permitted without a version number, indicating the author did not specify which version applies.
+	The CKAN project limits allowable mod licences to the same rules as per the [Debian licence specification][1], with the following modifications:
+	- The `"MIT"` licence is always taken to mean [the Expat licence][2]. __This is not honoured by the neuCKAN project.__
+	- The creative commons licences are permitted without a version number, indicating the author did not specify which version applies.
 	- Stripping of trailing zeros is not recognised.
-	- `"WTFPL"` is recognised as a valid license. (Since CKAN Metadata Specification v1.2)
-	- `"Unlicense"` is recognised as a valid license. (Since CKAN Metadata Specification v1.18)
+	- `"WTFPL"` is recognised as a valid licence. (Since CKAN Metadata Specification v1.2)
+	- `"Unlicence"` is recognised as a valid licence. (Since CKAN Metadata Specification v1.18)
 	
-	The following license strings are also valid and indicate other licensing not described above:
-	- `"open-source"`: Other Open Source Initiative (OSI) approved license.
+	The following licence strings are also valid and indicate other licensing not described above:
+	- `"open-source"`: Other Open Source Initiative (OSI) approved licence.
 	- `"restricted"`: Requires special permission from copyright holder.
-	- `"unrestricted"`: Not an OSI approved license, but not restricted.
-	- `"unknown"`: License not provided in metadata
+	- `"unrestricted"`: Not an OSI approved licence, but not restricted.
+	- `"unknown"`: licence not provided in metadata
 	
-	A single license (since CKAN v1.0) , or list of licenses (since CKAN v1.8) may be provided for each mod release. In the following example, both values are valid, with the first describing a mod released under the BSD license, the second under the user's choice of 2-Clause BSD or GPL 2.0 licenses:
+	A single licence (since CKAN v1.0) , or list of licences (since CKAN v1.8) may be provided for each mod release. In the following example, both values are valid, with the first describing a mod released under the BSD licence, the second under the user's choice of 2-Clause BSD or GPL 2.0 licences:
 	
 	```Swift
-	let license: [String] = ["BSD-2-clause"]
-	let license: [String] = ["BSD-2-clause", "GPL-2.0"]
+	let licences: [String] = ["BSD-2-clause"]
+	let licences: [String] = ["BSD-2-clause", "GPL-2.0"]
 	```
-	
-	- Note: If different assets in the mod have different licenses, the most restrictive license should be specified, which may be `"restricted"`.
 	
 	A future version of the CKAN metadata specification may provide for per-file licensing declarations.
 	
@@ -126,7 +124,7 @@ struct Release: Hashable, Identifiable {
 	[1]: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/#license-specification
 	[2]: https://www.debian.org/legal/licenses/mit
 	*/
-	let licenses: CKANFuckery<String>
+	let licences: CKANFuckery<String>
 	
 	/**
 	Mod version.
@@ -456,7 +454,7 @@ extension Release: Codable {
 		case abstract
 		case id = "identifier"
 		case downloadLink = "download"
-		case licenses = "license"
+		case licences = "license"
 		case version
 		case installationDirectives = "install"
 		case author
