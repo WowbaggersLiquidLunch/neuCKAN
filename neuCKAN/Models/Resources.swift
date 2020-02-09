@@ -30,7 +30,7 @@ While all currently defined resources are `URL`s, future revisions of the CKAN m
 struct Resources: Hashable {
 	let homepage: URL?
 	let bugTracker: URL?
-	let license: URL?
+//	let license: URL?
 	let repository: URL?
 	let ci: URL?
 	let spacedock: URL?
@@ -44,7 +44,7 @@ extension Resources: Codable {
 	private enum CodingKeys: String, CodingKey {
 		case homepage
 		case bugTracker = "bugtracker"
-		case license
+//		case license
 		case repository
 		case ci
 		case spacedock
