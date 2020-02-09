@@ -451,7 +451,7 @@ struct Release: Hashable, Identifiable {
 extension Release: Codable {
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
-		case metadataSpecVersion = "spec_version"
+		case ckanMetadataSpecificationVersion = "spec_version"
 		case name
 		case abstract
 		case id = "identifier"
