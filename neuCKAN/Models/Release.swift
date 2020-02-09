@@ -39,7 +39,7 @@ struct Release: Hashable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
 	*/
-	let metadataSpecVersion: Version
+	let ckanMetadataSpecificationVersion: Version
 	
 	/**
 	The mod's name.
