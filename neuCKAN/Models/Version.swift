@@ -301,7 +301,7 @@ extension Version: Collection {
 	
 	- Complexity: Same as that of `components(separatedBy) -> [String]`.
 	*/
-	subscript(position: Index) -> String { originalString.components(separatedBy: CharacterSet(charactersIn: ".-+:"))[position] }
+	subscript(position: Index) -> String { originalString.split(separator: ":").last!.components(separatedBy: CharacterSet(charactersIn: ".-+"))[position] }
 	
 	/**
 	Accesses the version string of the specified range.
