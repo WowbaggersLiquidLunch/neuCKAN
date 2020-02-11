@@ -136,10 +136,10 @@ struct Version: Hashable {
 	*/
 	private static func deconstruct(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegment], releaseSuffix: String?, metadataSuffix: String?) {
 		//	FIXME: Find a way to use Substrings instead, for efficienccy.
-		let versionStringSplitByColons: [String] = versionString.components(separatedBy: ":")
-		let versionStringRemainSplitByPluses: [String] = versionStringSplitByColons.last?.components(separatedBy: "+") ?? []
-		let versionStringRemainSplitByMinuses: [String] = versionStringRemainSplitByPluses.first?.components(separatedBy: "-") ?? []
-		let versionStringRemainSplitByDots: [String] = versionStringRemainSplitByMinuses.first?.components(separatedBy: ".") ?? []
+		let versionStringSplitByColons: [Substring] = versionString.split(separator: ":")
+		let versionStringRemainSplitByPluses: [Substring] = versionStringSplitByColons.last?.split(separator: "+") ?? []
+		let versionStringRemainSplitByMinuses: [Substring] = versionStringRemainSplitByPluses.first?.split(separator: "-") ?? []
+		let versionStringRemainSplitByDots: [Substring] = versionStringRemainSplitByMinuses.first?.split(separator: ".") ?? []
 		
 		//	TODO: Refactor getNonNumericalLeadingCluster(from:) and getNumericalLeadingCluster(from:); DRY.
 		
@@ -172,9 +172,9 @@ struct Version: Hashable {
 		}
 		
 		let epoch: Int? = versionStringSplitByColons.count > 1 ? Int(versionStringSplitByColons[0]) : nil
-		let metadataSuffix: String? = versionStringRemainSplitByPluses.count > 1 ? versionStringRemainSplitByPluses.last : nil
-		let releaseSuffix: String? = versionStringRemainSplitByMinuses.count > 1 ? versionStringRemainSplitByMinuses.last : nil
-		let quasiSemanticVersion: [VersionSegment] = versionStringRemainSplitByDots.map { nonNumericalLeadingComparableUnits(of: $0) }
+		let metadataSuffix: String? = versionStringRemainSplitByPluses.count > 1 ? String(versionStringRemainSplitByPluses.last!) : nil
+		let releaseSuffix: String? = versionStringRemainSplitByMinuses.count > 1 ? String(versionStringRemainSplitByMinuses.last!) : nil
+		let quasiSemanticVersion: [VersionSegment] = versionStringRemainSplitByDots.map { nonNumericalLeadingComparableUnits(of: String($0)) }
 		
 		return (epoch: epoch, quasiSemanticVersion: quasiSemanticVersion, releaseSuffix: releaseSuffix, metadataSuffix: metadataSuffix)
 	}
