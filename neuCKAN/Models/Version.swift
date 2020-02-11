@@ -216,7 +216,7 @@ extension Version: Comparable {
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
 			return lhs < rhs
 		} else {
-			for i in 0..<min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
+			for i in 0..<Swift.min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
 				if lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
 					return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
 				}
@@ -259,4 +259,56 @@ extension Optional: Comparable where Wrapped == String {
 			return rhs != nil
 		}
 	}
+}
+
+//	MARK: Collection Conformance
+extension Version: Collection {
+	
+	typealias Index = Array<Any>.Index
+	
+	/**
+	The position of the first dot-separated segment in a nonempty version.
+	
+	If the version is empty, `startIndex` is equal to `endIndex`.
+	*/
+	var startIndex: Index { quasiSemanticVersion.startIndex }
+	
+	/**
+	The version’s “past the end” position—i.e. the position one greater than the last valid subscript argument.
+	
+	When you need a range that includes the last dot-separated segment of the version, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
+	
+	If the version is empty, `endIndex` is equal to `startIndex`.
+	*/
+	var endIndex: Index { quasiSemanticVersion.endIndex }
+	
+	/**
+	Returns the position immediately after the given index.
+	
+	- Parameter position: A valid index of the version. `i` must be less than `endIndex`.
+	
+	- Returns: The index value immediately after `i.`
+	*/
+	func index(after i: Index) -> Index { quasiSemanticVersion.index(after: i) }
+	
+	//	TODO: Replace components(separatedBy) -> [String] with something that returns [Substring].
+	/**
+	Accesses the version segment string at the specified position.
+	
+	- Parameter position: The position of the version segment to access. `position` must be a valid index of the version that is not equal to the `endIndex` property.
+	
+	- Returns: The version segment string at the specified index.
+	
+	- Complexity: Same as that of `components(separatedBy) -> [String]`.
+	*/
+	subscript(position: Index) -> String { originalString.components(separatedBy: CharacterSet(charactersIn: ".-+:"))[position] }
+	
+	/**
+	Accesses the version string of the specified range.
+	
+	- Parameter bounds: The range of the version segments to access.
+	
+	- Returns: The version string of the specified range.
+	*/
+	subscript(bounds: Range<Index>) -> String { bounds.map { self[$0] }.joined(separator: ".") }
 }
