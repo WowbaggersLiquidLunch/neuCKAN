@@ -26,7 +26,7 @@ struct Version: Hashable {
 	
 	- Parameter versionString: The version string as defined by the CKAN metadata specification.
 	*/
-	init(from versionString: String) {
+	init(_ versionString: String) {
 		let finalVersionString = versionString == "any" ? Version.versionlessVersionString : versionString
 		self.originalString = finalVersionString
 		let deconstructedVersion = Version.deconstruct(from: finalVersionString)
@@ -43,9 +43,9 @@ struct Version: Hashable {
 	
 	- Parameter versionDigits: The version number that doesn't abide in form by the CKAN metadata specification.
 	*/
-	init(from versionDigits: Double) {
+	init(_ versionDigits: Double) {
 		//	Create a string representation of the digits, and remove trailing 0s.
-		self.init(from: String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
+		self.init(String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
 	}
 	
 	/**
@@ -190,11 +190,11 @@ extension Version: Codable {
 	*/
 	init(from decoder: Decoder) throws {
 		if let versionString = try? decoder.singleValueContainer().decode(String.self) {
-			self = Version(from: versionString)
+			self = Version(versionString)
 		} else if let versionDigits = try? decoder.singleValueContainer().decode(Double.self) {
-			self = Version(from: versionDigits)
+			self = Version(versionDigits)
 		} else {
-			self = Version(from: String.defaultInstance)
+			self = Version(String.defaultInstance)
 		}
 	}
 	
