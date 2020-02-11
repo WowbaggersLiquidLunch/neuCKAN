@@ -138,7 +138,7 @@ struct Version: Hashable {
 		//	FIXME: Find a way to use Substrings instead, for efficienccy.
 		let versionStringSplitByColons: [Substring] = versionString.split(separator: ":")
 		let versionStringRemainSplitByPluses: [Substring] = versionStringSplitByColons.last?.split(separator: "+") ?? []
-		let versionStringRemainSplitByMinuses: [Substring] = versionStringRemainSplitByPluses.first?.split(separator: "-") ?? []
+		let versionStringRemainSplitByMinuses: [Substring] = versionStringRemainSplitByPluses.first?.split(separator: "-") ?? []	//	technically hyphen-minus
 		let versionStringRemainSplitByDots: [Substring] = versionStringRemainSplitByMinuses.first?.split(separator: ".") ?? []
 		
 		//	TODO: Refactor getNonNumericalLeadingCluster(from:) and getNumericalLeadingCluster(from:); DRY.
@@ -311,4 +311,27 @@ extension Version: Collection {
 	- Returns: The version string of the specified range.
 	*/
 	subscript(bounds: Range<Index>) -> String { bounds.map { self[$0] }.joined(separator: ".") }
+}
+
+//	MARK: CustomStringConvertible Conformance
+extension Version: CustomStringConvertible {
+	///	A textual representation of the version.
+	var description: String { String(originalString.split(separator: ":").last!.split(separator: "-").first!) }
+}
+
+fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
+	///	A textual representation of the version segment.
+	var description: String { self.map { String(describing: $0) }.joined() }
+}
+
+extension Version.CKANVersionSmallestComparableUnit: CustomStringConvertible {
+	///	A textual representation of the smallest comparable unit.
+	var description: String {
+		switch self {
+		case .nonNumerical(let string):
+			return string
+		case .numerical(let number):
+			return String(number)
+		}
+	}
 }
