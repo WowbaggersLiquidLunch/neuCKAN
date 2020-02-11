@@ -120,7 +120,7 @@ extension Mods: Collection {
 	/**
 	Returns the position immediately after the given index.
 	
-	- Parameter position: A valid polition of the mod collection. `i` must be less than `endIndex`.
+	- Parameter position: A valid polition in the mod collection. `i` must be less than `endIndex`.
 	
 	- Returns: The index value immediately after `i.`
 	*/
