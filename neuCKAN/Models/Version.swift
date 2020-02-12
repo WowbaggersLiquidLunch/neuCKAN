@@ -328,6 +328,15 @@ extension Version: Collection {
 	- Returns: The version string of the specified range.
 	*/
 	subscript(bounds: Range<Index>) -> String { bounds.map { self[$0] }.joined(separator: ".") }
+	
+	/**
+	Accesses the version string of the specified range in the given range expression.
+	
+	- Parameter r: The range expression describing the range of the version segments to access.
+	
+	- Returns: The version string of the specified range.
+	*/
+	subscript<R>(r: R) -> String where R : RangeExpression, R.Bound == Index { self[r.relative(to: self)] }
 }
 
 //	MARK: CustomStringConvertible Conformance
