@@ -318,7 +318,7 @@ extension Version: Collection {
 	
 	- Returns: The version segment string at the specified index.
 	*/
-	subscript(position: Index) -> String { String(describing: quasiSemanticVersion[position]) }
+	subscript(position: Index) -> String { quasiSemanticVersion[position].description }
 	
 	/**
 	Accesses the version string of the specified range.
@@ -336,6 +336,7 @@ extension Version: CustomStringConvertible {
 	var description: String { String(originalString.split(separator: ":").last!.split(separator: "-").first!) }
 }
 
+//	FIXME: Add CustomStringConvertible conformance.
 fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
 	///	A textual representation of the version segment.
 	var description: String { self.map { String(describing: $0) }.joined() }
