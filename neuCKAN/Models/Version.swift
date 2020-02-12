@@ -136,7 +136,6 @@ struct Version: Hashable {
 	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffic parts from the given complete version string.
 	*/
 	private static func deconstruct(from versionString: String) -> (epoch: Int?, quasiSemanticVersion: [VersionSegment], releaseSuffix: String?, metadataSuffix: String?) {
-		//	FIXME: Find a way to use Substrings instead, for efficienccy.
 		let versionStringSplitByColons: [Substring] = versionString.split(separator: ":")
 		let versionStringRemainSplitByPluses: [Substring] = versionStringSplitByColons.last?.split(separator: "+") ?? []
 		let versionStringRemainSplitByMinuses: [Substring] = versionStringRemainSplitByPluses.first?.split(separator: "-") ?? []	//	technically hyphen-minus
