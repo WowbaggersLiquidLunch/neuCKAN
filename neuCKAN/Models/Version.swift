@@ -311,17 +311,14 @@ extension Version: Collection {
 	*/
 	func index(after i: Index) -> Index { quasiSemanticVersion.index(after: i) }
 	
-	//	TODO: Replace components(separatedBy) -> [String] with something that returns [Substring].
 	/**
 	Accesses the version segment string at the specified position.
 	
 	- Parameter position: The position of the version segment to access. `position` must be a valid index of the version that is not equal to the `endIndex` property.
 	
 	- Returns: The version segment string at the specified index.
-	
-	- Complexity: Same as that of `components(separatedBy) -> [String]`.
 	*/
-	subscript(position: Index) -> String { originalString.split(separator: ":").last!.components(separatedBy: CharacterSet(charactersIn: ".-+"))[position] }
+	subscript(position: Index) -> String { String(describing: quasiSemanticVersion[position]) }
 	
 	/**
 	Accesses the version string of the specified range.
