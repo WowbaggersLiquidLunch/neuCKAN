@@ -27,7 +27,7 @@ struct Version: Hashable {
 	- Parameter versionString: The version string as defined by the CKAN metadata specification.
 	*/
 	init(_ versionString: String) {
-		let finalVersionString = versionString == "any" ? Version.versionlessVersionString : versionString
+		let finalVersionString = versionString == "any" ? Version.universallyCompatibleVersionString : versionString
 		self.originalString = finalVersionString
 		let deconstructedVersion = Version.deconstruct(from: finalVersionString)
 		self.epoch = deconstructedVersion.epoch
@@ -48,10 +48,11 @@ struct Version: Hashable {
 		self.init(String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
 	}
 	
+	//	TODO: Find a better name for universallyCompatibleVersionString.
 	/**
 	A nerdy and mathematically incorrect expression for CKAN metadata's `"any"` version.
 	*/
-	static private let versionlessVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
+	static private let universallyCompatibleVersionString: String = "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"
 	
 	/**
 	The original version string verbatim from the .ckan file.
@@ -209,10 +210,14 @@ extension Version: Codable {
 	}
 }
 
+//	FIXME: Include universallyCompatibleVersionString in comparison.
 //	MARK: - Comparable Conformance
 extension Version: Comparable {
 	//	Compares verisons exactly how the CKAN metadata specification wants it, but better, but favors semantic versioning when in face of ambiguity.
-	static func < (lhs: Version, rhs: Version) -> Bool {
+	static func < (lhs: Self, rhs: Self) -> Bool {
+//		if universalCompatibilityExistsIn(lhs, rhs) {
+//			return true
+//		}
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
 			return lhs < rhs
 		} else {
@@ -232,6 +237,21 @@ extension Version: Comparable {
 			}
 		}
 	}
+//	static func > (lhs: Self, rhs: Self) -> Bool {
+//		return universalCompatibilityExistsIn(lhs, rhs) || rhs < lhs
+//	}
+//	static func <= (lhs: Self, rhs: Self) -> Bool {
+//		return universalCompatibilityExistsIn(lhs, rhs) || !(rhs < lhs)
+//	}
+//	static func >= (lhs: Self, rhs: Self) -> Bool {
+//		return universalCompatibilityExistsIn(lhs, rhs) || !(lhs < rhs)
+//	}
+//	static func == (lhs: Self, rhs: Self) -> Bool {
+//		return lhs >= rhs && lhs <= rhs
+//	}
+//	static func universalCompatibilityExistsIn(_ lhs: Self, _ rhs: Self) -> Bool {
+//		return lhs.originalString == universallyCompatibleVersionString || rhs.originalString == universallyCompatibleVersionString
+//	}
 }
 
 //	Extends Array, so it knows how to compare 2 CKANVersionSmallestComparableUnit instances.
