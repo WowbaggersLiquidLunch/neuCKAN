@@ -344,7 +344,7 @@ extension Version: CustomStringConvertible {
 	var description: String { String(originalString.split(separator: ":").last!.split(separator: "-").first!) }
 }
 
-//	FIXME: Add CustomStringConvertible conformance.
+//	FIXME: Fix String(describing: VersionSegment).
 fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
 	///	A textual representation of the version segment.
 	var description: String { self.map { String(describing: $0) }.joined() }
