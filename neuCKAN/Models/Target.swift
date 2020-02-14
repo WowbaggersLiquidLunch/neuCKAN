@@ -53,3 +53,10 @@ extension Target {
 		self.init(version: version, path: URL(fileURLWithPath: path))
 	}
 }
+
+//	MARK: - Comparable Comformance
+extension Target: Comparable {
+	static func < (lhs: Target, rhs: Target) -> Bool {
+		lhs.version < rhs.version
+	}
+}
