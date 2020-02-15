@@ -57,6 +57,6 @@ extension Target {
 //	MARK: - Comparable Comformance
 extension Target: Comparable {
 	static func < (lhs: Target, rhs: Target) -> Bool {
-		lhs.version < rhs.version
+		(lhs.version < rhs.version || lhs.path.absoluteString < rhs.path.absoluteString) && !(lhs.version > rhs.version)
 	}
 }
