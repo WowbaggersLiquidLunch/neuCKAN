@@ -125,13 +125,6 @@ extension Target {
 	}
 }
 
-//	MARK: - Comparable Conformance
-extension Target: Comparable {
-	static func < (lhs: Target, rhs: Target) -> Bool {
-		(lhs.version < rhs.version || lhs.inode < rhs.inode) && !(lhs.version > rhs.version)
-	}
-}
-
 //	MARK: - Identifiable Conformance
 extension Target: Identifiable {
 	var id: Int { inode }
