@@ -64,7 +64,11 @@ struct Target: Hashable {
 		}
 		//
 		///
-		let kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
+		var kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
+		//
+		if kspVersion.split(separator: ".").count == 2 {
+			kspVersion += ".0"
+		}
 		
 		//	MARK: KSP Build ID
 		///
