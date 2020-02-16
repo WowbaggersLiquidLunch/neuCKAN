@@ -14,7 +14,27 @@ An item, or a list thereof.
 
 Because CKAN metadata specification just has to allow either a something or a list of something in so many fields.
 */
-enum CKANFuckery<Item: Hashable & CustomStringConvertible & Defaultable>: Hashable {
+enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
+	
+	init(item: Item?) {
+		if let newItem = item {
+			self = .item(newItem)
+		} else {
+			self = .items(Set<Item>())
+		}
+	}
+	
+	init<Items: Sequence>(items: Items?) where Items.Element == Item?{
+		if let newItems = items {
+			let setOfItems = Set(newItems.filter { $0 != nil } .map { $0! } )
+			if setOfItems.count == 1 {
+				self = .item(setOfItems.first!)
+			} else {
+				self = .items(setOfItems)
+			}
+		}
+	}
+	
 	case item(Item)
 	case items(Set<Item>)
 }
@@ -33,7 +53,7 @@ extension CKANFuckery: CustomStringConvertible {
 }
 
 //	MARK: -Codable Conformance
-extension CKANFuckery: Codable where Item: Codable {
+extension CKANFuckery: Codable where Item: Codable & Defaultable {
 	
 	/**
 	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
@@ -75,6 +95,95 @@ extension CKANFuckery: Codable where Item: Codable {
 		case .items(let values):
 			var container = encoder.unkeyedContainer()
 			try container.encode(values)
+		}
+	}
+}
+
+//	MARK: - Collection Conformance
+extension CKANFuckery: Collection {
+	/**
+	The position of an item in a `CKANFuckery` instance.
+	
+	This is the same as `Set<Item>.Index`, unless a customised implementation is provided through an extension of `Set<Item>`
+	*/
+	typealias Index = Set<Item>.Index
+	
+	/**
+	The position of the first item in a nonempty `CKANFuckery` instance.
+	
+	If the instance has no items, `startIndex` is equal to `endIndex`.
+	
+	- See Also: `endIndex`.
+	*/
+	var startIndex: Index {
+		switch self {
+		case .item(let item): return Set([item]).startIndex
+		case .items(let items): return items.startIndex
+		}
+	}
+	
+	/**
+	The `CKANFuckery` instance’s “past the end” position—i.e. the position one greater than the last valid subscript argument.
+	
+	When you need a range that includes the last item in the instance, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
+	
+	If the collection has no mods, `endIndex` is equal to `startIndex`.
+	
+	- See Also: `startIndex`.
+	*/
+	var endIndex: Index {
+		switch self {
+		case .item(let item): return Set([item]).endIndex
+		case .items(let items): return items.endIndex
+		}
+	}
+	
+	/**
+	Returns the position immediately after the given index.
+	
+	- Parameter position: A valid polition in the `CKANFuckery` instance. `i` must be less than `endIndex`.
+	
+	- Returns: The index value immediately after `i.`
+	
+	- See Also: `endIndex`.
+	*/
+	func index(after i: Index) -> Index {
+		switch self {
+		case .item(let item): return Set([item]).index(after: i)
+		case .items(let items): return items.index(after: i)
+		}
+	}
+	
+	/**
+	Accesses or update the item at the specified position.
+	
+	- Parameter position: The position of the item to access. `position` must be a valid index of the `CKANFuckery` instance that is not equal to the `endIndex` property.
+	
+	- Returns: The mod at the specified index.
+	
+	- See Also: `endIndex`.
+	*/
+	subscript(position: Index) -> Item {
+		get {
+			switch self {
+			case .item(let item): return Set([item])[position]
+			case .items(let items): return items[position]
+			}
+		}
+		set(newItem) {
+			switch self {
+			case .item(let item):
+				guard item != newItem else { return }
+				self = .items(Set([item, newItem]))
+			case .items(let items):
+				if items.count == 0 {
+					self = .item(newItem)
+				} else  {
+					var oldItems = items
+					oldItems.insert(newItem)
+					self = .items(oldItems)
+				}
+			}
 		}
 	}
 }
