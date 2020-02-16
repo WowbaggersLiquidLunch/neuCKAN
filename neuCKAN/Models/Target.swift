@@ -13,7 +13,7 @@ import os.log
 struct Target: Hashable {
 	
 	init?(path: URL) {
-		//	MARK: -
+		//	MARK: KSP Path
 		///
 		let standardisedPath = path.standardizedFileURL
 		///
@@ -34,7 +34,7 @@ struct Target: Hashable {
 			return nil
 		}
 		
-		//	MARK: -
+		//	MARK: KSP Version
 		///
 		let readmeFilePath = resolvedPath.appendingPathComponent("readme.txt")
 		//
@@ -66,7 +66,7 @@ struct Target: Hashable {
 		///
 		let kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
 		
-		//	MARK: -
+		//	MARK: KSP Build ID
 		///
 		var kspBuildID: Substring
 		///
@@ -110,6 +110,7 @@ struct Target: Hashable {
 	//	Stored because of faster runtime.
 	//	TODO: Add stored filter with didset observer.
 	//	The mods array changes when filter changes.
+	//	TODO: Make mods private.
 	var mods: [Mod] { Array(Synecdoche.mods) }
 	let version: Version
 	let badge: NSImage
@@ -129,4 +130,9 @@ extension Target: Comparable {
 	static func < (lhs: Target, rhs: Target) -> Bool {
 		(lhs.version < rhs.version || lhs.inode < rhs.inode) && !(lhs.version > rhs.version)
 	}
+}
+
+//	MARK: - Identifiable Conformance
+extension Target: Identifiable {
+	var id: Int { inode }
 }
