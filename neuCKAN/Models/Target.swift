@@ -106,7 +106,7 @@ struct Target: Hashable {
 		self.path = standardisedPath
 		self.inode = kspDirectoryAttributes[.systemFileNumber] as! Int
 		self.version = Version("\(kspBuildID.isEmpty ? "" : "\(kspBuildID):")\(kspVersion)")
-		self.badge = NSImage(named: "KSP \(version[..<2]) Patch") ?? NSImage(named: "KSP Logo Red")!
+		self.badge = NSImage(named: "KSP \(version.description) Patch") ?? NSImage(named: "KSP \(version[..<2]) Patch") ?? NSImage(named: "KSP Logo Red")!
 	}
 	
 	var filterDidChange: Bool = false
