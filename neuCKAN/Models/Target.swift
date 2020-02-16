@@ -86,9 +86,9 @@ struct Target: Hashable {
 			}
 			//
 			///
-			let kspVersionRegex = try! NSRegularExpression(pattern: "version\\W*\\s*(\\d+(\\.\\d+)*)", options: .caseInsensitive)
+			let kspbuildIDRegex = try! NSRegularExpression(pattern: "build\\W*id\\s*\\W*\\s*(\\d+)", options: .caseInsensitive)
 			//
-			guard let kspbuildIDRegexMatch = kspVersionRegex.firstMatch(in: buildIDFileContent, range: NSRange(buildIDFileContent.startIndex..., in: buildIDFileContent)) else {
+			guard let kspbuildIDRegexMatch = kspbuildIDRegex.firstMatch(in: buildIDFileContent, range: NSRange(buildIDFileContent.startIndex..., in: buildIDFileContent)) else {
 				os_log("Unable to determine KSP build ID: No match found in %@ encoded in %@.", log: .default, type: .error, buildIDFilePath.absoluteString, buildIDFileEncoding.description)
 				return nil
 			}
