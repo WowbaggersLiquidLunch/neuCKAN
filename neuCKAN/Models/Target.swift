@@ -12,101 +12,135 @@ import os.log
 
 struct Target: Hashable {
 	
+	/**
+	Initialise a KSP target from the given file URL.
+	
+	The initialiser returns `nil` if the URL is invalid, or if no version informatino pertaining to the KSP installation is found.
+	
+	- Precondition: The file URL must be the KSP game files' enclosing directory.
+	
+	- Parameter path: The file URL to initiaise a target from.
+	
+	- See Also: `init?(path: String)`.
+	*/
 	init?(path: URL) {
 		//	MARK: KSP Path
-		///
+		//	Clean out all possible "/./", "/../", and "//" in the path.
 		let standardisedPath = path.standardizedFileURL
-		///
+		//	Because there can only possibly be 1 KSP installation at each physical location, all symbolic links need to be resolved to reveal the actual location. This also helps with getting inode information later, which is used for identifying each KSP installation.
 		let resolvedPath = standardisedPath.resolvingSymlinksInPath()
-		//
-		guard FileManager.default.fileExists(atPath: resolvedPath.absoluteString) else {
-			os_log("Unable to create KSP target: %@ does not exist.", log: .default, type: .debug, path.absoluteString)
+		do {
+			let kspDirectoryAttributes = try FileManager.default.attributesOfItem(atPath: resolvedPath.path)
+			guard kspDirectoryAttributes[.type] as! FileAttributeType == .typeDirectory else {
+				os_log("Unable to create KSP target: %@ is not a directory.", log: .default, type: .error, resolvedPath.path)
+				return nil
+			}
+			//	Since kspDirectoryAttributes is initialised with no errors, this type casting is safe.
+			self.inode = kspDirectoryAttributes[.systemFileNumber] as! Int
+			//	Record the standardised path with all possible symbolics unresolved, for the user's convenience.
+			self.path = standardisedPath
+		} catch CocoaError.fileNoSuchFile {
+			os_log("Unable to create KSP target: %@ does not exist.", log: .default, type: .debug, path.path)
 			return nil
-		}
-		//
-		guard let kspDirectoryAttributes = try? FileManager.default.attributesOfItem(atPath: resolvedPath.absoluteString) else {
-			os_log("Unable to retrieve file attributes of %@, which is after standardising and resolving symlinks in %@.", log: .default, type: .error, resolvedPath.absoluteString, path.absoluteString)
+		} catch CocoaError.fileReadTooLarge {
+			os_log("Unable to create KSP target: %@ is too large.", log: .default, type: .debug, path.path)
 			return nil
-		}
-		//
-		guard kspDirectoryAttributes[.type] as! FileAttributeType == .typeDirectory else {
-			os_log("%@ is not a directory.", log: .default, type: .error, resolvedPath.absoluteString)
+		} catch CocoaError.fileReadNoPermission {
+			os_log("Unable to create KSP target: no read permission for %@.", log: .default, type: .debug, path.path)
+			return nil
+		} catch let cocoaError as CocoaError {
+			os_log("Unable to create KSP target for %@ due to a cocoa error: %@.", log: .default, type: .debug, path.path, cocoaError.localizedDescription)
+			return nil
+		} catch let nsError as NSError {
+			os_log("Unable to create KSP target for %@ due to an error in domain %@: %@.", log: .default, type: .debug, path.path, nsError.domain, nsError.localizedDescription)
+			return nil
+		} catch {
+			os_log("Unable to create KSP target for %@ due to an unknown error.", log: .default, type: .debug, path.path)
 			return nil
 		}
 		
 		//	MARK: KSP Version
-		///
+		var kspVersion: Substring
 		let readmeFilePath = resolvedPath.appendingPathComponent("readme.txt")
-		//
-		guard FileManager.default.fileExists(atPath: readmeFilePath.absoluteString) else {
-			os_log("Unable to determine KSP version: %@ does not exist.", log: .default, type: .error, readmeFilePath.absoluteString)
+		do {
+			//	Somehow the .utf8 option doesn't work.
+			let readmeFileContent = try String(contentsOf: readmeFilePath, encoding: .ascii)
+			//	Use case-insensitive, because the APFS is case-insensitive by default, and it makes regex matching easier.
+			let kspVersionRegex = try NSRegularExpression(pattern: "version\\W*\\s*(\\d+(\\.\\d+)*)", options: .caseInsensitive)
+			guard let kspVersionRegexMatch = kspVersionRegex.firstMatch(in: readmeFileContent, range: NSRange(readmeFileContent.startIndex..., in: readmeFileContent)) else {
+				os_log("Unable to determine KSP version: No match found in %@ encoded in ASCII.", log: .default, type: .error, readmeFilePath.path)
+				return nil
+			}
+			kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
+			//	Enforce semantic versioning.
+			if kspVersion.split(separator: ".").count == 2 {
+				kspVersion += ".0"
+			}
+		} catch CocoaError.fileNoSuchFile {
+			os_log("Unable to determine KSP version: %@ does not exist.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch CocoaError.fileReadTooLarge {
+			os_log("Unable to determine KSP version: %@ is too large.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch CocoaError.fileReadNoPermission {
+			os_log("Unable to determine KSP version: no read permission for %@.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch CocoaError.fileReadCorruptFile {
+			os_log("Unable to determine KSP version: %@ is corrupted.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch CocoaError.fileReadInapplicableStringEncoding {
+			os_log("Unable to determine KSP version: string encoding for %@ is inapplicable.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch CocoaError.fileReadUnknownStringEncoding {
+			os_log("Unable to determine KSP version: string encoding for %@ is unknown.", log: .default, type: .error, readmeFilePath.path)
+			return nil
+		} catch let cocoaError as CocoaError {
+			os_log("Unable to determine KSP version for %@ due to a cocoa error: %@.", log: .default, type: .error, readmeFilePath.path, cocoaError.localizedDescription)
+			return nil
+		} catch let nsError as NSError {
+			os_log("Unable to determine KSP version for %@ due to an error in domain %@: %@.", log: .default, type: .error, readmeFilePath.path, nsError.domain, nsError.localizedDescription)
+			return nil
+		} catch {
+			os_log("Unable to determine KSP version for %@ due to an unknown error.", log: .default, type: .error, readmeFilePath.path)
 			return nil
 		}
-		//
-		guard FileManager.default.isReadableFile(atPath: readmeFilePath.absoluteString) else {
-			os_log("Unable to determine KSP version: %@ is not readable.", log: .default, type: .error, readmeFilePath.absoluteString)
-			return nil
-		}
-		///
-		var readmeFileEncoding: String.Encoding
-		//
-		guard let readmeFileContent = try? String(contentsOf: readmeFilePath, usedEncoding: &readmeFileEncoding) else {
-			os_log("Unable to determine KSP version: Failed to read %@ using encoding %@.", log: .default, type: .error, readmeFilePath.absoluteString, readmeFileEncoding.description)
-			return nil
-		}
-		//
-		///
-		let kspVersionRegex = try! NSRegularExpression(pattern: "version\\W*\\s*(\\d+(\\.\\d+)*)", options: .caseInsensitive)
-		//
-		guard let kspVersionRegexMatch = kspVersionRegex.firstMatch(in: readmeFileContent, range: NSRange(readmeFileContent.startIndex..., in: readmeFileContent)) else {
-			os_log("Unable to determine KSP version: No match found in %@ encoded in %@.", log: .default, type: .error, readmeFilePath.absoluteString, readmeFileEncoding.description)
-			return nil
-		}
-		//
-		///
-		var kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
-		//
-		if kspVersion.split(separator: ".").count == 2 {
-			kspVersion += ".0"
-		}
+		
 		
 		//	MARK: KSP Build ID
-		///
-		var kspBuildID: Substring
-		///
+		var kspBuildID: Substring = ""
 		let buildIDFilePath = resolvedPath.appendingPathComponent("buildID.txt")
-		//
-		if FileManager.default.fileExists(atPath: buildIDFilePath.absoluteString) {
-			guard FileManager.default.isReadableFile(atPath: buildIDFilePath.absoluteString) else {
-				os_log("Unable to determine KSP build ID: %@ is not readable.", log: .default, type: .error, buildIDFilePath.absoluteString)
-				return nil
+		do {
+			//	Somehow the .utf8 option doesn't work.
+			let buildIDFileContent = try String(contentsOf: buildIDFilePath, encoding: .ascii)
+			//	Use case-insensitive, because the APFS is case-insensitive by default, and it makes regex matching easier.
+			let kspbuildIDRegex = try NSRegularExpression(pattern: "build\\W*id\\s*\\W*\\s*(\\d+)", options: .caseInsensitive)
+			if let kspbuildIDRegexMatch = kspbuildIDRegex.firstMatch(in: buildIDFileContent, range: NSRange(buildIDFileContent.startIndex..., in: buildIDFileContent)) {
+				kspBuildID = buildIDFileContent[Range(kspbuildIDRegexMatch.range(at: 1), in: buildIDFileContent)!] + ":"
+			} else {
+				os_log("Unable to determine KSP build ID: No match found in %@ encoded in ASCII.", log: .default, type: .error, buildIDFilePath.path)
 			}
-			///
-			var buildIDFileEncoding: String.Encoding
-			//
-			guard let buildIDFileContent = try? String(contentsOf: buildIDFilePath, usedEncoding: &buildIDFileEncoding) else {
-				os_log("Unable to determine KSP build ID: Failed to read %@ using encoding %@.", log: .default, type: .error, buildIDFilePath.absoluteString, buildIDFileEncoding.description)
-				return nil
-			}
-			//
-			///
-			let kspbuildIDRegex = try! NSRegularExpression(pattern: "build\\W*id\\s*\\W*\\s*(\\d+)", options: .caseInsensitive)
-			//
-			guard let kspbuildIDRegexMatch = kspbuildIDRegex.firstMatch(in: buildIDFileContent, range: NSRange(buildIDFileContent.startIndex..., in: buildIDFileContent)) else {
-				os_log("Unable to determine KSP build ID: No match found in %@ encoded in %@.", log: .default, type: .error, buildIDFilePath.absoluteString, buildIDFileEncoding.description)
-				return nil
-			}
-			//
-			kspBuildID = buildIDFileContent[Range(kspbuildIDRegexMatch.range(at: 1), in: buildIDFileContent)!]
-		} else {
-			kspBuildID = ""
+		} catch CocoaError.fileNoSuchFile {
+			os_log("Unable to determine KSP build ID: %@ does not exist.", log: .default, type: .error, buildIDFilePath.path)
+		} catch CocoaError.fileReadTooLarge {
+			os_log("Unable to determine KSP build ID: %@ is too large.", log: .default, type: .error, buildIDFilePath.path)
+		} catch CocoaError.fileReadNoPermission {
+			os_log("Unable to determine KSP build ID: no read permission for %@.", log: .default, type: .error, buildIDFilePath.path)
+		} catch CocoaError.fileReadCorruptFile {
+			os_log("Unable to determine KSP build ID: %@ is corrupted.", log: .default, type: .error, buildIDFilePath.path)
+		} catch CocoaError.fileReadInapplicableStringEncoding {
+			os_log("Unable to determine KSP build ID: string encoding for %@ is inapplicable.", log: .default, type: .error, buildIDFilePath.path)
+		} catch CocoaError.fileReadUnknownStringEncoding {
+			os_log("Unable to determine KSP build ID: string encoding for %@ is unknown.", log: .default, type: .error, buildIDFilePath.path)
+		} catch let cocoaError as CocoaError {
+			os_log("Unable to determine KSP build ID for %@ due to a cocoa error: %@.", log: .default, type: .error, buildIDFilePath.path, cocoaError.localizedDescription)
+		} catch let nsError as NSError {
+			os_log("Unable to determine KSP build ID for %@ due to an error in domain %@: %@.", log: .default, type: .error, buildIDFilePath.path, nsError.domain, nsError.localizedDescription)
+		} catch {
+			os_log("Unable to determine KSP build ID for %@ due to an unknown error.", log: .default, type: .error, buildIDFilePath.path)
 		}
 		
-		//	MARK: -
-		self.path = standardisedPath
-		self.inode = kspDirectoryAttributes[.systemFileNumber] as! Int
-		self.version = Version("\(kspBuildID.isEmpty ? "" : "\(kspBuildID):")\(kspVersion)")
-		self.badge = NSImage(named: "KSP \(version.description) Patch") ?? NSImage(named: "KSP \(version[..<2]) Patch") ?? NSImage(named: "KSP Logo Red")!
+		//	KSP's build ID acts as its verion's epoch. Not all KSP versions ship with the build ID information. If no build ID is found prior to this step, kspBuildID is an empty substring. If build ID is found, kspBuildID is appended with ":".
+		self.version = Version("\(kspBuildID)\(kspVersion)")
 	}
 	
 	var filterDidChange: Bool = false
@@ -116,14 +150,59 @@ struct Target: Hashable {
 	//	The mods array changes when filter changes.
 	//	TODO: Make mods private.
 	var mods: [Mod] { Array(Synecdoche.mods) }
+	
+	/**
+	The target's version.
+	
+	The version can contain the target's build ID as its epoch.
+	*/
 	let version: Version
-	let badge: NSImage
+	
+	/**
+	The KSP logo correspoding to the target's version.
+	
+	If a logo does not exist for the target's version, a more general logo will be used. The most general logo matches to the target's major version. `logo` is `nil` if not even the most general logo exists.
+	*/
+	var logo: NSImage? {
+		NSImage(named: "KSP \(version.description) Logo") ?? NSImage(named: "KSP \(version[..<2]) Logo") ?? NSImage(named: "KSP \(version[..<1]) Logo")
+	}
+	
+	/**
+	The absolute path to the target.
+	
+	- See Also: `gameDataPath`.
+	*/
 	let path: URL
+	
+	/**
+	The absolute path to the target's `GameData/` directory.
+	
+	The `GameData/` directory serves as the root for all mod file managements.
+	
+	- See Also: `path`.
+	*/
 	var gameDataPath: URL { path.appendingPathComponent("GameData") }
+	
+	/**
+	The target's root directory's inode.
+	
+	The inode is the KSP target's unique indentification. It survives aliases on macOS, and is attained after all symbolic links are resolved during the target's initialisation.
+	*/
 	let inode: Int
 }
 
 extension Target {
+	/**
+	Initialise a KSP target from the given file path string.
+	
+	The initialiser returns `nil` if the file path is invalid, or if no version informatino pertaining to the KSP installation is found.
+	
+	- Precondition: The file path string must represent the KSP game files' enclosing directory.
+	
+	- Parameter path: The file path string to initiaise a target from.
+	
+	- See Also: `init?(path: URL)`.
+	*/
 	init?(path: String) {
 		self.init(path: URL(fileURLWithPath: path))
 	}
@@ -131,5 +210,6 @@ extension Target {
 
 //	MARK: - Identifiable Conformance
 extension Target: Identifiable {
+	///	The target's alternative, `Identifiable`-conforming unique identification.
 	var id: Int { inode }
 }
