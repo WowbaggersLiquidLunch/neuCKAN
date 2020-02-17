@@ -16,6 +16,15 @@ Because CKAN metadata specification just has to allow either a something or a li
 */
 enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 	
+	/**
+	Initialise a `CKANFuckery` instance from a single item.
+	
+	If `item` is `nil`, the instance is initialised as an empty set.
+	
+	- Parameter item: The item to initialse the `CKANFuckery` instance with.
+	
+	- See Also: `init<Items: Sequence>(items: Items?) where Items.Element == Item?`.
+	*/
 	init(item: Item?) {
 		if let newItem = item {
 			self = .item(newItem)
@@ -24,6 +33,15 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 		}
 	}
 	
+	/**
+	Initialise a `CKANFuckery` instance from a sequence of items.
+	
+	If `items` is `nil`, or if it doesn't contain any non-`nil` elements, the instance is initialised as an empty set.
+	
+	- Parameter items: The sequence of items to initialse the `CKANFuckery` instance with.
+	
+	- See Also: `init(item: Item?)`.
+	*/
 	init<Items: Sequence>(items: Items?) where Items.Element == Item?{
 		if let newItems = items {
 			let setOfItems = Set(newItems.compactMap { $0 } )
@@ -37,7 +55,9 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 		}
 	}
 	
+	///	An item of the desired type.
 	case item(Item)
+	///	A set of items of the desired type.
 	case items(Set<Item>)
 }
 
