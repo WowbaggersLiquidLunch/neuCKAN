@@ -27,7 +27,7 @@ struct Target: Hashable {
 		//	MARK: KSP Path
 		//	Clean out all possible "/./", "/../", and "//" in the path.
 		let standardisedPath = path.standardizedFileURL
-		//	Because there can only possibly be 1 KSP installation at each physical location, all symbolic links need to be resolved to reveal the actual location. This also helps with getting inode information later, which is used for identifying each KSP installation.
+		//	Because there can only possibly be 1 KSP installation at each physical location, all symbolic links need to be resolved to reveal the actual location. This also helps with getting inode value later, which is used for identifying each KSP installation.
 		let resolvedPath = standardisedPath.resolvingSymlinksInPath()
 		do {
 			let kspDirectoryAttributes = try FileManager.default.attributesOfItem(atPath: resolvedPath.path)
@@ -184,9 +184,9 @@ struct Target: Hashable {
 	var gameDataPath: URL { path.appendingPathComponent("GameData") }
 	
 	/**
-	The target's root directory's inode.
+	The target's root directory's inode value.
 	
-	The inode is the KSP target's unique indentification. It survives aliases on macOS, and is attained after all symbolic links are resolved during the target's initialisation.
+	The inode value is the KSP target's unique indentification. It survives aliases on macOS, and is attained after all symbolic links are resolved during the target's initialisation.
 	*/
 	let inode: Int
 }
@@ -210,6 +210,12 @@ extension Target {
 
 //	MARK: - Identifiable Conformance
 extension Target: Identifiable {
-	///	The target's alternative, `Identifiable`-conforming unique identification.
+	/**
+	The target's alternative, `Identifiable`-conforming unique identification.
+	
+	This is identical to `inode`.
+	
+	- See Also: `inode`.
+	*/
 	var id: Int { inode }
 }
