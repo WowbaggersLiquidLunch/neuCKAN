@@ -123,8 +123,9 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 
 //	MARK: - Collection Conformance
 extension CKANFuckery: Collection {
+	
 	/**
-	The position of an item in a `CKANFuckery` instance.
+	The position of an item in the `CKANFuckery` instance.
 	
 	This is the same as `Set<Item>.Index`, unless a customised implementation is provided through an extension of `Set<Item>`
 	*/
