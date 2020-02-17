@@ -26,12 +26,14 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 	
 	init<Items: Sequence>(items: Items?) where Items.Element == Item?{
 		if let newItems = items {
-			let setOfItems = Set(newItems.filter { $0 != nil } .map { $0! } )
+			let setOfItems = Set(newItems.compactMap { $0 } )
 			if setOfItems.count == 1 {
 				self = .item(setOfItems.first!)
 			} else {
 				self = .items(setOfItems)
 			}
+		} else {
+			self = .items(Set<Item>())
 		}
 	}
 	
