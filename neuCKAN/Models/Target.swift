@@ -187,6 +187,8 @@ struct Target: Hashable {
 	The target's root directory's inode value.
 	
 	The inode value is the KSP target's unique indentification. It survives aliases on macOS, and is attained after all symbolic links are resolved during the target's initialisation.
+	
+	- See Also: `id`.
 	*/
 	let inode: Int
 }
