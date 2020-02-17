@@ -76,24 +76,6 @@ struct Target: Hashable {
 			if kspVersion.split(separator: ".").count == 2 {
 				kspVersion += ".0"
 			}
-		} catch CocoaError.fileNoSuchFile {
-			os_log("Unable to determine KSP version: %@ does not exist.", log: .default, type: .error, readmeFilePath.path)
-			return nil
-		} catch CocoaError.fileReadTooLarge {
-			os_log("Unable to determine KSP version: %@ is too large.", log: .default, type: .error, readmeFilePath.path)
-			return nil
-		} catch CocoaError.fileReadNoPermission {
-			os_log("Unable to determine KSP version: no read permission for %@.", log: .default, type: .error, readmeFilePath.path)
-			return nil
-		} catch CocoaError.fileReadCorruptFile {
-			os_log("Unable to determine KSP version: %@ is corrupted.", log: .default, type: .error, readmeFilePath.path)
-			return nil
-		} catch CocoaError.fileReadInapplicableStringEncoding {
-			os_log("Unable to determine KSP version: string encoding for %@ is inapplicable.", log: .default, type: .error, readmeFilePath.path)
-			return nil
-		} catch CocoaError.fileReadUnknownStringEncoding {
-			os_log("Unable to determine KSP version: string encoding for %@ is unknown.", log: .default, type: .error, readmeFilePath.path)
-			return nil
 		} catch let cocoaError as CocoaError {
 			os_log("Unable to determine KSP version for %@ due to a cocoa error: %@.", log: .default, type: .error, readmeFilePath.path, cocoaError.localizedDescription)
 			return nil
@@ -119,24 +101,12 @@ struct Target: Hashable {
 			} else {
 				os_log("Unable to determine KSP build ID: No match found in %@ encoded in ASCII.", log: .default, type: .error, buildIDFilePath.path)
 			}
-		} catch CocoaError.fileNoSuchFile {
-			os_log("Unable to determine KSP build ID: %@ does not exist.", log: .default, type: .error, buildIDFilePath.path)
-		} catch CocoaError.fileReadTooLarge {
-			os_log("Unable to determine KSP build ID: %@ is too large.", log: .default, type: .error, buildIDFilePath.path)
-		} catch CocoaError.fileReadNoPermission {
-			os_log("Unable to determine KSP build ID: no read permission for %@.", log: .default, type: .error, buildIDFilePath.path)
-		} catch CocoaError.fileReadCorruptFile {
-			os_log("Unable to determine KSP build ID: %@ is corrupted.", log: .default, type: .error, buildIDFilePath.path)
-		} catch CocoaError.fileReadInapplicableStringEncoding {
-			os_log("Unable to determine KSP build ID: string encoding for %@ is inapplicable.", log: .default, type: .error, buildIDFilePath.path)
-		} catch CocoaError.fileReadUnknownStringEncoding {
-			os_log("Unable to determine KSP build ID: string encoding for %@ is unknown.", log: .default, type: .error, buildIDFilePath.path)
 		} catch let cocoaError as CocoaError {
-			os_log("Unable to determine KSP build ID for %@ due to a cocoa error: %@.", log: .default, type: .error, buildIDFilePath.path, cocoaError.localizedDescription)
+			os_log("Unable to determine KSP build ID for %@ due to an acceptable cocoa error: %@.", log: .default, type: .debug, buildIDFilePath.path, cocoaError.localizedDescription)
 		} catch let nsError as NSError {
-			os_log("Unable to determine KSP build ID for %@ due to an error in domain %@: %@.", log: .default, type: .error, buildIDFilePath.path, nsError.domain, nsError.localizedDescription)
+			os_log("Unable to determine KSP build ID for %@ due to an acceptable error in domain %@: %@.", log: .default, type: .debug, buildIDFilePath.path, nsError.domain, nsError.localizedDescription)
 		} catch {
-			os_log("Unable to determine KSP build ID for %@ due to an unknown error.", log: .default, type: .error, buildIDFilePath.path)
+			os_log("Unable to determine KSP build ID for %@ due to an unknown error.", log: .default, type: .debug, buildIDFilePath.path)
 		}
 		
 		//	KSP's build ID acts as its verion's epoch. Not all KSP versions ship with the build ID information. If no build ID is found prior to this step, kspBuildID is an empty substring. If build ID is found, kspBuildID is appended with ":".
