@@ -72,7 +72,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	*/
 	private var releases: [Release] {
 		didSet {
-			self.releases.sort(by: { $0.version >= $1.version })
+			self.releases.sort(by: { $0.version >= $1.version } )
 		}
 	}
 	
@@ -89,7 +89,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
 	*/
-	var name: String { releases.max(by: { $0.version > $1.version })?.name ?? "mod name does not exist" }
+	var name: String { releases.max(by: { $0.version > $1.version } )?.name ?? "mod name does not exist" }
 	
 	/**
 	A short, one line description of the mod and what it does.
@@ -98,7 +98,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
 	*/
-	var abstract: String { releases.max(by: { $0.version > $1.version })?.abstract ?? "mod abstract dores not exist" }
+	var abstract: String { releases.max(by: { $0.version > $1.version } )?.abstract ?? "mod abstract dores not exist" }
 	
 	/**
 	Add a new release into the mod.
@@ -144,10 +144,10 @@ struct Mod: Hashable, Codable, Identifiable {
 	*/
 	subscript(version: Version) -> Release? {
 		get {
-			releases.first(where: { $0.version == version })
+			releases.first(where: { $0.version == version } )
 		}
 		set(newRelease) {
-			releases.removeAll(where: { $0.version == version })
+			releases.removeAll(where: { $0.version == version } )
 			if let newRelease = newRelease {
 				self.insert(newRelease)
 			}
@@ -164,6 +164,8 @@ extension Mod: Collection {
 	The position of the latest release in a nonempty mod rrelease collection.
 	
 	If the mod has no releases, `startIndex` is equal to `endIndex`.
+	
+	- See Also: `endIndex`.
 	*/
 	var startIndex: Index { releases.startIndex }
 	
@@ -173,6 +175,8 @@ extension Mod: Collection {
 	When you need a range that includes the earliest release of the mod, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
 	
 	If the mod has no releases, `endIndex` is equal to `startIndex`.
+	
+	- See Also: `startIndex`.
 	*/
 	var endIndex: Index { releases.endIndex }
 	
@@ -182,6 +186,8 @@ extension Mod: Collection {
 	- Parameter position: A valid polition of the mod release collection. `position` must be less than `endIndex`.
 	
 	- Returns: The position value immediately after `position.`
+	
+	- See Also: `endIndex`.
 	*/
 	func index(after position: Index) -> Index { releases.index(after: position) }
 	
@@ -195,6 +201,8 @@ extension Mod: Collection {
 	- Returns: The mod release at the specified reverse-chronological position.
 	
 	- Complexity: O(1).
+	
+	- See Also: `endIndex`.
 	*/
 	subscript(position: Index) -> Release { releases[position] }
 }

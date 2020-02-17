@@ -148,7 +148,7 @@ struct Version: Hashable {
 		*/
 		func nonNumericalLeadingComparableUnits(of versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
-			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) })
+			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.nonNumerical(String(nextComparableUnit)))
 			if !remainingVersionSegmentSubString.isEmpty {
@@ -162,7 +162,7 @@ struct Version: Hashable {
 		*/
 		func numericalLeadingComparableUnits(of versionSegmentSubString: String) -> VersionSegment {
 			var versionSegment: VersionSegment = []
-			let nextComparableUnit = versionSegmentSubString.prefix(while: { ("0"..."9" ~= $0) })
+			let nextComparableUnit = versionSegmentSubString.prefix(while: { ("0"..."9" ~= $0) } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(CKANVersionSmallestComparableUnit.numerical(Int(String(nextComparableUnit))!))
 			if !remainingVersionSegmentSubString.isEmpty {
@@ -253,6 +253,7 @@ extension Version: Comparable {
 //	}
 }
 
+//	MARK: "Comparable Conformance" for [CKANVersionSmallestComparableUnit]
 //	Extends Array, so it knows how to compare 2 CKANVersionSmallestComparableUnit instances.
 fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
 	static func < (lhs: [Element], rhs: [Element]) -> Bool {
@@ -265,6 +266,7 @@ fileprivate extension Array where Element == Version.CKANVersionSmallestComparab
 	}
 }
 
+//	MARK: Comparable Conformance for String?
 //	Extendes Optional for String? comparison.
 extension Optional: Comparable where Wrapped == String {
 	public static func < (lhs: Optional<Wrapped>, rhs: Optional<Wrapped>) -> Bool {
@@ -280,7 +282,7 @@ extension Optional: Comparable where Wrapped == String {
 	}
 }
 
-//	MARK: Collection Conformance
+//	MARK: - Collection Conformance
 extension Version: Collection {
 	
 	typealias Index = Array<Any>.Index
@@ -289,6 +291,8 @@ extension Version: Collection {
 	The position of the first dot-separated segment in a nonempty version.
 	
 	If the version is empty, `startIndex` is equal to `endIndex`.
+	
+	- See Also: `endIndex`.
 	*/
 	var startIndex: Index { quasiSemanticVersion.startIndex }
 	
@@ -298,6 +302,8 @@ extension Version: Collection {
 	When you need a range that includes the last dot-separated segment of the version, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
 	
 	If the version is empty, `endIndex` is equal to `startIndex`.
+	
+	- See Also: `startIndex`.
 	*/
 	var endIndex: Index { quasiSemanticVersion.endIndex }
 	
@@ -307,15 +313,21 @@ extension Version: Collection {
 	- Parameter position: A valid index of the version. `i` must be less than `endIndex`.
 	
 	- Returns: The index value immediately after `i.`
+	
+	- See Also: `endIndex`.
 	*/
 	func index(after i: Index) -> Index { quasiSemanticVersion.index(after: i) }
 	
 	/**
 	Accesses the version segment string at the specified position.
 	
+	This subscript provides read-only access.
+	
 	- Parameter position: The position of the version segment to access. `position` must be a valid index of the version that is not equal to the `endIndex` property.
 	
 	- Returns: The version segment string at the specified index.
+	
+	- See Also: `endIndex`.
 	*/
 	subscript(position: Index) -> String { quasiSemanticVersion[position].description }
 	
@@ -338,7 +350,7 @@ extension Version: Collection {
 	subscript<R>(r: R) -> String where R : RangeExpression, R.Bound == Index { self[r.relative(to: self)] }
 }
 
-//	MARK: CustomStringConvertible Conformance
+//	MARK: - CustomStringConvertible Conformance
 extension Version: CustomStringConvertible {
 	///	A textual representation of the version.
 	var description: String { String(originalString.split(separator: ":").last!.split(separator: "-").first!) }

@@ -22,6 +22,8 @@ struct Mods: Hashable, Codable {
 	*/
 	private var mods: Set<Mod> = []
 	
+	//	TODO: Add update(_:) to maintain consistent insert(_:) and update(_:) behaviours.
+	
 	/**
 	Inserts a mod into a mod collection.
 	
@@ -33,7 +35,7 @@ struct Mods: Hashable, Codable {
 	*/
 	mutating func insert(_ mod: Mod) {
 		var modCopy = mod
-		if let oldMod = mods.first(where: { $0.id == mod.id }) {
+		if let oldMod = mods.first(where: { $0.id == mod.id } ) {
 			mods.remove(oldMod)
 			oldMod.forEach { modCopy.insert($0) }
 		}
@@ -50,7 +52,7 @@ struct Mods: Hashable, Codable {
 	- Complexity: O(_mr_) in the worst case and O(_m_) in the best case, where _m_ is the count of existing mods in the mod collection, and where _r_ is the count of releases in the existing mod in the collection that shares the same `id` with the release.
 	*/
 	mutating func insert(_ release: Release) {
-		if let mod = mods.first(where: { $0.id == release.id }) {
+		if let mod = mods.first(where: { $0.id == release.id } ) {
 			mods.remove(mod)
 			mods.insert(Mod(superseding: mod, with: release))
 		} else {
@@ -82,10 +84,10 @@ struct Mods: Hashable, Codable {
 	*/
 	subscript(id: String) -> Mod? {
 		get {
-			mods.first(where: { $0.id == id })
+			mods.first(where: { $0.id == id } )
 		}
 		set(newMod) {
-			if let oldMod = mods.first(where: { $0.id == id }) {
+			if let oldMod = mods.first(where: { $0.id == id } ) {
 				mods.remove(oldMod)
 			}
 			if let newMod = newMod {
@@ -104,7 +106,9 @@ extension Mods: Collection {
 	/**
 	The position of the first mod in a nonempty mod collection.
 	
-	If the collection has no mod, `startIndex` is equal to `endIndex`.
+	If the collection has no mods, `startIndex` is equal to `endIndex`.
+	
+	- See Also: `endIndex`.
 	*/
 	var startIndex: Index { mods.startIndex }
 	
@@ -113,7 +117,9 @@ extension Mods: Collection {
 	
 	When you need a range that includes the last mod of the collection, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
 	
-	If the collection has no mod, `endIndex` is equal to `startIndex`.
+	If the collection has no mods, `endIndex` is equal to `startIndex`.
+	
+	- See Also: `startIndex`.
 	*/
 	var endIndex: Index { mods.endIndex }
 	
@@ -123,6 +129,8 @@ extension Mods: Collection {
 	- Parameter position: A valid polition in the mod collection. `i` must be less than `endIndex`.
 	
 	- Returns: The index value immediately after `i.`
+	
+	- See Also: `endIndex`.
 	*/
 	func index(after i: Index) -> Index { mods.index(after: i) }
 	
@@ -136,6 +144,8 @@ extension Mods: Collection {
 	- Returns: The mod at the specified index.
 	
 	- Complexity: O(1).
+	
+	- See Also: `endIndex`.
 	*/
 	subscript(position: Index) -> Mod { mods[position] }
 }
