@@ -19,12 +19,13 @@ struct Targets: Hashable {
 	
 	- Parameters:
 		- targets: The sequence of targets to initialise the collection of targets from.
+		- groupVersion: The shared version among the group members.
 		- groupingLevel: The level of grouping the target is initialised for. This is mostly for the convenience of the `TargetView`'s source list's data source and delegates.
 		- conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	
 	[generic default parameter problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
 	*/
-	init<T: Sequence>(targets: T, groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == Target {
+	init<T: Sequence>(targets: T, groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == Target {
 		var temporaryTargets: [Target] = []
 		targets.forEach { target in
 			if let oldTargetIndex = temporaryTargets.firstIndex(where: { $0.inode == target.inode } ) {
@@ -37,6 +38,7 @@ struct Targets: Hashable {
 			}
 		}
 		self.targets = temporaryTargets.sorted { $0.version >= $1.version }
+		self.groupVersion = groupVersion
 		self.groupingLevel = groupingLevel
 	}
 	
@@ -46,13 +48,14 @@ struct Targets: Hashable {
 	This initialiser exists because of [this problem][generic default parameter problem]. Use `init<T: Sequence>(targets: T, groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == Target` to initialise a non-empty collection of targets.
 	
 	- Parameters:
+		- groupVersion: The shared version among the group members.
 		- groupingLevel: The level of grouping the target is initialised for. This is mostly for the convenience of the `TargetView`'s source list's data source and delegates.
 		- conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	
 	[generic default parameter problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
 	*/
-	init(groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) {
-		self.init(targets: [Target](), groupingLevel: groupingLevel, conflictHandlingScheme: conflictHandlingScheme)
+	init(groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) {
+		self.init(targets: [Target](), groupVersion: groupVersion, groupingLevel: groupingLevel, conflictHandlingScheme: conflictHandlingScheme)
 	}
 	
 	///	An array of targets sorted descendingly by version.
@@ -60,21 +63,23 @@ struct Targets: Hashable {
 	///	A dictionary of collections of targets grouped by their major versions.
 	private var majorVersionGroup: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<1]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<1] == version.description }, groupingLevel: .major, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(targets: targets.filter { $0.version[..<1] == version.description }, groupVersion: version, groupingLevel: .major, conflictHandlingScheme: .updatePreviousOccurence)
 		}
 	}
 	///	A dictionary of collections of targets grouped by their minor versions.
 	private var minorVersionGroups: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<2]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<2] == version.description }, groupingLevel: .minor, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(targets: targets.filter { $0.version[..<2] == version.description }, groupVersion: version, groupingLevel: .minor, conflictHandlingScheme: .updatePreviousOccurence)
 		}
 	}
 	///	A dictionary of collections of targets grouped by their patch versions.
 	private var patchVersionGroup: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<3]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<3] == version.description }, groupingLevel: .patch, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(targets: targets.filter { $0.version[..<3] == version.description }, groupVersion: version, groupingLevel: .patch, conflictHandlingScheme: .updatePreviousOccurence)
 		}
 	}
+	///	The shared version among the group members.
+	let groupVersion: Version
 	///	The level this collection of targets is grouped by.
 	let groupingLevel: GroupingLevel
 	
