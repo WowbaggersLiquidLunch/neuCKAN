@@ -134,7 +134,7 @@ struct Target: Hashable {
 	If a logo does not exist for the target's version, a more general logo will be used. The most general logo matches to the target's major version. `logo` is `nil` if not even the most general logo exists.
 	*/
 	var logo: NSImage? {
-		NSImage(named: "KSP \(version.description) Logo") ?? NSImage(named: "KSP \(version[..<2]) Logo") ?? NSImage(named: "KSP \(version[..<1]) Logo")
+		NSImage(named: "KSP \(version.description) Logo") ?? NSImage(named: "KSP \(version[..<2]) Logo") ?? NSImage(named: "KSP \(version[..<1]) Logo") ?? NSImage(named: "KSP Logo")
 	}
 	
 	/**
