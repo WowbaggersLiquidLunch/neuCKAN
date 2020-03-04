@@ -99,7 +99,7 @@ struct Release: Hashable {
 	This is equivalent to the ["license" attribute][0] in a .ckan file.
 	
 	The CKAN project limits allowable mod licences to the same rules as per the [Debian licence specification][1], with the following modifications:
-	- The `"MIT"` licence is always taken to mean [the Expat licence][2]. __This is not honoured by the neuCKAN project.__
+	- The `"MIT"` licence is always taken to mean [the Expat licence][2].
 	- The creative commons licences are permitted without a version number, indicating the author did not specify which version applies.
 	- Stripping of trailing zeros is not recognised.
 	- `"WTFPL"` is recognised as a valid licence. (Since CKAN Metadata Specification v1.2)
@@ -164,8 +164,6 @@ struct Release: Hashable {
 	Author(s) of the mod release.
 	
 	This is equivalent to the ["author" attribute][0] in a .ckan file.
-	
-	No restrictions are placed on this field.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#author
 	*/
