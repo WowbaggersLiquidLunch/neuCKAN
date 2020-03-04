@@ -49,10 +49,10 @@ struct Mods: Hashable, Codable {
 	
 	- Parameter release: The mod release to be inserted into the collection.
 	
-	- Complexity: O(_mr_) in the worst case and O(_m_) in the best case, where _m_ is the count of existing mods in the mod collection, and where _r_ is the count of releases in the existing mod in the collection that shares the same `id` with the release.
+	- Complexity: O(_mr_) in the worst case and O(_m_) in the best case, where _m_ is the count of existing mods in the mod collection, and where _r_ is the count of releases in the existing mod in the collection that shares the same `modID` with the release.
 	*/
 	mutating func insert(_ release: Release) {
-		if let mod = mods.first(where: { $0.id == release.id } ) {
+		if let mod = mods.first(where: { $0.id == release.modID } ) {
 			mods.remove(mod)
 			mods.insert(Mod(superseding: mod, with: release))
 		} else {

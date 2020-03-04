@@ -32,7 +32,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- Parameter release: The `Release` instance to from which to instantiates `Mod`.
 	*/
 	init(with release: Release) {
-		self.id = release.id
+		self.id = release.modID
 		self.releases = [release]
 	}
 	

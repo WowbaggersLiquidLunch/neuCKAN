@@ -26,7 +26,7 @@ A `Release` instance contains all metadata of a mod release, as made available o
 [5]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md
 [6]: https://github.com/KSP-CKAN/CKAN/blob/master/CKAN.schema
 */
-struct Release: Hashable, Identifiable {
+struct Release: Hashable {
 	
 	//	MARK: Mandatory Fields
 	
@@ -80,7 +80,7 @@ struct Release: Hashable, Identifiable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
 	*/
-	let id: String
+	let modID: String
 	
 	/**
 	A fully formed URL, indicating where the described version of the mod may be downloaded.
@@ -445,6 +445,13 @@ struct Release: Hashable, Identifiable {
 	let fileType: String?
 }
 
+//	MARK: - Identifiable Conformance
+//	TODO: Uncomment Identifiable conformance once tuples have Hashable conformance
+//extension Release: Identifiable {
+//
+//	var id: (String, Version) { (modID, version) }
+//}
+
 //	MARK: - Codable Conformance
 extension Release: Codable {
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
@@ -452,7 +459,7 @@ extension Release: Codable {
 		case ckanMetadataSpecificationVersion = "spec_version"
 		case name
 		case abstract
-		case id = "identifier"
+		case modID = "identifier"
 		case downloadLink = "download"
 		case licences = "license"
 		case version
