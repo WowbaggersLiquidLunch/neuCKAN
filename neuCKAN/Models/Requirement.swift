@@ -8,6 +8,8 @@
 
 import Foundation
 
+//	FIXME: Find a more appropriate name than "Requirement".
+
 /**
 A range of release versions of a mod.
 
