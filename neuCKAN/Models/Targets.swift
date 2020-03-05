@@ -177,7 +177,7 @@ extension Targets: Collection {
 	
 	- Parameter paths: The paths where the targets to insert into the collection of targets are. Targets that are `nil` in the sequence are ignored.
 	*/
-	mutating func insert<T: Sequence>(newTargetsAt paths: T) where T.Element == FileURLConvertible {
+	mutating func insert<T: Sequence>(newTargetsAt paths: T) where T.Element: FileURLConvertible {
 		paths.forEach { insert(newElement: Target(path: $0)) }
 	}
 	
