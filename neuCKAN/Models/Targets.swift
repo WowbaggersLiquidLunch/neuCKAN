@@ -164,7 +164,7 @@ extension Targets: Collection {
 	
 	When multiple new targets share the same inode, the first in order among them takes precedence.
 	
-	- Parameter newTargets: The target to insert into the collection of targets. Targets that are `nil` in the sequence are ignored.
+	- Parameter newTargets: The targets to insert into the collection of targets. Targets that are `nil` in the sequence are ignored.
 	*/
 	mutating func insert<T: Sequence>(contentsOf newTargets: T) where T.Element == Target? {
 		newTargets.forEach { insert(newElement: $0) }
