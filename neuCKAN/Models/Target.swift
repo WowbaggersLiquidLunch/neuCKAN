@@ -13,20 +13,19 @@ import os.log
 struct Target: Hashable {
 	
 	/**
-	Initialise a KSP target from the given file URL.
+	Initialise a KSP target from the given path.
 	
-	The initialiser returns `nil` if the URL is invalid, or if no version informatino pertaining to the KSP installation is found.
+	The initialiser returns `nil` if the path is invalid, or if no version informatino pertaining to the KSP installation is found.
 	
-	- Precondition: The file URL must be the KSP game files' enclosing directory.
+	- Precondition: The path must be the KSP game files' enclosing directory.
 	
-	- Parameter path: The file URL to initiaise a target from.
-	
-	- See Also: `init?(path: String)`.
+	- Parameter path: The path to initiaise a target from.
 	*/
-	init?(path: URL) {
+	init?(path: FileURLConvertible) {
 		//	MARK: KSP Path
+		let kspURL = path.asFileURL()
 		//	Clean out all possible "/./", "/../", and "//" in the path.
-		let standardisedPath = path.standardizedFileURL
+		let standardisedPath = kspURL.standardizedFileURL
 		//	Because there can only possibly be 1 KSP installation at each physical location, all symbolic links need to be resolved to reveal the actual location. This also helps with getting inode value later, which is used for identifying each KSP installation.
 		let resolvedPath = standardisedPath.resolvingSymlinksInPath()
 		do {
@@ -40,22 +39,22 @@ struct Target: Hashable {
 			//	Record the standardised path with all possible symbolics unresolved, for the user's convenience.
 			self.path = standardisedPath
 		} catch CocoaError.fileNoSuchFile {
-			os_log("Unable to create KSP target: %@ does not exist.", log: .default, type: .debug, path.path)
+			os_log("Unable to create KSP target: %@ does not exist.", log: .default, type: .debug, kspURL.path)
 			return nil
 		} catch CocoaError.fileReadTooLarge {
-			os_log("Unable to create KSP target: %@ is too large.", log: .default, type: .debug, path.path)
+			os_log("Unable to create KSP target: %@ is too large.", log: .default, type: .debug, kspURL.path)
 			return nil
 		} catch CocoaError.fileReadNoPermission {
-			os_log("Unable to create KSP target: no read permission for %@.", log: .default, type: .debug, path.path)
+			os_log("Unable to create KSP target: no read permission for %@.", log: .default, type: .debug, kspURL.path)
 			return nil
 		} catch let cocoaError as CocoaError {
-			os_log("Unable to create KSP target for %@ due to a cocoa error: %@.", log: .default, type: .debug, path.path, cocoaError.localizedDescription)
+			os_log("Unable to create KSP target for %@ due to a cocoa error: %@.", log: .default, type: .debug, kspURL.path, cocoaError.localizedDescription)
 			return nil
 		} catch let nsError as NSError {
-			os_log("Unable to create KSP target for %@ due to an error in domain %@: %@.", log: .default, type: .debug, path.path, nsError.domain, nsError.localizedDescription)
+			os_log("Unable to create KSP target for %@ due to an error in domain %@: %@.", log: .default, type: .debug, kspURL.path, nsError.domain, nsError.localizedDescription)
 			return nil
 		} catch {
-			os_log("Unable to create KSP target for %@ due to an unknown error.", log: .default, type: .debug, path.path)
+			os_log("Unable to create KSP target for %@ due to an unknown error.", log: .default, type: .debug, kspURL.path)
 			return nil
 		}
 		
@@ -161,23 +160,6 @@ struct Target: Hashable {
 	- See Also: `id`.
 	*/
 	let inode: Int
-}
-
-extension Target {
-	/**
-	Initialise a KSP target from the given file path string.
-	
-	The initialiser returns `nil` if the file path is invalid, or if no version informatino pertaining to the KSP installation is found.
-	
-	- Precondition: The file path string must represent the KSP game files' enclosing directory.
-	
-	- Parameter path: The file path string to initiaise a target from.
-	
-	- See Also: `init?(path: URL)`.
-	*/
-	init?(path: String) {
-		self.init(path: URL(fileURLWithPath: path))
-	}
 }
 
 //	MARK: - Identifiable Conformance
