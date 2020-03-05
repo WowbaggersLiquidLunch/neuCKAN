@@ -171,6 +171,17 @@ extension Targets: Collection {
 	}
 	
 	/**
+	Inserts targets at the given paths into the collection of targets if any of them is not already present.
+	
+	When multiple new targets share the same inode, the first in order among them takes precedence.
+	
+	- Parameter paths: The paths where the targets to insert into the collection of targets are. Targets that are `nil` in the sequence are ignored.
+	*/
+	mutating func insert<T: Sequence>(newTargetsAt paths: T) where T.Element == FileURLConvertible {
+		paths.forEach { insert(newElement: Target(path: $0)) }
+	}
+	
+	/**
 	Inserts the given target into the collection of targets unconditionally.
 	
 	- Parameter newTarget: The target to insert into the collection of targets. `nil` is ignored.
@@ -193,6 +204,17 @@ extension Targets: Collection {
 	*/
 	mutating func update<T: Sequence>(contentsOf newTargets: T) where T.Element == Target? {
 		newTargets.forEach { update(newElement: $0) }
+	}
+	
+	/**
+	Merges targets at the given paths into the current collection of targets unconditionally.
+	
+	When multiple new targets share the same inode, the last in order among them takes precedence.
+	
+	- Parameter paths: The paths where the targets to insert into the collection of targets are. Targets that are `nil` in the sequence are ignored.
+	*/
+	mutating func update<T: Sequence>(newTargetsAt paths: T) where T.Element == FileURLConvertible {
+		paths.forEach { update(newElement: Target(path: $0)) }
 	}
 	
 	/**
