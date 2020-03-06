@@ -228,15 +228,16 @@ extension Targets: Collection {
 	
 	- Complexity: O(1).
 	*/
-	private(set) subscript(path: URL) -> Target? {
+	private(set) subscript(path: FileURLConvertible) -> Target? {
 		get {
-			let resolvedPath = path.standardizedFileURL.resolvingSymlinksInPath()
+			let kspURL = path.asFileURL()
+			let resolvedPath = kspURL.standardizedFileURL.resolvingSymlinksInPath()
 			guard FileManager.default.fileExists(atPath: resolvedPath.absoluteString) else {
-				os_log("Unable to locate KSP target: %@ does not exist.", log: .default, type: .debug, path.absoluteString)
+				os_log("Unable to locate KSP target: %@ does not exist.", log: .default, type: .debug, kspURL.absoluteString)
 				return nil
 			}
 			guard let kspDirectoryAttributes = try? FileManager.default.attributesOfItem(atPath: resolvedPath.absoluteString) else {
-				os_log("Unable to retrieve file attributes of %@, which is after standardising and resolving symlinks in %@.", log: .default, type: .error, resolvedPath.absoluteString, path.absoluteString)
+				os_log("Unable to retrieve file attributes of %@, which is after standardising and resolving symlinks in %@.", log: .default, type: .error, resolvedPath.absoluteString, kspURL.absoluteString)
 				return nil
 			}
 			return first(where: { $0.inode == kspDirectoryAttributes[.systemFileNumber] as! Int } )
