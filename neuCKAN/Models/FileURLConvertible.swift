@@ -7,8 +7,9 @@
 //
 
 import Foundation
+
 /**
-A type with a file URL representation.
+A type that can represent a file URL.
 */
 protocol FileURLConvertible {
 	/**
