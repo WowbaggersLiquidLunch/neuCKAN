@@ -15,7 +15,7 @@ struct Targets: Hashable {
 	/**
 	Initialises a collection of targets from the given sequence of targets.
 	
-	Because of [this problem][generic default parameter problem], use `init(groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence)` to initialise an empty collection of targets.
+	Because of [a problem with generic default parameters][generic default parameters problem], use `init(groupVersion: Version, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption)` to initialise an empty collection of targets.
 	
 	- Parameters:
 		- targets: The sequence of targets to initialise the collection of targets from.
@@ -23,7 +23,7 @@ struct Targets: Hashable {
 		- groupingLevel: The level of grouping the target is initialised for. This is mostly for the convenience of the `TargetView`'s source list's data source and delegates.
 		- conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	
-	[generic default parameter problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
+	[generic default parameters problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
 	*/
 	init<T: Sequence>(targets: T, groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == Target {
 		var temporaryTargets: [Target] = []
@@ -45,14 +45,14 @@ struct Targets: Hashable {
 	/**
 	Initialises an empty collection of targets from the given sequence of targets.
 	
-	This initialiser exists because of [this problem][generic default parameter problem]. Use `init<T: Sequence>(targets: T, groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == Target` to initialise a non-empty collection of targets.
+	This initialiser exists because of [a problem with generic default parameters][generic default parameters problem]. Use `init<T: Sequence>(targets: T, groupVersion: Version, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption) where T.Element == Target` to initialise a non-empty collection of targets.
 	
 	- Parameters:
 		- groupVersion: The shared version among the group members.
 		- groupingLevel: The level of grouping the target is initialised for. This is mostly for the convenience of the `TargetView`'s source list's data source and delegates.
 		- conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	
-	[generic default parameter problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
+	[generic default parameters problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
 	*/
 	init(groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) {
 		self.init(targets: [Target](), groupVersion: groupVersion, groupingLevel: groupingLevel, conflictHandlingScheme: conflictHandlingScheme)
