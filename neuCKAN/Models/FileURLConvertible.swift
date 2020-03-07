@@ -11,13 +11,24 @@ import Foundation
 /**
 A type that can represent a file URL.
 */
-protocol FileURLConvertible {
+protocol FileURLConvertible: TargetConvertible {
 	/**
 	Returns a file URL from the conforming instance.
 	
 	- Returns: The file URL converted from the conforming instance.
 	*/
 	func asFileURL() -> URL
+}
+
+extension FileURLConvertible {
+	/**
+	Returns an optional KSP target from the given path.
+	
+	- Returns: The KSP target found at the given path, or `nil` if the path is invalid.
+	*/
+	func asTarget() -> Target? {
+		return Target(path: self)
+	}
 }
 
 //enum FileURLConversionError: LocalizedError {
