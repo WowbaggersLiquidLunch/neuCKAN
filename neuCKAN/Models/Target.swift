@@ -178,3 +178,8 @@ extension Target: Identifiable {
 	*/
 	var id: Int { inode }
 }
+
+enum TargetError: Error {
+	case pathInvalid
+	case inodeClash
+}
