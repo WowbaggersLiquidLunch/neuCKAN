@@ -26,9 +26,7 @@ extension FileURLConvertible {
 	
 	- Returns: The KSP target found at the given path, or `nil` if the path is invalid.
 	*/
-	func asTarget() -> Target? {
-		return Target(path: self)
-	}
+	func asTarget() -> Target? { Target(path: self) }
 }
 
 //enum FileURLConversionError: LocalizedError {
@@ -64,9 +62,7 @@ extension URL: LosslessFileURLConvertible {
 	
 	- Returns: The file URL converted from `self`.
 	*/
-	func asFileURL() -> URL {
-		return URL(fileURLWithPath: self.path)
-	}
+	func asFileURL() -> URL { URL(fileURLWithPath: self.path) }
 }
 
 extension String: LosslessFileURLConvertible {
@@ -86,7 +82,5 @@ extension String: LosslessFileURLConvertible {
 	
 	- Returns: The file URL converted from `self`.
 	*/
-	func asFileURL() -> URL {
-		return URL(fileURLWithPath: self)
-	}
+	func asFileURL() -> URL { URL(fileURLWithPath: self) }
 }

@@ -26,5 +26,5 @@ extension Target: TargetConvertible {
 	
 	- Returns: `self`.
 	*/
-	func asTarget() -> Target? { return self }
+	func asTarget() -> Target? { self }
 }
