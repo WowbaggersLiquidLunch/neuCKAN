@@ -10,6 +10,9 @@ import Foundation
 import Cocoa
 import os.log
 
+/**
+A collection of KSP installations managable by neuCKAN.
+*/
 struct Targets: Hashable {
 	
 	/**

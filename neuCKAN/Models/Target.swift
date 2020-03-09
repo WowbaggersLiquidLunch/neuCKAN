@@ -10,6 +10,11 @@ import Foundation
 import Cocoa
 import os.log
 
+/**
+A KSP installation managable by neuCKAN.
+
+A KSP installation is the enclosing directory of a `GameData/`. KSP installations with the same resolved path are treated as the same target.
+*/
 struct Target: Hashable {
 	
 	/**
