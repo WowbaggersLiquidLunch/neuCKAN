@@ -102,9 +102,9 @@ struct Version: Hashable {
 	
 	An instance of this type represents a part of the content separated by dots in a version string.
 	
-	- See Also: `CKANVersionSmallestComparableUnit`
+	- See Also: `CKANVersionMinimalComparableUnit`
 	*/
-	private typealias VersionSegment = [CKANVersionSmallestComparableUnit]
+	private typealias VersionSegment = [CKANVersionMinimalComparableUnit]
 	
 	/**
 	The smallest comparable unit in CKAN metadata's `"mod_version"` attribute.
@@ -115,12 +115,12 @@ struct Version: Hashable {
 	
 	[version ordering]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 	*/
-	fileprivate enum CKANVersionSmallestComparableUnit: Hashable, Comparable {
+	fileprivate enum CKANVersionMinimalComparableUnit: Hashable, Comparable {
 		case numerical(Int)
 		case nonNumerical(String)
 		
 		//	Comparable conformance
-		static func < (lhs: Version.CKANVersionSmallestComparableUnit, rhs: Version.CKANVersionSmallestComparableUnit) -> Bool {
+		static func < (lhs: Version.CKANVersionMinimalComparableUnit, rhs: Version.CKANVersionMinimalComparableUnit) -> Bool {
 			switch (lhs, rhs) {
 			case (.numerical(let lhs), .numerical(let rhs)):
 				return lhs < rhs
@@ -150,7 +150,7 @@ struct Version: Hashable {
 			var versionSegment: VersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
-			versionSegment.append(CKANVersionSmallestComparableUnit.nonNumerical(String(nextComparableUnit)))
+			versionSegment.append(CKANVersionMinimalComparableUnit.nonNumerical(String(nextComparableUnit)))
 			if !remainingVersionSegmentSubString.isEmpty {
 				versionSegment.append(contentsOf: numericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
@@ -164,7 +164,7 @@ struct Version: Hashable {
 			var versionSegment: VersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { ("0"..."9" ~= $0) } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
-			versionSegment.append(CKANVersionSmallestComparableUnit.numerical(Int(String(nextComparableUnit))!))
+			versionSegment.append(CKANVersionMinimalComparableUnit.numerical(Int(String(nextComparableUnit))!))
 			if !remainingVersionSegmentSubString.isEmpty {
 				versionSegment.append(contentsOf: nonNumericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
@@ -253,9 +253,9 @@ extension Version: Comparable {
 //	}
 }
 
-//	MARK: "Comparable Conformance" for [CKANVersionSmallestComparableUnit]
-//	Extends Array, so it knows how to compare 2 CKANVersionSmallestComparableUnit instances.
-fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
+//	MARK: "Comparable Conformance" for [CKANVersionMinimalComparableUnit]
+//	Extends Array, so it knows how to compare 2 CKANVersionMinimalComparableUnit instances.
+fileprivate extension Array where Element == Version.CKANVersionMinimalComparableUnit {
 	static func < (lhs: [Element], rhs: [Element]) -> Bool {
 		for i in 0..<Swift.min(lhs.count, rhs.count) {
 			if lhs[i] < rhs[i] {
@@ -357,12 +357,12 @@ extension Version: CustomStringConvertible {
 }
 
 //	FIXME: Fix String(describing: VersionSegment).
-fileprivate extension Array where Element == Version.CKANVersionSmallestComparableUnit {
+fileprivate extension Array where Element == Version.CKANVersionMinimalComparableUnit {
 	///	A textual representation of the version segment.
 	var description: String { self.map { String(describing: $0) }.joined() }
 }
 
-extension Version.CKANVersionSmallestComparableUnit: CustomStringConvertible {
+extension Version.CKANVersionMinimalComparableUnit: CustomStringConvertible {
 	///	A textual representation of the smallest comparable unit.
 	var description: String {
 		switch self {
