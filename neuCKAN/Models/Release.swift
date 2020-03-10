@@ -28,7 +28,7 @@ A `Release` instance contains all metadata of a mod release, as made available o
 */
 struct Release: Hashable {
 	
-	//	MARK: Mandatory Fields
+	//	MARK: - Mandatory Fields
 	
 	/**
 	The version number of the CKAN specification used to create this .ckan file.
