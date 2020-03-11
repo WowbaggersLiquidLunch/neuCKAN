@@ -210,27 +210,3 @@ extension CKANFuckery: CustomStringConvertible {
 		}
 	}
 }
-
-//	MARK: -
-
-///	A type that provides a default instance when requested.
-protocol Defaultable {
-	///	An instance of this type with a predefined composition.
-	static var defaultInstance: Self { get }
-}
-
-///	A type that provides a default empty representation.
-protocol EmptyRepresentable {
-	/// An empty instance of the type.
-	static var emptyInstance: Self { get }
-}
-
-extension String: Defaultable {
-	///	A default String instance: `""`.
-	static var defaultInstance: String { emptyInstance }
-}
-
-extension String: EmptyRepresentable {
-	/// An empty String instance: `""`.
-	static let emptyInstance: String = ""
-}
