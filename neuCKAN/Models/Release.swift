@@ -462,7 +462,7 @@ extension Release: Codable {
 		case licences = "license"
 		case version
 		case installationDirectives = "install"
-		case author
+		case authors
 		case description
 		case status = "release_status"
 		case kspVersion = "ksp_version"
