@@ -92,15 +92,6 @@ struct Mod: Hashable, Codable, Identifiable {
 	var name: String { releases.max(by: { $0.version > $1.version } )?.name ?? "mod name does not exist" }
 	
 	/**
-	A short, one line description of the mod and what it does.
-	
-	This is equivalent to the ["abstract" attribute][0] in a .ckan file.
-	
-	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#abstract
-	*/
-	var abstract: String { releases.max(by: { $0.version > $1.version } )?.abstract ?? "mod abstract dores not exist" }
-	
-	/**
 	Add a new release into the mod.
 	
 	The release is only inserted if it doesn't already exists.
