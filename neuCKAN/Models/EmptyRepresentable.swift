@@ -15,6 +15,7 @@ protocol EmptyRepresentable: Defaultable {
 }
 
 extension EmptyRepresentable {
+	///	A default instance generated from the type's `EmptyRepresentable` conformance.
 	static var defaultInstance: Self { emptyInstance }
 }
 
