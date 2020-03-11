@@ -167,7 +167,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#author
 	*/
-	let author: CKANFuckery<String>?
+	let authors: CKANFuckery<String>?
 	
 	/**
 	A free form, long text description of the mod release.
