@@ -9,13 +9,16 @@
 import Foundation
 
 ///	A type that provides a default empty representation.
-protocol EmptyRepresentable {
+protocol EmptyRepresentable: Defaultable {
 	/// An empty instance of the type.
 	static var emptyInstance: Self { get }
+}
+
+extension EmptyRepresentable {
+	static var defaultInstance: Self { emptyInstance }
 }
 
 extension String: EmptyRepresentable {
 	/// An empty String instance: `""`.
 	static let emptyInstance: String = ""
 }
-

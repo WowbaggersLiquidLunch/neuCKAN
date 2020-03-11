@@ -13,8 +13,3 @@ protocol Defaultable {
 	///	An instance of this type with a predefined composition.
 	static var defaultInstance: Self { get }
 }
-
-extension Defaultable where Self: EmptyRepresentable{
-	///	A default instance generated from the type's `EmptyRepresentable` conformance.
-	static var defaultInstance: Self { emptyInstance }
-}
