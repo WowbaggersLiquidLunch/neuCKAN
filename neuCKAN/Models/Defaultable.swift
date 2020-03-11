@@ -14,7 +14,7 @@ protocol Defaultable {
 	static var defaultInstance: Self { get }
 }
 
-extension String: Defaultable {
-	///	A default String instance: `""`.
-	static var defaultInstance: String { emptyInstance }
+extension Defaultable where Self: EmptyRepresentable{
+	///	A default instance generated from the type's `EmptyRepresentable` conformance.
+	static var defaultInstance: Self { emptyInstance }
 }
