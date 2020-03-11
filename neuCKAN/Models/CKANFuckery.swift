@@ -159,7 +159,7 @@ extension CKANFuckery: Collection {
 	*/
 	func index(after i: Index) -> Index {
 		switch self {
-		case .item: return endIndex
+		case .item(let item): return Set([item]).index(after: i)
 		case .items(let items): return items.index(after: i)
 		}
 	}
@@ -201,7 +201,14 @@ extension CKANFuckery: Collection {
 //	MARK: - CustomStringConvertible Conformance
 extension CKANFuckery: CustomStringConvertible {
 	/// A human-readable representation of its content.
-	var description: String { self.map { String(describing: $0) } .sorted(by: <).joined(separator: ", ") }
+	var description: String {
+		switch self {
+		case .item(let item):
+			return String(describing: item)
+		case .items(let items):
+			return items.map{ String(describing: $0) }.sorted(by: <).joined(separator: ", ")
+		}
+	}
 }
 
 //	MARK: -
