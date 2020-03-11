@@ -61,19 +61,6 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 	case items(Set<Item>)
 }
 
-//	MARK: - CustomStringConvertible Conformance
-extension CKANFuckery: CustomStringConvertible {
-	/// A human-readable representation of its content.
-	var description: String {
-		switch self {
-		case .item(let item):
-			return String(describing: item)
-		case .items(let items):
-			return items.map{ String(describing: $0) }.joined(separator: ", ")
-		}
-	}
-}
-
 //	MARK: -Codable Conformance
 extension CKANFuckery: Codable where Item: Codable & Defaultable {
 	
@@ -172,7 +159,7 @@ extension CKANFuckery: Collection {
 	*/
 	func index(after i: Index) -> Index {
 		switch self {
-		case .item(let item): return Set([item]).index(after: i)
+		case .item: return endIndex
 		case .items(let items): return items.index(after: i)
 		}
 	}
@@ -209,6 +196,12 @@ extension CKANFuckery: Collection {
 			}
 		}
 	}
+}
+
+//	MARK: - CustomStringConvertible Conformance
+extension CKANFuckery: CustomStringConvertible {
+	/// A human-readable representation of its content.
+	var description: String { self.map { String(describing: $0) } .sorted(by: <).joined(separator: ", ") }
 }
 
 //	MARK: -
