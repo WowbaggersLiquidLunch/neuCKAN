@@ -19,12 +19,3 @@ protocol TargetConvertible {
 	*/
 	func asTarget() -> Target?
 }
-
-extension Target: TargetConvertible {
-	/**
-	Returns `self`.
-	
-	- Returns: `self`.
-	*/
-	func asTarget() -> Target? { self }
-}

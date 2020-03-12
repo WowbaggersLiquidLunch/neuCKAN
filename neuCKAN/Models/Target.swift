@@ -179,6 +179,16 @@ extension Target: Identifiable {
 	var id: Int { inode }
 }
 
+//	MARK: - TargetConvertible Conformance
+extension Target: TargetConvertible {
+	/**
+	Returns `self`.
+	
+	- Returns: `self`.
+	*/
+	func asTarget() -> Target? { self }
+}
+
 enum TargetError: Error {
 	case pathInvalid
 	case inodeClash
