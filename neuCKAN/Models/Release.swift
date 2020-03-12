@@ -200,29 +200,29 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
 	*/
-	let kspVersion: Version?
+	let supportedKSPVersion: Version?
 	
 	/**
 	The minimum version of KSP required by the mod release.
 	
 	This is equivalent to the ["ksp_version_min" attribute][0] in a .ckan file.
 	
-	It is an error to have both `kspVersionMin` and the `kspVersion` not `nil`.
+	It is an error to have both `supportedMinimumKSPVersion` and the `supportedKSPVersion` not `nil`.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
 	*/
-	let kspVersionMin: Version?
+	let supportedMinimumKSPVersion: Version?
 	
 	/**
 	The maximum version of KSP required by the mod release.
 	
 	This is equivalent to the ["ksp_version_max" attribute][0] in a .ckan file.
 	
-	It is an error to have both `kspVersionMax` and the `kspVersion` not `nil`.
+	It is an error to have both `supportedMaximumKSPVersion` and the `supportedKSPVersion` not `nil`.
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 	*/
-	let kspVersionMax: Version?
+	let supportedMaximumKSPVersion: Version?
 	
 	/**
 	Whether checks for KSP version verbatim.
@@ -231,7 +231,7 @@ struct Release: Hashable {
 	
 	If `true`, the mod will only be installed if the user's KSP version is exactly targeted by the mod.
 	
-	If `false`, the mod will be installed if the KSP version it targets is "generally recognised" as being compatible with the KSP version the user has installed. It is up to the neuCKAN to determine what is "generally recognised" as working. For example, a mod with a `kspVersion` of `"1.0.3"` will also install in KSP 1.0.4 (but not any other version) when `kspVersionVerbatim` is `false`.
+	If `false`, the mod will be installed if the KSP version it targets is "generally recognised" as being compatible with the KSP version the user has installed. It is up to the neuCKAN to determine what is "generally recognised" as working. For example, a mod with a `supportedKSPVersion` of `"1.0.3"` will also install in KSP 1.0.4 (but not any other version) when `supportedKSPVersionsAreVerbatim` is `false`.
 	
 	This field defaults to `false`.
 	
@@ -239,7 +239,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_strict
 	*/
-	let kspVersionVerbatim: Bool?
+	let supportedKSPVersionsAreVerbatim: Bool?
 	
 	/**
 	Tags for the mod release.
@@ -465,10 +465,10 @@ extension Release: Codable {
 		case authors = "author"
 		case description
 		case status = "release_status"
-		case kspVersion = "ksp_version"
-		case kspVersionMin = "ksp_version_min"
-		case kspVersionMax = "ksp_version_max"
-		case kspVersionVerbatim = "ksp_version_strict"
+		case supportedKSPVersion = "ksp_version"
+		case supportedMinimumKSPVersion = "ksp_version_min"
+		case supportedMaximumKSPVersion = "ksp_version_max"
+		case supportedKSPVersionsAreVerbatim = "ksp_version_strict"
 		case tags
 		case locales = "localization"
 		case dependencies = "depends"
