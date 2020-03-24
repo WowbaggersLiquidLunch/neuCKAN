@@ -1,5 +1,5 @@
 //
-//	InstallationDirectives.swift
+//	InstallationDirective.swift
 //	neuCKAN
 //
 //	Created by you on 19-11-05.
@@ -28,7 +28,7 @@ A typical set of installation directives only has `"file"` and `"install_to"` at
 
 [0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 */
-struct InstallationDirectives: Hashable {
+struct InstallationDirective: Hashable {
 	
 	//	MARK: Source Directive
 	
@@ -49,7 +49,7 @@ struct InstallationDirectives: Hashable {
 		
 		All leading directories are stripped from the start of the filename during install. For example, `MyMods/KSP/Foo` will be installed into `GameData/Foo`.
 		*/
-		case consistent(String)
+		case absolutePath(String)
 		
 		/**
 		The top-most directory that matches exactly the name specified. (since CKAN v1.4)
@@ -58,18 +58,32 @@ struct InstallationDirectives: Hashable {
 		
 		This is particularly useful when distributions have structures that change by releases.
 		*/
-		case inconsistent(String)
+		case topMostMatch(String)
 		
 		/**
-		The top-most directory that matches the specified regular expression. (since CKAN v1.10)
+		The top-most directory that matches the specified regular expression string. (since CKAN v1.10)
 		
 		This is equivalent to the `"find_regexp"` attribute in a .ckan file.
 		
-		This is particularly useful when distributions have structures that change by releases, but `inconsistent` is insufficient because multiple directories or files contain the same name. Directories' separators will have been normalised to forward-slashes first, and the trailing slash for each directory removed before the regular expression is run.
+		This is particularly useful when distributions have structures that change by releases, but `topMostMatch` is insufficient because multiple directories or files contain the same name. Directories' separators will have been normalised to forward-slashes first, and the trailing slash for each directory removed before the regular expression is run.
 		
 		- Warning: Use sparingly and with caution, regular expressions are prone to hard-to-spot mistakes.
 		*/
-		case consistentByRegex(String)
+		case topMostMatchByRegex(String)
+		
+		/**
+		The `NSRegularExpression` instance representing a source directory.
+		
+		This is computed from `source`.
+		*/
+		var sourceDirectiveRegex: NSRegularExpression? {
+			switch self {
+			case .topMostMatchByRegex(let regexString):
+				return try! NSRegularExpression(pattern: regexString, options: .caseInsensitive)
+			default:
+				return nil
+			}
+		}
 	}
 	
 	//	MARK: - Destination Directive
@@ -109,7 +123,7 @@ struct InstallationDirectives: Hashable {
 	let newPathNameOnInstallation: String?
 	
 	/**
-	File parts that should not be installed.
+	The single or multiple file(s) that should not be installed.
 	
 	This is equivalent to the `"filter"` attribute in a .ckan file.
 	
@@ -118,14 +132,22 @@ struct InstallationDirectives: Hashable {
 	let componentsExcluded: CKANFuckery<String>?
 	
 	/**
-	Regular expressions that match against file parts that should not be installed.
+	The single or multiple regular expression string(s) that match against file parts that should not be installed.
 	
 	This is equivalent to the `"filter_regexp"` attribute in a .ckan file.
 	*/
 	let componentsExcludedByRegex: CKANFuckery<String>?
 	
 	/**
-	File parts that should be installed.
+	The single or multiple`NSRegularExpression` instance(s) representing source files excluded from installation.
+	
+	This is computed from `componentsExcludedByRegex`.
+	*/
+	var componentsExclusionRegex: CKANFuckery<NSRegularExpression>? {
+		CKANFuckery(items: componentsExcludedByRegex?.map { try! NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
+	}
+	/**
+	The single or multiple file(s) that should be installed.
 	
 	This is equivalent to the `"include_only"` attribute in a .ckan file.
 	
@@ -134,14 +156,23 @@ struct InstallationDirectives: Hashable {
 	let componentsIncludedExclusively: CKANFuckery<String>?
 	
 	/**
-	Regular expressions that match against file parts that should be installed.
+	The single or multiple regular expression string(s) that match against file parts that should be installed.
 	
 	This is equivalent to the `"include_only_regexp"` attribute in a .ckan file.
 	*/
 	let componentsIncludedExclusivelyByRegex: CKANFuckery<String>?
 	
 	/**
-	Whether `inconsistent` and `consistentByRegex` matches files in addition to directories.
+	The single or multiple`NSRegularExpression` instance(s) representing source files exclusively included for installation.
+	
+	This is computed from `componentsIncludedExclusivelyByRegex`.
+	*/
+	var componentsExclusiveInclusionRegex: CKANFuckery<NSRegularExpression>? {
+		CKANFuckery(items: componentsIncludedExclusivelyByRegex?.map { try! NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
+	}
+	
+	/**
+	Whether `topMostMatch` and `topMostMatchByRegex` matches files in addition to directories.
 	
 	This is equivalent to the `"find_matches_files"` attribute in a .ckan file.
 	*/
@@ -149,7 +180,7 @@ struct InstallationDirectives: Hashable {
 }
 
 //	MARK: - Codable Conformance
-extension InstallationDirectives: Codable {
+extension InstallationDirective: Codable {
 	/**
 	Initialises a `InstallationDirectives` instance by decoding from the given `decoder`.
 	
@@ -159,14 +190,14 @@ extension InstallationDirectives: Codable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		
 		//	MARK: Decode Source Directive
-		if let directive = try? values.decode(String.self, forKey: .consistent) {
-			source = .consistent(directive)
-		} else if let directive = try? values.decode(String.self, forKey: .inconsistent) {
-			source = .inconsistent(directive)
-		} else if let directive = try? values.decode(String.self, forKey: .consistentByRegex) {
-			source = .consistentByRegex(directive)
+		if let directive = try? values.decode(String.self, forKey: .absolutePath) {
+			source = .absolutePath(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .topMostMatch) {
+			source = .topMostMatch(directive)
+		} else if let directive = try? values.decode(String.self, forKey: .topMostMatchByRegex) {
+			source = .topMostMatchByRegex(directive)
 		} else {
-			source = .consistent("")
+			source = .absolutePath("")
 		}
 		
 		//	MARK: Decode Destination Directive
@@ -191,12 +222,12 @@ extension InstallationDirectives: Codable {
 		
 		//	MARK: Encode Source Directive
 		switch source {
-		case .consistent(let directive):
-			try container.encode(directive, forKey: .consistent)
-		case .inconsistent(let directive):
-			try container.encode(directive, forKey: .inconsistent)
-		case .consistentByRegex(let directive):
-			try container.encode(directive, forKey: .consistentByRegex)
+		case .absolutePath(let directive):
+			try container.encode(directive, forKey: .absolutePath)
+		case .topMostMatch(let directive):
+			try container.encode(directive, forKey: .topMostMatch)
+		case .topMostMatchByRegex(let directive):
+			try container.encode(directive, forKey: .topMostMatchByRegex)
 		}
 		
 		//	MARK: Decode Destination Directive
@@ -213,9 +244,9 @@ extension InstallationDirectives: Codable {
 	
 	//	Maps between Swift names and JSON names; adds to Codable conformance.
 	private enum CodingKeys: String, CodingKey {
-		case consistent = "file"
-		case inconsistent = "find"
-		case consistentByRegex = "find_regexp"
+		case absolutePath = "file"
+		case topMostMatch = "find"
+		case topMostMatchByRegex = "find_regexp"
 		case destination = "install_to"
 		case newPathNameOnInstallation = "as"
 		case componentsExcluded = "filter"

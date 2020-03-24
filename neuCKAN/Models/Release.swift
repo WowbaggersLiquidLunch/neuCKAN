@@ -147,7 +147,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#install
 	*/
-	let installationDirectives: [InstallationDirectives]?
+	let installationDirectives: [InstallationDirective]?
 	
 	/**
 	A comment field for the mod release.
