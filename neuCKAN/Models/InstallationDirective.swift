@@ -79,7 +79,7 @@ struct InstallationDirective: Hashable {
 		var sourceDirectiveRegex: NSRegularExpression? {
 			switch self {
 			case .topMostMatchByRegex(let regexString):
-				return try! NSRegularExpression(pattern: regexString, options: .caseInsensitive)
+				return try? NSRegularExpression(pattern: regexString, options: .caseInsensitive)
 			default:
 				return nil
 			}
@@ -144,7 +144,7 @@ struct InstallationDirective: Hashable {
 	This is computed from `componentsExcludedByRegex`.
 	*/
 	var componentsExclusionRegex: CKANFuckery<NSRegularExpression>? {
-		CKANFuckery(items: componentsExcludedByRegex?.map { try! NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
+		CKANFuckery(items: componentsExcludedByRegex?.compactMap { try? NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
 	}
 	/**
 	The single or multiple file(s) that should be installed.
@@ -168,7 +168,7 @@ struct InstallationDirective: Hashable {
 	This is computed from `componentsIncludedExclusivelyByRegex`.
 	*/
 	var componentsExclusiveInclusionRegex: CKANFuckery<NSRegularExpression>? {
-		CKANFuckery(items: componentsIncludedExclusivelyByRegex?.map { try! NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
+		CKANFuckery(items: componentsIncludedExclusivelyByRegex?.compactMap { try? NSRegularExpression(pattern: $0, options: .caseInsensitive) } )
 	}
 	
 	/**
