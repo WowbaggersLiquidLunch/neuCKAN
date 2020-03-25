@@ -109,7 +109,7 @@ struct InstallationDirective: Hashable {
 	
 	This allows renaming directories and files on installation.
 	*/
-	let newPathNameOnInstallation: String?
+	let alias: String?
 	
 	/**
 	The single or multiple file(s) that should not be installed.
@@ -202,7 +202,7 @@ extension InstallationDirective: Codable {
 		}
 		
 		//	MARK: Decode Optional Directive
-		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
+		alias = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
 		componentsExcluded = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcluded)
 		componentsExcludedByRegex = try? values.decode(CKANFuckery<String>.self, forKey: .componentsExcludedByRegex)
 		componentsIncludedExclusively = try? values.decode(CKANFuckery<String>.self, forKey: .componentsIncludedExclusively)
@@ -232,7 +232,7 @@ extension InstallationDirective: Codable {
 		try container.encode(destination, forKey: .destination)
 		
 		//	MARK: Decode Optional Directive
-		if let directive = newPathNameOnInstallation { try container.encode(directive, forKey: .newPathNameOnInstallation) }
+		if let directive = alias { try container.encode(directive, forKey: .newPathNameOnInstallation) }
 		if let directive = componentsExcluded { try container.encode(directive, forKey: .componentsExcluded) }
 		if let directive = componentsExcludedByRegex { try container.encode(directive, forKey: .componentsExcludedByRegex) }
 		if let directive = componentsIncludedExclusively { try container.encode(directive, forKey: .componentsIncludedExclusively) }
