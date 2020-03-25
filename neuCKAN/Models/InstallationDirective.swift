@@ -74,9 +74,9 @@ struct InstallationDirective: Hashable {
 		/**
 		The `NSRegularExpression` instance representing a source directory.
 		
-		This is computed from `source`.
+		This is computed from `self`.
 		*/
-		var sourceDirectiveRegex: NSRegularExpression? {
+		var regex: NSRegularExpression? {
 			switch self {
 			case .topMostMatchByRegex(let regexString):
 				return try? NSRegularExpression(pattern: regexString, options: .caseInsensitive)
