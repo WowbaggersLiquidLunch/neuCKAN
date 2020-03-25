@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-A list of installation directives for the mod.
+An installation directive for the mod.
 
 This is equivalent to the ["install" attribute][0] in a .ckan file.
 
