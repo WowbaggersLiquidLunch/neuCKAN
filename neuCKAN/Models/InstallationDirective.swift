@@ -93,21 +93,10 @@ struct InstallationDirective: Hashable {
 	
 	This is equivalent to the `"install_to"` attribute in a .ckan file.
 	
-	Valid values for this entry are:
-	- `"GameData"`
-	- `"Missions"` (since CKAN v1.25)
-	- `"Ships"`
-	- `"Ships/SPH"` (since CKAN v1.12)
-	- `"Ships/VAB"` (since CKAN v1.12)
-	- `"Ships/@thumbs/VAB"` (since CKAN v1.16)
-	- `"Ships/@thumbs/SPH"` (since CKAN v1.16)
-	- `"Tutorial"`
-	- `"Scenarios"` (since CKAN v1.14)
-	- `"GameRoot"` which should be used sparingly with caution, if at all.
-	
-	A path to a given subfolder location can be specified only under `"GameData"`, e.g. `GameData/MyMod/Plugins`. nueCKAN must check this path and abort the install if any attempts to traverse up directories are found, e.g. `GameData/../bin`.
-	
-	Subfolder paths under a matched directory will be preserved, but directories will only be created when installing to `GameData/`, `Tutorial/`, or `Scenarios/`.
+	The following mapping from CKAN metadata to actual directory structure is required:
+	- `"Tutorial"`	→	`"saves/training"`
+	- `"Scenarios"`	→	`"saves/scenarios"`
+	- `"GameRoot"`	→	`""`
 	*/
 	let destination: String
 	
@@ -201,7 +190,16 @@ extension InstallationDirective: Codable {
 		}
 		
 		//	MARK: Decode Destination Directive
-		destination = try values.decode(String.self, forKey: .destination)
+		let ckanDestination = try values.decode(String.self, forKey: .destination)
+		if ckanDestination.hasPrefix("Tutorial") {
+			destination = "saves/training" + ckanDestination.suffix(from: "Tutorial".endIndex)
+		} else if ckanDestination.hasPrefix("Scenarios") {
+			destination = "saves/scenarios" + ckanDestination.suffix(from: "Scenarios".endIndex)
+		} else if ckanDestination.hasPrefix("GameRoot") {
+			destination = String(ckanDestination.suffix(from: "GameRoot".endIndex))
+		} else {
+			destination = ckanDestination
+		}
 		
 		//	MARK: Decode Optional Directive
 		newPathNameOnInstallation = try? values.decode(String.self, forKey: .newPathNameOnInstallation)
