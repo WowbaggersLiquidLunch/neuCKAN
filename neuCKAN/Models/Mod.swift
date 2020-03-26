@@ -92,7 +92,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	var name: String { releases.max(by: { $0.version > $1.version } )?.name ?? "mod name does not exist" }
 	
 	/**
-	Adds a new release into the mod.
+	Inserts a new release into the mod.
 	
 	The release is only inserted if it doesn't already exists.
 	
@@ -107,7 +107,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	}
 	
 	/**
-	Adds a new release into the mod, then returns itself.
+	Inserts a new release into the mod, then returns itself.
 	
 	The release is only inserted if it doesn't already exists.
 	
