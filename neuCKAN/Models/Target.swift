@@ -10,6 +10,8 @@ import Foundation
 import Cocoa
 import os.log
 
+//	TODO: Make Target initialisers throw errors.
+
 /**
 A KSP installation managable by neuCKAN.
 
@@ -189,7 +191,9 @@ extension Target: TargetConvertible {
 	func asTarget() -> Target? { self }
 }
 
-enum TargetError: Error {
-	case pathInvalid
-	case inodeClash
-}
+//	MARK: -
+//	TODO: Nest Error in Target.
+//enum TargetError: Error {
+//	case pathInvalid
+//	case inodeClash
+//}
