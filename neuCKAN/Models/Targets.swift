@@ -234,7 +234,7 @@ extension Targets: Collection {
 	private(set) subscript(path: FileURLConvertible) -> Target? {
 		get {
 			let kspURL = path.asFileURL()
-			let resolvedPath = kspURL.standardizedFileURL.resolvingSymlinksInPath()
+			let resolvedPath = kspURL.standardized.resolvingSymlinksInPath()
 			guard FileManager.default.fileExists(atPath: resolvedPath.absoluteString) else {
 				os_log("Unable to locate KSP target: %@ does not exist.", log: .default, type: .debug, kspURL.absoluteString)
 				return nil

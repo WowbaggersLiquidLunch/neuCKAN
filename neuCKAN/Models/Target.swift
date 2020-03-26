@@ -30,7 +30,7 @@ struct Target: Hashable {
 		//	MARK: KSP Path
 		let kspURL = path.asFileURL()
 		//	Clean out all possible "/./", "/../", and "//" in the path.
-		let standardisedPath = kspURL.standardizedFileURL
+		let standardisedPath = kspURL.standardized
 		//	Because there can only possibly be 1 KSP installation at each physical location, all symbolic links need to be resolved to reveal the actual location. This also helps with getting inode value later, which is used for identifying each KSP installation.
 		let resolvedPath = standardisedPath.resolvingSymlinksInPath()
 		do {
