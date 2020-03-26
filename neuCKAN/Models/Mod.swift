@@ -92,7 +92,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	var name: String { releases.max(by: { $0.version > $1.version } )?.name ?? "mod name does not exist" }
 	
 	/**
-	Add a new release into the mod.
+	Adds a new release into the mod.
 	
 	The release is only inserted if it doesn't already exists.
 	
@@ -107,7 +107,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	}
 	
 	/**
-	Add a new release into the mod, then returns itself.
+	Adds a new release into the mod, then returns itself.
 	
 	The release is only inserted if it doesn't already exists.
 	
@@ -196,4 +196,8 @@ extension Mod: Collection {
 	- See Also: `endIndex`.
 	*/
 	subscript(position: Index) -> Release { releases[position] }
+}
+
+extension Optional: CustomStringConvertible where Wrapped: CustomStringConvertible {
+	public var description: String { self != nil ? String(describing: self!) : self.debugDescription }
 }
