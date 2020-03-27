@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Nerd's Panel.pdf"
+      "filename" : "Touch Bar Mods Layout Switch - Expandable.pdf"
     }
   ],
   "info" : {
@@ -11,6 +11,7 @@
   },
   "properties" : {
     "template-rendering-intent" : "template",
-    "preserves-vector-representation" : true
+    "preserves-vector-representation" : true,
+    "auto-scaling" : "auto"
   }
 }
