@@ -50,12 +50,12 @@ class GroundControl {
 	func addTargets<T: Sequence>(_ targets: T) where T.Element == TargetConvertible? {
 		var targetsCanUpdateWithoutConflicts: Bool = false
 		ATC.shared.dataStateQueue.sync {
-			guard !ATC.shared.targetsUpdateIsInProgress else { return }
-			ATC.shared.targetsUpdateIsInProgress = true
+			guard !ATC.shared.targetsAdditionIsInProgress else { return }
+			ATC.shared.targetsAdditionIsInProgress = true
 			targetsCanUpdateWithoutConflicts = true
 		}
 		guard targetsCanUpdateWithoutConflicts else {return}
-		defer { ATC.shared.dataStateQueue.async { ATC.shared.targetsUpdateIsInProgress = false } }
+		defer { ATC.shared.dataStateQueue.async { ATC.shared.targetsAdditionIsInProgress = false } }
 		ATC.shared.targetsUpdateQueue.sync { Synecdoche.shared.targets.insert(contentsOf: targets) }
 	}
 	
@@ -79,12 +79,12 @@ class GroundControl {
 		
 		//	FIXME: Separate data state checking from data updating, to avoid accumulating backlog for updating.
 		
-		//	Check if the targets data is already being updated.
+		//	Check if the targets data is already being reloaded.
 		//	Return without any further progress if it is.
 		//	Set it to true and start checking for update if it is not.
 		ATC.shared.dataStateQueue.async {
-			guard !ATC.shared.targetsUpdateIsInProgress else { return }
-			ATC.shared.targetsUpdateIsInProgress = true
+			guard !ATC.shared.targetsDataUpdateIsInProgress else { return }
+			ATC.shared.targetsReloadIsInProgress = true
 			//	FIXME: Fix paths being sandboxed.
 			//		let applicationSupportPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
 			//		let steamKSPPath = applicationSupportPath.appendingPathComponent("Steam/steamapps/common/Kerbal Space Program")
@@ -94,7 +94,7 @@ class GroundControl {
 //				Target(path: "/Users/jizhuojie/Library/Application Support/Steam/steamapps/common/Kerbal Space Program")!
 //			], groupingLevel: .root)
 			
-			ATC.shared.targetsUpdateIsInProgress = false
+			ATC.shared.targetsReloadIsInProgress = false
 		}
 	}
 	
