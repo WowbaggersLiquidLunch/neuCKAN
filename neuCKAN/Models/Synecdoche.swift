@@ -36,7 +36,7 @@ struct Synecdoche{
 	///	All KSP installations under management of neuCKAN.
 	var targets: Targets {
 		didSet {
-			NotificationCenter.default.post(name: .targetsDidUpdate, object: targets)
+			NotificationCenter.default.post(name: .targetsDataDidUpdate, object: targets)
 			//	TODO: Update persistent data storage.
 			//	TODO: Update UI.
 			
@@ -46,7 +46,7 @@ struct Synecdoche{
 	///	All mods parsed from CKAN metadata.
 	var mods: Mods {
 		didSet {
-			NotificationCenter.default.post(name: .modsDidUpdate, object: mods)
+			NotificationCenter.default.post(name: .modsCacheDidUpdate, object: mods)
 			//	TODO: Update persistent data storage.
 			//	TODO: Update UI.
 			
