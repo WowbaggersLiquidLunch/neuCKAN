@@ -12,33 +12,33 @@ class MainWindowController: NSWindowController {
 	
 	// MARK: - IBOutlet Properties
 	
-	///
-	@IBOutlet weak var navigationControl: NSSegmentedControl!
-	///
+	///	neuCKAN's navigation control on toolbar.
+	@IBOutlet weak var toolbarNavigationControl: NSSegmentedControl!
+	///	neuCKAN's navigation control on touch bar.
 	@IBOutlet weak var touchBarNavigationControl: NSSegmentedControl!
-	///
-	@IBOutlet weak var kspTargetPopUpButton: NSPopUpButton!
-	///
-	@IBOutlet weak var filterButton: NSButton!
-	///
-	@IBOutlet weak var filterTouchBar: NSTouchBar!
-	///
-	@IBOutlet weak var searchField: NSSearchField!
-	///
-	@IBOutlet weak var searchTouchBar: NSTouchBar!
-	///
-	@IBOutlet weak var refreshButton: NSButton!
-	///
+	///	neuCKAN's target selector on toolbar.
+	@IBOutlet weak var toolbarKSPTargetPopUpButton: NSPopUpButton!
+	///	neuCKAN's filter button on toolbar.
+	@IBOutlet weak var toolbarFilterButton: NSButton!
+	///	neuCKAN's filter button on touch bar.
+	@IBOutlet weak var touchBarFilterTouchBar: NSTouchBar!
+	///	neuCKAN's search field on toolbar.
+	@IBOutlet weak var toolbarSearchField: NSSearchField!
+	///	neuCKAN's search button on touch bar.
+	@IBOutlet weak var touchBarSearchTouchBar: NSTouchBar!
+	///	neuCKAN's refresh button on toolbar.
+	@IBOutlet weak var toolbarRefreshButton: NSButton!
+	///	neuCKAN's refresh button on touch bar.
 	@IBOutlet weak var touchBarRefreshButton: NSButton!
-	///
-	@IBOutlet weak var downloadsAndInstallButton: NSButton!
-	///
-	@IBOutlet weak var modsLayoutButton: NSButton!
-	///
+	///	neuCKAN's download & install button on toolbar.
+	@IBOutlet weak var toolbarDownloadsAndInstallButton: NSButton!
+	///	neuCKAN's mods layout switch on toolbar.
+	@IBOutlet weak var toolbarModsLayoutButton: NSButton!
+	///	neuCKAN's mods layout switch on touch bar.
 	@IBOutlet weak var touchBarModsLayoutButton: NSButton!
-	///
-	@IBOutlet weak var windowLayoutControl: NSSegmentedControl!
-	
+	///	neuCKAN's window layout control on toolbar.
+	@IBOutlet weak var toolbarWindowLayoutControl: NSSegmentedControl!
+	///	neuCKAN's window layout control on touch bar.
 	@IBOutlet weak var touchBarWindowLayoutControl: NSSegmentedControl!
 	
 	// MARK: -
