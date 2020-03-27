@@ -91,6 +91,100 @@ struct Mod: Hashable, Codable, Identifiable {
 	*/
 	var name: String { releases.max(by: { $0.version > $1.version } )?.name ?? "mod name does not exist" }
 	
+	//	TODO: Remove need for passing in type.
+	//	FIXME: Inconsistent behaviour.
+	//	FIXME: Incorrect output for some Collection types.
+	
+	/**
+	Retrieves for the mod an attribute derived from the values of its releases' at the given key path.
+	
+	- Parameters:
+		- keyPath: The key path to a `Release` instance's property.
+		- Type: The type of the attribute.
+	
+	- Returns: The mod's releases' attribute value, if it's the same across all the releases. Or, `"Multiple Values"`, if it's different across all the releases.
+	
+	- TODO: Remove the need of passing in `Type`.
+	*/
+	func attribute<T: Hashable>(forKey keyPath: PartialKeyPath<Release>, as Type: T.Type) -> Any? {
+		let latestReleaseValue = releases[0][keyPath: keyPath] as! T
+		let allValuesMatch = releases.reduce(into: true) { result, release in
+			let releaseValue = release[keyPath: keyPath] as! T
+			result = result && (releaseValue == latestReleaseValue)
+		}
+		return allValuesMatch ? latestReleaseValue : "Multiple Values"
+	}
+	
+	/**
+	Returns a string describing the mod's attribute derived from the values of its releases' at the given key path.
+	
+	- Parameters:
+		- keyPath: The key path to a `Release` instance's property.
+		- Type: The type of the attribute.
+	
+	- Returns: A string describing the mod's releases' attribute value, if it's the same across all the releases. Or, `"Multiple Values"`, if it's different across all the releases.
+	
+	- TODO: Remove the need of passing in `Type`.
+	*/
+	func readableAttribute<T: Hashable & CustomStringConvertible>(forKey keyPath: PartialKeyPath<Release>, ofType Type: T.Type) -> String {
+		if let modAttribute = attribute(forKey: keyPath, as: Type) {
+			if let modAttribute = modAttribute as? String {
+				return modAttribute
+			} else if let modAttribute = modAttribute as? T {
+				return String(describing: modAttribute)
+			}
+		}
+		return .defaultInstance
+	}
+	
+	/**
+	Returns a string describing the mod's attribute's list of values derived from the values of its releases' at the given key path.
+	
+	Use this if the attribute's value is a `Sequence` type.
+	
+	- Parameters:
+		- keyPath: The key path to a `Release` instance's property.
+		- Type: The type of the attribute.
+	
+	- Returns: A string describing the mod's releases' attribute's list of values, if they're the same across all the releases. Or, `"Multiple Values"`, if they're different across all the releases.
+	
+	- TODO: Remove the need of passing in `Type`.
+	*/
+	func readableAttributeElements<T: Hashable & Sequence>(forKey keyPath: PartialKeyPath<Release>, ofType Type: T.Type) -> String where T.Element: CustomStringConvertible {
+		if let modAttribute = attribute(forKey: keyPath, as: Type) {
+			if let modAttribute = modAttribute as? String {
+				return modAttribute
+			} else if let modAttribute = modAttribute as? T {
+				return modAttribute.map { String(describing: $0) } .joined(separator: ", ")
+			}
+		}
+		return .defaultInstance
+	}
+	
+	/**
+	Returns a string describing the mod's attribute's list of values derived from the values of its releases' at the given key path.
+	
+	Use this if the attribute's value is a `Sequence`and `Optional` type.
+	
+	- Parameters:
+	- keyPath: The key path to a `Release` instance's property.
+	- Type: The type of the attribute.
+	
+	- Returns: A string describing the mod's releases' attribute's list of values, if they're the same across all the releases. Or, `"Multiple Values"`, if they're different across all the releases.
+	
+	- TODO: Remove the need of passing in `Type`.
+	*/
+	func readableAttributeElements<T: Hashable & Sequence>(forKey keyPath: PartialKeyPath<Release>, ofType Type: (T?).Type) -> String where T.Element: CustomStringConvertible {
+		if let modAttribute = attribute(forKey: keyPath, as: (T?).self) {
+			if let modAttribute = modAttribute as? String {
+				return modAttribute
+			} else if let modAttribute = modAttribute as? T {
+				return modAttribute.map { String(describing: $0) } .sorted(by: <).joined(separator: ", ")
+			}
+		}
+		return .defaultInstance
+	}
+	
 	/**
 	Inserts a new release into the mod.
 	
