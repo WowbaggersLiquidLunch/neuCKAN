@@ -68,9 +68,9 @@ indirect enum Requirements: Hashable {
 		case let .leaf(requirement):
 			return String(describing: requirement)
 		case let .disjunction(requirements):
-			return "(\(requirements.map { String(describing: $0) }.joined(separator: " ∨ ")))"
+			return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∨ ")
 		case let .conjunction(requirements):
-			return "(\(requirements.map { String(describing: $0) }.joined(separator: " ∧ ")))"
+			return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∧ ")
 		}
 	}
 }

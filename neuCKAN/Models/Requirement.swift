@@ -96,17 +96,21 @@ extension Requirement: CustomStringConvertible {
 	- `"mod's name [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
 	*/
 	var description: String {
-		guard let name = name else { return "mod by ID \(id) not found" }
+		var prefix: String = ""
+		if id != "KSP" {
+			guard let name = name else { return "mod by ID \(id) not found" }
+			prefix = name + " "
+		}
 		if let version = version {
-			return name + " (\(version.originalString))"
+			return prefix + "\(version.originalString)"
 		} else if let versionMin = versionMin, let versionMax = versionMax {
-			return name + " [\(versionMin.originalString), \(versionMax.originalString)]"
+			return prefix + "∈ [\(versionMin.originalString), \(versionMax.originalString)]"
 		} else if let versionMin = versionMin {
-			return name + " (≥ \(versionMin.originalString)"
+			return prefix + "≥ \(versionMin.originalString)"
 		} else if let versionMax = versionMax {
-			return name + " (≤ \(versionMax.originalString))"
+			return prefix + "≤ \(versionMax.originalString)"
 		} else {
-			return name
+			return prefix
 		}
 	}
 }
