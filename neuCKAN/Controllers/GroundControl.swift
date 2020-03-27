@@ -208,7 +208,7 @@ class GroundControl {
 		}
 	}
 	
-	//	MARK: - Mod Release Management
+	//	MARK: - File Management
 	
 	/**
 	Installs the given mod releases for the given targets.
@@ -354,4 +354,6 @@ class GroundControl {
 	func install(_ release: Release) {
 		install(release, for: Synecdoche.shared.selectedTargets)
 	}
+	
+	//	MARK: -
 }
