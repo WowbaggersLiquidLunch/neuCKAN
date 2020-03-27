@@ -12,6 +12,7 @@ import Alamofire
 import ZIPFoundation
 import os.log
 
+///	Acronym for Ground Control.
 typealias GC = GroundControl
 
 /**
