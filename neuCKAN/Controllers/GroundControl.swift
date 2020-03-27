@@ -35,7 +35,7 @@ class GroundControl {
 	*/
 	func refreshData() {
 		reloadTargets()
-		updateCKANMetadataCache()
+		updateModsCache()
 	}
 	
 	//	MARK: - Targets Management
@@ -107,7 +107,7 @@ class GroundControl {
 		Synecdoche.shared.selectedTargets = Targets(targets: targets)
 	}
 	
-	//	MARK: - CKAN Metadata Management
+	//	MARK: - Mods Cache Management
 	
 	/**
 	Check for update of CKAN metadata on its remote repository, and update the local database if need be.
@@ -116,7 +116,7 @@ class GroundControl {
 	
 	- TODO: Use GitHub APIs to update changes only, instead of doing a full reload every time.
 	*/
-	func updateCKANMetadataCache(from metadataRepository: URL = ckanMetadataArchiveURL) {
+	func updateModsCache(from metadataRepository: URL = ckanMetadataArchiveURL) {
 		
 		//	Because a guard statement in a dispatch queue can not return from its contexts (it can only return from the queue), a 2nd indicator is needed to tell if metadata can update without confilcts.
 		var metadataCanUpdateWithoutConflicts: Bool = false

@@ -524,7 +524,7 @@ class ModsViewController: NSViewController {
 	- Parameter menuItem: The menu item that calls this method.
 	*/
 	@objc func updateCKANMetadataCache(_ menuItem: NSMenuItem) {
-		GC.shared.updateCKANMetadataCache()
+		GC.shared.updateModsCache()
 	}
 	
 	/**
