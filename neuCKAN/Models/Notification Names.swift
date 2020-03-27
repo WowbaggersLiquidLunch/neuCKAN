@@ -9,8 +9,8 @@
 import Foundation
 
 extension Notification.Name {
-	static let targetsDidUpdate = Notification.Name("targetsDidUpdate")
-	static let modsDidUpdate = Notification.Name("modsDidUpdate")
+	static let targetsDataDidUpdate = Notification.Name("targetsDataDidUpdate")
+	static let modsCacheDidUpdate = Notification.Name("modsCacheDidUpdate")
 	static let targetsSelectionDidChange = Notification.Name("targetsSelectionDidChange")
 	
 }
