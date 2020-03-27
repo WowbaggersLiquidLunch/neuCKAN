@@ -200,7 +200,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
 	*/
-	let supportedKSPVersion: Version?
+	private let supportedKSPVersion: Version?
 	
 	/**
 	The minimum version of KSP required by the mod release.
@@ -211,7 +211,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
 	*/
-	let supportedMinimumKSPVersion: Version?
+	private let supportedMinimumKSPVersion: Version?
 	
 	/**
 	The maximum version of KSP required by the mod release.
@@ -222,7 +222,14 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 	*/
-	let supportedMaximumKSPVersion: Version?
+	private let supportedMaximumKSPVersion: Version?
+	
+	/**
+	KSP versions supported by this mod release.
+	
+	- TODO: Change this to a stored property, instead of computed.
+	*/
+	var kspVersionRequirement: Requirement { Requirement(id: "KSP", version: supportedKSPVersion, versionMin: supportedMinimumKSPVersion, versionMax: supportedMaximumKSPVersion) }
 	
 	/**
 	Whether checks for KSP version verbatim.
