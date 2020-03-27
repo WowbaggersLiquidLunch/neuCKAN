@@ -112,7 +112,7 @@ struct Targets: Hashable {
 	}
 }
 
-//	MARK: Collection Conformance
+//	MARK: - Collection Conformance
 extension Targets: Collection {
 	
 	/**
