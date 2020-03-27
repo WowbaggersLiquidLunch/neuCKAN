@@ -53,7 +53,6 @@
 		B4991D4C23C9E89C005735FC /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4B23C9E89C005735FC /* StatsViewController.swift */; };
 		B4991D5723CC9457005735FC /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D5623CC9457005735FC /* Target.swift */; };
 		B4991D9823CDD755005735FC /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D9723CDD755005735FC /* TargetView.swift */; };
-		B49B8651236C1BB400DF758C /* CKAN.schema.json in Resources */ = {isa = PBXBuildFile; fileRef = B49B8650236C1BB400DF758C /* CKAN.schema.json */; };
 		B49B8653236C1C3F00DF758C /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* Release.swift */; };
 		B49B8655236C23F300DF758C /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
 		B4ADB83D24138D7700CA2930 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B46DEF24132B0400900B9E /* main.swift */; };
@@ -157,7 +156,6 @@
 		B4991D5623CC9457005735FC /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		B4991D9723CDD755005735FC /* TargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetView.swift; sourceTree = "<group>"; };
 		B4991DA323CE6C70005735FC /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
-		B49B8650236C1BB400DF758C /* CKAN.schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = CKAN.schema.json; path = neuCKAN/Resources/CKAN.schema.json; sourceTree = SOURCE_ROOT; };
 		B49B8652236C1C3F00DF758C /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
 		B49B8654236C23F300DF758C /* Mod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod.swift; sourceTree = "<group>"; };
 		B4ADB84124143F7900CA2930 /* NEUCKAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 		B472D266236F732100491E9D /* CKAN */ = {
 			isa = PBXGroup;
 			children = (
-				B49B8650236C1BB400DF758C /* CKAN.schema.json */,
 			);
 			path = CKAN;
 			sourceTree = "<group>";
@@ -531,7 +528,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B49B8651236C1BB400DF758C /* CKAN.schema.json in Resources */,
 				B451D561236B9D5500441195 /* Assets.xcassets in Resources */,
 				B451D564236B9D5500441195 /* Main.storyboard in Resources */,
 			);
