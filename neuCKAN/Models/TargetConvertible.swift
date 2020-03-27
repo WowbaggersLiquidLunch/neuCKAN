@@ -11,11 +11,20 @@ import Foundation
 /**
 A type that can represent a KSP target.
 */
-protocol TargetConvertible {
+protocol TargetConvertible: TargetsConvertible {
 	/**
 	Returns an optional KSP target from the conforming instance.
 	
 	- Returns: The KSP target converted from the conforming instance, or `nil` if the conversion fails.
 	*/
 	func asTarget() -> Target?
+}
+
+extension TargetConvertible {
+	/**
+	Returns an optional collection of KSP targets from the `TargetConvertible`-conforming instance.
+	
+	- Returns: The KSP targets converted from the `TargetConvertible`-conforming instance, or `nil` if the conversion fails.
+	*/
+	func asTargets() -> Targets? { Targets(targets: [self.asTarget()]) }
 }

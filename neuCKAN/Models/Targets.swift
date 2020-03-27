@@ -272,3 +272,13 @@ extension Targets: Collection {
 	}
 	
 }
+
+//	MARK: - TargetsConvertible Conformance
+extension Targets: TargetsConvertible {
+	/**
+	Returns `self`.
+	
+	- Returns: `self`.
+	*/
+	func asTargets() -> Targets? { self }
+}
