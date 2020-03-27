@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "59037bfd28aa963a7916f1eb22a74107a3522f16",
+          "version": "5.0.5"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "8d31a0905c346a45c87773ad50862b5b3df8dff6",
+          "version": "0.0.4"
+        }
+      },
+      {
+        "package": "swift-se0270-range-set",
+        "repositoryURL": "https://github.com/apple/swift-se0270-range-set",
+        "state": {
+          "branch": null,
+          "revision": "120fc7efe17b11f7eedd94e7a5e1885fc69efb49",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-standard-library-preview",
+        "repositoryURL": "https://github.com/apple/swift-standard-library-preview.git",
+        "state": {
+          "branch": null,
+          "revision": "833ea174a771bdc98edfa3529ae05439564e3902",
+          "version": "0.0.1"
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
+        "state": {
+          "branch": "development",
+          "revision": "779de4343a285b5ec497e179c2c3dd74fc9576d8",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
