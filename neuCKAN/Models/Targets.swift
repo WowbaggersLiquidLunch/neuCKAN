@@ -145,7 +145,7 @@ extension Targets: Collection {
 	/**
 	Returns the position immediately after the given index.
 	
-	- Parameter position: A valid polition in the collection of targets. `i` must be less than `endIndex`.
+	- Parameter i: A valid polition in the collection of targets. `i` must be less than `endIndex`.
 	
 	- Returns: The index value immediately after `i.`
 	
