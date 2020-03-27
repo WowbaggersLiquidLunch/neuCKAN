@@ -99,7 +99,9 @@ struct TargetView: View {
 		} else if cursorIsHoveringOverFollowLinkButton {
 			return followLinkButtonToolTip
 		} else {
-			return NSString(string: target.path.path).abbreviatingWithTildeInPath
+			return "~/" + target.path.pathComponents.dropFirst(3).joined(separator: "/")
+			//	abbreviatingWithTildeInPath doesn't work in sandboxed app.
+//			return NSString(string: target.path.path).abbreviatingWithTildeInPath
 		}
 	}
 	///	Shows the item at the specified path in Finder.
