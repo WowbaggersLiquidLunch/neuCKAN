@@ -1,17 +1,23 @@
-![neuCKAN's logo](neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-2.png)
+---
 
-# not entirely unlike CKAN
-
-Or, neuCKAN, pronounced as | n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ | or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
+<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN's logo" align="center" />
+<h1 align="center">
+	not entirely unlike CKAN
+</h1>
+<p align="center">
+	<sup> <!-- Pronounciation -->
+		Or, neuCKAN, pronounced as (<code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code>) or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
+	</sup>
+</p>
 
 ---
 
 ### Table of Content
 
-[Why?](#why?)
-[What is neuCKAN exactly](#what-is-neuckan-exactly?)
-[Some features, as planed so far](#some-features,-as-planed-so-far)
-[Help, please](#help,-please...)
+- [Why?](#why)
+- [What is neuCKAN exactly](#what-is-neuckan-exactly)
+- [Some features, as planed so far](#some-features-as-planed-so-far)
+- [Help, please](#help-please)
 
 ---
 

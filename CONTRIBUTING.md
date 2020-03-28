@@ -6,12 +6,12 @@ Thanks for your interest in contributing to neuCKAN! Currently, neuCKAN is far f
 
 ### Table of Contents
 
-[Contribution Workflow](#contribution-workflow)
-[Some Guidellines](#some-guidelines)
-	[UI/UX Guidelines](#ui/ux-guidelines)
-	[Technical Guidelines](#technical-guidelines)
-	[Styling Guidelines](#styling-guidelines)
-[Current Structure](#current-structure)
+- [Contribution Workflow](#contribution-workflow)
+- [Some Guidellines](#some-guidelines)
+	- [UI/UX Guidelines](#ui/ux-guidelines)	
+	- [Technical Guidelines](#technical-guidelines)
+	- [Styling Guidelines](#styling-guidelines)
+- [Current Structure](#current-structure)
 
 ---
 
