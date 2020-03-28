@@ -2,8 +2,8 @@
 //  Notification Names.swift
 //  neuCKAN
 //
-//  Created by 冀卓疌 on 20-02-23.
-//  Copyright © 2020 Wowbagger & His Liquid Lunch. All rights reserved.
+//  Created by you on 20-02-23.
+//  Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation
