@@ -16,7 +16,7 @@
 ### Table of Content
 
 - [Why?](#why)
-- [What is neuCKAN exactly](#what-is-neuckan-exactly)
+- [What is neuCKAN exactly?](#what-is-neuckan-exactly)
 - [Some features, as planed so far](#some-features-as-planed-so-far)
 - [Help, please](#help-please)
 
@@ -85,6 +85,10 @@ The alpha phase will have a fast iterative development process. There will be ni
 
 ---
 
-<a href="http://www.wtfpl.net/" align="center">
-	<img src="http://www.wtfpl.net/wp-content/uploads/2012/12/logo-220x1601.png" alt="WTFPL" height="64" align="center" />
-</a>
+<p align="center">	
+	<sub>
+		<a href="http://www.wtfpl.net/" align="center">
+			<img src="http://www.wtfpl.net/wp-content/uploads/2012/12/logo-220x1601.png" alt="WTFPL" height="64" align="center" />
+		</a>
+	</sub>
+</p>	
