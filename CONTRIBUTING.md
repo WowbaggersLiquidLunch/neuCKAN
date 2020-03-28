@@ -105,6 +105,6 @@ Development on Xcode has a super steep learning curve. Fortunately, here are som
 5. To learn some interesting, niche thingies on Swift, Cocoa, and Xcode in general: 
 	- Check out [NSHipster](https://nshipster.com).
 
-## Caveat
+## General Remark
 
 I copied a large part of this document from the [IINA project's](https://github.com/iina/iina/blob/develop/CONTRIBUTING.md), because I'm lazy.
