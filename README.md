@@ -1,5 +1,3 @@
----
-
 <h1 align="center">
 	<sub>
 		<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN's logo" height="256"  />
