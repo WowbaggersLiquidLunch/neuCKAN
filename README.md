@@ -75,3 +75,9 @@ Here are some areas in the project with which I absolutely need help from more t
 ## Release Process
 
 The alpha phase will have a fast iterative development process. There will be nightly snapshots, as well as proper, versioned alpha releases. Because of the program is still far from stable, there will be no installers provided in the alpha phase.
+
+---
+
+<a href="http://www.wtfpl.net/">
+	<img src="http://www.wtfpl.net/wp-content/uploads/2012/12/logo-220x1601.png" alt="WTFPL" height="64" align="center" />
+</a>
