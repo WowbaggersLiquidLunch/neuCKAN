@@ -26,7 +26,7 @@ In addition to [CKAN's GUI not being supported on macOS Catalina](https://github
 
 ## What is neuCKAN exactly?
 
-neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with CKAN, and it uses CKAN metadata, but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
+neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with [CKAN](https://github.com/KSP-CKAN/CKAN), and it uses [CKAN metadata](https://github.com/KSP-CKAN/CKAN-meta), but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
 
 This is what the GUI looks like in neuCKAN 0.0.1:
 
