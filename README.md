@@ -13,7 +13,7 @@
 
 ---
 
-### Table of Content
+### Table of Contents
 
 - [Why?](#why)
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
@@ -24,7 +24,7 @@
 
 ## Why?
 
-In addition to [CKAN's GUI not being supported on macOS Catalina](https://github.com/KSP-CKAN/CKAN/issues/2906), when it was working previously, it has always been glitchy, and inconsistent with the system's and native macOS applications' behaviours. In general, macOS never felt like a priority in CKAN's development. Instead, it felt more like a freebie from .NET's cross-platform support. The fault, however, does not lie in the CKAN community, but in that [there just aren't many people use and play games on macOS compared to other systems](https://store.steampowered.com/hwsurvey). And quite the contrary, [some people tried to revive CKAN GUI on macOS](https://github.com/KSP-CKAN/CKAN/issues/2848), but the efforts have all been abandoned. [CKAN's Console UI still works on macOS Catalina](https://github.com/KSP-CKAN/CKAN/pull/2911), and likely on future macOS versions as well, but why settle for less when there is a possibility for more? So, here comes neuCKAN to fill the gap.
+In addition to [CKAN's GUI not being supported on macOS Catalina](https://github.com/KSP-CKAN/CKAN/issues/2906), when it was working previously, it had always been glitchy, and inconsistent with the system's and native macOS applications' behaviours. In general, macOS never felt like a priority in CKAN's development. Instead, it felt more like a freebie from .NET's cross-platform support. The fault, however, does not lie in the CKAN community, but in that [there just aren't many people use and play games on macOS compared to other systems](https://store.steampowered.com/hwsurvey). And quite the contrary, [some people tried to revive CKAN GUI on macOS](https://github.com/KSP-CKAN/CKAN/issues/2848), but the efforts have all been abandoned. [CKAN's Console UI still works on macOS Catalina](https://github.com/KSP-CKAN/CKAN/pull/2911), and likely on future macOS versions as well, but why settle for less when there is a possibility for more? So, here comes neuCKAN to fill the gap.
 
 ## What is neuCKAN exactly?
 
