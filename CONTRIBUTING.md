@@ -2,7 +2,20 @@
 
 Thanks for your interest in contributing to neuCKAN! Currently, neuCKAN is far from complete, but with your help, we can progress it to beta and stable releases much faster. Here's how you can help.
 
-During this alpha phase, if you plan on doing any work, please check the _Help Needed_ section on `README.md` (also duplicated here below). It details some important features that I'm not able to implement by myself, and some bugs that I'm not able to fix, as well as some areas of the codebase that I seek improvements for from the community. In addition, for any contribution you plan to make, other than a quick bug or typo fix, please also open an issue about it first. Not only does this make it easier to track progress, it also prevents people doing duplicate work, as well as allows for the community to weigh in on the implementation of a feature before it's already all coded up. Nothing's more sad than having to go back and delete or rewrite code because of a misunderstanding in how it would fit into neuCKAN :(
+---
+
+### Table of Contents
+
+[Contribution Workflow](#contribution-workflow)
+[Some Guidellines](#some-guidelines)
+	[UI/UX Guidelines](#ui/ux-guidelines)
+	[Technical Guidelines](#technical-guidelines)
+	[Styling Guidelines](#styling-guidelines)
+[Current Structure](#current-structure)
+
+---
+
+During this alpha phase, if you plan on doing any work, please check the [_Help, please..._](README.md#help,-please...) section on [`README.md`](README.md). It details some important features that I'm not able to implement by myself, and some bugs that I'm not able to fix, as well as some areas of the codebase that I seek improvements for from the community. In addition, for any contribution you plan to make, other than a quick bug or typo fix, please also open an issue about it first. Not only does this make it easier to track progress, it also prevents people doing duplicate work, as well as allows for the community to weigh in on the implementation of a feature before it's already all coded up. Nothing's more sad than having to go back and delete or rewrite code because of a misunderstanding in how it would fit into neuCKAN :(
 
 ## Contribution Workflow
 
@@ -66,7 +79,7 @@ In general, ["being consistent is better than being right. You will experience f
 	```
 - Avoid hard-wraps in comments. Use soft-wraps.
 
-### Current Structure
+## Current Structure
 
 _to be updated with class diagrams_
 
