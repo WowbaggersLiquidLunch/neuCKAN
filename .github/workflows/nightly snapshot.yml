@@ -1,0 +1,23 @@
+name: Release Nightly Snapshot
+
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  build:
+    name: Release Nightly Snapshot
+    runs-on: macos-latest
+    steps:
+      - name: Checkout develop Branch
+        uses: actions/checkout@v2
+        with:
+          ref: 'develop'
+      - name: Create Release
+        id: nightly-snapshot
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          prerelease: false
