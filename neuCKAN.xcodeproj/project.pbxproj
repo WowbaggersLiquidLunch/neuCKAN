@@ -148,6 +148,7 @@
 		B4720D0C23A14C9200220F87 /* Synecdoche.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synecdoche.swift; sourceTree = "<group>"; };
 		B47527A3242DE5830029B54E /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		B47527A4242DE5AA0029B54E /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		B4991D4123C9E4E6005735FC /* ModsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModsViewController.swift; sourceTree = "<group>"; };
 		B4991D4323C9E58D005735FC /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B4991D4723C9E7A9005735FC /* TargetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */,
+				B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */,
 				B4991DA323CE6C70005735FC /* CONTRIBUTING.md */,
 				B47527A4242DE5AA0029B54E /* COPYING */,
 				B47527A3242DE5830029B54E /* LICENCE */,
