@@ -57,6 +57,7 @@ In general, ["being consistent is better than being right. You will experience f
 ### Technical Guidelines
 
 - Use the [Model-View-Controller design pattern](https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html) on the application-level.
+- In general, use structures for defining models, and classes for controllers. Please consult [this article on choosing between structures and classes](https://developer.apple.com/documentation/swift/choosing_between_structures_and_classes) for better guidance.
 - Follow [Swift's API Design Guidelines](https://swift.org/documentation/api-design-guidelines/).
 - Follow [Apple Style Guide](https://help.apple.com/applestyleguide/)
 - Use SwiftUI for UI if possible. As SwiftUI's coverage of AppKit grows, neuCKAN will switch as many UI components as possible to SwiftUI.
