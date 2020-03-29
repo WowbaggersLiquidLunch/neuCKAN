@@ -9,6 +9,8 @@
 	Or, neuCKAN, pronounced as <code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code> or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
 </p>
 
+![nightly snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Release%20Nightly%20Snapshot/badge.svg)
+
 ---
 
 ### Table of Contents
