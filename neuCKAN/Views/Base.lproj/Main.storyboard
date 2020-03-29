@@ -968,7 +968,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="updateLayout:" target="Oky-zY-oP4" id="31X-vv-2Ac"/>
+                                            <action selector="userDidInitiateWindowLayoutChange:" target="B8D-0N-5wS" id="JrR-pm-KtY"/>
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
@@ -998,6 +998,7 @@
                                 <viewController key="viewController" id="Z1N-1r-pFy">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1hI-H8-r0A" userLabel="Touch Bar Launch KSP Button">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarPlayTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T4D-TI-zOt">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1014,6 +1015,7 @@
                                 <viewController key="viewController" id="zmA-NX-w10">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r43-cO-AbP">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Axu-8k-zqc">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1034,6 +1036,7 @@
                                             <viewController key="viewController" id="3TB-64-cLx">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tfp-WB-lBh">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YSS-dn-vYh">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1045,6 +1048,7 @@
                                             <viewController key="viewController" id="2Y0-yY-hYO">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1yp-oV-Fmh">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tag-qQ-LGg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1062,6 +1066,7 @@
                                 <viewController key="viewController" id="sv7-kA-B9t">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAx-SF-FF4">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="Touch Bar Mods Layout Switch - Unexpandable" imagePosition="only" alignment="center" alternateImage="Touch Bar Mods Layout Switch - Expandable" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rcL-ce-OvW">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1076,6 +1081,7 @@
                                 <viewController key="viewController" id="euE-lY-rJt">
                                     <segmentedControl key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLP-Ie-PPD">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectAny" id="DKS-Sa-5rH">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -1086,9 +1092,6 @@
                                                 </segment>
                                             </segments>
                                         </segmentedCell>
-                                        <connections>
-                                            <action selector="updateLayout:" target="Oky-zY-oP4" id="Nyv-Lt-Vhl"/>
-                                        </connections>
                                     </segmentedControl>
                                 </viewController>
                             </touchBarItem>
@@ -1120,9 +1123,9 @@
             <objects>
                 <splitViewController id="YeT-y6-Qmc" customClass="MainVerticalSplitViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" holdingPriority="251" id="iEn-or-jRI"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="iEn-or-jRI"/>
                         <splitViewItem id="P85-7S-JVw"/>
-                        <splitViewItem canCollapse="YES" holdingPriority="251" id="ObG-Pt-JWr"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="255" behavior="contentList" id="ObG-Pt-JWr"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="JF2-9u-cjl">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>

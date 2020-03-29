@@ -48,6 +48,19 @@ class MainWindowController: NSWindowController {
 		super.windowDidLoad()
 		
 		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+		NotificationCenter.default.addObserver(self, selector: #selector(windowLayoutDidChange(_:)), name: .windowLayoutDidChange, object: nil)
+	}
+	
+	//	MARK: - Methods Exposed to Objective-C
+	
+	///	Called when the window layout did change.
+	///	- Parameter notification: The notification that calls this method.
+	@objc func windowLayoutDidChange(_ notification: Notification) {
+		guard let splitViewItemVisibility = notification.object as? [Int: NSSplitViewItem] else { return }
+		splitViewItemVisibility.forEach { index, splitViewItem in
+			toolbarWindowLayoutControl.setSelected(!splitViewItem.isCollapsed, forSegment: index)
+			touchBarWindowLayoutControl.setSelected(!splitViewItem.isCollapsed, forSegment: index)
+		}
 	}
 	
 	//	MARK: - IBAction Methods
@@ -57,5 +70,9 @@ class MainWindowController: NSWindowController {
 	@IBAction func refresh(_ sender: Any) {
 		GC.shared.refreshData()
 	}
-	
+	///	Called after the user initiated a window layout change.
+	///	- Parameter sender: The object that calls this method.
+	@IBAction func userDidInitiateWindowLayoutChange(_ sender: Any) {
+		NotificationCenter.default.post(name: .userDidInitiateWindowLayoutChange, object: sender)
+	}
 }
