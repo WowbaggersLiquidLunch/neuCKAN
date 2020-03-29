@@ -72,7 +72,7 @@ class MainWindowController: NSWindowController {
 	}
 	///	Called after the user initiated a window layout change.
 	///	- Parameter sender: The object that calls this method.
-	@IBAction func userDidInitiateWindowLayoutChange(_ sender: Any) {
+	@IBAction func initiateWindowLayoutChange(_ sender: Any) {
 		NotificationCenter.default.post(name: .userDidInitiateWindowLayoutChange, object: sender)
 	}
 }

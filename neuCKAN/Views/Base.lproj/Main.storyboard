@@ -968,7 +968,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="userDidInitiateWindowLayoutChange:" target="B8D-0N-5wS" id="JrR-pm-KtY"/>
+                                            <action selector="initiateWindowLayoutChange:" target="B8D-0N-5wS" id="JrR-pm-KtY"/>
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
@@ -1089,7 +1089,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="userDidInitiateWindowLayoutChange:" target="B8D-0N-5wS" id="F3w-P3-TB8"/>
+                                            <action selector="initiateWindowLayoutChange:" target="B8D-0N-5wS" id="F3w-P3-TB8"/>
                                         </connections>
                                     </segmentedControl>
                                 </viewController>
