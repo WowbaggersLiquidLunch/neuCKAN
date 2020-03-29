@@ -51,11 +51,8 @@ class MainWindowController: NSWindowController {
 	
 	//	MARK: - IBAction Methods
 	
-	/**
-	Refreshes all data in window.
-	
-	- Parameter sender: The object that calls this method.
-	*/
+	///	Refreshes all data in window.
+	///	- Parameter sender: The object that calls this method.
 	@IBAction func refresh(_ sender: Any) {
 		GC.shared.refreshData()
 	}
