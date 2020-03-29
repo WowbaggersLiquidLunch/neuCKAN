@@ -380,6 +380,7 @@ class ModsViewController: NSViewController {
 			}
 		}
 	}
+	
 	//	MARK: - View Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
