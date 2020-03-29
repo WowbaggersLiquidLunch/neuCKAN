@@ -9,6 +9,7 @@
 import Cocoa
 import os.log
 
+///	A controller that manages the principle view of neuCKAN, i.e. the view showing the mod list.
 class ModsViewController: NSViewController {
 	//	MARK: - IBOutlet Properties
 	///	The mods list view above the status view.

@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the main vertical split view of neuCKAN.
 class MainVerticalSplitViewController: NSSplitViewController {
 	
 	// MARK: - IBOutlet Properties

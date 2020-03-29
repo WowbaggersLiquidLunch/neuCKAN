@@ -11,6 +11,7 @@ import Combine
 import SwiftUI
 import os.log
 
+///	A controller that manages the targets view of neuCKAN.
 class TargetsViewController: NSViewController {
 	//	MARK: - IBOutlet Properties
 	///	The targets source list view.

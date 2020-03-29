@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the stats view of neuCKAN.
 class StatsViewController: NSViewController {
 	
 	override func viewDidLoad() {

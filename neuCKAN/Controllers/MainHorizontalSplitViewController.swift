@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the main horizontal split view of neuCKAN.
 class MainHorizontalSplitViewController: NSSplitViewController {
 	
 	///	The horizontal split view containing mods view and stats view in neuCKAN's main window.

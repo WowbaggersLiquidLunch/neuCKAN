@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the details split view of neuCKAN.
 class DetailsViewController: NSViewController {
 	
 	override func viewDidLoad() {

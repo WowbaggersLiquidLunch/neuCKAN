@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the main window of neuCKAN.
 class MainWindowController: NSWindowController {
 	
 	// MARK: - IBOutlet Properties
