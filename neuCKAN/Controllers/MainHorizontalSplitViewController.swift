@@ -15,6 +15,7 @@ class MainHorizontalSplitViewController: NSSplitViewController {
 	///	The split view item for stats view.
 	@IBOutlet weak var statsSplitViewItem: NSSplitViewItem!
 	
+	// MARK: - View Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -21,7 +21,7 @@ class MainVerticalSplitViewController: NSSplitViewController {
 	///	The split view item for details view.
 	@IBOutlet weak var detailsSplitViewItem: NSSplitViewItem!
 	
-	// MARK: -
+	// MARK: - View Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
