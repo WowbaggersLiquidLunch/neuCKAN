@@ -54,7 +54,7 @@ class MainWindowController: NSWindowController {
 	//	MARK: - Methods Exposed to Objective-C
 	
 	///	Called when the window layout did change.
-	///	- Parameter notification: The notification that calls this method.
+	///	- Parameter notification: The notification that the window layout did change.
 	@objc func windowLayoutDidChange(_ notification: Notification) {
 		guard let splitViewItemVisibility = notification.object as? [Int: NSSplitViewItem] else { return }
 		splitViewItemVisibility.forEach { index, splitViewItem in
