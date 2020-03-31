@@ -1,4 +1,4 @@
-name: Release Nightly Snapshot
+name: Nightly Snapshot
 
 on:
   schedule:
@@ -6,15 +6,15 @@ on:
 
 jobs:
   build:
-    name: Release Nightly Snapshot
+    name: Release
     runs-on: macos-latest
     steps:
-      - name: Checkout develop Branch
+      - name: Checkout branch "develop"
         uses: actions/checkout@v2
         with:
           ref: 'develop'
-      - name: Create Release
-        id: nightly-snapshot
+      - name: Release snapshot
+        id: release-snapshot
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
