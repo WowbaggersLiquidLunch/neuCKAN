@@ -417,22 +417,15 @@ class ModsViewController: NSViewController {
 		}
 	}
 	
-	/**
-	Restores a column's configurations from the previous neuCKAN session.
-	
-	- Parameter column: The column whose configurations need restoring.
-	*/
+	///	Restores a column's configurations from the previous neuCKAN session.
+	///	Parameter column: The column whose configurations need restoring.
 	private func restoreConfigurations(of column: NSTableColumn) {
 		if columnsTitles.contains(column.title) {
 			restoreVisibility(of: column)
 		}
 	}
-	
-	/**
-	Restores a column's visibility from the previous neuCKAN session.
-	
-	- Parameter column: The column whose visibility needs restoring.
-	*/
+	///	Restores a column's visibility from the previous neuCKAN session.
+	///	- Parameter column: The column whose visibility needs restoring.
 	private func restoreVisibility(of column: NSTableColumn) {
 		guard let index = optionalColumnsConfigurations.firstIndex(where: { $0.keys.contains(column.title) } ) else {
 			os_log("Unable to locate configurations for column with title \"%@\".", log: .default, type: .error, column.title)
@@ -440,12 +433,8 @@ class ModsViewController: NSViewController {
 		}
 		optionalColumnsConfigurations[index][column.title]?.visibility = column.isHidden ? .hidden : .visible
 	}
-	
-	/**
-	Sets up mods list view to the given view type.
-	
-	- Parameter viewType: The view type to set up the mods list view to.
-	*/
+	///	Sets up mods list view to the given view type.
+	///	- Parameter viewType: The view type to set up the mods list view to.
 	private func setupModsListView(as viewType: ViewType) {
 //		switch viewType {
 //		case .outlineView:
@@ -456,10 +445,7 @@ class ModsViewController: NSViewController {
 //			<#code#>
 //		}
 	}
-	
-	/**
-	Sets up menu bar menus.
-	*/
+	///	Sets up menu bar menus.
 	private func setupMenuBarMenus() {
 		guard let columnsMenu = NSApp.mainMenu?.item(withTitle: "View")?.submenu?.item(withTitle: "Columns")?.submenu else {
 			os_log("No \"Columns\" menu item in \"View\" menu in application menu bar.", log: .default, type: .error)
@@ -468,10 +454,7 @@ class ModsViewController: NSViewController {
 		columnsMenu.removeAllItems()
 		columnsMenuItems.forEach { columnsMenu.addItem($0) }
 	}
-	
-	/**
-	Sets up contextual menus.
-	*/
+	///	Sets up contextual menus.
 	private func setupContextualMenus() {
 		//	MARK: Header Contextual Menu
 		modsListView.headerView!.menu = NSMenu()
@@ -482,12 +465,8 @@ class ModsViewController: NSViewController {
 		//	TODO: Add menu item for toggle between table view and outline view
 //		contextualMenu.addItem(NSMenuItem(title: (mode == table ? "View as Hierachical List" : "View as Table"), action: <#T##Selector?#>, keyEquivalent: <#T##String#>))
 	}
-	
-	/**
-	Toggles a column's visibility.
-	
-	- Parameter menuItem: The menu item that calls this method.
-	*/
+	///	Toggles a column's visibility.
+	///	- Parameter menuItem: The menu item that calls this method.
 	@objc func toggleColumnVisibility(_ menuItem: NSMenuItem) {
 		//	FIXME: Actually toggle state in menu.
 		guard let index = optionalColumnsConfigurations.firstIndex(where: { $0.keys.contains(menuItem.title) } ) else {
@@ -500,10 +479,7 @@ class ModsViewController: NSViewController {
 		setupMenuBarMenus()
 		setupContextualMenus()
 	}
-	
-	/**
-	Updates columns' attributes.
-	*/
+	///	Updates columns' attributes.
 	private func updateColumnsAttributes() {
 		modsListView.tableColumns.forEach {
 			updateVisibility(of: $0)
@@ -511,41 +487,25 @@ class ModsViewController: NSViewController {
 //		modsListView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier("NameColumn"))?.sizeToFit()
 		modsListView.sizeToFit()
 	}
-	
-	/**
-	Updates a column's visibility to align with its record in `columnsConfigurations`.
-	
-	- Parameter column: The column whose visibility needs updating.
-	*/
+	///	Updates a column's visibility to align with its record in `columnsConfigurations`.
+	///	- Parameter column: The column whose visibility needs updating.
 	private func updateVisibility(of column: NSTableColumn) {
 		guard columnsTitles.contains(column.title) else { column.isHidden = true; return }
 		column.isHidden = columnsConfigurations[column.title]!.visibility == .hidden
 	}
-	
-	/**
-	Refreshes CKAN metadata.
-	
-	- Parameter menuItem: The menu item that calls this method.
-	*/
+	///	Refreshes CKAN metadata.
+	///	- Parameter menuItem: The menu item that calls this method.
 	@objc func updateModsCache(_ menuItem: NSMenuItem) {
 		GC.shared.updateModsCache()
 	}
-	
-	/**
-	Toggles mods list's expandability.
-	
-	- Parameter button: The button that calls this method.
-	*/
+	///	Toggles mods list's expandability.
+	///	- Parameter button: The button that calls this method.
 	@IBAction func toggleModsListExpandability(_ button: NSButton) {
 		displayIsHierarchical = button.state.rawValue == 1
 		modsListView.reloadData()
 	}
-	
-	/**
-	Called after `Synecdoche.shared.mods` has changed.
-	
-	- Parameter notification: The notification of `Synecdoche.shared.mods` having been changed.
-	*/
+	///	Called after `Synecdoche.shared.mods` has changed.
+	///	- Parameter notification: The notification of `Synecdoche.shared.mods` having been changed.
 	@objc func modsCacheDidUpdate(_ notification: Notification) {
 		//	TODO: Throw an error.
 		guard let updatedMods = notification.object as? Mods else { return }
@@ -554,12 +514,8 @@ class ModsViewController: NSViewController {
 			self.modsListView.reloadData()
 		}
 	}
-	
-	/**
-	Called after `Synecdoche.shared.selectedTargets` has changed.
-	
-	- Parameter notification: The notification of `Synecdoche.shared.selectedTargets` having been changed.
-	*/
+	///	Called after `Synecdoche.shared.selectedTargets` has changed.
+	///	- Parameter notification: The notification of `Synecdoche.shared.selectedTargets` having been changed.
 	@objc func targetsSelectionDidChange(_ notification: Notification) {
 		//	TODO: Throw an error.
 		guard let newTargetSelection = notification.object as? Targets else { return }
