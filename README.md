@@ -17,7 +17,7 @@
 
 - [Why?](#why)
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
-- [Some features, as planed so far:](#some-features-as-planed-so-far)
+- [Some features, as planed so far](#some-features-as-planed-so-far)
 - [Help, please...](#help-please)
 
 ---
