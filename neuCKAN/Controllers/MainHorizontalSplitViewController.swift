@@ -32,7 +32,7 @@ class MainHorizontalSplitViewController: NSSplitViewController {
     
 	//	MARK: - Methods Exposed to Objective-C
 	
-	///	Called after the user initiated a window layout change.
+	///	Called after the main horizontal split view controller receives a notification that the user initiated a window layout change.
 	///	- Parameter notification: The notification that calls this method.
 	@objc func userDidInitiateWindowLayoutChange(_ notification: Notification) {
 		if (notification.object as? NSSegmentedControl)?.selectedSegment == 1 {
