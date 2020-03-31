@@ -478,7 +478,7 @@ class ModsViewController: NSViewController {
 		columnsMenuItems.forEach { modsListView.headerView!.menu!.addItem($0) }
 		//	MARK: Body Contextual Menu
 		modsListView.menu = NSMenu()
-		modsListView.menu!.addItem(NSMenuItem(title: "Refresh Mods Data", action: #selector(updateCKANMetadataCache(_:)), keyEquivalent: "R"))
+		modsListView.menu!.addItem(NSMenuItem(title: "Refresh Mods Data", action: #selector(updateModsCache(_:)), keyEquivalent: "R"))
 		//	TODO: Add menu item for toggle between table view and outline view
 //		contextualMenu.addItem(NSMenuItem(title: (mode == table ? "View as Hierachical List" : "View as Table"), action: <#T##Selector?#>, keyEquivalent: <#T##String#>))
 	}
@@ -527,7 +527,7 @@ class ModsViewController: NSViewController {
 	
 	- Parameter menuItem: The menu item that calls this method.
 	*/
-	@objc func updateCKANMetadataCache(_ menuItem: NSMenuItem) {
+	@objc func updateModsCache(_ menuItem: NSMenuItem) {
 		GC.shared.updateModsCache()
 	}
 	
