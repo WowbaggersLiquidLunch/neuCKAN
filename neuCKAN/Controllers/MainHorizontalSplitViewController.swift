@@ -33,7 +33,7 @@ class MainHorizontalSplitViewController: NSSplitViewController {
 	//	MARK: - Methods Exposed to Objective-C
 	
 	///	Called after the main horizontal split view controller receives a notification that the user initiated a window layout change.
-	///	- Parameter notification: The notification that calls this method.
+	///	- Parameter notification: The notification that the user initiated a window layout change.
 	@objc func userDidInitiateWindowLayoutChange(_ notification: Notification) {
 		if (notification.object as? NSSegmentedControl)?.selectedSegment == 1 {
 			toggleCollapse(of: statsSplitViewItem)
