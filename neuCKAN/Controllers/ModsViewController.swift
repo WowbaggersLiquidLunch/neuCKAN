@@ -382,6 +382,7 @@ class ModsViewController: NSViewController {
 	}
 	
 	//	MARK: - View Life Cycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -407,6 +408,7 @@ class ModsViewController: NSViewController {
 	override func viewDidAppear() {
 		super.viewDidAppear()
 	}
+	
 	//	MARK: -
 	
 	override var representedObject: Any? {
