@@ -948,7 +948,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="toggleModsListExpandability:" target="Oky-zY-oP4" id="gcv-ck-J6M"/>
+                                            <action selector="initiateModsLayoutChange:" target="B8D-0N-5wS" id="ssr-PK-y1d"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -1069,7 +1069,7 @@
                                             <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="toggleModsListExpandability:" target="Oky-zY-oP4" id="CVm-Bm-Y8U"/>
+                                            <action selector="initiateModsLayoutChange:" target="B8D-0N-5wS" id="PmR-ZV-MC4"/>
                                         </connections>
                                     </button>
                                 </viewController>

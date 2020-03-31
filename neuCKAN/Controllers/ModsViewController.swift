@@ -398,6 +398,7 @@ class ModsViewController: NSViewController {
 		setupContextualMenus()
 		NotificationCenter.default.addObserver(self, selector: #selector(modsCacheDidUpdate(_:)), name: .modsCacheDidUpdate, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(targetsSelectionDidChange(_:)), name: .targetsSelectionDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(userDidInitiateModsLayoutChange(_:)), name: .userDidInitiateModsLayoutChange, object: nil)
 		updateColumnsAttributes()
 	}
 	
@@ -407,6 +408,7 @@ class ModsViewController: NSViewController {
 	
 	override func viewDidAppear() {
 		super.viewDidAppear()
+		NotificationCenter.default.post(name: .modsLayoutDidChange, object: displayIsHierarchical)
 	}
 	
 	//	MARK: -
@@ -498,12 +500,6 @@ class ModsViewController: NSViewController {
 	@objc func updateModsCache(_ menuItem: NSMenuItem) {
 		GC.shared.updateModsCache()
 	}
-	///	Toggles mods list's expandability.
-	///	- Parameter button: The button that calls this method.
-	@IBAction func toggleModsListExpandability(_ button: NSButton) {
-		displayIsHierarchical = button.state.rawValue == 1
-		modsListView.reloadData()
-	}
 	///	Called after `Synecdoche.shared.mods` has changed.
 	///	- Parameter notification: The notification of `Synecdoche.shared.mods` having been changed.
 	@objc func modsCacheDidUpdate(_ notification: Notification) {
@@ -523,6 +519,13 @@ class ModsViewController: NSViewController {
 			self.stagedTargets = newTargetSelection
 			self.modsListView.reloadData()
 		}
+	}
+	/// Called after the mods view controller receives a notification that the user initiated a mods layout change.
+	/// - Parameter notification: The notification that the user initiated a mods layout change.
+	@objc func userDidInitiateModsLayoutChange(_ notification: Notification) {
+		displayIsHierarchical.toggle()
+		modsListView.reloadData()
+		NotificationCenter.default.post(name: .modsLayoutDidChange, object: displayIsHierarchical)
 	}
 }
 

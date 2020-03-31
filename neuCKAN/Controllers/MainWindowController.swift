@@ -51,9 +51,30 @@ class MainWindowController: NSWindowController {
 		NotificationCenter.default.addObserver(self, selector: #selector(windowLayoutDidChange(_:)), name: .windowLayoutDidChange, object: nil)
 	}
 	
-	//	MARK: - Methods Exposed to Objective-C
+	//	MARK: -
 	
-	///	Called when the window layout did change.
+	///	Refreshes all data in window.
+	///	- Parameter sender: The object that calls this method.
+	@IBAction func refresh(_ sender: Any) {
+		GC.shared.refreshData()
+	}
+	///	Called after the user initiated a mods layout change.
+	///	- Parameter sender: The object that calls this method.
+	@IBAction func initiateModsLayoutChange(_ sender: Any) {
+		NotificationCenter.default.post(name: .userDidInitiateModsLayoutChange, object: sender)
+	}
+	/// Called when the main window controller receives a notification that the mods layout did change.
+	/// - Parameter notification: The notification that the mod layout did change.
+	@objc func modsLayoutDidChange(_ notification: Notification) {
+		guard let modsLayoutIsHierarchical = notification.object as? Bool else { return }
+		toolbarModsLayoutButton.state = NSControl.StateValue(rawValue: modsLayoutIsHierarchical ? 0 : 1)
+	}
+	///	Called after the user initiated a window layout change.
+	///	- Parameter sender: The object that calls this method.
+	@IBAction func initiateWindowLayoutChange(_ sender: Any) {
+		NotificationCenter.default.post(name: .userDidInitiateWindowLayoutChange, object: sender)
+	}
+	///	Called when the main window controller receives a notification that the window layout did change.
 	///	- Parameter notification: The notification that the window layout did change.
 	@objc func windowLayoutDidChange(_ notification: Notification) {
 		guard let splitViewItemVisibility = notification.object as? [Int: NSSplitViewItem] else { return }
@@ -61,18 +82,5 @@ class MainWindowController: NSWindowController {
 			toolbarWindowLayoutControl.setSelected(!splitViewItem.isCollapsed, forSegment: index)
 			touchBarWindowLayoutControl.setSelected(!splitViewItem.isCollapsed, forSegment: index)
 		}
-	}
-	
-	//	MARK: - IBAction Methods
-	
-	///	Refreshes all data in window.
-	///	- Parameter sender: The object that calls this method.
-	@IBAction func refresh(_ sender: Any) {
-		GC.shared.refreshData()
-	}
-	///	Called after the user initiated a window layout change.
-	///	- Parameter sender: The object that calls this method.
-	@IBAction func initiateWindowLayoutChange(_ sender: Any) {
-		NotificationCenter.default.post(name: .userDidInitiateWindowLayoutChange, object: sender)
 	}
 }
