@@ -37,6 +37,7 @@ struct Resources: Hashable {
 	let curse: URL?
 	let manual: URL?
 	let netkan: URL?
+	let screenshot: URL?
 }
 
 //	MARK: - Codable Conformance
@@ -51,5 +52,6 @@ extension Resources: Codable {
 		case curse
 		case manual
 		case netkan = "metanetkan"
+		case screenshot = "x_screenshot"
 	}
 }
