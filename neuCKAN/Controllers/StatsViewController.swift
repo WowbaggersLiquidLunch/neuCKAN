@@ -9,18 +9,12 @@
 import Cocoa
 
 ///	A controller that manages the stats view of neuCKAN.
-class StatsViewController: NSViewController {
+class StatsViewController: NSTabViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-	}
-	
-	override var representedObject: Any? {
-		didSet {
-			// Update the view, if already loaded.
-		}
 	}
 	
 }

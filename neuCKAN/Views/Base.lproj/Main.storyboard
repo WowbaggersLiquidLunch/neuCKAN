@@ -2362,10 +2362,10 @@
             </objects>
             <point key="canvasLocation" x="691" y="1546"/>
         </scene>
-        <!--Tab View Controller-->
+        <!--Stats View Controller-->
         <scene sceneID="7jg-I3-aYM">
             <objects>
-                <tabViewController selectedTabViewItemIndex="2" id="WSD-kd-h8J" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="2" id="WSD-kd-h8J" customClass="StatsViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="Igm-ov-0WS"/>
                         <tabViewItem identifier="" id="SDg-Ej-KLt"/>
