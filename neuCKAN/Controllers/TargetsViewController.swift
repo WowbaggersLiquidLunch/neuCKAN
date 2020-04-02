@@ -249,16 +249,15 @@ extension TargetsViewController: NSOutlineViewDelegate {
 	//
 	func outlineViewSelectionDidChange(_ notification: Notification) {
 		//
-		if notification.object as? NSOutlineView == targetsSourceListView {
-			guard targetsSourceListView.selectedRow >= 0 else { return }
-			//	TODO: Make a pitch to make flatMap smarter.
-			GC.shared.recordSelection(of: targetsSourceListView.selectedRowIndexes
-				.map { targetsSourceListView.item(atRow: $0) }
-				.flatMap { ($0 as? Targets)?.targets ?? [$0 as? Target].compactMap { $0 } }
-			)
-			Synecdoche.shared.selectedTargets.forEach {
-				print($0)
-			}
+		guard notification.object as? NSOutlineView == targetsSourceListView else { return }
+		guard targetsSourceListView.selectedRow >= 0 else { return }
+		//	TODO: Make a pitch to make flatMap smarter.
+		GC.shared.recordSelection(of: targetsSourceListView.selectedRowIndexes
+			.map { targetsSourceListView.item(atRow: $0) }
+			.flatMap { ($0 as? Targets)?.targets ?? [$0 as? Target].compactMap { $0 } }
+		)
+		Synecdoche.shared.selectedTargets.forEach {
+			print($0)
 		}
 	}
 }
