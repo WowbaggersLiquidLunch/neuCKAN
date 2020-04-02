@@ -246,6 +246,7 @@ extension TargetsViewController: NSOutlineViewDelegate {
 			return 0
 		}
 	}
+	//	TODO: Handle deselection.
 	//
 	func outlineViewSelectionDidChange(_ notification: Notification) {
 		//
