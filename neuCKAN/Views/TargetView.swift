@@ -56,7 +56,7 @@ struct TargetView: View {
 					.layoutPriority(1)
 				
 				//	TODO: Render "GameData/" in code format
-				Text(ancillaryText)
+				Text(LocalizedStringKey(ancillaryText))
 					.fontWeight((cursorIsHoveringOverRevealButton || cursorIsHoveringOverFollowLinkButton) ? .light : .ultraLight)
 					.font(.system(.caption, design: (cursorIsHoveringOverRevealButton || cursorIsHoveringOverFollowLinkButton) ? .default : .monospaced))
 					.lineLimit(ancillaryTextSpansMultipleLines ? 5 : 1)
