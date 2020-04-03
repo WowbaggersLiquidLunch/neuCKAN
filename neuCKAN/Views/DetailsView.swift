@@ -24,11 +24,11 @@ struct DetailsView: View {
 				}
 			} else {
 				Text("Select a mod release to view its details.")
-				.multilineTextAlignment(.center)
-				.font(.callout)
-				.foregroundColor(.secondary)
-				.allowsTightening(true)
-				.padding()
+					.multilineTextAlignment(.center)
+					.font(.callout)
+					.foregroundColor(.secondary)
+					.allowsTightening(true)
+					.padding()
 			}
 		}
 		.padding()
