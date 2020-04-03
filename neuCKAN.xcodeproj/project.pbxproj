@@ -302,8 +302,8 @@
 				B451D55B236B9D5400441195 /* ViewController.swift */,
 				B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */,
 				B4625E3823F6A29300EFDFA2 /* MainHorizontalSplitViewController.swift */,
-				B4991D4123C9E4E6005735FC /* ModsViewController.swift */,
 				B4991D4723C9E7A9005735FC /* TargetsViewController.swift */,
+				B4991D4123C9E4E6005735FC /* ModsViewController.swift */,
 				B4991D4923C9E805005735FC /* DetailsViewController.swift */,
 				B4991D4B23C9E89C005735FC /* StatsViewController.swift */,
 			);
