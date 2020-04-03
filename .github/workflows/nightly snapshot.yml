@@ -19,5 +19,5 @@ jobs:
       - name: Tag snapshot
         uses: tvdias/github-tagger@v0.0.1
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.date.outputs.date }}
