@@ -560,11 +560,24 @@ extension ModsViewController: NSOutlineViewDataSource {
 
 //	MARK: - NSOutlineViewDelegate Conformance
 extension ModsViewController: NSOutlineViewDelegate {
+	//
 	func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
 		guard let columnTitle = tableColumn?.title, columnsTitles.contains(columnTitle) else { return nil }
 		let cellID = NSUserInterfaceItemIdentifier(columnTitle.trimmingCharacters(in: .whitespaces) + "ColumnCell")
 		guard let cell = outlineView.makeView(withIdentifier: cellID, owner: nil) as? NSTableCellView else { return nil }
 		return columnsConfigurations[columnTitle]!.drawing(cell, item)
+	}
+	//	TODO: Handle deselection.
+	//
+	func outlineViewSelectionDidChange(_ notification: Notification) {
+		guard notification.object as? NSOutlineView == modsListView else { return }
+		//	TODO: Handle multiple selections.
+		if modsListView.numberOfSelectedRows == 1 {
+			let item = modsListView.item(atRow: modsListView.selectedRow)
+			NotificationCenter.default.post(name: .modReleaseSelectionDidChange, object: item as? Release ?? item as? Mod ?? nil)
+		} else if modsListView.numberOfSelectedRows > 1 {
+			
+		}
 	}
 }
 

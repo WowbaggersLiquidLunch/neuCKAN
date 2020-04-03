@@ -46,6 +46,7 @@
 		B46E757B2372A73C00C09306 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757A2372A73C00C09306 /* Resources.swift */; };
 		B46E757D2372B13400C09306 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757C2372B13400C09306 /* Hash.swift */; };
 		B4720D0D23A14C9200220F87 /* Synecdoche.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4720D0C23A14C9200220F87 /* Synecdoche.swift */; };
+		B49472372433D9150031DE2C /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49472362433D9150031DE2C /* DetailsView.swift */; };
 		B4991D4223C9E4E6005735FC /* ModsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4123C9E4E6005735FC /* ModsViewController.swift */; };
 		B4991D4423C9E58D005735FC /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4323C9E58D005735FC /* MainWindowController.swift */; };
 		B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4723C9E7A9005735FC /* TargetsViewController.swift */; };
@@ -149,6 +150,7 @@
 		B47527A3242DE5830029B54E /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		B47527A4242DE5AA0029B54E /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		B49472362433D9150031DE2C /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		B4991D4123C9E4E6005735FC /* ModsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModsViewController.swift; sourceTree = "<group>"; };
 		B4991D4323C9E58D005735FC /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B4991D4723C9E7A9005735FC /* TargetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			children = (
 				B451D562236B9D5500441195 /* Main.storyboard */,
 				B4991D9723CDD755005735FC /* TargetView.swift */,
+				B49472362433D9150031DE2C /* DetailsView.swift */,
 				B4ADB8602419F86500CA2930 /* ModReleaseManagementCellView.swift */,
 			);
 			path = Views;
@@ -585,6 +588,7 @@
 				B4FD6EE623B34CAB00A57174 /* CKANFuckery.swift in Sources */,
 				B4C1DFBC23EBFB0100E31F81 /* GroundControl.swift in Sources */,
 				B4315B6023D3F621005FC675 /* Preferences.swift in Sources */,
+				B49472372433D9150031DE2C /* DetailsView.swift in Sources */,
 				B4ADB8612419F86500CA2930 /* ModReleaseManagementCellView.swift in Sources */,
 				B4C1DFBA23EA830300E31F81 /* Mods.swift in Sources */,
 				B49B8655236C23F300DF758C /* Mod.swift in Sources */,

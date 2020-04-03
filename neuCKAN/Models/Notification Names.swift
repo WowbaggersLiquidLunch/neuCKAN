@@ -12,6 +12,7 @@ extension Notification.Name {
 	static let targetsDataDidUpdate = Notification.Name("targetsDataDidUpdate")
 	static let modsCacheDidUpdate = Notification.Name("modsCacheDidUpdate")
 	static let targetsSelectionDidChange = Notification.Name("targetsSelectionDidChange")
+	static let modReleaseSelectionDidChange = Notification.Name("modReleaseSelectionDidChange")
 	static let userDidInitiateModsLayoutChange = Notification.Name("userDidInitiateModsLayoutChange")
 	static let modsLayoutDidChange = Notification.Name("modsLayoutDidChange")
 	static let userDidInitiateWindowLayoutChange = Notification.Name("userDidInitiateWindowLayoutChange")

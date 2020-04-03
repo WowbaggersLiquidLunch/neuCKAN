@@ -1292,10 +1292,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="1725"/>
         </scene>
-        <!--View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="aMk-uI-Jdf">
             <objects>
-                <viewController id="QjH-xH-t42" sceneMemberID="viewController">
+                <viewController id="QjH-xH-t42" customClass="DetailsViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="O5p-UK-Dfe">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
