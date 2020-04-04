@@ -28,7 +28,6 @@ class DetailsViewController: NSViewController {
 		detailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		detailsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		detailsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//		detailsView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 	}
 	
 	override var representedObject: Any? {
