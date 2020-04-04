@@ -20,8 +20,11 @@ struct DetailsView: View {
 							VStack(alignment: .leading) {
 								Text(self.release!.name)
 									.font(.title)
-								Text(self.release!.abstract)
 								Text("Version \(String(describing: self.release!.version))")
+								if self.release!.authors != nil {
+									Text(self.release!.authors!.joined(separator: ", "))
+								}
+								Divider()
 							}
 							.lineLimit(1)
 							Spacer()
