@@ -11,27 +11,44 @@ import SwiftUI
 struct DetailsView: View {
 	var release: Release?
     var body: some View {
-		ScrollView {
-			if release != nil {
-				VStack {
-					HStack {
-						//	TODO: Add mod logo here.
-						VStack {
-							Text(release!.name)
-							Text(String(describing: release!.version))
+		GeometryReader { geometry in
+			ScrollView {
+				if self.release != nil {
+					VStack {
+						HStack {
+							//	TODO: Add mod logo here.
+							VStack(alignment: .leading) {
+								Text(self.release!.name)
+									.font(.title)
+								Text(self.release!.abstract)
+								Text("Version \(String(describing: self.release!.version))")
+							}
+							.lineLimit(1)
+							Spacer()
 						}
 					}
-				}
-			} else {
-				Text("Select a mod release to view its details.")
-					.multilineTextAlignment(.center)
-					.font(.callout)
-					.foregroundColor(.secondary)
-					.allowsTightening(true)
 					.padding()
+				} else {
+					VStack {
+						Spacer()
+						HStack {
+							Spacer()
+							Text("Select a mod release to view its details.")
+								.multilineTextAlignment(.center)
+								.font(.callout)
+								.foregroundColor(.secondary)
+								.allowsTightening(true)
+//								.padding()
+							Spacer()
+						}
+						Spacer()
+					}
+					.padding()
+					.frame(width: geometry.size.width)
+					.frame(minHeight: geometry.size.height)
+				}
 			}
 		}
-		.padding()
 	}
 }
 
