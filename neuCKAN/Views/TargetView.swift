@@ -19,6 +19,8 @@ struct TargetView: View {
 	@State private var cursorIsHoveringOverFollowLinkButton: Bool = false
 	///	A flag indicating whether the ancillary text should take more than one line.
 	@State private var ancillaryTextSpansMultipleLines: Bool = false
+	/// KSP logo's height, calculated from its `HStack` siblings' heights.
+	@State private var kspLogoHeight: CGFloat = 0
 	///	The target to display.
 	let target: Target
 	///	The accessible tool tip for the "Reveal in Finder" button.
@@ -38,9 +40,9 @@ struct TargetView: View {
 				.antialiased(true)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.frame(width: 41, height: 41, alignment: .center)
+				.frame(width: kspLogoHeight * 1.1, height: kspLogoHeight, alignment: .center)
 				.shadow(radius: 5)
-				.fixedSize()
+//				.fixedSize()
 //				.alignmentGuide(.kspVersionAndPatch) { d in d[.top] }
 				.layoutPriority(1)
 				
@@ -62,6 +64,12 @@ struct TargetView: View {
 					.lineLimit(ancillaryTextSpansMultipleLines ? 5 : 1)
 					.onTapGesture { self.ancillaryTextSpansMultipleLines.toggle() }
 				
+			}
+			.alignmentGuide(VerticalAlignment.center) { d in
+				DispatchQueue.main.async {
+					self.kspLogoHeight = d.height
+				}
+				return d[VerticalAlignment.center]
 			}
 			
 			Spacer()
