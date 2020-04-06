@@ -1261,7 +1261,6 @@
                     </connections>
                 </viewController>
                 <customObject id="jGL-8M-IAT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <treeController id="hnh-du-LAR"/>
             </objects>
             <point key="canvasLocation" x="-242" y="1725"/>
         </scene>
