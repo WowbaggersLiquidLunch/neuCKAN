@@ -42,8 +42,6 @@ struct TargetView: View {
 				.aspectRatio(contentMode: .fit)
 				.frame(width: kspLogoHeight * 1.1, height: kspLogoHeight, alignment: .center)
 				.shadow(radius: 5)
-//				.fixedSize()
-//				.alignmentGuide(.kspVersionAndPatch) { d in d[.top] }
 				.layoutPriority(1)
 				
 			
@@ -54,7 +52,6 @@ struct TargetView: View {
 					.font(.system(.title, design: .default))
 					.lineLimit(1)
 					.allowsTightening(true)
-//					.alignmentGuide(.kspVersionAndPatch) { d in d[.top] }
 					.layoutPriority(1)
 				
 				//	TODO: Render "GameData/" in code format
@@ -98,7 +95,6 @@ struct TargetView: View {
 		.padding(.leading, 5)
 		.padding(.trailing, 5)
 		.onHover { self.cursorIsHoveringOverTarget = $0 }
-//		.frame(minWidth: 180, idealWidth: 250)
 	}
 	///	The ancillary text of the target view.
 	var ancillaryText: String {
@@ -127,27 +123,6 @@ struct TargetView: View {
 	}
 }
 
-
-//extension VerticalAlignment {
-//	private enum KSPVersionAndPatch: AlignmentID {
-//		static func defaultValue(in context: ViewDimensions) -> CGFloat {
-//			return context[.top]
-//		}
-//	}
-//	static let kspVersionAndPatch = VerticalAlignment(KSPVersionAndPatch.self)
-//}
-//
-//
-//extension VerticalAlignment {
-//	private enum KSPPathAndPatch: AlignmentID {
-//		static func defaultValue(in context: ViewDimensions) -> CGFloat {
-//			return context[.top]
-//		}
-//	}
-//	static let kspPathAndPatch = VerticalAlignment(KSPPathAndPatch.self)
-//}
-
-
 //	https://stackoverflow.com/questions/59129089/swiftui-how-to-display-tooltip-hint-on-mouse-move-on-some-object
 //extension View {
 //	/// Overlays this view with a view that provides a toolTip with the given string.
@@ -172,8 +147,6 @@ struct TargetView: View {
 //	func updateNSView(_ nsView: NSView, context: NSViewRepresentableContext) {
 //	}
 //}
-
-
 
 struct TargetView_Previews: PreviewProvider {
     static var previews: some View {
