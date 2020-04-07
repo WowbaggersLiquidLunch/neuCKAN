@@ -56,6 +56,7 @@
 		B4991D9823CDD755005735FC /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D9723CDD755005735FC /* TargetView.swift */; };
 		B49B8653236C1C3F00DF758C /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* Release.swift */; };
 		B49B8655236C23F300DF758C /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
+		B4AA8A52243D14A800FE2CE6 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = B4AA8A51243D14A800FE2CE6 /* URLImage */; };
 		B4ADB83D24138D7700CA2930 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B46DEF24132B0400900B9E /* main.swift */; };
 		B4ADB84024138DB500CA2930 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = B4ADB83F24138DB500CA2930 /* ArgumentParser */; };
 		B4ADB84224143F7900CA2930 /* NEUCKAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB84124143F7900CA2930 /* NEUCKAN.swift */; };
@@ -192,6 +193,7 @@
 			files = (
 				B4B46DE12411C32300900B9E /* Alamofire in Frameworks */,
 				B469D12B23FCC1EE00DA5EF0 /* StandardLibraryPreview in Frameworks */,
+				B4AA8A52243D14A800FE2CE6 /* URLImage in Frameworks */,
 				B469D12E23FCC38B00DA5EF0 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +413,7 @@
 				B469D12A23FCC1EE00DA5EF0 /* StandardLibraryPreview */,
 				B469D12D23FCC38B00DA5EF0 /* ZIPFoundation */,
 				B4B46DE02411C32300900B9E /* Alamofire */,
+				B4AA8A51243D14A800FE2CE6 /* URLImage */,
 			);
 			productName = neuCKAN;
 			productReference = B451D556236B9D5400441195 /* neuCKAN.app */;
@@ -515,6 +518,7 @@
 				B469D12C23FCC38B00DA5EF0 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B4B46DDF2411C32300900B9E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B4ADB83E24138DB500CA2930 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = B451D557236B9D5400441195 /* Products */;
 			projectDirPath = "";
@@ -1014,6 +1018,14 @@
 				minimumVersion = 0.9.11;
 			};
 		};
+		B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.13;
+			};
+		};
 		B4ADB83E24138DB500CA2930 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-argument-parser";
@@ -1042,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B469D12C23FCC38B00DA5EF0 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		B4AA8A51243D14A800FE2CE6 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
 		};
 		B4ADB83F24138DB500CA2930 /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;

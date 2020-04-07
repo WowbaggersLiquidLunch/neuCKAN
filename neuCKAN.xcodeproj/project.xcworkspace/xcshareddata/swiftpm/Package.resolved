@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "URLImage",
+        "repositoryURL": "https://github.com/dmytro-anokhin/url-image.git",
+        "state": {
+          "branch": null,
+          "revision": "44b17289d8eb7db78eefbcf7bafa8cf2221b2a2b",
+          "version": "0.9.13"
+        }
+      },
+      {
         "package": "ZIPFoundation",
         "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
         "state": {
