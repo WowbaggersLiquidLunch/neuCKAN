@@ -39,7 +39,7 @@ struct TargetView: View {
 			Image(nsImage: target.logo!)
 				.antialiased(true)
 				.resizable()
-				.aspectRatio(contentMode: .fit)
+				.scaledToFit()
 				.frame(width: kspLogoHeight * 1.1, height: kspLogoHeight, alignment: .center)
 				.shadow(radius: 5)
 				.layoutPriority(1)
