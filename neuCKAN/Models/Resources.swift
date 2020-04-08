@@ -48,7 +48,7 @@ extension Resources: Codable {
 //		case license
 		case repository
 		case ci
-		case spaceDock
+		case spaceDock = "spacedock"
 		case curseForge = "curse"
 		case manual
 		case netkan = "metanetkan"
