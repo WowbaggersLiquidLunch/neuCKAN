@@ -209,17 +209,17 @@ class ModsViewController: NSViewController {
 			"SpaceDock": (
 				.hidden,  { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.spacedock, ofType: (URL?).self)
-					} else if let release = item as? Release, let releaseSpacedock = release.resources?.spacedock {
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.spaceDock, ofType: (URL?).self)
+					} else if let release = item as? Release, let releaseSpacedock = release.resources?.spaceDock {
 						cell.textField?.stringValue = releaseSpacedock.absoluteString
 					}
 					return cell
 			}),
-			"Curse": (
+			"CurseForge": (
 				.hidden,  { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.curse, ofType: (URL?).self)
-					} else if let release = item as? Release, let releaseCurse = release.resources?.curse {
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.curseForge, ofType: (URL?).self)
+					} else if let release = item as? Release, let releaseCurse = release.resources?.curseForge {
 						cell.textField?.stringValue = releaseCurse.absoluteString
 					}
 					return cell

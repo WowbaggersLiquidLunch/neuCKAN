@@ -33,8 +33,8 @@ struct Resources: Hashable {
 //	let license: URL?
 	let repository: URL?
 	let ci: URL?
-	let spacedock: URL?
-	let curse: URL?
+	let spaceDock: URL?
+	let curseForge: URL?
 	let manual: URL?
 	let netkan: URL?
 	let screenshot: URL?
@@ -48,8 +48,8 @@ extension Resources: Codable {
 //		case license
 		case repository
 		case ci
-		case spacedock
-		case curse
+		case spaceDock
+		case curseForge = "curse"
 		case manual
 		case netkan = "metanetkan"
 		case screenshot = "x_screenshot"
