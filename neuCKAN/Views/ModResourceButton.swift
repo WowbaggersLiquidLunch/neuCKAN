@@ -23,9 +23,9 @@ struct ModResourceButton: View {
 		case "SpaceDock": hostLogo = Image("SpaceDock Badge")
 		case "CurseForge": hostLogo = Image("CurseForge Anvil")
 		case "CI": hostLogo = Image("Bot")
-		case "Bug Tracker": hostLogo = Image("exclamationmark bubble")
-		case "Manual": hostLogo = Image("book fill")
-		default: hostLogo = Image("safari fill")
+		case "Bug Tracker": hostLogo = Image("exclamationmark.bubble")
+		case "Manual": hostLogo = Image("book.fill")
+		default: hostLogo = Image("safari.fill")
 		}
 	}
 	///	The resource's logo's height, calculated from its title's heights.
