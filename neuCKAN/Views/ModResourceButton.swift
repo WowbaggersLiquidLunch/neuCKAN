@@ -18,7 +18,7 @@ struct ModResourceButton: View {
 		self.resourceTitle = resourceTitle
 		self.resourceURL = resourceURL
 		switch resourceTitle {
-		case "Home Page": hostLogo = Image("safari fill")
+		case "Home Page": hostLogo = Image("safari.fill")
 		case "GitHub": hostLogo = Image("GitHub Mark")
 		case "SpaceDock": hostLogo = Image("SpaceDock Badge")
 		case "CurseForge": hostLogo = Image("CurseForge Anvil")
