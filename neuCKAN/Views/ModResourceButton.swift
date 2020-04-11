@@ -8,8 +8,12 @@
 
 import SwiftUI
 
+///	A button that link to a resource.
 struct ModResourceButton: View {
-	
+	///	Initialises a `ModResourceButton` instance with the specified resource.
+	///	- Parameters:
+	///		- resourceTitle: The name of the specified resource.
+	///		- resourceURL: The location of the specified resource.
 	init(resourceTitle: String, resourceURL: URL) {
 		self.resourceTitle = resourceTitle
 		self.resourceURL = resourceURL
@@ -24,13 +28,13 @@ struct ModResourceButton: View {
 		default: hostLogo = Image("safari fill")
 		}
 	}
-	
+	///	The resource's logo's height, calculated from its title's heights.
 	@State private var hostLogoHeight: CGFloat = 0
-	
+	///	The resource's title.
 	let resourceTitle: String
-	
+	///	The resourde's location.
 	let resourceURL: URL
-	
+	///	The resource's logo.
 	let hostLogo: Image
 	
     var body: some View {

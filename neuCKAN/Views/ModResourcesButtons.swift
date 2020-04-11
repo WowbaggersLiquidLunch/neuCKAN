@@ -8,8 +8,9 @@
 
 import SwiftUI
 
+///	Buttons that link to a mod release's resources.
 struct ModResourcesButtons: View {
-	
+	///	The resources the buttons link to.
 	let resources: Resources
 	
     var body: some View {

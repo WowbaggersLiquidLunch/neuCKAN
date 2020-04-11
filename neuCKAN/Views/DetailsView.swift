@@ -8,8 +8,11 @@
 
 import SwiftUI
 
+///	A details view.
 struct DetailsView: View {
+	///	The mod release the details view is for.
 	var release: Release?
+	
     var body: some View {
 		GeometryReader { geometry in
 			ScrollView {

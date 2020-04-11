@@ -9,8 +9,9 @@
 import SwiftUI
 import URLImage
 
+///	A scrollable preview of the mod release.
 struct ModPreviewSlide: View {
-	
+	///	The mod release the preview slide is for.
 	let release: Release
 	
 	var body: some View {

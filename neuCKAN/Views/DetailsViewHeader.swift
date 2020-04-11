@@ -8,11 +8,13 @@
 
 import SwiftUI
 
+///	A details view header.
 struct DetailsViewHeader: View {
-	/// The mod release's logo's height, calculated from its `HStack` siblings' heights.
+	///	The mod release's logo's height, calculated from its `HStack` siblings' heights.
 	@State private var releaseLogoHeight: CGFloat = 0
-	/// The mod release this details header applies to.
+	///	The mod release this details header applies to.
 	let release: Release
+	
 	var body: some View {
 		HStack {
 			//	TODO: Add placeholder logo here.
