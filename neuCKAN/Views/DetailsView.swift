@@ -14,20 +14,41 @@ struct DetailsView: View {
 		GeometryReader { geometry in
 			ScrollView {
 				if self.release != nil {
-					VStack {
+					VStack(alignment: .leading) {
+						DetailsViewHeader(release: self.release!)
+						if self.release!.resources?.screenshot != nil {
+							ModPreviewSlide(release: self.release!)
+						} else {
+							Divider()
+						}
+						Spacer()
+							.frame(height: 25)
 						HStack {
-							//	TODO: Add mod logo here.
 							VStack(alignment: .leading) {
-								Text(self.release!.name)
-									.font(.title)
-								Text("Version \(String(describing: self.release!.version))")
-								if self.release!.authors != nil {
-									Text(self.release!.authors!.joined(separator: ", "))
+								if (self.release!.abstract.count > 60 && self.release!.abstract.split(separator: " ").count > 6) || self.release!.abstract.contains("//") || self.release!.abstract.split(separator: ".").count > 2 {
+									Text(self.release!.abstract)
+									if self.release!.description != nil && self.release!.description != "" {
+										Text("")
+										Text(self.release!.description!)
+									}
+								} else if self.release!.description != "" {
+									Text(self.release!.description ?? "This mod has no detailed description.")
+								} else {
+									Text("This mod has no detailed description.")
 								}
-								Divider()
+								Spacer()
 							}
-							.lineLimit(1)
-							Spacer()
+							if self.release!.resources!.homepage != nil {
+								Spacer(minLength: 30)
+								VStack(alignment: .trailing) {
+									Text(self.release!.authors?.joined(separator: ", ") ?? "Anonymous author(s)")
+											.lineLimit(1)
+											.font(.caption)
+											.foregroundColor(Color(NSColor.tertiaryLabelColor))
+									ModResourcesButtons(resources: self.release!.resources!)
+										.layoutPriority(1)
+								}
+							}
 						}
 					}
 					.padding()
