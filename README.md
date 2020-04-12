@@ -1,11 +1,10 @@
+<p align="center">
+	<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN logo" height="256"  />
+</p>
 <h1 align="center">
-	<sub>
-		<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN's logo" height="256"  />
-	</sub>
-	<br>
 	not entirely unlike CKAN
 </h1>
-<p align="center">	<!-- Pronounciation -->
+<p align="center">
 	Or, neuCKAN, pronounced as <code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code> or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
 </p>
 
