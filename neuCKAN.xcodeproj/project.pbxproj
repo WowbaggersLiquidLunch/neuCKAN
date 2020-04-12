@@ -520,7 +520,7 @@
 				};
 			};
 			buildConfigurationList = B451D551236B9D5400441195 /* Build configuration list for PBXProject "neuCKAN" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
