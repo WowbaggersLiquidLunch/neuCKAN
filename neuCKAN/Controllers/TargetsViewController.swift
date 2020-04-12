@@ -11,6 +11,7 @@ import Combine
 import SwiftUI
 import os.log
 
+///	A controller that manages the targets view of neuCKAN.
 class TargetsViewController: NSViewController {
 	//	MARK: - IBOutlet Properties
 	///	The targets source list view.
@@ -248,8 +249,8 @@ extension TargetsViewController: NSOutlineViewDelegate {
 	//
 	func outlineViewSelectionDidChange(_ notification: Notification) {
 		//
-		if notification.object as? NSOutlineView == targetsSourceListView {
-			guard targetsSourceListView.selectedRow >= 0 else { return }
+		guard notification.object as? NSOutlineView == targetsSourceListView else { return }
+		if targetsSourceListView.numberOfSelectedRows > 0 {
 			//	TODO: Make a pitch to make flatMap smarter.
 			GC.shared.recordSelection(of: targetsSourceListView.selectedRowIndexes
 				.map { targetsSourceListView.item(atRow: $0) }
@@ -258,7 +259,12 @@ extension TargetsViewController: NSOutlineViewDelegate {
 			Synecdoche.shared.selectedTargets.forEach {
 				print($0)
 			}
+		} else {
+			//	TODO: Enable deselection.
+			//	TODO: Handle deselection.
+			GC.shared.recordSelection(of: [])
 		}
+		
 	}
 }
 

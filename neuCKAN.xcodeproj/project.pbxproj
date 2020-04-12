@@ -46,6 +46,7 @@
 		B46E757B2372A73C00C09306 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757A2372A73C00C09306 /* Resources.swift */; };
 		B46E757D2372B13400C09306 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757C2372B13400C09306 /* Hash.swift */; };
 		B4720D0D23A14C9200220F87 /* Synecdoche.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4720D0C23A14C9200220F87 /* Synecdoche.swift */; };
+		B49472372433D9150031DE2C /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49472362433D9150031DE2C /* DetailsView.swift */; };
 		B4991D4223C9E4E6005735FC /* ModsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4123C9E4E6005735FC /* ModsViewController.swift */; };
 		B4991D4423C9E58D005735FC /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4323C9E58D005735FC /* MainWindowController.swift */; };
 		B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D4723C9E7A9005735FC /* TargetsViewController.swift */; };
@@ -55,6 +56,11 @@
 		B4991D9823CDD755005735FC /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4991D9723CDD755005735FC /* TargetView.swift */; };
 		B49B8653236C1C3F00DF758C /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* Release.swift */; };
 		B49B8655236C23F300DF758C /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
+		B4AA8A52243D14A800FE2CE6 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = B4AA8A51243D14A800FE2CE6 /* URLImage */; };
+		B4AA8A54243D1CFA00FE2CE6 /* DetailsViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA8A53243D1CFA00FE2CE6 /* DetailsViewHeader.swift */; };
+		B4AA8A58243D36AE00FE2CE6 /* ModInformationGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA8A57243D36AE00FE2CE6 /* ModInformationGrid.swift */; };
+		B4AA8A5A243D51E000FE2CE6 /* ModResourcesButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA8A59243D51E000FE2CE6 /* ModResourcesButtons.swift */; };
+		B4AA8A5C243D52E100FE2CE6 /* ModResourceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA8A5B243D52E100FE2CE6 /* ModResourceButton.swift */; };
 		B4ADB83D24138D7700CA2930 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B46DEF24132B0400900B9E /* main.swift */; };
 		B4ADB84024138DB500CA2930 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = B4ADB83F24138DB500CA2930 /* ArgumentParser */; };
 		B4ADB84224143F7900CA2930 /* NEUCKAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB84124143F7900CA2930 /* NEUCKAN.swift */; };
@@ -84,6 +90,7 @@
 		B4C1DFBA23EA830300E31F81 /* Mods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFB923EA830300E31F81 /* Mods.swift */; };
 		B4C1DFBC23EBFB0100E31F81 /* GroundControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */; };
 		B4C1DFBF23F074F000E31F81 /* AirTrafficControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */; };
+		B4FB2F0E24397D3F001E3655 /* ModPreviewSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */; };
 		B4FD6EE623B34CAB00A57174 /* CKANFuckery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +155,8 @@
 		B4720D0C23A14C9200220F87 /* Synecdoche.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synecdoche.swift; sourceTree = "<group>"; };
 		B47527A3242DE5830029B54E /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		B47527A4242DE5AA0029B54E /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		B49472362433D9150031DE2C /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		B4991D4123C9E4E6005735FC /* ModsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModsViewController.swift; sourceTree = "<group>"; };
 		B4991D4323C9E58D005735FC /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B4991D4723C9E7A9005735FC /* TargetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +167,10 @@
 		B4991DA323CE6C70005735FC /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		B49B8652236C1C3F00DF758C /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
 		B49B8654236C23F300DF758C /* Mod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod.swift; sourceTree = "<group>"; };
+		B4AA8A53243D1CFA00FE2CE6 /* DetailsViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewHeader.swift; sourceTree = "<group>"; };
+		B4AA8A57243D36AE00FE2CE6 /* ModInformationGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModInformationGrid.swift; sourceTree = "<group>"; };
+		B4AA8A59243D51E000FE2CE6 /* ModResourcesButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModResourcesButtons.swift; sourceTree = "<group>"; };
+		B4AA8A5B243D52E100FE2CE6 /* ModResourceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModResourceButton.swift; sourceTree = "<group>"; };
 		B4ADB84124143F7900CA2930 /* NEUCKAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.swift; sourceTree = "<group>"; };
 		B4ADB843241449A900CA2930 /* NEUCKAN.Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.Target.swift; sourceTree = "<group>"; };
 		B4ADB84724144A8000CA2930 /* NEUCKAN.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.List.swift; sourceTree = "<group>"; };
@@ -179,6 +192,7 @@
 		B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundControl.swift; sourceTree = "<group>"; };
 		B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGEMENTS.md; sourceTree = "<group>"; };
 		B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControl.swift; sourceTree = "<group>"; };
+		B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModPreviewSlide.swift; sourceTree = "<group>"; };
 		B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKANFuckery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +203,7 @@
 			files = (
 				B4B46DE12411C32300900B9E /* Alamofire in Frameworks */,
 				B469D12B23FCC1EE00DA5EF0 /* StandardLibraryPreview in Frameworks */,
+				B4AA8A52243D14A800FE2CE6 /* URLImage in Frameworks */,
 				B469D12E23FCC38B00DA5EF0 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */,
+				B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */,
 				B4991DA323CE6C70005735FC /* CONTRIBUTING.md */,
 				B47527A4242DE5AA0029B54E /* COPYING */,
 				B47527A3242DE5830029B54E /* LICENCE */,
@@ -300,8 +316,8 @@
 				B451D55B236B9D5400441195 /* ViewController.swift */,
 				B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */,
 				B4625E3823F6A29300EFDFA2 /* MainHorizontalSplitViewController.swift */,
-				B4991D4123C9E4E6005735FC /* ModsViewController.swift */,
 				B4991D4723C9E7A9005735FC /* TargetsViewController.swift */,
+				B4991D4123C9E4E6005735FC /* ModsViewController.swift */,
 				B4991D4923C9E805005735FC /* DetailsViewController.swift */,
 				B4991D4B23C9E89C005735FC /* StatsViewController.swift */,
 			);
@@ -313,6 +329,12 @@
 			children = (
 				B451D562236B9D5500441195 /* Main.storyboard */,
 				B4991D9723CDD755005735FC /* TargetView.swift */,
+				B49472362433D9150031DE2C /* DetailsView.swift */,
+				B4AA8A53243D1CFA00FE2CE6 /* DetailsViewHeader.swift */,
+				B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */,
+				B4AA8A59243D51E000FE2CE6 /* ModResourcesButtons.swift */,
+				B4AA8A5B243D52E100FE2CE6 /* ModResourceButton.swift */,
+				B4AA8A57243D36AE00FE2CE6 /* ModInformationGrid.swift */,
 				B4ADB8602419F86500CA2930 /* ModReleaseManagementCellView.swift */,
 			);
 			path = Views;
@@ -321,8 +343,8 @@
 		B49B864C236C0D6600DF758C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B4315B5F23D3F621005FC675 /* Preferences.swift */,
 				B4720D0C23A14C9200220F87 /* Synecdoche.swift */,
+				B4315B5F23D3F621005FC675 /* Preferences.swift */,
 				B4315B6D23D57B0D005FC675 /* Filter.swift */,
 				B4625E3A23F78A6A00EFDFA2 /* Targets.swift */,
 				B4991D5623CC9457005735FC /* Target.swift */,
@@ -406,6 +428,7 @@
 				B469D12A23FCC1EE00DA5EF0 /* StandardLibraryPreview */,
 				B469D12D23FCC38B00DA5EF0 /* ZIPFoundation */,
 				B4B46DE02411C32300900B9E /* Alamofire */,
+				B4AA8A51243D14A800FE2CE6 /* URLImage */,
 			);
 			productName = neuCKAN;
 			productReference = B451D556236B9D5400441195 /* neuCKAN.app */;
@@ -510,6 +533,7 @@
 				B469D12C23FCC38B00DA5EF0 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B4B46DDF2411C32300900B9E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B4ADB83E24138DB500CA2930 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = B451D557236B9D5400441195 /* Products */;
 			projectDirPath = "";
@@ -554,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4AA8A5C243D52E100FE2CE6 /* ModResourceButton.swift in Sources */,
 				B46E757B2372A73C00C09306 /* Resources.swift in Sources */,
 				B469D13224106DAC00DA5EF0 /* FileURLConvertible.swift in Sources */,
 				B4315B6E23D57B0D005FC675 /* Filter.swift in Sources */,
@@ -570,6 +595,7 @@
 				B4720D0D23A14C9200220F87 /* Synecdoche.swift in Sources */,
 				B4991D4223C9E4E6005735FC /* ModsViewController.swift in Sources */,
 				B4991D4C23C9E89C005735FC /* StatsViewController.swift in Sources */,
+				B4AA8A58243D36AE00FE2CE6 /* ModInformationGrid.swift in Sources */,
 				B451D55C236B9D5400441195 /* ViewController.swift in Sources */,
 				B469D13024031D9D00DA5EF0 /* Notification Names.swift in Sources */,
 				B46E75792372995C00C09306 /* Requirement.swift in Sources */,
@@ -582,8 +608,12 @@
 				B4991D9823CDD755005735FC /* TargetView.swift in Sources */,
 				B4FD6EE623B34CAB00A57174 /* CKANFuckery.swift in Sources */,
 				B4C1DFBC23EBFB0100E31F81 /* GroundControl.swift in Sources */,
+				B4AA8A54243D1CFA00FE2CE6 /* DetailsViewHeader.swift in Sources */,
+				B4AA8A5A243D51E000FE2CE6 /* ModResourcesButtons.swift in Sources */,
 				B4315B6023D3F621005FC675 /* Preferences.swift in Sources */,
+				B49472372433D9150031DE2C /* DetailsView.swift in Sources */,
 				B4ADB8612419F86500CA2930 /* ModReleaseManagementCellView.swift in Sources */,
+				B4FB2F0E24397D3F001E3655 /* ModPreviewSlide.swift in Sources */,
 				B4C1DFBA23EA830300E31F81 /* Mods.swift in Sources */,
 				B49B8655236C23F300DF758C /* Mod.swift in Sources */,
 				B4991D4A23C9E805005735FC /* DetailsViewController.swift in Sources */,
@@ -1004,8 +1034,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
-				branch = development;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.11;
+			};
+		};
+		B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.13;
 			};
 		};
 		B4ADB83E24138DB500CA2930 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
@@ -1036,6 +1074,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B469D12C23FCC38B00DA5EF0 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		B4AA8A51243D14A800FE2CE6 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
 		};
 		B4ADB83F24138DB500CA2930 /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;

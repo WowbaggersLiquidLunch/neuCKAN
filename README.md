@@ -1,5 +1,3 @@
----
-
 <h1 align="center">
 	<sub>
 		<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN's logo" height="256"  />
@@ -11,28 +9,30 @@
 	Or, neuCKAN, pronounced as <code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code> or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
 </p>
 
+![nightly snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=develop&event=schedule)
+
 ---
 
-### Table of Content
+### Table of Contents
 
 - [Why?](#why)
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
-- [Some features, as planed so far:](#some-features-as-planed-so-far)
+- [Some features, as planed so far](#some-features-as-planed-so-far)
 - [Help, please...](#help-please)
 
 ---
 
 ## Why?
 
-In addition to [CKAN's GUI not being supported on macOS Catalina](https://github.com/KSP-CKAN/CKAN/issues/2906), when it was working previously, it has always been glitchy, and inconsistent with the system's and native macOS applications' behaviours. In general, macOS never felt like a priority in CKAN's development. Instead, it felt more like a freebie from .NET's cross-platform support. The fault, however, does not lie in the CKAN community, but in that [there just aren't many people use and play games on macOS compared to other systems](https://store.steampowered.com/hwsurvey). And quite the contrary, [some people tried to revive CKAN GUI on macOS](https://github.com/KSP-CKAN/CKAN/issues/2848), but the efforts have all been abandoned. [CKAN's Console UI still works on macOS Catalina](https://github.com/KSP-CKAN/CKAN/pull/2911), and likely on future macOS versions as well, but why settle for less when there is a possibility for more? So, here comes neuCKAN to fill the gap.
+In addition to [CKAN's GUI not being supported on macOS Catalina](https://github.com/KSP-CKAN/CKAN/issues/2906), when it was working previously, it had always been glitchy, and inconsistent with the system's and native macOS applications' behaviours. In general, macOS never felt like a priority in CKAN's development. Instead, it felt more like a freebie from .NET's cross-platform support. The fault, however, does not lie in the CKAN community, but in that [there just aren't many people use and play games on macOS compared to other systems](https://store.steampowered.com/hwsurvey). And quite the contrary, [some people tried to revive CKAN GUI on macOS](https://github.com/KSP-CKAN/CKAN/issues/2848), but the efforts have all been abandoned. [CKAN's Console UI still works on macOS Catalina](https://github.com/KSP-CKAN/CKAN/pull/2911), and likely on future macOS versions as well, but why settle for less when there is a possibility for more? So, here comes neuCKAN to fill the gap.
 
 ## What is neuCKAN exactly?
 
-neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with CKAN, and it uses CKAN metadata, but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
+neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with [CKAN](https://github.com/KSP-CKAN/CKAN), and it uses [CKAN metadata](https://github.com/KSP-CKAN/CKAN-meta), but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
 
-This is what the GUI looks like in neuCKAN 0.0.1:
+This is what the GUI looks like in [neuCKAN 0.0.2](https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2):
 
-![neuCKAN 0.0.1 screenshot](Documentation/Screenshots/0.0.1.png)
+![neuCKAN 0.0.2 screenshot](Documentation/Screenshots/0.0.2/windowed.png)
 
 As you can see from the screenshot, the mod manager is very much incomplete. In future releases, the blank space on the right will show details of a mod release, and the blank space on the bottom will show statistics, such as system resource usage and distribution of mods installed by their keywords. Functionally, as of now, it can only install mods that are not hosted on [spacedock](https://spacedock.info). If you would like to help make neuCKAN better, propel it forward, please check out the [contribution guide](CONTRIBUTING.md)
 

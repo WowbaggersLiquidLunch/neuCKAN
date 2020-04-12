@@ -948,7 +948,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="toggleModsListExpandability:" target="Oky-zY-oP4" id="gcv-ck-J6M"/>
+                                            <action selector="initiateModsLayoutChange:" target="B8D-0N-5wS" id="ssr-PK-y1d"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -968,7 +968,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="updateLayout:" target="Oky-zY-oP4" id="31X-vv-2Ac"/>
+                                            <action selector="initiateWindowLayoutChange:" target="B8D-0N-5wS" id="JrR-pm-KtY"/>
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
@@ -1034,6 +1034,7 @@
                                             <viewController key="viewController" id="3TB-64-cLx">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tfp-WB-lBh">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YSS-dn-vYh">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1045,6 +1046,7 @@
                                             <viewController key="viewController" id="2Y0-yY-hYO">
                                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1yp-oV-Fmh">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tag-qQ-LGg">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1067,7 +1069,7 @@
                                             <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="toggleModsListExpandability:" target="Oky-zY-oP4" id="CVm-Bm-Y8U"/>
+                                            <action selector="initiateModsLayoutChange:" target="B8D-0N-5wS" id="PmR-ZV-MC4"/>
                                         </connections>
                                     </button>
                                 </viewController>
@@ -1087,7 +1089,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="updateLayout:" target="Oky-zY-oP4" id="Nyv-Lt-Vhl"/>
+                                            <action selector="initiateWindowLayoutChange:" target="B8D-0N-5wS" id="F3w-P3-TB8"/>
                                         </connections>
                                     </segmentedControl>
                                 </viewController>
@@ -1120,9 +1122,9 @@
             <objects>
                 <splitViewController id="YeT-y6-Qmc" customClass="MainVerticalSplitViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" holdingPriority="251" id="iEn-or-jRI"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="iEn-or-jRI"/>
                         <splitViewItem id="P85-7S-JVw"/>
-                        <splitViewItem canCollapse="YES" holdingPriority="251" id="ObG-Pt-JWr"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="ObG-Pt-JWr"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="JF2-9u-cjl">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -1259,7 +1261,6 @@
                     </connections>
                 </viewController>
                 <customObject id="jGL-8M-IAT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <treeController id="hnh-du-LAR"/>
             </objects>
             <point key="canvasLocation" x="-242" y="1725"/>
         </scene>
@@ -1290,10 +1291,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="1725"/>
         </scene>
-        <!--View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="aMk-uI-Jdf">
             <objects>
-                <viewController id="QjH-xH-t42" sceneMemberID="viewController">
+                <viewController id="QjH-xH-t42" customClass="DetailsViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="O5p-UK-Dfe">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1929,8 +1930,8 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="CurseColumn" width="64" minWidth="10" maxWidth="3.4028234663852886e+38" hidden="YES" id="0R0-Jp-AOM">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Curse">
+                                                <tableColumn identifier="CurseForgeColumn" width="64" minWidth="10" maxWidth="3.4028234663852886e+38" hidden="YES" id="0R0-Jp-AOM">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="CurseForge">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -1941,7 +1942,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="CurseColumnCell" id="IFT-Sf-Ylo">
+                                                        <tableCellView identifier="CurseForgeColumnCell" id="IFT-Sf-Ylo">
                                                             <rect key="frame" x="1" y="1" width="0.0" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -2360,10 +2361,10 @@
             </objects>
             <point key="canvasLocation" x="691" y="1546"/>
         </scene>
-        <!--Tab View Controller-->
+        <!--Stats View Controller-->
         <scene sceneID="7jg-I3-aYM">
             <objects>
-                <tabViewController selectedTabViewItemIndex="2" id="WSD-kd-h8J" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="2" id="WSD-kd-h8J" customClass="StatsViewController" customModule="neuCKAN" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="Igm-ov-0WS"/>
                         <tabViewItem identifier="" id="SDg-Ej-KLt"/>

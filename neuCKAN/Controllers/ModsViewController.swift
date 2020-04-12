@@ -9,6 +9,7 @@
 import Cocoa
 import os.log
 
+///	A controller that manages the principle view of neuCKAN, i.e. the view showing the mod list.
 class ModsViewController: NSViewController {
 	//	MARK: - IBOutlet Properties
 	///	The mods list view above the status view.
@@ -208,17 +209,17 @@ class ModsViewController: NSViewController {
 			"SpaceDock": (
 				.hidden,  { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.spacedock, ofType: (URL?).self)
-					} else if let release = item as? Release, let releaseSpacedock = release.resources?.spacedock {
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.spaceDock, ofType: (URL?).self)
+					} else if let release = item as? Release, let releaseSpacedock = release.resources?.spaceDock {
 						cell.textField?.stringValue = releaseSpacedock.absoluteString
 					}
 					return cell
 			}),
-			"Curse": (
+			"CurseForge": (
 				.hidden,  { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.curse, ofType: (URL?).self)
-					} else if let release = item as? Release, let releaseCurse = release.resources?.curse {
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.curseForge, ofType: (URL?).self)
+					} else if let release = item as? Release, let releaseCurse = release.resources?.curseForge {
 						cell.textField?.stringValue = releaseCurse.absoluteString
 					}
 					return cell
@@ -379,7 +380,9 @@ class ModsViewController: NSViewController {
 			}
 		}
 	}
+	
 	//	MARK: - View Life Cycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -395,6 +398,7 @@ class ModsViewController: NSViewController {
 		setupContextualMenus()
 		NotificationCenter.default.addObserver(self, selector: #selector(modsCacheDidUpdate(_:)), name: .modsCacheDidUpdate, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(targetsSelectionDidChange(_:)), name: .targetsSelectionDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(userDidInitiateModsLayoutChange(_:)), name: .userDidInitiateModsLayoutChange, object: nil)
 		updateColumnsAttributes()
 	}
 	
@@ -404,7 +408,9 @@ class ModsViewController: NSViewController {
 	
 	override func viewDidAppear() {
 		super.viewDidAppear()
+		NotificationCenter.default.post(name: .modsLayoutDidChange, object: displayIsHierarchical)
 	}
+	
 	//	MARK: -
 	
 	override var representedObject: Any? {
@@ -413,22 +419,15 @@ class ModsViewController: NSViewController {
 		}
 	}
 	
-	/**
-	Restores a column's configurations from the previous neuCKAN session.
-	
-	- Parameter column: The column whose configurations need restoring.
-	*/
+	///	Restores a column's configurations from the previous neuCKAN session.
+	///	Parameter column: The column whose configurations need restoring.
 	private func restoreConfigurations(of column: NSTableColumn) {
 		if columnsTitles.contains(column.title) {
 			restoreVisibility(of: column)
 		}
 	}
-	
-	/**
-	Restores a column's visibility from the previous neuCKAN session.
-	
-	- Parameter column: The column whose visibility needs restoring.
-	*/
+	///	Restores a column's visibility from the previous neuCKAN session.
+	///	- Parameter column: The column whose visibility needs restoring.
 	private func restoreVisibility(of column: NSTableColumn) {
 		guard let index = optionalColumnsConfigurations.firstIndex(where: { $0.keys.contains(column.title) } ) else {
 			os_log("Unable to locate configurations for column with title \"%@\".", log: .default, type: .error, column.title)
@@ -436,12 +435,8 @@ class ModsViewController: NSViewController {
 		}
 		optionalColumnsConfigurations[index][column.title]?.visibility = column.isHidden ? .hidden : .visible
 	}
-	
-	/**
-	Sets up mods list view to the given view type.
-	
-	- Parameter viewType: The view type to set up the mods list view to.
-	*/
+	///	Sets up mods list view to the given view type.
+	///	- Parameter viewType: The view type to set up the mods list view to.
 	private func setupModsListView(as viewType: ViewType) {
 //		switch viewType {
 //		case .outlineView:
@@ -452,10 +447,7 @@ class ModsViewController: NSViewController {
 //			<#code#>
 //		}
 	}
-	
-	/**
-	Sets up menu bar menus.
-	*/
+	///	Sets up menu bar menus.
 	private func setupMenuBarMenus() {
 		guard let columnsMenu = NSApp.mainMenu?.item(withTitle: "View")?.submenu?.item(withTitle: "Columns")?.submenu else {
 			os_log("No \"Columns\" menu item in \"View\" menu in application menu bar.", log: .default, type: .error)
@@ -464,26 +456,19 @@ class ModsViewController: NSViewController {
 		columnsMenu.removeAllItems()
 		columnsMenuItems.forEach { columnsMenu.addItem($0) }
 	}
-	
-	/**
-	Sets up contextual menus.
-	*/
+	///	Sets up contextual menus.
 	private func setupContextualMenus() {
 		//	MARK: Header Contextual Menu
 		modsListView.headerView!.menu = NSMenu()
 		columnsMenuItems.forEach { modsListView.headerView!.menu!.addItem($0) }
 		//	MARK: Body Contextual Menu
 		modsListView.menu = NSMenu()
-		modsListView.menu!.addItem(NSMenuItem(title: "Refresh Mods Data", action: #selector(updateCKANMetadataCache(_:)), keyEquivalent: "R"))
+		modsListView.menu!.addItem(NSMenuItem(title: "Refresh Mods Data", action: #selector(updateModsCache(_:)), keyEquivalent: "R"))
 		//	TODO: Add menu item for toggle between table view and outline view
 //		contextualMenu.addItem(NSMenuItem(title: (mode == table ? "View as Hierachical List" : "View as Table"), action: <#T##Selector?#>, keyEquivalent: <#T##String#>))
 	}
-	
-	/**
-	Toggles a column's visibility.
-	
-	- Parameter menuItem: The menu item that calls this method.
-	*/
+	///	Toggles a column's visibility.
+	///	- Parameter menuItem: The menu item that calls this method.
 	@objc func toggleColumnVisibility(_ menuItem: NSMenuItem) {
 		//	FIXME: Actually toggle state in menu.
 		guard let index = optionalColumnsConfigurations.firstIndex(where: { $0.keys.contains(menuItem.title) } ) else {
@@ -496,10 +481,7 @@ class ModsViewController: NSViewController {
 		setupMenuBarMenus()
 		setupContextualMenus()
 	}
-	
-	/**
-	Updates columns' attributes.
-	*/
+	///	Updates columns' attributes.
 	private func updateColumnsAttributes() {
 		modsListView.tableColumns.forEach {
 			updateVisibility(of: $0)
@@ -507,41 +489,19 @@ class ModsViewController: NSViewController {
 //		modsListView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier("NameColumn"))?.sizeToFit()
 		modsListView.sizeToFit()
 	}
-	
-	/**
-	Updates a column's visibility to align with its record in `columnsConfigurations`.
-	
-	- Parameter column: The column whose visibility needs updating.
-	*/
+	///	Updates a column's visibility to align with its record in `columnsConfigurations`.
+	///	- Parameter column: The column whose visibility needs updating.
 	private func updateVisibility(of column: NSTableColumn) {
 		guard columnsTitles.contains(column.title) else { column.isHidden = true; return }
 		column.isHidden = columnsConfigurations[column.title]!.visibility == .hidden
 	}
-	
-	/**
-	Refreshes CKAN metadata.
-	
-	- Parameter menuItem: The menu item that calls this method.
-	*/
-	@objc func updateCKANMetadataCache(_ menuItem: NSMenuItem) {
+	///	Refreshes CKAN metadata.
+	///	- Parameter menuItem: The menu item that calls this method.
+	@objc func updateModsCache(_ menuItem: NSMenuItem) {
 		GC.shared.updateModsCache()
 	}
-	
-	/**
-	Toggles mods list's expandability.
-	
-	- Parameter button: The button that calls this method.
-	*/
-	@IBAction func toggleModsListExpandability(_ button: NSButton) {
-		displayIsHierarchical = button.state.rawValue == 1
-		modsListView.reloadData()
-	}
-	
-	/**
-	Called after `Synecdoche.shared.mods` has changed.
-	
-	- Parameter notification: The notification of `Synecdoche.shared.mods` having been changed.
-	*/
+	///	Called after `Synecdoche.shared.mods` has changed.
+	///	- Parameter notification: The notification of `Synecdoche.shared.mods` having been changed.
 	@objc func modsCacheDidUpdate(_ notification: Notification) {
 		//	TODO: Throw an error.
 		guard let updatedMods = notification.object as? Mods else { return }
@@ -550,12 +510,8 @@ class ModsViewController: NSViewController {
 			self.modsListView.reloadData()
 		}
 	}
-	
-	/**
-	Called after `Synecdoche.shared.selectedTargets` has changed.
-	
-	- Parameter notification: The notification of `Synecdoche.shared.selectedTargets` having been changed.
-	*/
+	///	Called after `Synecdoche.shared.selectedTargets` has changed.
+	///	- Parameter notification: The notification of `Synecdoche.shared.selectedTargets` having been changed.
 	@objc func targetsSelectionDidChange(_ notification: Notification) {
 		//	TODO: Throw an error.
 		guard let newTargetSelection = notification.object as? Targets else { return }
@@ -563,6 +519,13 @@ class ModsViewController: NSViewController {
 			self.stagedTargets = newTargetSelection
 			self.modsListView.reloadData()
 		}
+	}
+	/// Called after the mods view controller receives a notification that the user initiated a mods layout change.
+	/// - Parameter notification: The notification that the user initiated a mods layout change.
+	@objc func userDidInitiateModsLayoutChange(_ notification: Notification) {
+		displayIsHierarchical.toggle()
+		modsListView.reloadData()
+		NotificationCenter.default.post(name: .modsLayoutDidChange, object: displayIsHierarchical)
 	}
 }
 
@@ -597,11 +560,24 @@ extension ModsViewController: NSOutlineViewDataSource {
 
 //	MARK: - NSOutlineViewDelegate Conformance
 extension ModsViewController: NSOutlineViewDelegate {
+	//
 	func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
 		guard let columnTitle = tableColumn?.title, columnsTitles.contains(columnTitle) else { return nil }
 		let cellID = NSUserInterfaceItemIdentifier(columnTitle.trimmingCharacters(in: .whitespaces) + "ColumnCell")
 		guard let cell = outlineView.makeView(withIdentifier: cellID, owner: nil) as? NSTableCellView else { return nil }
 		return columnsConfigurations[columnTitle]!.drawing(cell, item)
+	}
+	//	TODO: Handle deselection.
+	//
+	func outlineViewSelectionDidChange(_ notification: Notification) {
+		guard notification.object as? NSOutlineView == modsListView else { return }
+		//	TODO: Handle multiple selections.
+		if modsListView.numberOfSelectedRows == 1 {
+			let item = modsListView.item(atRow: modsListView.selectedRow)
+			NotificationCenter.default.post(name: .modReleaseSelectionDidChange, object: item as? Release ?? item as? Mod ?? nil)
+		} else if modsListView.numberOfSelectedRows > 1 {
+			
+		}
 	}
 }
 

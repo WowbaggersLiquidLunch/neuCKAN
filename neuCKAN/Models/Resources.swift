@@ -33,10 +33,11 @@ struct Resources: Hashable {
 //	let license: URL?
 	let repository: URL?
 	let ci: URL?
-	let spacedock: URL?
-	let curse: URL?
+	let spaceDock: URL?
+	let curseForge: URL?
 	let manual: URL?
 	let netkan: URL?
+	let screenshot: URL?
 }
 
 //	MARK: - Codable Conformance
@@ -47,9 +48,10 @@ extension Resources: Codable {
 //		case license
 		case repository
 		case ci
-		case spacedock
-		case curse
+		case spaceDock = "spacedock"
+		case curseForge = "curse"
 		case manual
 		case netkan = "metanetkan"
+		case screenshot = "x_screenshot"
 	}
 }

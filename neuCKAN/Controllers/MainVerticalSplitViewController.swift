@@ -8,6 +8,7 @@
 
 import Cocoa
 
+///	A controller that manages the main vertical split view of neuCKAN.
 class MainVerticalSplitViewController: NSSplitViewController {
 	
 	// MARK: - IBOutlet Properties
@@ -21,60 +22,41 @@ class MainVerticalSplitViewController: NSSplitViewController {
 	///	The split view item for details view.
 	@IBOutlet weak var detailsSplitViewItem: NSSplitViewItem!
 	
-	// MARK: -
+	// MARK: - View Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-//		mainVerticalSplitView.delegate = self
-//		mainHorizontalSplitView.delegate = self
-//		guard let mainWindowController = NSApp.mainWindow?.windowController as? MainWindowController else {
-//			assertionFailure()
-//			return
-//		}
-//		guard let toolbarWindowLayoutControl = mainWindowController.toolbarWindowLayoutControl else {
-//			assertionFailure()
-//			return
-//		}
-//		guard let touchBarWindowLayoutControl = mainWindowController.touchBarWindowLayoutControl else {
-//			assertionFailure()
-//			return
-//		}
-//		toolbarWindowLayoutControl.setSelected(targetsSplitViewItem.isCollapsed, forSegment: 0)
-//		toolbarWindowLayoutControl.setSelected((middleSplitViewItem.viewController as! MainVerticalSplitViewController).statsSplitViewItem.isCollapsed, forSegment: 1)
-//		toolbarWindowLayoutControl.setSelected(detailsSplitViewItem.isCollapsed, forSegment: 2)
-//		touchBarWindowLayoutControl.setSelected(targetsSplitViewItem.isCollapsed, forSegment: 0)
-//		touchBarWindowLayoutControl.setSelected((middleSplitViewItem.viewController as! MainVerticalSplitViewController).statsSplitViewItem.isCollapsed, forSegment: 1)
-//		touchBarWindowLayoutControl.setSelected(detailsSplitViewItem.isCollapsed, forSegment: 2)
+		targetsSplitViewItem.isSpringLoaded = true
+		detailsSplitViewItem.isSpringLoaded = true
+		NotificationCenter.default.addObserver(self, selector: #selector(userDidInitiateWindowLayoutChange(_:)), name: .userDidInitiateWindowLayoutChange, object: nil)
     }
 	
 	override func viewDidAppear() {
 		super.viewDidAppear()
+		//	Sync window layout and its control's state.
+		NotificationCenter.default.post(name: .windowLayoutDidChange, object: [0: targetsSplitViewItem, 2: detailsSplitViewItem])
 	}
     
-	//	MARK: IBAction Methods
+	//	MARK: - Methods Exposed to Objective-C
 	
-	//	FIXME: Sync buttons' state with the window layout.
-	
-	///	Collapses or expands split view items.
-	@IBAction func updateLayout(_ splitViewSegmentedControl: NSSegmentedControl) {
-		switch splitViewSegmentedControl.selectedSegment {
-//		case 0, 2:
-//			mainVerticalSplitView.arrangedSubviews[sender.selectedSegment].isHidden = sender.selectedCell()?.state.rawValue == 0
-//		case 1:
-//			mainHorizontalSplitView.arrangedSubviews[1].isHidden = sender.selectedCell()?.state.rawValue == 0
-		case 0:
-			targetsSplitViewItem.animator().isCollapsed = splitViewSegmentedControl.selectedCell()?.state.rawValue == 0
-		case 1:
-			guard let middleSplitViewController = middleSplitViewItem.viewController as? MainHorizontalSplitViewController else {
-				assertionFailure()
-				return
-			}
-			middleSplitViewController.statsSplitViewItem.animator().isCollapsed = splitViewSegmentedControl.selectedCell()?.state.rawValue == 0
-		case 2:
-			detailsSplitViewItem.animator().isCollapsed = splitViewSegmentedControl.selectedCell()?.state.rawValue == 0
-		default:
-			assertionFailure()
+	///	Called after the main vertical split view controller receives a notification that the user initiated a window layout change.
+	///	- Parameter notification: The notification that the user initiated a window layout change.
+	@objc func userDidInitiateWindowLayoutChange(_ notification: Notification) {
+		switch (notification.object as? NSSegmentedControl)?.selectedSegment {
+		case 0: toggleCollapse(of: targetsSplitViewItem)
+		case 2: toggleCollapse(of: detailsSplitViewItem)
+		default: break
 		}
+	}
+	
+	//	MARK: - IBAction Methods
+	
+	//	MARK: -
+	
+	///	Toggles a splitview item's collapse.
+	///	- Parameter splitViewItem: The split view item whose collapse needs toggling.
+	func toggleCollapse(of splitViewItem: NSSplitViewItem) {
+		splitViewItem.animator().isCollapsed = !splitViewItem.isCollapsed
+		NotificationCenter.default.post(name: .windowLayoutDidChange, object: [0: targetsSplitViewItem, 2: detailsSplitViewItem])
 	}
 }
