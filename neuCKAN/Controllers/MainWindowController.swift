@@ -84,3 +84,8 @@ class MainWindowController: NSWindowController {
 		}
 	}
 }
+
+//	MARK: NSMenuDelegate Conformance
+extension MainWindowController: NSMenuDelegate {
+	
+}
