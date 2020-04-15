@@ -587,8 +587,6 @@ extension ModsViewController: NSUserInterfaceValidations {
 	func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
 		true
 	}
-	
-	
 }
 
 fileprivate extension NSControl.StateValue {
