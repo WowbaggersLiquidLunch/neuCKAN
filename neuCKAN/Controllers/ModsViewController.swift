@@ -581,6 +581,16 @@ extension ModsViewController: NSOutlineViewDelegate {
 	}
 }
 
+//	MARK: - NSTableViewDataSource Conformance
+extension ModsViewController: NSTableViewDataSource {
+	
+}
+
+//	MARK: - NSTableViewDelegate Conformance
+extension ModsViewController: NSTableViewDelegate {
+	
+}
+
 //	MARK: - NSUserInterfaceValidations Conformance
 //	TODO: Embelish. Elaborate.
 extension ModsViewController: NSUserInterfaceValidations {
