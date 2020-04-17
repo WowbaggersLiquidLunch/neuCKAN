@@ -26,11 +26,11 @@ This project makes use of the following third party libraries (in alphabetical o
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 > THE SOFTWARE.
 
-## ZIPFoundation
+## URLImage
 
 > MIT License
 > 
-> Copyright (c) 2017 Thomas Zoechling
+> Copyright (c) 2019 Dmytro Anokhin
 > 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
@@ -50,11 +50,11 @@ This project makes use of the following third party libraries (in alphabetical o
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 
-## URLImage
+## ZIPFoundation
 
 > MIT License
 > 
-> Copyright (c) 2019 Dmytro Anokhin
+> Copyright (c) 2017 Thomas Zoechling
 > 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
