@@ -34,18 +34,14 @@ class ModReleaseManagementCellView: NSTableCellView {
         super.draw(dirtyRect)
 		
         // Drawing code here.
-		switch (managedInstanceType, state) {
-		case (.mod, .uninstalled):
-			actionButton.title = "Install latest"
-		case (.release, .uninstalled):
+		switch state {
+		case .uninstalled:
 			actionButton.title = "Install"
-		case (.mod, .upgradable):
-			actionButton.title = "Upgrade to Latest"
-		case (.release, .upgradable):
+		case .upgradable:
 			actionButton.title = "Upgrade"
-		case (.release, .downgradable):
+		case .downgradable:
 			actionButton.title = "Downgrade"
-		case (_, .installed):
+		case .installed:
 			actionButton.title = "Uninstall"
 		default: break
 		}
