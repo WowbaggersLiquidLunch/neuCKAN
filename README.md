@@ -80,7 +80,7 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ## Release Process
 
-The alpha phase will have a fast iterative development process. There will be nightly snapshots, as well as proper, versioned alpha releases. Because of the program is still far from stable, there will be no installers provided in the alpha phase.
+The alpha phase will have a fast iterative development process. There will be nightly snapshots, as well as proper, versioned alpha releases. Because the program is still far from stable, there will be no installers provided in the alpha phase.
 
 ---
 
