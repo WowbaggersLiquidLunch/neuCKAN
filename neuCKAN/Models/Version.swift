@@ -220,10 +220,9 @@ extension Version: Comparable {
 		if let lhs = lhs.epoch, let rhs = rhs.epoch {
 			return lhs < rhs
 		} else {
-			for i in 0..<Swift.min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
-				if lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
-					return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
-				}
+			for i in 0..<Swift.min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count)
+				where lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
+				return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
 			}
 			if lhs.quasiSemanticVersion.count == rhs.quasiSemanticVersion.count {
 				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
@@ -257,10 +256,8 @@ extension Version: Comparable {
 //	Extends Array, so it knows how to compare 2 CKANVersionMinimalComparableUnit instances.
 fileprivate extension Array where Element == Version.CKANVersionMinimalComparableUnit {
 	static func < (lhs: [Element], rhs: [Element]) -> Bool {
-		for i in 0..<Swift.min(lhs.count, rhs.count) {
-			if lhs[i] < rhs[i] {
-				return true
-			}
+		for i in 0..<Swift.min(lhs.count, rhs.count) where lhs[i] < rhs[i] {
+			return true
 		}
 		return lhs.count < rhs.count
 	}
