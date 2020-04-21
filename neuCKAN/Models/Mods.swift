@@ -16,6 +16,15 @@ An unordered collection of mods.
 struct Mods: Hashable, Codable {
 	
 	/**
+	Creates a mod collection from the given sequence of mods.
+	
+	- Parameter mods: The sequence of mods to create a mod collection with.
+	*/
+	init<T: Sequence>(mods: T) where T.Element == Mod {
+		self.mods = Set(mods)
+	}
+	
+	/**
 	A collection of mods.
 	
 	A mod, in turn, is a collection of its different versions of releases.
