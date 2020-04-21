@@ -30,6 +30,43 @@ struct Mods: Hashable, Codable {
 	A mod, in turn, is a collection of its different versions of releases.
 	*/
 	private var mods: Set<Mod> = []
+}
+
+//	MARK: - Collection Conformance
+extension Mods: Collection {
+	
+	typealias Index = Set<Mod>.Index
+	
+	/**
+	The position of the first mod in a nonempty mod collection.
+	
+	If the collection has no mods, `startIndex` is equal to `endIndex`.
+	
+	- See Also: `endIndex`.
+	*/
+	var startIndex: Index { mods.startIndex }
+	
+	/**
+	The mod collection’s “past the end” position—i.e. the position one greater than the last valid subscript argument.
+	
+	When you need a range that includes the last mod of the collection, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
+	
+	If the collection has no mods, `endIndex` is equal to `startIndex`.
+	
+	- See Also: `startIndex`.
+	*/
+	var endIndex: Index { mods.endIndex }
+	
+	/**
+	Returns the position immediately after the given index.
+	
+	- Parameter position: A valid polition in the mod collection. `i` must be less than `endIndex`.
+	
+	- Returns: The index value immediately after `i.`
+	
+	- See Also: `endIndex`.
+	*/
+	func index(after i: Index) -> Index { mods.index(after: i) }
 	
 	//	TODO: Add update(_:) to maintain consistent insert(_:) and update(_:) behaviours.
 	
@@ -83,6 +120,21 @@ struct Mods: Hashable, Codable {
 	}
 	
 	/**
+	Accesses the mod at the specified position.
+	
+	This subscript provides read-only access. For write access, use `subscript(id:)`.
+	
+	- Parameter position: The position of the mod to access. `position` must be a valid index of the mod collection that is not equal to the `endIndex` property.
+	
+	- Returns: The mod at the specified index.
+	
+	- Complexity: O(1).
+	
+	- See Also: `endIndex`.
+	*/
+	subscript(position: Index) -> Mod { mods[position] }
+	
+	/**
 	Get and set a mod by its ID.
 	
 	- Parameter id: The mod's ID.
@@ -104,57 +156,4 @@ struct Mods: Hashable, Codable {
 			}
 		}
 	}
-}
-
-//	MARK: - Collection Conformance
-
-extension Mods: Collection {
-	
-	typealias Index = Set<Mod>.Index
-	
-	/**
-	The position of the first mod in a nonempty mod collection.
-	
-	If the collection has no mods, `startIndex` is equal to `endIndex`.
-	
-	- See Also: `endIndex`.
-	*/
-	var startIndex: Index { mods.startIndex }
-	
-	/**
-	The mod collection’s “past the end” position—i.e. the position one greater than the last valid subscript argument.
-	
-	When you need a range that includes the last mod of the collection, use the half-open range operator (`..<`) with `endIndex`. The `..<` operator creates a range that doesn’t include the upper bound, so it’s always safe to use with `endIndex`.
-	
-	If the collection has no mods, `endIndex` is equal to `startIndex`.
-	
-	- See Also: `startIndex`.
-	*/
-	var endIndex: Index { mods.endIndex }
-	
-	/**
-	Returns the position immediately after the given index.
-	
-	- Parameter position: A valid polition in the mod collection. `i` must be less than `endIndex`.
-	
-	- Returns: The index value immediately after `i.`
-	
-	- See Also: `endIndex`.
-	*/
-	func index(after i: Index) -> Index { mods.index(after: i) }
-	
-	/**
-	Accesses the mod at the specified position.
-	
-	This subscript provides read-only access. For write access, use `subscript(id:)`.
-	
-	- Parameter position: The position of the mod to access. `position` must be a valid index of the mod collection that is not equal to the `endIndex` property.
-	
-	- Returns: The mod at the specified index.
-	
-	- Complexity: O(1).
-	
-	- See Also: `endIndex`.
-	*/
-	subscript(position: Index) -> Mod { mods[position] }
 }
