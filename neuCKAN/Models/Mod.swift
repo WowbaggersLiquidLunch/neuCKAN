@@ -186,6 +186,8 @@ struct Mod: Hashable, Codable, Identifiable {
 		return .defaultInstance
 	}
 	
+	//	TODO: Add update(_:).
+	
 	/**
 	Inserts a new release into the mod.
 	
