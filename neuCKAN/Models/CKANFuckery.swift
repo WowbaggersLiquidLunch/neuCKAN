@@ -36,7 +36,7 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 		if let newItem = item {
 			self = .item(newItem)
 		} else {
-			self = .items(Set<Item>())
+			self = .items([])
 		}
 	}
 	
@@ -58,7 +58,7 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 				self = .items(setOfItems)
 			}
 		} else {
-			self = .items(Set<Item>())
+			self = .items([])
 		}
 	}
 	
