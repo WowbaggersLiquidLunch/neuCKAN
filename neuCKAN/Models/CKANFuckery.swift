@@ -17,6 +17,13 @@ Because CKAN metadata specification just has to allow either a something or a li
 enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 	
 	/**
+	Creates an empty `CKANFuckery` instance.
+	*/
+	init() {
+		self = .items([])
+	}
+	
+	/**
 	Initialise a `CKANFuckery` instance from a single item.
 	
 	If `item` is `nil`, the instance is initialised as an empty set.
