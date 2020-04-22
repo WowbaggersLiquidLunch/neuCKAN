@@ -26,7 +26,8 @@ struct Mods: Hashable, Codable {
 	- Parameter mods: The sequence of mods to create a mod collection with.
 	*/
 	init<T: Sequence>(mods: T) where T.Element == Mod {
-		self.mods = Set(mods)
+		self.init()
+		self.mods = Array(mods)
 	}
 	
 	//	TODO: Make mods atomic for concurrent parsing.
@@ -35,7 +36,7 @@ struct Mods: Hashable, Codable {
 	
 	A mod, in turn, is a collection of its different versions of releases.
 	*/
-	private var mods: Set<Mod> = []
+	private var mods: [Mod] = []
 	
 	//	TODO: Add update(_:) to maintain consistent insert(_:) and update(_:) behaviours.
 	
@@ -49,12 +50,10 @@ struct Mods: Hashable, Codable {
 	- Complexity:O(_mnr_) in the worst case and O(_m_) in the best case, where _m_ is the count of existing mods in the mod collection, where _n_ is the count of releases in the new given mod, and where _r_ is the highest count of releases in a mod in the mod collection.
 	*/
 	mutating func insert(_ mod: Mod) {
-		var modCopy = mod
-		if let oldMod = mods.first(where: { $0.id == mod.id } ) {
-			mods.remove(oldMod)
-			oldMod.forEach { modCopy.insert($0) }
-		}
-		mods.insert(modCopy)
+		var newMod = mod
+		mods.first(where: { $0.id == mod.id } )?.forEach { newMod.insert($0) }
+		mods.removeAll(where: { $0.id == mod.id } )
+		mods.append(newMod)
 	}
 	
 	/**
@@ -68,10 +67,10 @@ struct Mods: Hashable, Codable {
 	*/
 	mutating func insert(_ release: Release) {
 		if let mod = mods.first(where: { $0.id == release.modID } ) {
-			mods.remove(mod)
-			mods.insert(Mod(superseding: mod, with: release))
+			mods.removeAll(where: { $0.id == release.modID } )
+			mods.append(Mod(superseding: mod, with: release))
 		} else {
-			mods.insert(Mod(with: release))
+			mods.append(Mod(with: release))
 		}
 	}
 	
@@ -102,11 +101,9 @@ struct Mods: Hashable, Codable {
 			mods.first(where: { $0.id == id } )
 		}
 		set(newMod) {
-			if let oldMod = mods.first(where: { $0.id == id } ) {
-				mods.remove(oldMod)
-			}
+			mods.removeAll(where: { $0.id == id } )
 			if let newMod = newMod {
-				mods.insert(newMod)
+				mods.append(newMod)
 			}
 		}
 	}
@@ -116,7 +113,7 @@ struct Mods: Hashable, Codable {
 
 extension Mods: Collection {
 	
-	typealias Index = Set<Mod>.Index
+	typealias Index = Array<Mod>.Index
 	
 	/**
 	The position of the first mod in a nonempty mod collection.
