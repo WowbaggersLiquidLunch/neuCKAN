@@ -28,9 +28,6 @@ A `Release` instance contains all metadata of a mod release, as made available o
 */
 struct Release: Hashable {
 	
-	///	The mod release's ID.
-	var id: (String, Version) { (modID, version) }
-	
 	//	MARK: - Mandatory Fields
 	
 	/**
