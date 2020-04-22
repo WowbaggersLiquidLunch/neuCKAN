@@ -196,7 +196,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
 	mutating func insert(_ release: Release) {
-		if !releases.contains(release) {
+		if !releases.contains(where: { $0.id == release.id }) {
 			releases.append(release)
 		}
 	}
