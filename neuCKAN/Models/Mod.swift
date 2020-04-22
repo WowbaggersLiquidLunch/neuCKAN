@@ -42,8 +42,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	- Complexity: O(_n_), where _n_ is the count of existing releases in the given mod.
 	*/
 	init(superseding mod: Mod, with release: Release) {
-		var modCopy = mod
-		self = modCopy.inserted(release)
+		self = mod.inserted(release)
 	}
 	
 	/**
@@ -211,8 +210,9 @@ struct Mod: Hashable, Codable, Identifiable {
 	
 	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
-	mutating func inserted(_ release: Release) -> Mod {
-		insert(release)
+	func inserted(_ release: Release) -> Mod {
+		var oldMod = self
+		oldMod.insert(release)
 		return self
 	}
 	
