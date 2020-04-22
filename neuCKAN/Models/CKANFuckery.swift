@@ -205,6 +205,13 @@ extension CKANFuckery: Collection {
 	}
 }
 
+//	MARK: - ExpressibleByArrayLiteral Conformance
+extension CKANFuckery: ExpressibleByArrayLiteral {
+	init(arrayLiteral elements: Item...) {
+		self.init(items: elements)
+	}
+}
+
 //	MARK: - CustomStringConvertible Conformance
 extension CKANFuckery: CustomStringConvertible {
 	/// A human-readable representation of its content.

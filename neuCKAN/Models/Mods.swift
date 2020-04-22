@@ -164,3 +164,13 @@ extension Mods: Collection {
 	*/
 	subscript(position: Index) -> Mod { mods[position] }
 }
+
+//	MARK: - ExpressibleByArrayLiteral Conformance
+extension Mods: ExpressibleByArrayLiteral {
+	init(arrayLiteral elements: Mod...) {
+		self.init()
+		elements.forEach {
+			self.insert($0)
+		}
+	}
+}

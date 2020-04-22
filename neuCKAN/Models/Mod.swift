@@ -294,6 +294,19 @@ extension Mod: Collection {
 	subscript(position: Index) -> Release { releases[position] }
 }
 
+//	MARK: - ExpressibleByArrayLiteral Conformance
+extension Mod: ExpressibleByArrayLiteral {
+	init(arrayLiteral elements: Release...) {
+		precondition(!elements.isEmpty, "Value of type 'Mod' can not be empty")
+		self.id = elements.first!.modID
+		self.releases = []
+		elements.forEach {
+			self.insert($0)
+		}
+	}
+}
+
+//	MARK: -
 extension Optional: CustomStringConvertible where Wrapped: CustomStringConvertible {
 	public var description: String { self != nil ? String(describing: self!) : self.debugDescription }
 }

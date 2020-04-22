@@ -273,6 +273,16 @@ extension Targets: Collection {
 	
 }
 
+//	MARK: - ExpressibleByArrayLiteral Conformance
+extension Targets: ExpressibleByArrayLiteral {
+	init(arrayLiteral elements: Target...) {
+		//	FIXME: Disambiguate self.init().
+//		self.init()
+		self.init(targets: [])
+		self.insert(contentsOf: elements)
+	}
+}
+
 //	MARK: - TargetsConvertible Conformance
 extension Targets: TargetsConvertible {
 	/**
