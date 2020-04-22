@@ -64,6 +64,8 @@ struct Mod: Hashable, Codable, Identifiable {
 	*/
 	let id: String
 	
+	//	TODO: Make releases atomic for concurrent parsing.
+	
 	/**
 	A collection of mod releases of the same mod.
 	

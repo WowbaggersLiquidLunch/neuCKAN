@@ -29,6 +29,7 @@ struct Mods: Hashable, Codable {
 		self.mods = Set(mods)
 	}
 	
+	//	TODO: Make mods atomic for concurrent parsing.
 	/**
 	A collection of mods.
 	
