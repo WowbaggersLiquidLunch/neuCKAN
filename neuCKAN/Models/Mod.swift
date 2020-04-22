@@ -72,7 +72,7 @@ struct Mod: Hashable, Codable, Identifiable {
 	*/
 	private var releases: [Release] {
 		didSet {
-			self.releases.sort(by: { $0.version >= $1.version } )
+//			self.releases.sort(by: { $0.version >= $1.version } )
 		}
 	}
 	
