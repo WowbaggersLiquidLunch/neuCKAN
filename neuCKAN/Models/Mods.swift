@@ -16,6 +16,11 @@ An unordered collection of mods.
 struct Mods: Hashable, Codable {
 	
 	/**
+	Creates an empty mod collection.
+	*/
+	init() {}
+	
+	/**
 	Creates a mod collection from the given sequence of mods.
 	
 	- Parameter mods: The sequence of mods to create a mod collection with.
