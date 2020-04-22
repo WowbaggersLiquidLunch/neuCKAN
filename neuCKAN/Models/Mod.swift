@@ -27,6 +27,11 @@ The read-only `releases` instance property is an array of all the releases. The 
 struct Mod: Hashable, Codable, Identifiable {
 	
 	/**
+	Creates an empty mod release collection.
+	*/
+	init() {}
+	
+	/**
 	Instantiates a mod release collection from the given release.
 	
 	- Parameter release: The `Release` instance to from which to instantiates `Mod`.
