@@ -65,7 +65,7 @@ struct Targets: Hashable {
 	private(set) var targets: [Target] { didSet { targets.sort { $0.version >= $1.version } } }
 	//	TODO: Apply filters to mods.
 	///	Mods that satisfy all targets' filtering criteria.
-	var mods: [Mod] { Array(Synecdoche.shared.mods) }
+	var mods: Mods { Synecdoche.shared.mods }
 	///	A dictionary of collections of targets grouped by their major versions.
 	var majorVersionGroups: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<1]) } ).reduce(into: [:]) { groups, version in

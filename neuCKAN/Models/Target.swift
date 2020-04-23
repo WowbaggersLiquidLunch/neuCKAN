@@ -125,7 +125,7 @@ struct Target: Hashable {
 	//	TODO: Add stored filter with didset observer.
 	//	The mods array changes when filter changes.
 	//	TODO: Make mods private.
-	var mods: [Mod] { Array(Synecdoche.shared.mods) }
+	var mods: Mods { Synecdoche.shared.mods }
 	
 	/**
 	The target's version.
