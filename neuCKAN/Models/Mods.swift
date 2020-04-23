@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-An unordered collection of mods.
+An ordered collection of unique mods.
 
 - See Also: `mod`.
 */
