@@ -215,9 +215,9 @@ struct Mod: Hashable, Codable, Identifiable {
 	- Complexity: O(_n_), where _n_ is the count of releases in the collection.
 	*/
 	func inserted(_ release: Release) -> Mod {
-		var oldMod = self
-		oldMod.insert(release)
-		return self
+		var mod = self
+		mod.insert(release)
+		return mod
 	}
 	
 	/**
