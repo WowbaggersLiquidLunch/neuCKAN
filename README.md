@@ -35,7 +35,7 @@ This is what the GUI looks like in [neuCKAN 0.0.2](https://github.com/Wowbaggers
 
 As you can see from the screenshot, the mod manager is very much incomplete. In future releases, the blank space on the bottom will show statistics, such as system resource usage and distribution of mods installed by their keywords. Functionally, as of now, it can only install mods that are not hosted on [spacedock](https://spacedock.info). If you would like to help make neuCKAN better, propel it forward, please check out the [contribution guide](CONTRIBUTING.md)
 
-Although this project started as a KSP mod manager on macOS, it will not end in just being a KSP mod manger on macOS. With Swift already on Linux, and Swift 5.3 officialy coming to Windows in 6 months, there is no reason not to expand the project's scope to building for Linux and Windows in the future.
+Although this project started as a KSP mod manager on macOS, it will not end in just being a KSP mod manger on macOS. With Swift already on Linux, Swift 5.3 officialy coming to Windows in 6 months, and [WinUI support under way](https://forums.swift.org/t/documenting-winui-support-progress/35592), there is no reason not to expand the project's scope to building for Linux and Windows in the future.
 
 ## Some features, as planed so far:
 
