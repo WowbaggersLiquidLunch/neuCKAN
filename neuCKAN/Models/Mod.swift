@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-A collection of a mod's releases arranged in reverse chronological order.
+An ordered collection of a mod's unique releases.
 
 A mod is identified and accessible fron an enclosing `Mods` instance by its `id`.
 
