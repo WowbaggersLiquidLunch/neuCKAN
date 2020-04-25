@@ -217,21 +217,20 @@ extension Version: Comparable {
 //		if universalCompatibilityExistsIn(lhs, rhs) {
 //			return true
 //		}
-		if let lhs = lhs.epoch, let rhs = rhs.epoch {
-			return lhs < rhs
+		if let lhsEpoch = lhs.epoch, let rhsEpoch = rhs.epoch {
+			return lhsEpoch < rhsEpoch
 		} else {
-			for i in 0..<Swift.min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count)
-				where lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
-				return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
-			}
-			if lhs.quasiSemanticVersion.count == rhs.quasiSemanticVersion.count {
-				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
-					return lhs < rhs
+			if lhs.quasiSemanticVersion == rhs.quasiSemanticVersion {
+				if let lhsReleaseSuffix = lhs.releaseSuffix, let rhsReleaseSuffix = rhs.releaseSuffix, lhsReleaseSuffix != rhsReleaseSuffix {
+					return lhsReleaseSuffix < rhsReleaseSuffix
 				} else {
 					return lhs.originalString < rhs.originalString
 				}
 			} else {
-				return lhs.quasiSemanticVersion.count < rhs.quasiSemanticVersion.count
+				//	FIXME: Add Comparable conformance to VersionSegment.
+				return lhs.quasiSemanticVersion.lexicographicallyPrecedes(rhs.quasiSemanticVersion, by: { lhsVersionSegment, rhsVersionSegment in
+					lhsVersionSegment.lexicographicallyPrecedes(rhsVersionSegment)
+				})
 			}
 		}
 	}
