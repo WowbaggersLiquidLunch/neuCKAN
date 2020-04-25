@@ -346,6 +346,13 @@ extension Version: Collection {
 	subscript<R>(r: R) -> String where R : RangeExpression, R.Bound == Index { self[r.relative(to: self)] }
 }
 
+//	MARK: - ExpressibleByStringLiteral Conformance
+extension Version: ExpressibleByStringLiteral {
+	init(stringLiteral value: String) {
+		self.init(value)
+	}
+}
+
 //	MARK: - CustomStringConvertible Conformance
 extension Version: CustomStringConvertible {
 	///	A textual representation of the version.
