@@ -69,19 +69,34 @@ struct Targets: Hashable {
 	///	A dictionary of collections of targets grouped by their major versions.
 	var majorVersionGroups: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<1]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<1] == version.description }, groupVersion: version, groupingLevel: .major, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(
+				targets: targets.filter { $0.version[..<1] == version.description },
+				groupVersion: version,
+				groupingLevel: .major,
+				conflictHandlingScheme: .updatePreviousOccurence
+			)
 		}
 	}
 	///	A dictionary of collections of targets grouped by their minor versions.
 	var minorVersionGroups: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<2]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<2] == version.description }, groupVersion: version, groupingLevel: .minor, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(
+				targets: targets.filter { $0.version[..<2] == version.description },
+				groupVersion: version,
+				groupingLevel: .minor,
+				conflictHandlingScheme: .updatePreviousOccurence
+			)
 		}
 	}
 	///	A dictionary of collections of targets grouped by their patch versions.
 	var patchVersionGroups: [Version: Targets] {
 		Set<Version>(targets.map { Version($0.version[..<3]) } ).reduce(into: [:]) { groups, version in
-			groups[version] = Targets(targets: targets.filter { $0.version[..<3] == version.description }, groupVersion: version, groupingLevel: .patch, conflictHandlingScheme: .updatePreviousOccurence)
+			groups[version] = Targets(
+				targets: targets.filter { $0.version[..<3] == version.description },
+				groupVersion: version,
+				groupingLevel: .patch,
+				conflictHandlingScheme: .updatePreviousOccurence
+			)
 		}
 	}
 	///	The shared version among group members.
