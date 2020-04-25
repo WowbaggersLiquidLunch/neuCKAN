@@ -353,6 +353,13 @@ extension Version: ExpressibleByStringLiteral {
 	}
 }
 
+//	MARK: ExpressibleByExtendedGraphemeClusterLiteral Conformance
+extension Version: ExpressibleByExtendedGraphemeClusterLiteral {
+	public init(extendedGraphemeClusterLiteral value: String) {
+		self.init(stringLiteral: value)
+	}
+}
+
 //	MARK: - CustomStringConvertible Conformance
 extension Version: CustomStringConvertible {
 	///	A textual representation of the version.
