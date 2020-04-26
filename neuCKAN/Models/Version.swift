@@ -220,17 +220,17 @@ extension Version: Comparable {
 		if let lhsEpoch = lhs.epoch, let rhsEpoch = rhs.epoch {
 			return lhsEpoch < rhsEpoch
 		} else {
-			if lhs.quasiSemanticVersion == rhs.quasiSemanticVersion {
+			if lhs.quasiSemanticVersion != rhs.quasiSemanticVersion {
+				//	FIXME: Add Comparable conformance to VersionSegment.
+				return lhs.quasiSemanticVersion.lexicographicallyPrecedes(rhs.quasiSemanticVersion, by: { lhsVersionSegment, rhsVersionSegment in
+					lhsVersionSegment.lexicographicallyPrecedes(rhsVersionSegment)
+				})
+			} else {
 				if let lhsReleaseSuffix = lhs.releaseSuffix, let rhsReleaseSuffix = rhs.releaseSuffix, lhsReleaseSuffix != rhsReleaseSuffix {
 					return lhsReleaseSuffix < rhsReleaseSuffix
 				} else {
 					return lhs.originalString < rhs.originalString
 				}
-			} else {
-				//	FIXME: Add Comparable conformance to VersionSegment.
-				return lhs.quasiSemanticVersion.lexicographicallyPrecedes(rhs.quasiSemanticVersion, by: { lhsVersionSegment, rhsVersionSegment in
-					lhsVersionSegment.lexicographicallyPrecedes(rhsVersionSegment)
-				})
 			}
 		}
 	}
