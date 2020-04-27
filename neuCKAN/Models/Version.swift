@@ -218,21 +218,29 @@ extension Version: Comparable {
 //			return true
 //		}
 		if let lhsEpoch = lhs.epoch, let rhsEpoch = rhs.epoch {
+			//	Compare epoches, if present.
 			return lhsEpoch < rhsEpoch
 		} else {
+			//	Compare the rest, if without epoches.
 			if lhs.quasiSemanticVersion != rhs.quasiSemanticVersion {
 				//	FIXME: Add Comparable conformance to VersionSegment.
+				//	Compare the quasi-semantic components, if they are not equal.
 				return lhs.quasiSemanticVersion.lexicographicallyPrecedes(rhs.quasiSemanticVersion, by: { lhsVersionSegment, rhsVersionSegment in
 					lhsVersionSegment.lexicographicallyPrecedes(rhsVersionSegment)
 				})
 			} else {
+				//	If the quasi-semantic components are equal, check the release suffixes.
 				if let lhsReleaseSuffix = lhs.releaseSuffix, let rhsReleaseSuffix = rhs.releaseSuffix, lhsReleaseSuffix != rhsReleaseSuffix {
+					//	Compare the release suffixes, if they are present and unequal.
 					return lhsReleaseSuffix < rhsReleaseSuffix
 				} else if lhs.releaseSuffix == nil && rhs.releaseSuffix != nil {
+					//	Left-hand side > right-hand side, if left-hand side has no release suffix but right-hand side does.
 					return false
 				} else if lhs.releaseSuffix != nil && rhs.releaseSuffix == nil {
+					//	Left-hand side < right-hand side, if left-hand side has release suffix but right-hand side doesn't.
 					return true
 				} else {
+					//	As the last resort, compare the original version strings directly.
 					return lhs.originalString < rhs.originalString
 				}
 			}
