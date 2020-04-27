@@ -58,11 +58,11 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ### Urgent
 
+- Dependency graph for mods. (PRIORITY for 0.0.4)
 - spacedock URLs aren't very friendly.
 	- Some spacedock URLs can not be parsed from CKAN metadata files into Swift's `URL` type, although the links themselves are correct.
 	- Mods hosted on spacedock can not be downloaded using [Alamofire](https://github.com/Alamofire/Alamofire), although the links themselves are correct.
 - CKAN metadata parsing fails when files are parsed concurrently.
-- Dependency graph for mods.
 - Unit tests and all sorts of tests.
 
 ### Not so urgent
