@@ -228,9 +228,9 @@ extension Version: Comparable {
 			} else {
 				if let lhsReleaseSuffix = lhs.releaseSuffix, let rhsReleaseSuffix = rhs.releaseSuffix, lhsReleaseSuffix != rhsReleaseSuffix {
 					return lhsReleaseSuffix < rhsReleaseSuffix
-				} else if lhs.releaseSuffix == nil {
+				} else if lhs.releaseSuffix == nil && rhs.releaseSuffix != nil {
 					return false
-				} else if rhs.releaseSuffix == nil {
+				} else if lhs.releaseSuffix != nil && rhs.releaseSuffix == nil {
 					return true
 				} else {
 					return lhs.originalString < rhs.originalString
