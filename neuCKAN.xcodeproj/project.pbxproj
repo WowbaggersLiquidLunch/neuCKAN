@@ -90,6 +90,14 @@
 		B4C1DFBA23EA830300E31F81 /* Mods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFB923EA830300E31F81 /* Mods.swift */; };
 		B4C1DFBC23EBFB0100E31F81 /* GroundControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */; };
 		B4C1DFBF23F074F000E31F81 /* AirTrafficControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */; };
+		B4D073A8245160B5008FF72C /* CollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */; };
+		B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A9245160EA008FF72C /* OrderedSet.swift */; };
+		B4D073AB245160EA008FF72C /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A9245160EA008FF72C /* OrderedSet.swift */; };
+		B4D073AC245160EF008FF72C /* CollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */; };
+		B4D073AE245164E2008FF72C /* OrderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073AD245164E2008FF72C /* OrderedCollection.swift */; };
+		B4D073AF245164E2008FF72C /* OrderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073AD245164E2008FF72C /* OrderedCollection.swift */; };
+		B4D073B124516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */; };
+		B4D073B224516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */; };
 		B4FB2F0E24397D3F001E3655 /* ModPreviewSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */; };
 		B4FD6EE623B34CAB00A57174 /* CKANFuckery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */; };
 /* End PBXBuildFile section */
@@ -192,6 +200,10 @@
 		B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundControl.swift; sourceTree = "<group>"; };
 		B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGEMENTS.md; sourceTree = "<group>"; };
 		B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControl.swift; sourceTree = "<group>"; };
+		B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionOfUniqueElements.swift; sourceTree = "<group>"; };
+		B4D073A9245160EA008FF72C /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
+		B4D073AD245164E2008FF72C /* OrderedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedCollection.swift; sourceTree = "<group>"; };
+		B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedCollectionOfUniqueElements.swift; sourceTree = "<group>"; };
 		B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModPreviewSlide.swift; sourceTree = "<group>"; };
 		B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKANFuckery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -358,6 +370,10 @@
 				B46E757A2372A73C00C09306 /* Resources.swift */,
 				B46E757C2372B13400C09306 /* Hash.swift */,
 				B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */,
+				B4D073A9245160EA008FF72C /* OrderedSet.swift */,
+				B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */,
+				B4D073AD245164E2008FF72C /* OrderedCollection.swift */,
+				B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */,
 				B4ADB85D2419ADAC00CA2930 /* EmptyRepresentable.swift */,
 				B4ADB85A2419AD5800CA2930 /* Defaultable.swift */,
 				B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */,
@@ -583,9 +599,12 @@
 				B469D13224106DAC00DA5EF0 /* FileURLConvertible.swift in Sources */,
 				B4315B6E23D57B0D005FC675 /* Filter.swift in Sources */,
 				B49B8653236C1C3F00DF758C /* Release.swift in Sources */,
+				B4D073B124516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */,
 				B4ADB85E2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */,
 				B4625E3B23F78A6A00EFDFA2 /* Targets.swift in Sources */,
+				B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */,
 				B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */,
+				B4D073A8245160B5008FF72C /* CollectionOfUniqueElements.swift in Sources */,
 				B4ADB8582415EE3E00CA2930 /* TargetsConvertible.swift in Sources */,
 				B46E757D2372B13400C09306 /* Hash.swift in Sources */,
 				B451D55F236B9D5400441195 /* neuCKAN.xcdatamodeld in Sources */,
@@ -595,6 +614,7 @@
 				B4720D0D23A14C9200220F87 /* Synecdoche.swift in Sources */,
 				B4991D4223C9E4E6005735FC /* ModsViewController.swift in Sources */,
 				B4991D4C23C9E89C005735FC /* StatsViewController.swift in Sources */,
+				B4D073AE245164E2008FF72C /* OrderedCollection.swift in Sources */,
 				B4AA8A58243D36AE00FE2CE6 /* ModInformationGrid.swift in Sources */,
 				B451D55C236B9D5400441195 /* ViewController.swift in Sources */,
 				B469D13024031D9D00DA5EF0 /* Notification Names.swift in Sources */,
@@ -644,6 +664,7 @@
 			files = (
 				B4ADB83D24138D7700CA2930 /* main.swift in Sources */,
 				B421B5BF241389DF00955DC5 /* Preferences.swift in Sources */,
+				B4D073AF245164E2008FF72C /* OrderedCollection.swift in Sources */,
 				B421B5B0241389C700955DC5 /* Targets.swift in Sources */,
 				B4ADB84A24144AD400CA2930 /* NEUCKAN.Upgrade.swift in Sources */,
 				B421B5B1241389C700955DC5 /* Target.swift in Sources */,
@@ -656,6 +677,7 @@
 				B421B5B6241389C700955DC5 /* InstallationDirective.swift in Sources */,
 				B421B5B7241389C700955DC5 /* Requirements.swift in Sources */,
 				B4ADB84C24144B2C00CA2930 /* NEUCKAN.Install.swift in Sources */,
+				B4D073AC245160EF008FF72C /* CollectionOfUniqueElements.swift in Sources */,
 				B4ADB85F2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */,
 				B4ADB84E24144B4400CA2930 /* NEUCKAN.Uninstall.swift in Sources */,
 				B4ADB85C2419AD5800CA2930 /* Defaultable.swift in Sources */,
@@ -669,8 +691,10 @@
 				B421B5BD241389C700955DC5 /* TargetConvertible.swift in Sources */,
 				B4ADB844241449A900CA2930 /* NEUCKAN.Target.swift in Sources */,
 				B421B5BE241389C700955DC5 /* Notification Names.swift in Sources */,
+				B4D073AB245160EA008FF72C /* OrderedSet.swift in Sources */,
 				B4B46DF624132BBF00900B9E /* Synecdoche.swift in Sources */,
 				B4B46DF524132BB400900B9E /* AirTrafficControl.swift in Sources */,
+				B4D073B224516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */,
 				B4B46DF424132BA700900B9E /* GroundControl.swift in Sources */,
 				B4ADB85624144C4200CA2930 /* NEUCKAN.Info.swift in Sources */,
 				B4ADB84824144A8000CA2930 /* NEUCKAN.List.swift in Sources */,
