@@ -46,17 +46,22 @@ protocol OrderedCollectionOfUniqueElements: OrderedCollection, CollectionOfUniqu
 extension OrderedCollectionOfUniqueElements {
 	@discardableResult
 	mutating func insert(_ newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> (inserted: Bool, memberAfterInsert: Element) {
-		insert(newMember)
+		let result = insert(newMember)
 		try sort(by: areInIncreasingOrder)
+		return result
 	}
 	
+	@discardableResult
 	mutating func update(with newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
-		update(with: newMember)
+		let result = update(with: newMember)
 		try sort(by: areInIncreasingOrder)
+		return result
 	}
 	
+	@discardableResult
 	mutating func remove(_ member: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
-		update(with: member)
+		let result = update(with: member)
 		try sort(by: areInIncreasingOrder)
+		return result
 	}
 }
