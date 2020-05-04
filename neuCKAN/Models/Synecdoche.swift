@@ -22,9 +22,9 @@ struct Synecdoche {
 	/// Initialises a `Synecdoche` instance.
 	private init() {
 		//	TODO: Load from persistent data storage; continue from last session.
-		self.targets = []
-		self.mods = []
-		self.selectedTargets = []
+		targets = []
+		mods = []
+		selectedTargets = []
 	}
 	
 	//	MARK: - Singleton
