@@ -16,9 +16,7 @@ Because CKAN metadata specification just has to allow either a something or a li
 */
 enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 	
-	/**
-	Creates an empty `CKANFuckery` instance.
-	*/
+	///	Creates an empty `CKANFuckery` instance.
 	init() {
 		self = .items([])
 	}
@@ -71,11 +69,8 @@ enum CKANFuckery<Item: Hashable & CustomStringConvertible>: Hashable {
 //	MARK: -Codable Conformance
 extension CKANFuckery: Codable where Item: Codable & Defaultable {
 	
-	/**
-	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
-	
-	- Parameter decoder: The decoder to read data from.
-	*/
+	///	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
 	init(from decoder: Decoder) throws {
 		if let container = try? decoder.unkeyedContainer() {
 			var values = container
@@ -98,11 +93,8 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 		}
 	}
 	
-	/**
-	Encodes a `CKANFuckery` instance`.
-	
-	- Parameter encoder: The encoder to encode data to.
-	*/
+	///	Encodes a `CKANFuckery` instance.
+	///	- Parameter encoder: The encoder to encode data to.
 	func encode(to encoder: Encoder) throws {
 		switch self {
 		case .item(let value):
