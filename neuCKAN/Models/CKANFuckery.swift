@@ -81,11 +81,11 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 			var values = container
 			var itemSet: Set<Item> = []
 			while values.count! > values.currentIndex {
-				let indexBeforeLoop = values.currentIndex
+				let indexBeforeCurrentLoop = values.currentIndex
 				if let newItem  = try? values.decode(Item.self) {
 					itemSet.insert(newItem)
 				}
-				if values.currentIndex <= indexBeforeLoop {
+				if values.currentIndex <= indexBeforeCurrentLoop {
 					os_log("Unable to decode value #%d in unkeyed container.", type: .debug, values.currentIndex)
 					break
 				}
