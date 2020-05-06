@@ -321,9 +321,9 @@
 		B474A0EF2390FE01009C95AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B451D559236B9D5400441195 /* AppDelegate.swift */,
 				B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */,
 				B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */,
-				B451D559236B9D5400441195 /* AppDelegate.swift */,
 				B4991D4323C9E58D005735FC /* MainWindowController.swift */,
 				B451D55B236B9D5400441195 /* ViewController.swift */,
 				B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */,
