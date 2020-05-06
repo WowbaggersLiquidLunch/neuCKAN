@@ -151,7 +151,7 @@ class GroundControl {
 				
 				var temporaryMods: Mods = Synecdoche.shared.mods
 				
-				//	Currently, there are 2 schemes for parding the metadata files: one-by-one sequentially, and all-at-once concurrently. The sequential scheme is the default, until the concurrent scheme becomes stable. The user will retain both of these options, until the sequential scheme is rendered completely obsolete.
+				//	Currently, there are 2 schemes for parsing the metadata files: one-by-one sequentially, and all-at-once concurrently. The sequential scheme is the default, until the concurrent scheme becomes stable. The user will retain both of these options, until the sequential scheme is rendered completely obsolete.
 				switch Preferences.metadataParsingScheme {
 				case .sequential:
 					ckanMetadataArchive.forEach { parseCKANMetadata(in: $0) }
