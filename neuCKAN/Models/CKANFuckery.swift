@@ -41,11 +41,11 @@ enum CKANFuckery<Item: Hashable & Comparable & CustomStringConvertible>: Hashabl
 	///	- See Also: `init(item: Item?)`.
 	init<Items: Sequence>(items: Items?) where Items.Element == Item?{
 		if let newItems = items {
-			let setOfItems = Set(newItems.compactMap { $0 } )
-			if setOfItems.count == 1 {
-				self = .item(setOfItems.first!)
+			let orderedSetOfItems = OrderedSet(newItems.compactMap { $0 } )
+			if orderedSetOfItems.count == 1 {
+				self = .item(orderedSetOfItems.first!)
 			} else {
-				self = .items(setOfItems)
+				self = .items(orderedSetOfItems)
 			}
 		} else {
 			self = .items([])
@@ -54,8 +54,8 @@ enum CKANFuckery<Item: Hashable & Comparable & CustomStringConvertible>: Hashabl
 	
 	///	An item of the desired type.
 	case item(Item)
-	///	A set of items of the desired type.
-	case items(Set<Item>)
+	///	An ordered set of items of the desired type.
+	case items(OrderedSet<Item>)
 }
 
 //	MARK: -Codable Conformance
@@ -64,20 +64,8 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 	///	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
 	///	- Parameter decoder: The decoder to read data from.
 	init(from decoder: Decoder) throws {
-		if let container = try? decoder.unkeyedContainer() {
-			var values = container
-			var itemSet: Set<Item> = []
-			while values.count! > values.currentIndex {
-				let indexBeforeCurrentLoop = values.currentIndex
-				if let newItem  = try? values.decode(Item.self) {
-					itemSet.insert(newItem)
-				}
-				if values.currentIndex <= indexBeforeCurrentLoop {
-					os_log("Unable to decode value #%d in unkeyed container.", type: .error, values.currentIndex)
-					break
-				}
-			}
-			self = .items(itemSet)
+		if let _ = try? decoder.unkeyedContainer() {
+			self = .items(try OrderedSet(from: decoder))
 		} else if let value = try? decoder.singleValueContainer() {
 			self = .item((try? value.decode(Item.self)) ?? .defaultInstance)
 		} else {
@@ -99,13 +87,19 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 	}
 }
 
+extension NSRegularExpression: Comparable {
+	public static func < (lhs: NSRegularExpression, rhs: NSRegularExpression) -> Bool {
+		return lhs.pattern < rhs.pattern
+	}
+}
+
 //	MARK: - Collection Conformance
 extension CKANFuckery: Collection {
 	
 	///	The position of an item in the `CKANFuckery` instance.
 	///
 	///	This is the same as `Set<Item>.Index`, unless a customised implementation is provided through an extension of `Set<Item>`
-	typealias Index = Set<Item>.Index
+	typealias Index = OrderedSet<Item>.Index
 	
 	///	The position of the first item in a nonempty `CKANFuckery` instance.
 	///
@@ -114,7 +108,7 @@ extension CKANFuckery: Collection {
 	///	- See Also: `endIndex`.
 	var startIndex: Index {
 		switch self {
-		case .item(let item): return Set([item]).startIndex
+		case .item(let item): return OrderedSet([item]).startIndex
 		case .items(let items): return items.startIndex
 		}
 	}
@@ -128,7 +122,7 @@ extension CKANFuckery: Collection {
 	///	- See Also: `startIndex`.
 	var endIndex: Index {
 		switch self {
-		case .item(let item): return Set([item]).endIndex
+		case .item(let item): return OrderedSet([item]).endIndex
 		case .items(let items): return items.endIndex
 		}
 	}
@@ -139,7 +133,7 @@ extension CKANFuckery: Collection {
 	///	- See Also: `endIndex`.
 	func index(after i: Index) -> Index {
 		switch self {
-		case .item(let item): return Set([item]).index(after: i)
+		case .item(let item): return OrderedSet([item]).index(after: i)
 		case .items(let items): return items.index(after: i)
 		}
 	}
@@ -151,7 +145,7 @@ extension CKANFuckery: Collection {
 	subscript(position: Index) -> Item {
 		get {
 			switch self {
-			case .item(let item): return Set([item])[position]
+			case .item(let item): return OrderedSet([item])[position]
 			case .items(let items): return items[position]
 			}
 		}
@@ -159,14 +153,14 @@ extension CKANFuckery: Collection {
 			switch self {
 			case .item(let item):
 				guard item != newItem else { return }
-				self = .items(Set([item, newItem]))
+				self = .items([item, newItem])
 			case .items(let items):
 				if items.count == 0 {
 					self = .item(newItem)
 				} else  {
-					var oldItems = items
-					oldItems.insert(newItem)
-					self = .items(oldItems)
+					var variableItems = items
+					variableItems[position] = newItem
+					self = .items(variableItems)
 				}
 			}
 		}
