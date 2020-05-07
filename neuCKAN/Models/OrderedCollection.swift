@@ -9,7 +9,7 @@
 import Foundation
 
 ///	An unordered collection.
-protocol OrderedCollection: RandomAccessCollection, MutableCollection {
+protocol OrderedCollection: Hashable & RandomAccessCollection, MutableCollection {
 	
 }
 
