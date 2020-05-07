@@ -8,7 +8,7 @@
 
 import Foundation
 
-///	An unordered collection.
+///	An ordered collection.
 protocol OrderedCollection: Hashable & RandomAccessCollection, MutableCollection {
 	
 }
