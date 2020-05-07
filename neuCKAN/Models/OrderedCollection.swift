@@ -9,8 +9,7 @@
 import Foundation
 
 ///	An ordered collection.
-protocol OrderedCollection: Hashable & RandomAccessCollection, MutableCollection {
-	
+protocol OrderedCollection: Hashable, RandomAccessCollection, MutableCollection {
 }
 
 extension OrderedCollection {

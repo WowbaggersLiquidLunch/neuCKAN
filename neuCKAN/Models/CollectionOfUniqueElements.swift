@@ -9,7 +9,7 @@
 import Foundation
 
 ///	A collection of unique elements.
-protocol CollectionOfUniqueElements: Hashable & Collection, SetAlgebra {
+protocol CollectionOfUniqueElements: Hashable, Collection, SetAlgebra {
 	//	MARK: Adding and Removing Elements
 	
 	//	MARK: Combining Collections
