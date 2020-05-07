@@ -36,6 +36,8 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: CollectionOfUniqueElements Conformance
 	
+	init() { variant = [] }
+	
 	typealias Element = Element
 		
 	func contains(_ member: Element) -> Bool { variant.contains(member) }

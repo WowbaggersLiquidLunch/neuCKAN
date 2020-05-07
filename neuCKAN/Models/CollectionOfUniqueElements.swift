@@ -40,7 +40,9 @@ protocol CollectionOfUniqueElements: Collection, SetAlgebra {
 }
 
 extension CollectionOfUniqueElements {
-	init() { self = [] }
+	
+	//	EXC_BAD_ACCESS
+//	init() { self = [] }
 	
 	var isEmpty: Bool { startIndex == endIndex }
 	
