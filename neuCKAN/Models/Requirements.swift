@@ -11,58 +11,45 @@ import os.log
 
 //	FIXME: Find a more appropriate name than "Requirements".
 
-/**
-A group of mod releases that form a certain relationship with the mod release.
-
-This is equivalent to an object in a ["Relationship" field][0] in CKAN metadata.
-
-`Requirements` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
-
-- Note: It is an error to mix `"version"` (which specifies an exact version) with either `"min_version"` or `"max_version"` in the same instance in a .ckan file.
-
-- See Also: `Requirement`
-
-[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
-*/
+///	A group of mod releases that form a certain relationship with the mod release.
+///
+///	This is equivalent to an object in a ["Relationship" field][0] in CKAN metadata.
+///
+///	`Requirements` instances are for the relationship fields in `Release` instances. The relationship fields can be used to ensure that a mod is installed with one of its graphics packs, or two mods which conflicting functionality are not installed at the same time.
+///
+///	- Note: It is an error to mix `"version"` (which specifies an exact version) with either `"min_version"` or `"max_version"` in the same instance in a .ckan file.
+///	- See Also: `Requirement`
+///
+///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#relationships
 indirect enum Requirements: Hashable {
-		
-	/**
-	A `Relation` instance.
-	*/
+	
+	///	A `Relation` instance.
 	case leaf(Requirement)
 	
-	/**
-	A set of `Requirements` instances with an "OR" relationship.
-	
-	This represents an `"any_of"` array in a CKAN metadata.
-	
-	CKAN metadata specification since version v1.26 specifies an alternate form of relationship consisting of an `"any_of"` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
-	
-	For example:
-	
-	```
-	"depends": [
-		{
-			"any_of": [
-				{ "name": "TextureReplacer"          },
-				{ "name": "TextureReplacerReplaced"  },
-				{ "name": "SigmaReplacements-Skybox" },
-				{ "name": "DiRT"                     }
-			]
-		}
-	]
-	```
-	*/
+	///	A set of `Requirements` instances with an "OR" relationship.
+	///
+	///	This represents an `"any_of"` array in a CKAN metadata.
+	///
+	///	CKAN metadata specification since version v1.26 specifies an alternate form of relationship consisting of an `"any_of"` key with a value containing an array of relationships. This relationship is considered satisfied if any of the specified modules are installed. It is intended for situations in which a module supports multiple ways of providing functionality, which are not in themselves mutually compatible enough to use the `"provides"` property.
+	///
+	///	For example:
+	///
+	///		"depends": [
+	///			{
+	///				"any_of": [
+	///					{ "name": "TextureReplacer"          },
+	///					{ "name": "TextureReplacerReplaced"  },
+	///					{ "name": "SigmaReplacements-Skybox" },
+	///					{ "name": "DiRT"                     }
+	///				]
+	///			}
+	///		]
 	case disjunction(Set<Requirements>)
 	
-	/**
-	A set of `Requirements` instances with an "AND" relationship
-	*/
+	///	A set of `Requirements` instances with an "AND" relationship
 	case conjunction(Set<Requirements>)
 	
-	/**
-	A logic expression describing the `Requirements` instance.
-	*/
+	///	A logic expression describing the `Requirements` instance.
 	var logicExpression: String {
 		switch self {
 		case let .leaf(requirement):
@@ -83,11 +70,8 @@ extension Requirements: CustomStringConvertible {
 //	MARK: - Codable Conformance
 extension Requirements: Codable {
 	
-	/**
-	Initialises a `Requirements` instance by decoding from the given `decoder`.
-	
-	- Parameter decoder: The decoder to read data from.
-	*/
+	///	Initialises a `Requirements` instance by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
 	init(from decoder: Decoder) throws {
 		var requirementsSet = try Requirements.decodeRequirements(from: decoder)
 		
@@ -98,11 +82,8 @@ extension Requirements: Codable {
 		}
 	}
 	
-	/**
-	Encodes a `Requirements` instance`.
-	
-	- Parameter encoder: The encoder to encode data to.
-	*/
+	///	Encodes a `Requirements` instance`.
+	///	- Parameter encoder: The encoder to encode data to.
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.unkeyedContainer()
 		switch self {
@@ -120,18 +101,13 @@ extension Requirements: Codable {
 	*/
 	private struct IntermediateDisjunctionService: Codable {
 		
-		/**
-		A memberwise initialiser.
-		*/
+		///	A memberwise initialiser.
 		init(_ requirements: Requirements) {
 			self.requirements = requirements
 		}
 		
-		/**
-		Initialises a `Requirements` instance by decoding from the given `decoder`.
-		
-		- Parameter decoder: The decoder to read data from.
-		*/
+		///	Initialises a `Requirements` instance by decoding from the given `decoder`.
+		///	- Parameter decoder: The decoder to read data from.
 		init(from decoder: Decoder) throws {
 			var requirementsSet = try decodeRequirements(from: decoder)
 			
@@ -142,11 +118,8 @@ extension Requirements: Codable {
 			}
 		}
 		
-		/**
-		Encodes a `Requirements` instance`.
-		
-		- Parameter encoder: The encoder to encode data to.
-		*/
+		///	Encodes a `Requirements` instance`.
+		///	- Parameter encoder: The encoder to encode data to.
 		func encode(to encoder: Encoder) throws {
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			try container.encode(requirements, forKey: .requirements)
@@ -159,13 +132,9 @@ extension Requirements: Codable {
 		}
 	}
 	
-	/**
-	Decodes a set of `Requirements` from the given decoder.
-	
-	- Parameter decoder: The decoder to read data from.
-	
-	- Returns: An instance of `Set<Requirements>` decoded from the given decoder.
-	*/
+	///	Decodes a set of `Requirements` from the given decoder.
+	///	- Parameter decoder: The decoder to read data from.
+	///	- Returns: An instance of `Set<Requirements>` decoded from the given decoder.
 	private static func decodeRequirements(from decoder: Decoder) throws -> Set<Requirements> {
 		var requirementsSet: Set<Requirements> = []
 		
