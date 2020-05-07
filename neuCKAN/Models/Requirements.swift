@@ -96,9 +96,7 @@ extension Requirements: Codable {
 		}
 	}
 	
-	/**
-	A service struct that for intermediate `"any_of"` JSON values.
-	*/
+	///	A service struct that for intermediate `"any_of"` JSON values.
 	private struct IntermediateDisjunctionService: Codable {
 		
 		///	A memberwise initialiser.
