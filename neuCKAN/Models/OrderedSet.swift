@@ -10,7 +10,7 @@ import Foundation
 import os.log
 
 ///	An ordered set.
-struct OrderedSet<Element: Comparable> {
+struct OrderedSet<Element: Hashable & Comparable> {
 	private var variant: [Element]
 }
 
