@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 ///	An ordered set.
 struct OrderedSet<Element: Comparable> {
@@ -70,6 +71,48 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 			return member
 		} else {
 			return nil
+		}
+	}
+}
+
+//	MARK: - Codable Conformance
+extension OrderedSet: Codable where Element: Codable {
+	
+	///	Creates an ordered set with the appropriate type by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
+	init(from decoder: Decoder) throws {
+		var values = try decoder.unkeyedContainer()
+		var orderedSet: OrderedSet<Element> = []
+		while values.count! > values.currentIndex {
+			do {
+				orderedSet.insert(try values.decode(Element.self))
+			} catch let decodingError as DecodingError {
+				os_log("Unable to decode value #%d in unkeyed container due to a decoding error: %@.", type: .error, values.currentIndex, decodingError.localizedDescription)
+			} catch let cocoaError as CocoaError {
+				os_log("Unable to decode value #%d in unkeyed container due to a cocoa error: %@.", type: .error, values.currentIndex, cocoaError.localizedDescription)
+			} catch let nsError as NSError {
+				os_log("Unable to decode value #%d in unkeyed container due to an error in domain %@: %@.", type: .error, values.currentIndex, nsError.domain, nsError.localizedDescription)
+			} catch let error {
+				os_log("Unable to decode value #%d in unkeyed container due to an error: %@.", type: .error, values.currentIndex, error.localizedDescription)
+			}
+		}
+		self = orderedSet
+	}
+	
+	///	Encodes an ordered set.
+	///	- Parameter encoder: The encoder to encode data to.
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.unkeyedContainer()
+		do {
+			try container.encode(variant)
+		} catch let encodingError as EncodingError {
+			os_log("Unable to encode value %@ due to a decoding error: %@", type: .error, String(describing: variant), encodingError.localizedDescription)
+		} catch let cocoaError as CocoaError {
+			os_log("Unable to encode value %@ due to a cocoa error: %@.", type: .error, String(describing: variant), cocoaError.localizedDescription)
+		} catch let nsError as NSError {
+			os_log("Unable to encode value %@ due to an error in domain %@: %@.", type: .error, String(describing: variant), nsError.domain, nsError.localizedDescription)
+		} catch let error {
+			os_log("Unable to encode value %@ due to an error: %@.", type: .error, String(describing: variant), error.localizedDescription)
 		}
 	}
 }
