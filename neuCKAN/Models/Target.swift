@@ -38,30 +38,24 @@ struct Target: Hashable {
 		do {
 			let kspDirectoryAttributes = try FileManager.default.attributesOfItem(atPath: resolvedPath.path)
 			guard kspDirectoryAttributes[.type] as! FileAttributeType == .typeDirectory else {
-				os_log("Unable to create KSP target: %@ is not a directory.", log: .default, type: .error, resolvedPath.path)
+				os_log("Unable to create KSP target: %@ is not a directory.", type: .error, resolvedPath.path)
 				return nil
 			}
 			//	Since kspDirectoryAttributes is initialised with no errors, this type casting is safe.
 			self.inode = kspDirectoryAttributes[.systemFileNumber] as! Int
 			//	Record the standardised path with all possible symbolics unresolved, for the user's convenience.
 			self.path = standardisedPath
-		} catch CocoaError.fileNoSuchFile {
-			os_log("Unable to create KSP target: %@ does not exist.", log: .default, type: .debug, kspURL.path)
-			return nil
-		} catch CocoaError.fileReadTooLarge {
-			os_log("Unable to create KSP target: %@ is too large.", log: .default, type: .debug, kspURL.path)
-			return nil
-		} catch CocoaError.fileReadNoPermission {
-			os_log("Unable to create KSP target: no read permission for %@.", log: .default, type: .debug, kspURL.path)
-			return nil
 		} catch let cocoaError as CocoaError {
-			os_log("Unable to create KSP target for %@ due to a cocoa error: %@.", log: .default, type: .debug, kspURL.path, cocoaError.localizedDescription)
+			os_log("Unable to create KSP target for %@ due to a cocoa error: %@.", type: .error, kspURL.path, cocoaError.localizedDescription)
+			NSApplication.shared.presentError(cocoaError)
 			return nil
 		} catch let nsError as NSError {
-			os_log("Unable to create KSP target for %@ due to an error in domain %@: %@.", log: .default, type: .debug, kspURL.path, nsError.domain, nsError.localizedDescription)
+			os_log("Unable to create KSP target for %@ due to an error in domain %@: %@.", type: .error, kspURL.path, nsError.domain, nsError.localizedDescription)
+			NSApplication.shared.presentError(nsError)
 			return nil
-		} catch {
-			os_log("Unable to create KSP target for %@ due to an unknown error.", log: .default, type: .debug, kspURL.path)
+		} catch let error {
+			os_log("Unable to create KSP target for %@ due to an error: %@.", type: .error, kspURL.path, error.localizedDescription)
+			NSApplication.shared.presentError(error)
 			return nil
 		}
 		
@@ -74,7 +68,7 @@ struct Target: Hashable {
 			//	Use case-insensitive, because the APFS is case-insensitive by default, and it makes regex matching easier.
 			let kspVersionRegex = try NSRegularExpression(pattern: "version\\W*\\s*(\\d+(\\.\\d+)*)", options: .caseInsensitive)
 			guard let kspVersionRegexMatch = kspVersionRegex.firstMatch(in: readmeFileContent, range: NSRange(readmeFileContent.startIndex..., in: readmeFileContent)) else {
-				os_log("Unable to determine KSP version: No match found in %@ encoded in ASCII.", log: .default, type: .error, readmeFilePath.path)
+				os_log("Unable to determine KSP version: No match found in %@ encoded in ASCII.", type: .error, readmeFilePath.path)
 				return nil
 			}
 			kspVersion = readmeFileContent[Range(kspVersionRegexMatch.range(at: 1), in: readmeFileContent)!]
@@ -83,16 +77,18 @@ struct Target: Hashable {
 				kspVersion += ".0"
 			}
 		} catch let cocoaError as CocoaError {
-			os_log("Unable to determine KSP version for %@ due to a cocoa error: %@.", log: .default, type: .error, readmeFilePath.path, cocoaError.localizedDescription)
+			os_log("Unable to determine KSP version for %@ due to a cocoa error: %@.", type: .error, readmeFilePath.path, cocoaError.localizedDescription)
+			NSApplication.shared.presentError(cocoaError)
 			return nil
 		} catch let nsError as NSError {
-			os_log("Unable to determine KSP version for %@ due to an error in domain %@: %@.", log: .default, type: .error, readmeFilePath.path, nsError.domain, nsError.localizedDescription)
+			os_log("Unable to determine KSP version for %@ due to an error in domain %@: %@.", type: .error, readmeFilePath.path, nsError.domain, nsError.localizedDescription)
+			NSApplication.shared.presentError(nsError)
 			return nil
-		} catch {
-			os_log("Unable to determine KSP version for %@ due to an unknown error.", log: .default, type: .error, readmeFilePath.path)
+		} catch let error {
+			os_log("Unable to determine KSP version for %@ due to an error: %@.", type: .error, readmeFilePath.path, error.localizedDescription)
+			NSApplication.shared.presentError(error)
 			return nil
 		}
-		
 		
 		//	MARK: KSP Build ID
 		var kspBuildID: Substring = ""
@@ -105,14 +101,14 @@ struct Target: Hashable {
 			if let kspbuildIDRegexMatch = kspbuildIDRegex.firstMatch(in: buildIDFileContent, range: NSRange(buildIDFileContent.startIndex..., in: buildIDFileContent)) {
 				kspBuildID = buildIDFileContent[Range(kspbuildIDRegexMatch.range(at: 1), in: buildIDFileContent)!] + ":"
 			} else {
-				os_log("Unable to determine KSP build ID: No match found in %@ encoded in ASCII.", log: .default, type: .error, buildIDFilePath.path)
+				os_log("Unable to determine KSP build ID: No match found in %@ encoded in ASCII.", type: .info, buildIDFilePath.path)
 			}
 		} catch let cocoaError as CocoaError {
-			os_log("Unable to determine KSP build ID for %@ due to an acceptable cocoa error: %@.", log: .default, type: .debug, buildIDFilePath.path, cocoaError.localizedDescription)
+			os_log("Unable to determine KSP build ID for %@ due to an acceptable cocoa error: %@.", type: .info, buildIDFilePath.path, cocoaError.localizedDescription)
 		} catch let nsError as NSError {
-			os_log("Unable to determine KSP build ID for %@ due to an acceptable error in domain %@: %@.", log: .default, type: .debug, buildIDFilePath.path, nsError.domain, nsError.localizedDescription)
-		} catch {
-			os_log("Unable to determine KSP build ID for %@ due to an unknown error.", log: .default, type: .debug, buildIDFilePath.path)
+			os_log("Unable to determine KSP build ID for %@ due to an acceptable error in domain %@: %@.", type: .info, buildIDFilePath.path, nsError.domain, nsError.localizedDescription)
+		} catch let error {
+			os_log("Unable to determine KSP build ID for %@ due to an error: %@.", type: .info, buildIDFilePath.path, error.localizedDescription)
 		}
 		
 		//	KSP's build ID acts as its verion's epoch. Not all KSP versions ship with the build ID information. If no build ID is found prior to this step, kspBuildID is an empty substring. If build ID is found, kspBuildID is appended with ":".

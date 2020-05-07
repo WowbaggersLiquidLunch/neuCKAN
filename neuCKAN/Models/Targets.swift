@@ -254,11 +254,11 @@ extension Targets: Collection {
 			let kspURL = path.asFileURL()
 			let resolvedPath = kspURL.standardized.resolvingSymlinksInPath()
 			guard FileManager.default.fileExists(atPath: resolvedPath.absoluteString) else {
-				os_log("Unable to locate KSP target: %@ does not exist.", log: .default, type: .debug, kspURL.absoluteString)
+				os_log("Unable to locate KSP target: %@ does not exist.", type: .error, kspURL.absoluteString)
 				return nil
 			}
 			guard let kspDirectoryAttributes = try? FileManager.default.attributesOfItem(atPath: resolvedPath.absoluteString) else {
-				os_log("Unable to retrieve file attributes of %@, which is after standardising and resolving symlinks in %@.", log: .default, type: .error, resolvedPath.absoluteString, kspURL.absoluteString)
+				os_log("Unable to retrieve file attributes of %@, which is after standardising and resolving symlinks in %@.", type: .error, resolvedPath.absoluteString, kspURL.absoluteString)
 				return nil
 			}
 			return first(where: { $0.inode == kspDirectoryAttributes[.systemFileNumber] as! Int } )

@@ -81,7 +81,7 @@ extension CKANFuckery: Codable where Item: Codable & Defaultable {
 					itemSet.insert(newItem)
 				}
 				if values.currentIndex <= indexBeforeCurrentLoop {
-					os_log("Unable to decode value #%d in unkeyed container.", type: .debug, values.currentIndex)
+					os_log("Unable to decode value #%d in unkeyed container.", type: .error, values.currentIndex)
 					break
 				}
 			}

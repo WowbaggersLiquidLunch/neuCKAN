@@ -157,7 +157,7 @@ extension Requirements: Codable {
 			//	If the unkeyed container's current index didn't increase by 1 during this loop, then the the unkeyed value at the current index was not decoded, and will not be in future loops. There is no way to increment the index manually, so the unkeyed container will keep trying for the same value. The best choice is to break out of the loop.
 			if unkeyedValues.currentIndex <= containerIndexBeforeLoop {
 				//	TODO: Include the corresponding JSON value in the log.
-				os_log("Unable to decode value #%d in unkeyed container.", type: .debug, unkeyedValues.currentIndex)
+				os_log("Unable to decode value #%d in unkeyed container.", type: .error, unkeyedValues.currentIndex)
 				break
 			}
 		}
