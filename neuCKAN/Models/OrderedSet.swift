@@ -38,8 +38,6 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	init() { variant = [] }
 	
-	typealias Element = Element
-		
 	func contains(_ member: Element) -> Bool { variant.contains(member) }
 		
 	@discardableResult
