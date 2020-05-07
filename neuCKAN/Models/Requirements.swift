@@ -121,6 +121,13 @@ extension Requirements: Codable {
 	private struct IntermediateDisjunctionService: Codable {
 		
 		/**
+		A memberwise initialiser.
+		*/
+		init(_ requirements: Requirements) {
+			self.requirements = requirements
+		}
+		
+		/**
 		Initialises a `Requirements` instance by decoding from the given `decoder`.
 		
 		- Parameter decoder: The decoder to read data from.
@@ -143,13 +150,6 @@ extension Requirements: Codable {
 		func encode(to encoder: Encoder) throws {
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			try container.encode(requirements, forKey: .requirements)
-		}
-		
-		/**
-		A memberwise initialiser.
-		*/
-		init(_ requirements: Requirements) {
-			self.requirements = requirements
 		}
 		
 		let requirements: Requirements
