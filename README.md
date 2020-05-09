@@ -17,6 +17,8 @@
 - [Why?](#why)
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
 - [Some features, as planed so far](#some-features-as-planed-so-far)
+	- [Tentative alpha roadmap](#tentative-alpha-roadmap)
+	- [Other features](#other-features-unassigned-to-or-depending-on-future-alpha-releases)
 - [Help, please...](#help-please)
 
 ---
@@ -37,7 +39,22 @@ As you can see from the screenshot, the mod manager is very much incomplete. In 
 
 Although this project started as a KSP mod manager on macOS, it will not end in just being a KSP mod manger on macOS. With Swift already on Linux, Swift 5.3 officialy coming to Windows in 6 months, and [WinUI support under way](https://forums.swift.org/t/documenting-winui-support-progress/35592), there is no reason not to expand the project's scope to building for Linux and Windows in the future.
 
-## Some features, as planed so far:
+## Some features, as planed so far
+
+### Tentative alpha roadmap
+
+| status      | version | features                                                  |
+| ----------- | ------- | --------------------------------------------------------- |
+| Released    | 0.0.1   | The bare minimum proof of concept.                        |
+| Released    | 0.0.2   | The details view on the right side.                       |
+| In progress | 0.0.3   | Sorting by some columns, and row actions.                 |
+| Planned     | 0.0.4   | Persistant data storage through Core Data integration.    |
+| Planned     | 0.0.5   | Mod dependencies/conflicts/suggestions/recommendations... |
+| Planned     | 0.0.6   | Undo/redo actions through Core Data integration.          |
+| Planned     | 0.0.7   | Search and filter through Core Spotlight integration.     |
+| Planned     | 0.0.8   | Preferences.                                              |
+
+### Other features unassigned to or depending on future alpha releases
 
 - Full localization, with automatic text directionality handled by cocoa natively.
 - Full help manual.
@@ -58,7 +75,7 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ### Urgent
 
-- Dependency graph for mods. (PRIORITY for 0.0.4)
+- Dependency graph for mods. (PRIORITY for 0.0.5)
 - spacedock URLs aren't very friendly.
 	- Some spacedock URLs can not be parsed from CKAN metadata files into Swift's `URL` type, although the links themselves are correct.
 	- Mods hosted on spacedock can not be downloaded using [Alamofire](https://github.com/Alamofire/Alamofire), although the links themselves are correct.
