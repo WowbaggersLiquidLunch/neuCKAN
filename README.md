@@ -31,7 +31,7 @@ In addition to [CKAN's GUI not being supported on macOS Catalina](https://github
 
 neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with [CKAN](https://github.com/KSP-CKAN/CKAN), and it uses [CKAN metadata](https://github.com/KSP-CKAN/CKAN-meta), but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
 
-This is what the GUI looks like in [neuCKAN 0.0.2](https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2):
+This is what the GUI looks like in [neuCKAN 0.0.2][neuCKAN 0.0.2]:
 
 ![neuCKAN 0.0.2 screenshot](Documentation/Screenshots/0.0.2/windowed.png)
 
@@ -43,17 +43,17 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 
 ### Tentative alpha roadmap
 
-| status      | version | features                                                  |
-| ----------- | ------- | --------------------------------------------------------- |
-| Released    | 0.0.1   | The bare minimum proof of concept.                        |
-| Released    | 0.0.2   | The details view on the right side.                       |
-| In progress | 0.0.3   | Sorting by some columns, and row actions.                 |
-| Planned     | 0.0.4   | Persistant data storage through Core Data integration.    |
-| Planned     | 0.0.5   | Mod dependencies/conflicts/suggestions/recommendations... |
-| Planned     | 0.0.6   | CLI                                                       |
-| Planned     | 0.0.7   | Undo/redo actions through Core Data integration.          |
-| Planned     | 0.0.8   | Search and filter through Core Spotlight integration.     |
-| Planned     | 0.0.9   | Preferences.                                              |
+| status                    | version | features                                                  |
+| ------------------------- | ------- | --------------------------------------------------------- |
+| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare minimum proof of concept.                        |
+| [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                       |
+| In progress               | 0.0.3   | Sorting by some columns, and row actions.                 |
+| Planned                   | 0.0.4   | Persistant data storage through Core Data integration.    |
+| Planned                   | 0.0.5   | Mod dependencies/conflicts/suggestions/recommendations... |
+| Planned                   | 0.0.6   | CLI                                                       |
+| Planned                   | 0.0.7   | Undo/redo actions through Core Data integration.          |
+| Planned                   | 0.0.8   | Search and filter through Core Spotlight integration.     |
+| Planned                   | 0.0.9   | Preferences.                                              |
 
 ### Other features unassigned to or depending on future alpha releases
 
@@ -109,3 +109,6 @@ The alpha phase will have a fast iterative development process. There will be ni
 		</a>
 	</sub>
 </p>	
+
+[neuCKAN 0.0.1]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.1
+[neuCKAN 0.0.2]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2
