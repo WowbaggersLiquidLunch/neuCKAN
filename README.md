@@ -50,9 +50,10 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 | In progress | 0.0.3   | Sorting by some columns, and row actions.                 |
 | Planned     | 0.0.4   | Persistant data storage through Core Data integration.    |
 | Planned     | 0.0.5   | Mod dependencies/conflicts/suggestions/recommendations... |
-| Planned     | 0.0.6   | Undo/redo actions through Core Data integration.          |
-| Planned     | 0.0.7   | Search and filter through Core Spotlight integration.     |
-| Planned     | 0.0.8   | Preferences.                                              |
+| Planned     | 0.0.6   | CLI                                                       |
+| Planned     | 0.0.7   | Undo/redo actions through Core Data integration.          |
+| Planned     | 0.0.8   | Search and filter through Core Spotlight integration.     |
+| Planned     | 0.0.9   | Preferences.                                              |
 
 ### Other features unassigned to or depending on future alpha releases
 
