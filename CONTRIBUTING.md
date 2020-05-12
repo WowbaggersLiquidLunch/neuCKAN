@@ -93,7 +93,7 @@ Development on Xcode has a super steep learning curve. Fortunately, here are som
 1. To learn Swift:
 	- Read _the Swift Programming Language_ [online](https://swift.org/documentation/#the-swift-programming-language), or [on Apple Books](https://books.apple.com/us/book/the-swift-programming-language-swift-5-2/id881256329).
 	- Check out [these additional official resources](https://developer.apple.com/swift/resources/).
-	- Read [Swift Evolution proposals](https://developer.apple.com/swift/resources/) to keep up with the latest development in Swift.
+	- Read [Swift Evolution proposals](https://apple.github.io/swift-evolution/) to keep up with the latest development in Swift.
 	- Hang out on [Swift Forums](https://forums.swift.org).
 2. To learn SwiftUI:
 	- Do [Apple's SwiftUI tutorial](https://developer.apple.com/tutorials/SwiftUI/tutorials).
