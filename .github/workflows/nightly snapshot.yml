@@ -1,23 +1,50 @@
 name: Nightly Snapshot
 
 on:
-  schedule:
-  - cron: "0 0 * * *"
+	schedule:
+	- cron: "0 0 * * *"
 
 jobs:
-  tag:
-    name: Tag
-    runs-on: macos-latest
-    steps:
-      - name: Checkout branch "develop"
-        uses: actions/checkout@v2
-        with:
-          ref: 'develop'
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - name: Tag snapshot
-        uses: tvdias/github-tagger@v0.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.date.outputs.date }}
+	tag:
+		name: Tag
+		runs-on: ubuntu-latest
+		steps:
+			-	name: Get Current Date
+				id:   date
+				run:  echo "::set-output name=date::$(date +'%Y-%m-%d')"
+				
+			-	name: Get Current Branch
+				id:   branch
+				run:  echo "::set-output name=branch::$(git rev-parse --abbrev-ref HEAD)"
+				
+			-	name: Get HEAD Commit SHA
+				id:   headSHA
+				run:  echo "::set-output name=headSHA::$(git rev-parse HEAD)"
+				
+			-	name: Fetch All Tags
+				uses: actions/checkout@v2
+				run:  git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+				
+			-	name: Get Latest Snapshot Tag of Current Branch
+				id:   tag
+				run:  echo "::set-output name=tag::$(bash ./github/workflows/latest\ snapshot\ tag.sh)"
+				
+			-	name: name: Get Latest Snapshot Commit SHA
+				id:   snapshotSHA
+				if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
+				# checkout current branch's latest snapshot tag
+				uses: actions/checkout@v2
+				with:
+					ref: refs/tags/${{ steps.tag.outputs.tag }}
+				run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
+				# checkout current branch's HEAD
+				uses: actions/checkout@v2
+				with:
+					ref: ${{ steps.branch.outputs.branch }}
+				
+			-	name: Tag Snapshot If Necessary
+				if:   ${{ steps.tag.outputs.tag }} == "no snapshot for branch ${{ steps.branch.outputs.branch }}" || ${{ steps.headSHA.outputs.headSHA }} != ${{ steps.snapshotSHA.outputs.snapshotSHA }}
+				uses: tvdias/github-tagger@v0.0.1
+				with:
+					repo-token: ${{ secrets.GITHUB_TOKEN }}
+					tag:        neuCKAN-${{ steps.branch.outputs.branch }}-snapshot-${{ steps.date.outputs.date }}
