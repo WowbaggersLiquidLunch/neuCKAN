@@ -135,6 +135,7 @@
 		B4315B5F23D3F621005FC675 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVerticalSplitViewController.swift; sourceTree = "<group>"; };
 		B4315B6D23D57B0D005FC675 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		B43637D3246C83EF004F57B4 /* nightly snapshot.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "nightly snapshot.yml"; sourceTree = "<group>"; };
 		B451D556236B9D5400441195 /* neuCKAN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = neuCKAN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B451D559236B9D5400441195 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B451D55B236B9D5400441195 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -248,9 +249,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B43637D1246C83EF004F57B4 /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				B43637D2246C83EF004F57B4 /* workflows */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		B43637D2246C83EF004F57B4 /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				B43637D3246C83EF004F57B4 /* nightly snapshot.yml */,
+			);
+			path = workflows;
+			sourceTree = "<group>";
+		};
 		B451D54D236B9D5400441195 = {
 			isa = PBXGroup;
 			children = (
+				B43637D1246C83EF004F57B4 /* .github */,
 				B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */,
 				B494723524300B7C0031DE2C /* CODE_OF_CONDUCT.md */,
 				B4991DA323CE6C70005735FC /* CONTRIBUTING.md */,
