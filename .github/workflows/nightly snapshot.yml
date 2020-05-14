@@ -29,15 +29,19 @@ jobs:
         id:   tag
         run:  echo "::set-output name=tag::$(bash ./github/workflows/latest\ snapshot\ tag.sh)"
         
-      - name: Get Latest Snapshot Commit SHA
-        id:   snapshotSHA
+      - name: Checkout Latest Snapshot Tag of Current Branch
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
-        # checkout current branch's latest snapshot tag
         uses: actions/checkout@v2
         with:
           ref: refs/tags/${{ steps.tag.outputs.tag }}
+
+      - name: Get Latest Snapshot Commit SHA
+        id:   snapshotSHA
+        if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
-        # checkout current branch's HEAD
+
+      - name: Checkout Current Branch
+        if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.branch.outputs.branch }}
