@@ -22,7 +22,6 @@ jobs:
         run:  echo "::set-output name=headSHA::$(git rev-parse HEAD)"
         
       - name: Fetch All Tags
-        uses: actions/checkout@v2
         run:  git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         
       - name: Get Latest Snapshot Tag of Current Branch
