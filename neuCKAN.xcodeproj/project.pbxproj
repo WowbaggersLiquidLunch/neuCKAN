@@ -196,7 +196,6 @@
 		B4ADB8602419F86500CA2930 /* ModReleaseManagementCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModReleaseManagementCellView.swift; sourceTree = "<group>"; };
 		B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetConvertible.swift; sourceTree = "<group>"; };
 		B4B46DE8241329C100900B9E /* neuckan */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = neuckan; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4B46DEA241329C100900B9E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B4B46DEF24132B0400900B9E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B4C1DFB923EA830300E31F81 /* Mods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mods.swift; sourceTree = "<group>"; };
 		B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundControl.swift; sourceTree = "<group>"; };
@@ -280,7 +279,6 @@
 				B451D558236B9D5400441195 /* neuCKAN */,
 				B451D56E236B9D5500441195 /* neuCKANTests */,
 				B451D579236B9D5500441195 /* neuCKANUITests */,
-				B4B46DE9241329C100900B9E /* neuckan */,
 				B451D557236B9D5400441195 /* Products */,
 				B4B46DFA241331D600900B9E /* Frameworks */,
 			);
@@ -410,14 +408,6 @@
 				B472D266236F732100491E9D /* CKAN */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		B4B46DE9241329C100900B9E /* neuckan */ = {
-			isa = PBXGroup;
-			children = (
-				B4B46DEA241329C100900B9E /* main.swift */,
-			);
-			path = neuckan;
 			sourceTree = "<group>";
 		};
 		B4B46DF324132B6900900B9E /* Command Line Tool */ = {
