@@ -3,7 +3,7 @@ name: Nightly Snapshot
 on:
   schedule:
   - cron: "0 0 * * *"
-
+  
 jobs:
   tag:
     name: Tag
@@ -30,18 +30,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: refs/tags/${{ steps.tag.outputs.tag }}
-
+          
       - name: Get Latest Snapshot Commit SHA
         id:   snapshotSHA
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
-
+        
       - name: Checkout Current Branch
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.branch.outputs.branch }}
-        
+          
       - name: Tag Snapshot If Necessary
         if:   ${{ steps.tag.outputs.tag }} == "no snapshot for branch ${{ steps.branch.outputs.branch }}" || ${{ steps.headSHA.outputs.headSHA }} != ${{ steps.snapshotSHA.outputs.snapshotSHA }}
         uses: tvdias/github-tagger@v0.0.1
