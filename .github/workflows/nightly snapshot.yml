@@ -29,7 +29,7 @@ jobs:
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         uses: actions/checkout@v2
         with:
-          ref: refs/tags/${{ steps.tag.outputs.tag }}
+          ref: ${{ steps.tag.outputs.tag }}
           
       - name: Get Latest Snapshot Commit SHA
         id:   snapshotSHA
