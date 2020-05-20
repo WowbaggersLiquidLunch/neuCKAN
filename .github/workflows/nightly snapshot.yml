@@ -35,7 +35,7 @@ jobs:
         id:   snapshotSHA
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
-        
+
       - name: Checkout Current Branch
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         uses: actions/checkout@v2
