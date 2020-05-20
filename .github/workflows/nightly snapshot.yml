@@ -26,7 +26,7 @@ jobs:
         
       - name: Get Latest Snapshot Tag of Current Branch
         id:   tag
-        run:  echo "::set-output name=tag::$(bash ./.github/workflows/latest\ snapshot\ tag.sh)"
+        run:  echo "::set-output name=tag::$(bash ${{ GITHUB_WORKSPACE }}/.github/workflows/latest\ snapshot\ tag.sh)"
         
       - name: Checkout Latest Snapshot Tag of Current Branch
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
