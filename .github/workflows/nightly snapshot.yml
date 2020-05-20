@@ -35,12 +35,13 @@ jobs:
         id:   snapshotSHA
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
-
+        
       - name: Checkout Current Branch
         if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.branch.outputs.branch }}
+
       - name: Tag Snapshot If Necessary
         if:   ${{ steps.tag.outputs.tag }} == "no snapshot for branch ${{ steps.branch.outputs.branch }}" || ${{ steps.headSHA.outputs.headSHA }} != ${{ steps.snapshotSHA.outputs.snapshotSHA }}
         uses: tvdias/github-tagger@v0.0.1
