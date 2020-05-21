@@ -8,7 +8,10 @@
 	Or, neuCKAN, pronounced as <code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code> or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
 </p>
 
-![nightly snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=develop&event=schedule)
+| branch      | status                                                       |
+| ----------- | ------------------------------------------------------------ |
+| master      | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=master) |
+| development | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=development) |
 
 ---
 
