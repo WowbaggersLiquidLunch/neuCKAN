@@ -176,7 +176,7 @@ extension CKANFuckery: ExpressibleByArrayLiteral {
 
 //	MARK: - CustomStringConvertible Conformance
 extension CKANFuckery: CustomStringConvertible {
-	/// A human-readable representation of its content.
+	///	A human-readable representation of its content.
 	var description: String {
 		switch self {
 		case .item(let item):

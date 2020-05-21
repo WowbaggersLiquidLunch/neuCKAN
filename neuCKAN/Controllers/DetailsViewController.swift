@@ -12,7 +12,7 @@ import SwiftUI
 ///	A controller that manages the details split view of neuCKAN.
 class DetailsViewController: NSViewController {
 	
-	/// The details view.
+	///	The details view.
 	let detailsView = NSHostingView(rootView: DetailsView(release: nil))
 	
 	override func viewDidLoad() {
@@ -36,8 +36,8 @@ class DetailsViewController: NSViewController {
 		}
 	}
 	
-	/// Called after the details view controller receives a notification that the mod release selection change.
-	/// - Parameter notification: The notification that the mod release selection change.
+	///	Called after the details view controller receives a notification that the mod release selection change.
+	///	- Parameter notification: The notification that the mod release selection change.
 	@objc func modReleaseSelectionDidChange(_ notification: Notification) {
 		if let release = notification.object as? Release {
 			detailsView.rootView.release = release

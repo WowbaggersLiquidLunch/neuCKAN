@@ -26,7 +26,7 @@ class ModsViewController: NSViewController {
 	//	MARK: - Data
 	///	A copy of	`Synecdoche.shared.mods`.
 	private var synechdochicalMods = Synecdoche.shared.mods
-	/// A copy of `Synecdoche.shared.selectedTargets`.
+	///	A copy of `Synecdoche.shared.selectedTargets`.
 	var stagedTargets = Synecdoche.shared.selectedTargets
 	//	MARK: - View Configurations
 	///	An alias of `(NSTableCellView, Any) -> NSView?`.
@@ -395,7 +395,7 @@ class ModsViewController: NSViewController {
 	}
 	///	An ordered collection whose elements are key-value pairs.
 	private struct OrderedDictionary<Key: Hashable, Value>: ExpressibleByDictionaryLiteral, Collection {
-		/// The position of a key-value pair in an ordered dictionary.
+		///	The position of a key-value pair in an ordered dictionary.
 		typealias Index = Array<(key: Key, value: Value)>.Index
 		///	Creates an ordered dictionary initialized with a dictionary literal.
 		init(dictionaryLiteral elements: (Key, Value)...) {
@@ -593,8 +593,8 @@ class ModsViewController: NSViewController {
 			self.modsListView.reloadData()
 		}
 	}
-	/// Called after the mods view controller receives a notification that the user initiated a mods layout change.
-	/// - Parameter notification: The notification that the user initiated a mods layout change.
+	///	Called after the mods view controller receives a notification that the user initiated a mods layout change.
+	///	- Parameter notification: The notification that the user initiated a mods layout change.
 	@objc func userDidInitiateModsLayoutChange(_ notification: Notification) {
 		displayIsHierarchical.toggle()
 		modsListView.reloadData()

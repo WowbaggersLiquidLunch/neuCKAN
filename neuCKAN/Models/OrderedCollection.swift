@@ -25,8 +25,8 @@ extension OrderedCollection {
 }
 
 extension OrderedCollection where Element: Comparable {
-	/// Returns the elements of the ordered collection, sorted.
-	/// - Returns: A sorted ordered collection of the ordered collection’s elements.
+	///	Returns the elements of the ordered collection, sorted.
+	///	- Returns: A sorted ordered collection of the ordered collection’s elements.
 	@inlinable func sorted() -> Self {
 		return sorted(by: <)
 	}

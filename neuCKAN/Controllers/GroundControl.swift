@@ -25,7 +25,7 @@ An instance of `GroundControl` serves to abstract out many common data-processin
 - TODO: Offload file system-facing data activities to `AirTrafficController`.
 */
 class GroundControl {
-	/// Initialises a `GroundControl` instance.
+	///	Initialises a `GroundControl` instance.
 	private init() {}
 	///	The shared, and only, `GroundControl` instance of this neuCKAN instance.
 	static let shared = GC()

@@ -12,8 +12,8 @@ import SwiftUI
 struct ModResourceButton: View {
 	///	Initialises a `ModResourceButton` instance with the specified resource.
 	///	- Parameters:
-	///		- resourceTitle: The name of the specified resource.
-	///		- resourceURL: The location of the specified resource.
+	///	  - resourceTitle: The name of the specified resource.
+	///	  - resourceURL: The location of the specified resource.
 	init(resourceTitle: String, resourceURL: URL) {
 		self.resourceTitle = resourceTitle
 		self.resourceURL = resourceURL
