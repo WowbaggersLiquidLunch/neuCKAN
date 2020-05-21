@@ -18,7 +18,7 @@ protocol OrderedCollectionOfUniqueElements: OrderedCollection, CollectionOfUniqu
 	///	  - areInIncreasingOrder: A predicate that returns `true` if its first argument should be ordered before its second argument; otherwise, `false`. If `areInIncreasingOrder` throws an error during the sort, the elements may be in a different order, but none will be lost.
 	///	- Returns: `(true, newMember)` if `newMember` was not contained in the collection. If an element equal to `newMember` was already contained in the collection, the method returns `(false, oldMember)`, where `oldMember` is the element that was equal to `newMember`. In some cases, `oldMember` may be distinguishable from `newMember` by identity comparison or some other means.
 	@discardableResult
-	mutating func insert(_ newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> (inserted: Bool, memberAfterInsert: Element)
+	mutating func insert(_ newMember: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> (inserted: Bool, memberAfterInsert: Element)
 	
 	///	Inserts the given element into the collection unconditionally, then sorts the collection in place, using the given predicate as the comparison between elements.
 	///
@@ -30,7 +30,7 @@ protocol OrderedCollectionOfUniqueElements: OrderedCollection, CollectionOfUniqu
 	///
 	///	  For collections where the collection type and element type are the same, this method returns any intersection between the collection and `[newMember]`, or `nil` if the intersection is empty.
 	@discardableResult
-	mutating func update(with newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element?
+	mutating func update(with newMember: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element?
 	
 	///	Removes the given element and any elements subsumed by the given element.
 	///	- Parameters:
@@ -40,26 +40,26 @@ protocol OrderedCollectionOfUniqueElements: OrderedCollection, CollectionOfUniqu
 	///
 	///	  For collections where the collection type and element type are the same, this method returns any intersection between the collection and `[member]`, or `nil` if the intersection is empty.
 	@discardableResult
-	mutating func remove(_ member: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element?
+	mutating func remove(_ member: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element?
 }
 
 extension OrderedCollectionOfUniqueElements {
 	@discardableResult
-	mutating func insert(_ newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> (inserted: Bool, memberAfterInsert: Element) {
+	mutating func insert(_ newMember: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> (inserted: Bool, memberAfterInsert: Element) {
 		let result = insert(newMember)
 		try sort(by: areInIncreasingOrder)
 		return result
 	}
 	
 	@discardableResult
-	mutating func update(with newMember: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
+	mutating func update(with newMember: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
 		let result = update(with: newMember)
 		try sort(by: areInIncreasingOrder)
 		return result
 	}
 	
 	@discardableResult
-	mutating func remove(_ member: Element, sortResultBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
+	mutating func remove(_ member: Element, sortSelfBy areInIncreasingOrder: (Self.Element, Self.Element) throws -> Bool) rethrows -> Element? {
 		let result = update(with: member)
 		try sort(by: areInIncreasingOrder)
 		return result
