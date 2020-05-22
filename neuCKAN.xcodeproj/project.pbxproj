@@ -74,10 +74,10 @@
 		B4ADB85624144C4200CA2930 /* NEUCKAN.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85524144C4200CA2930 /* NEUCKAN.Info.swift */; };
 		B4ADB8582415EE3E00CA2930 /* TargetsConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */; };
 		B4ADB8592415EE3E00CA2930 /* TargetsConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */; };
-		B4ADB85B2419AD5800CA2930 /* Defaultable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85A2419AD5800CA2930 /* Defaultable.swift */; };
-		B4ADB85C2419AD5800CA2930 /* Defaultable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85A2419AD5800CA2930 /* Defaultable.swift */; };
-		B4ADB85E2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85D2419ADAC00CA2930 /* EmptyRepresentable.swift */; };
-		B4ADB85F2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85D2419ADAC00CA2930 /* EmptyRepresentable.swift */; };
+		B4ADB85B2419AD5800CA2930 /* DefaultProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85A2419AD5800CA2930 /* DefaultProviding.swift */; };
+		B4ADB85C2419AD5800CA2930 /* DefaultProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85A2419AD5800CA2930 /* DefaultProviding.swift */; };
+		B4ADB85E2419ADAC00CA2930 /* EmptyInstanceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85D2419ADAC00CA2930 /* EmptyInstanceProviding.swift */; };
+		B4ADB85F2419ADAC00CA2930 /* EmptyInstanceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB85D2419ADAC00CA2930 /* EmptyInstanceProviding.swift */; };
 		B4ADB8612419F86500CA2930 /* ModReleaseManagementCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ADB8602419F86500CA2930 /* ModReleaseManagementCellView.swift */; };
 		B4B46DE12411C32300900B9E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B4B46DE02411C32300900B9E /* Alamofire */; };
 		B4B46DE32411FF7D00900B9E /* TargetConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */; };
@@ -191,8 +191,8 @@
 		B4ADB85324144BE900CA2930 /* NEUCKAN.Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.Tree.swift; sourceTree = "<group>"; };
 		B4ADB85524144C4200CA2930 /* NEUCKAN.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUCKAN.Info.swift; sourceTree = "<group>"; };
 		B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsConvertible.swift; sourceTree = "<group>"; };
-		B4ADB85A2419AD5800CA2930 /* Defaultable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaultable.swift; sourceTree = "<group>"; };
-		B4ADB85D2419ADAC00CA2930 /* EmptyRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRepresentable.swift; sourceTree = "<group>"; };
+		B4ADB85A2419AD5800CA2930 /* DefaultProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProviding.swift; sourceTree = "<group>"; };
+		B4ADB85D2419ADAC00CA2930 /* EmptyInstanceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInstanceProviding.swift; sourceTree = "<group>"; };
 		B4ADB8602419F86500CA2930 /* ModReleaseManagementCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModReleaseManagementCellView.swift; sourceTree = "<group>"; };
 		B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetConvertible.swift; sourceTree = "<group>"; };
 		B4B46DE8241329C100900B9E /* neuckan */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = neuckan; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -392,8 +392,8 @@
 				B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */,
 				B4D073AD245164E2008FF72C /* OrderedCollection.swift */,
 				B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */,
-				B4ADB85D2419ADAC00CA2930 /* EmptyRepresentable.swift */,
-				B4ADB85A2419AD5800CA2930 /* Defaultable.swift */,
+				B4ADB85D2419ADAC00CA2930 /* EmptyInstanceProviding.swift */,
+				B4ADB85A2419AD5800CA2930 /* DefaultProviding.swift */,
 				B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */,
 				B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */,
 				B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */,
@@ -610,7 +610,7 @@
 				B4315B6E23D57B0D005FC675 /* Filter.swift in Sources */,
 				B49B8653236C1C3F00DF758C /* Release.swift in Sources */,
 				B4D073B124516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */,
-				B4ADB85E2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */,
+				B4ADB85E2419ADAC00CA2930 /* EmptyInstanceProviding.swift in Sources */,
 				B4625E3B23F78A6A00EFDFA2 /* Targets.swift in Sources */,
 				B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */,
 				B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */,
@@ -648,7 +648,7 @@
 				B49B8655236C23F300DF758C /* Mod.swift in Sources */,
 				B4991D4A23C9E805005735FC /* DetailsViewController.swift in Sources */,
 				B4315B6823D54F12005FC675 /* MainVerticalSplitViewController.swift in Sources */,
-				B4ADB85B2419AD5800CA2930 /* Defaultable.swift in Sources */,
+				B4ADB85B2419AD5800CA2930 /* DefaultProviding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,9 +688,9 @@
 				B421B5B7241389C700955DC5 /* Requirements.swift in Sources */,
 				B4ADB84C24144B2C00CA2930 /* NEUCKAN.Install.swift in Sources */,
 				B4D073AC245160EF008FF72C /* CollectionOfUniqueElements.swift in Sources */,
-				B4ADB85F2419ADAC00CA2930 /* EmptyRepresentable.swift in Sources */,
+				B4ADB85F2419ADAC00CA2930 /* EmptyInstanceProviding.swift in Sources */,
 				B4ADB84E24144B4400CA2930 /* NEUCKAN.Uninstall.swift in Sources */,
-				B4ADB85C2419AD5800CA2930 /* Defaultable.swift in Sources */,
+				B4ADB85C2419AD5800CA2930 /* DefaultProviding.swift in Sources */,
 				B421B5B8241389C700955DC5 /* Requirement.swift in Sources */,
 				B421B5B9241389C700955DC5 /* Resources.swift in Sources */,
 				B421B5BA241389C700955DC5 /* Hash.swift in Sources */,
