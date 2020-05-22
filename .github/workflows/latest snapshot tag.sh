@@ -29,4 +29,4 @@ for TAG in "${TAGS[@]}" ;do
 	fi
 done
 
-echo "no snapshot for branch $BRANCH"
+echo "null"

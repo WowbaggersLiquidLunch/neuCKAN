@@ -29,24 +29,24 @@ jobs:
         run:  echo "::set-output name=tag::$(bash $GITHUB_WORKSPACE/.github/workflows/latest\ snapshot\ tag.sh)"
         
       - name: Checkout Latest Snapshot Tag of Current Branch
-        if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
+        if:   ${{ steps.tag.outputs.tag }} != "null"
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.tag.outputs.tag }}
           
       - name: Get Latest Snapshot Commit SHA
         id:   snapshotSHA
-        if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
+        if:   ${{ steps.tag.outputs.tag }} != "null"
         run:  echo "::set-output name=snapshotSHA::$(git rev-parse HEAD)"
         
       - name: Checkout Current Branch
-        if:   ${{ steps.tag.outputs.tag }} != "no snapshot for branch ${{ steps.branch.outputs.branch }}"
+        if:   ${{ steps.tag.outputs.tag }} != "null"
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.branch.outputs.branch }}
           
       - name: Tag Snapshot If Necessary
-        if:   ${{ steps.tag.outputs.tag }} == "no snapshot for branch ${{ steps.branch.outputs.branch }}" || ${{ steps.headSHA.outputs.headSHA }} != ${{ steps.snapshotSHA.outputs.snapshotSHA }}
+        if:   ${{ steps.tag.outputs.tag }} == "null" || ${{ steps.headSHA.outputs.headSHA }} != ${{ steps.snapshotSHA.outputs.snapshotSHA }}
         uses: tvdias/github-tagger@v0.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
