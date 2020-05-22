@@ -59,7 +59,7 @@ enum CKANFuckery<Item: Hashable & Comparable & CustomStringConvertible>: Hashabl
 }
 
 //	MARK: -Codable Conformance
-extension CKANFuckery: Codable where Item: Codable & Defaultable {
+extension CKANFuckery: Codable where Item: Codable & DefaultProviding {
 	
 	///	Instantiate `CKANFuckery` with the appropriate type by decoding from the given `decoder`.
 	///	- Parameter decoder: The decoder to read data from.

@@ -9,7 +9,7 @@
 import Foundation
 
 ///	A type that provides a default empty representation.
-protocol EmptyRepresentable: Defaultable {
+protocol EmptyRepresentable: DefaultProviding {
 	///	An empty instance of the type.
 	static var emptyInstance: Self { get }
 }

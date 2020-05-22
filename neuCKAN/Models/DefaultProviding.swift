@@ -1,5 +1,5 @@
 //
-//  Defaultable.swift
+//  DefaultProviding.swift
 //  neuCKAN
 //
 //  Created by you on 20-03-11.
@@ -9,7 +9,7 @@
 import Foundation
 
 ///	A type that provides a default instance when requested.
-protocol Defaultable {
+protocol DefaultProviding {
 	///	An instance of this type with a predefined composition.
 	static var defaultInstance: Self { get }
 }
