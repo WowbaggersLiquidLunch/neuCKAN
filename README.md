@@ -57,6 +57,7 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 | Planned                   | 0.0.7   | Undo/redo actions through Core Data integration.          |
 | Planned                   | 0.0.8   | Search and filter through Core Spotlight integration.     |
 | Planned                   | 0.0.9   | Preferences.                                              |
+| Planned                   | 0.0.10  | Metapackages.                                            |
 
 ### Other features unassigned to or depending on future alpha releases
 
