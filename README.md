@@ -21,7 +21,7 @@
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
 - [Some features, as planed so far](#some-features-as-planed-so-far)
 	- [Tentative alpha roadmap](#tentative-alpha-roadmap)
-	- [Other features](#other-features-unassigned-to-or-depending-on-future-alpha-releases)
+	- [Unscheduled features](#other-features-unassigned-to-or-depending-on-future-alpha-releases)
 - [Help, please...](#help-please)
 
 ---
@@ -48,7 +48,7 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 
 | status                    | version | features                                                  |
 | ------------------------- | ------- | --------------------------------------------------------- |
-| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare minimum proof of concept.                        |
+| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare-minimum proof of concept.                        |
 | [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                       |
 | In progress               | 0.0.3   | Sorting by some columns, and row actions.                 |
 | Planned                   | 0.0.4   | Persistant data storage through Core Data integration.    |
