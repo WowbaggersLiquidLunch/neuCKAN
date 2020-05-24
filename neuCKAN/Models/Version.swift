@@ -263,33 +263,6 @@ extension Version: Comparable {
 //	}
 }
 
-//	MARK: "Comparable Conformance" for [CKANVersionMinimalComparableUnit]
-//	Extends Array, so it knows how to compare 2 CKANVersionMinimalComparableUnit instances.
-fileprivate extension Array where Element == Version.CKANVersionMinimalComparableUnit {
-	static func < (lhs: [Element], rhs: [Element]) -> Bool {
-		for i in 0..<Swift.min(lhs.count, rhs.count) where lhs[i] < rhs[i] {
-			return true
-		}
-		return lhs.count < rhs.count
-	}
-}
-
-//	MARK: Comparable Conformance for String?
-//	Extendes Optional for String? comparison.
-extension Optional: Comparable where Wrapped == String {
-	public static func < (lhs: Optional<Wrapped>, rhs: Optional<Wrapped>) -> Bool {
-		if let lhs = lhs {
-			if let rhs = rhs {
-				return lhs < rhs
-			} else {
-				return false
-			}
-		} else {
-			return rhs != nil
-		}
-	}
-}
-
 //	MARK: - Collection Conformance
 extension Version: Collection {
 	
