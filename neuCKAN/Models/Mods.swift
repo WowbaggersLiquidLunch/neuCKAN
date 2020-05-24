@@ -62,7 +62,7 @@ extension Mods: OrderedCollectionOfUniqueElements {
 	
 	///	Accesses the mod at the specified position.
 	///
-	///	This subscript provides read-only access. For write access, use `subscript(id:)`.
+	///	This subscript provides both a getter and a setter, but the setter does not guarantee releases' uniqueness in result. It's advised to use `subscript(version:)` and `update(with:)` for setting a new release.
 	///
 	///	- Parameter position: The position of the mod to access. `position` must be a valid index of the mod collection that is not equal to the `endIndex` property.
 	///	- Returns: The mod at the specified index.
@@ -70,7 +70,6 @@ extension Mods: OrderedCollectionOfUniqueElements {
 	subscript(position: Index) -> Mod {
 		get { mods[position] }
 		set(newMod) { mods[position] = newMod }
-		
 	}
 	
 	//	MARK: OrderedCollection Conformance
