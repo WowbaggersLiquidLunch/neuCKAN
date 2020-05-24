@@ -220,7 +220,7 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	///
 	///	Do not call this initializer directly. It is used by the compiler when you use an array literal. Instead, create a new mod using an array literal as its value by enclosing a comma-separated list of releases in square brackets. You can use an array literal anywhere a mod is expected by the type context.
 	///
-	///	- Parameter arrayLiteral: A list of releases of the new mod.
+	///	- Parameter releases: A list of releases of the new mod.
 	///	- Important: Initialising a mod using an empty array literal results in a runtime error.
 	init(arrayLiteral releases: Release...) {
 		self.init(releases)
