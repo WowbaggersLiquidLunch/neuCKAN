@@ -27,11 +27,10 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	var endIndex: Index { variant.endIndex }
 	
+	//	Setter does not guarantee elements' uniqueness in result.
 	subscript(position: Index) -> Element {
 		get { variant[position] }
-		set(newElement) {
-			assertionFailure("Cannot guarantee elements' uniqueness")
-		}
+		set(newElement) { variant[position] = newElement }
 	}
 	
 	//	MARK: OrderedCollection Conformance
