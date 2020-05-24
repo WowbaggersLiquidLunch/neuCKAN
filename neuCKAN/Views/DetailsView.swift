@@ -41,7 +41,7 @@ struct DetailsView: View {
 								}
 								Spacer()
 							}
-							if self.release!.resources!.homepage != nil {
+							if self.release!.resources?.homepage != nil {
 								Spacer(minLength: 30)
 								VStack(alignment: .trailing) {
 									Text(self.release!.authors?.joined(separator: ", ") ?? "Anonymous author(s)")
