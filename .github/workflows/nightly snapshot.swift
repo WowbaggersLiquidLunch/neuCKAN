@@ -28,16 +28,16 @@ print("neuCKAN-\(branch)-snapshot-\(dateFormatter.string(from: date))")
 
 /// Executes a shell command with `/bin/bash`.
 /// - Parameter command: The command to execute.
-/// - Returns: The output from executing `command`.
+/// - Returns: The standard output from executing `command`.
 func bash(_ command: String) -> String {
-	let task = Process()
+	let process = Process()
 	let pipe = Pipe()
 	
-	task.standardOutput = pipe
-	task.arguments = ["-c", command]
-	task.launchPath = "/bin/bash"
-	task.launch()
-	//	task.waitUntilExit()
+	process.standardOutput = pipe
+	process.arguments = ["-c", command]
+	process.executableURL = URL(fileURLWithPath: "/bin/bash")
+	try! process.run()
+	//	process.waitUntilExit()
 	
 	let data = pipe.fileHandleForReading.readDataToEndOfFile()
 	return String(data: data, encoding: .utf8)!
