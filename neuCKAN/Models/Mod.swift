@@ -254,13 +254,14 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	///	Inserts the given release into the mod unconditionally.
 	///
-	///	If a release equal to `newRelease` is already contained in the mod, `newRelease` replaces the existing release.
+	///	If a release whose ID equal to `newRelease.id` is already contained in the mod, `newRelease` replaces the existing release.
 	///
 	///	- Parameter newRelease: A release to insert into the mod.
-	///	- Returns: A release equal to `newRelease` if the mod already contained such a member; otherwise, `nil`. In some cases, the returned release may be distinguishable from `newRelease` by identity comparison or some other means.
+	///	- Returns: A release whose ID is equal to `newRelease.id` if the mod already contained such a member; otherwise, `nil`. In some cases, the returned release may be distinguishable from `newRelease` by identity comparison or some other means.
 	@discardableResult
 	mutating func update(with newRelease: Release) -> Release? {
 		precondition(allowsMembership(of: newRelease), "A release's 'modID' must match the mod's 'id'")
+		releases.removeAll(where: { $0.id == newRelease.id } )
 		return releases.update(with: newRelease)
 	}
 	
