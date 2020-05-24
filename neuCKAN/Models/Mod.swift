@@ -238,7 +238,7 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	///	Inserts the given release in the mod if it is not already present.
 	///
-	///	If an release equal to `newRelease` is already contained in the mod, or if `newRelease.modID` isn't equal to `self.id`, this method has no effect.
+	///	If a release equal to `newRelease` is already contained in the mod, or if `newRelease.modID` isn't equal to `self.id`, this method has no effect.
 	///
 	///	- Parameter newRelease: A release to insert into the mod.
 	///	- Returns: `(true, newRelease)` if `newRelease` was not contained in the mod. If a release equal to `newRelease` was already contained in the mod, or if `newRelease.modID` isn't equal to `self.id`, the method returns `(false, oldRelease)`, where `oldRelease` is the release that was equal to `newRelease`. In some cases, `oldRelease` may be distinguishable from `newRelease` by identity comparison or some other means.
