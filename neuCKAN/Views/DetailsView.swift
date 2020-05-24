@@ -75,6 +75,7 @@ struct DetailsView: View {
 					.frame(minHeight: geometry.size.height)
 				}
 			}
+			.allowsTightening(true)
 		}
 	}
 }

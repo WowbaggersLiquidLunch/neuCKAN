@@ -51,7 +51,6 @@ struct TargetView: View {
 					.fontWeight(.medium)
 					.font(.system(.title, design: .default))
 					.lineLimit(1)
-					.allowsTightening(true)
 					.layoutPriority(1)
 				
 				//	TODO: Render "GameData/" in code format
@@ -60,8 +59,8 @@ struct TargetView: View {
 					.font(.system(.caption, design: (cursorIsHoveringOverRevealButton || cursorIsHoveringOverFollowLinkButton) ? .default : .monospaced))
 					.lineLimit(ancillaryTextSpansMultipleLines ? 5 : 1)
 					.onTapGesture { self.ancillaryTextSpansMultipleLines.toggle() }
-				
 			}
+			.allowsTightening(true)
 			.alignmentGuide(VerticalAlignment.center) { d in
 				DispatchQueue.main.async {
 					self.kspLogoHeight = d.height
