@@ -182,7 +182,6 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	///	Returns the position immediately after the given position.
 	///	- Parameter position: A valid polition of the mod release collection. `position` must be less than `endIndex`.
 	///	- Returns: The position value immediately after `position.`
-	///	- See Also: `endIndex`.
 	func index(after position: Index) -> Index { releases.index(after: position) }
 	
 	///	Accesses the mod release at the specified reverse-chronological position.
@@ -192,7 +191,6 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	///	- Parameter position: The position of the mod release to access. `position` must be a valid index of the mod release collection that is not equal to the `endIndex` property.
 	///	- Returns: The mod release at the specified reverse-chronological position.
 	///	- Complexity: O(1).
-	///	- See Also: `endIndex`.
 	subscript(position: Index) -> Release {
 		get { releases[position] }
 		set(newRelease) {
