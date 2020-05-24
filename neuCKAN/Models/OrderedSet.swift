@@ -29,7 +29,9 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	subscript(position: Index) -> Element {
 		get { variant[position] }
-		set(newElement) { variant[position] = newElement }
+		set(newElement) {
+			assertionFailure("Cannot guarantee elements' uniqueness")
+		}
 	}
 	
 	//	MARK: OrderedCollection Conformance
