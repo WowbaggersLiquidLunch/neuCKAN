@@ -201,8 +201,23 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: OrderedCollection Conformance
 	
-	mutating func replaceSubrange<C, R>(_ subrange: R, with newElements: C) where C : Collection, R : RangeExpression, Self.Element == C.Element, Self.Index == R.Bound {
-		releases.replaceSubrange(subrange, with: newElements)
+	///	Replaces the specified subrange of releases with the given collection thereof.
+	///
+	///	This method has the effect of removing the specified range of releases from the mod and inserting the new releases at the same location. The number of new releases need not match the number of releases being removed.
+	///
+	///	If you pass a zero-length range as the `subrange` parameter, this method inserts the releases of `newReleases` at `subrange.startIndex`. Calling the `insert(contentsOf:at:)` method instead is preferred.
+	///
+	///	Likewise, if you pass a zero-length collection as the `newReleases` parameter, this method removes the releases in the given subrange without replacement. Calling the `removeSubrange(_:)` method instead is preferred.
+	///
+	///	Calling this method may invalidate any existing indices for use with this mod.
+	///
+	///	- Parameters:
+	///	  - subrange: The subrange of the mod to replace. The bounds of the range must be valid indices of the mod.
+	///	  - newReleases: The new releases to add to the mod.
+	///
+	///	- Complexity: O(*n* + *m*), where *n* is length of this mod and *m* is the length of `newReleases`. If the call to this method simply appends the contents of `newReleases` to the mod, the complexity is O(*m*).
+	mutating func replaceSubrange<C: Collection, R: RangeExpression>(_ subrange: R, with newReleases: C) where C.Element == Release, R.Bound == Index {
+		releases.replaceSubrange(subrange, with: newReleases)
 	}
 	
 	//	MARK: CollectionOfUniqueElements Conformance
@@ -277,14 +292,19 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: Conformance Disambiguations
 	
-	init<S>(_ elements: S) where S : Sequence, Self.Element == S.Element {
-		let elements = Array(elements)
-		precondition(!elements.isEmpty, "Value of type 'Mod' can not be initialised empty")
-		precondition(elements.allSatisfy { $0.modID == elements.first!.modID } , "Releases of a Mod instance must have the same 'modID' property")
-		id = elements.first!.modID
-		releases = []
-		elements.forEach {
-			releases.insert($0)
+	///	Creates a new mod from a finite sequence of releases.
+	///
+	///	Use this initialiser to create a new mod from an existing sequence, like an array or a range, of releases.
+	///
+	///	- Parameter releases: The sequence of releases to use as members for the new mod. `releases` must be finite.
+	init<S: Sequence>(_ releases: S) where S.Element == Element {
+		let releases = Array(releases)
+		precondition(!releases.isEmpty, "Value of type 'Mod' can not be initialised empty")
+		precondition(releases.allSatisfy { $0.modID == releases.first!.modID } , "Releases of a Mod instance must have the same 'modID' property")
+		id = releases.first!.modID
+		self.releases = []
+		releases.forEach {
+			self.releases.insert($0)
 		}
 	}
 	

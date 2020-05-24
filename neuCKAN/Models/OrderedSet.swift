@@ -35,7 +35,7 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: OrderedCollection Conformance
 	
-	mutating func replaceSubrange<C, R>(_ subrange: R, with newElements: C) where C : Collection, R : RangeExpression, Self.Element == C.Element, Self.Index == R.Bound {
+	mutating func replaceSubrange<C: Collection, R: RangeExpression>(_ subrange: R, with newElements: C) where C.Element == Element, R.Bound == Index {
 		variant.replaceSubrange(subrange, with: newElements)
 	}
 	
@@ -81,7 +81,7 @@ extension OrderedSet: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: Conformance Disambiguations
 	
-	init<S>(_ elements: S) where S : Sequence, Self.Element == S.Element {
+	init<S: Sequence>(_ elements: S) where S.Element == Element {
 		variant = []
 		elements.forEach {
 			insert($0)
