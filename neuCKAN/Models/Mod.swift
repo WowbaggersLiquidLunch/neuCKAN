@@ -161,7 +161,7 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	//	MARK: Collection Conformance
 	
-	typealias Index = Array<Release>.Index
+	typealias Index = OrderedSet<Release>.Index
 	
 	///	The position of the latest release in a nonempty mod rrelease collection.
 	///
