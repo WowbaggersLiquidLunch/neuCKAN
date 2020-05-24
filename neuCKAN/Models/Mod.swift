@@ -292,7 +292,7 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	
 	///	Accesses the mod release associated with the given version for reading and writing.
 	///
-	///	This _version-based_ subscript's behaviour is similar to that of a dictionary's subscript's. It returns the release for the given version if the version is found in the mod, or `nil` if the version is not found. When this subscript is used for modifying the mod, the user-supplied new release must either have the same version as `version`, or be `nil`. If the new release is not `nil` and its version equals to `version`, the mod is updated with the new release; If it's `nil`, the old release with the given version is removed from mod. Mismatching versions results in a runtim error.
+	///	This _version-based_ subscript behaves similarly to that of a dictionary's. It returns the release for the given version if the version is found in the mod, or `nil` if the version is not found. When this subscript is used for modifying the mod, the user-supplied new release must either have the same version as `version`, or be `nil`. If the new release is not `nil` and its version equals to `version`, the mod is updated with the new release; If it's `nil`, the old release with the given version is removed from mod. Mismatching versions results in a runtim error.
 	///
 	///	- Parameter version: The version of the release to find in the mod.
 	///	- Returns: The release associated with `version` if `version` is in the mod; otherwise, `nil`.
