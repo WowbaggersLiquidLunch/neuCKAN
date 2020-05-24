@@ -184,9 +184,9 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	///	- Returns: The position value immediately after `position.`
 	func index(after position: Index) -> Index { releases.index(after: position) }
 	
-	///	Accesses the mod release at the specified reverse-chronological position.
+	///	Accesses the mod release at the specified position.
 	///
-	///	This subscript provides read-only access. For write access, use `subscript(version:)`.
+	///	This subscript provides both a getter and a setter, but the setter does not guarantee releases' uniqueness in result. It's advised to use `subscript(version:)` and `update(with:)` for setting a new release.
 	///
 	///	- Parameter position: The position of the mod release to access. `position` must be a valid index of the mod release collection that is not equal to the `endIndex` property.
 	///	- Returns: The mod release at the specified reverse-chronological position.
