@@ -10,7 +10,11 @@ import Foundation
 
 ///	A collection of unique elements.
 protocol CollectionOfUniqueElements: Hashable, Collection, SetAlgebra where Element: Hashable {
-	//	MARK: Adding and Removing Elements
+	//	MARK: Testing for Membership
+	///	Checks if the specified value is compatible as a member of this collection.
+	///	- Parameter element: The value to check for.
+	///	- Returns: `true` if it's possible for the specified value to exist as a member in this collection; `false` otherwise.
+	func allowsMembership(of element: Element) -> Bool
 	
 	//	MARK: Combining Collections
 	///	Returns a new collection with the elements of both this set and the given sequence.
@@ -45,6 +49,8 @@ extension CollectionOfUniqueElements {
 //	init() { self = [] }
 	
 	var isEmpty: Bool { startIndex == endIndex }
+	
+	func allowsMembership(of element: Element) -> Bool { true }
 	
 	func union<S: Sequence>(_ other: S) -> Self where Element == S.Element {
 		union(Self(other))
