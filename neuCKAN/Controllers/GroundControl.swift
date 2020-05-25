@@ -153,17 +153,17 @@ class GroundControl {
 				
 				//	Currently, there are 2 schemes for parsing the metadata files: one-by-one sequentially, and all-at-once concurrently. The sequential scheme is the default, until the concurrent scheme becomes stable. The user will retain both of these options, until the sequential scheme is rendered completely obsolete.
 				switch Preferences.metadataParsingScheme {
-				case .sequential:
-					ckanMetadataArchive.forEach { parseCKANMetadata(in: $0) }
-				case .concurrent:
-					//	TODO: Add progress bar.
-					//	FIXME: Foundation.Data.CompressionError in ZIPFoundation domain.
-					//	FIXME: Unstable behaviour: About ⅓ - ⅕ of all metadata fail to be parsed each time; results vary by run.
-					ckanMetadataArchive.forEach { entry in
-						ATC.shared.concurrentCKANMetadataParsingQueue.async(group: ATC.shared.metadataParsingGroup) {
-							parseCKANMetadata(in: entry)
+					case .sequential:
+						ckanMetadataArchive.forEach { parseCKANMetadata(in: $0) }
+					case .concurrent:
+						//	TODO: Add progress bar.
+						//	FIXME: Foundation.Data.CompressionError in ZIPFoundation domain.
+						//	FIXME: Unstable behaviour: About ⅓ - ⅕ of all metadata fail to be parsed each time; results vary by run.
+						ckanMetadataArchive.forEach { entry in
+							ATC.shared.concurrentCKANMetadataParsingQueue.async(group: ATC.shared.metadataParsingGroup) {
+								parseCKANMetadata(in: entry)
+							}
 						}
-					}
 				}
 				
 				//	FIXME: Redundant data: Fix logic to render temporaryMods and data-copy unnecessary.
@@ -242,31 +242,31 @@ class GroundControl {
 					if let installationDirectives = release.installationDirectives {
 						installationDirectives.forEach { installationDirective in
 							switch installationDirective.source {
-							case .absolutePath(let path):
-								guard let rootEntry = releaseArchive[path] else {
-									os_log("Invalid source path for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), path)
-									return
-								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							case .topMostMatch(let name):
-								guard let rootEntry = releaseArchive.first(where: { URL(fileURLWithPath: $0.path).lastPathComponent == name } ) else {
-									os_log("Invalid source name for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), name)
-									return
-								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							case .topMostMatchByRegex(let regexString):
-								guard let rootEntry = releaseArchive.first(where: { entry in
-									guard let topMostRegexMatch = installationDirective.source.regex?.firstMatch(in: entry.path, range: NSRange(entry.path.startIndex..., in: entry.path)) else {
-										return false
+								case .absolutePath(let path):
+									guard let rootEntry = releaseArchive[path] else {
+										os_log("Invalid source path for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), path)
+										return
 									}
-									let fullMatch = entry.path[Range(topMostRegexMatch.range(at: 0), in: entry.path)!]
-									return entry.path == fullMatch
-								}) else {
-									os_log("Invalid source regex for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), regexString)
-									return
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
+								case .topMostMatch(let name):
+									guard let rootEntry = releaseArchive.first(where: { URL(fileURLWithPath: $0.path).lastPathComponent == name } ) else {
+										os_log("Invalid source name for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), name)
+										return
+									}
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
+								case .topMostMatchByRegex(let regexString):
+									guard let rootEntry = releaseArchive.first(where: { entry in
+										guard let topMostRegexMatch = installationDirective.source.regex?.firstMatch(in: entry.path, range: NSRange(entry.path.startIndex..., in: entry.path)) else {
+											return false
+										}
+										let fullMatch = entry.path[Range(topMostRegexMatch.range(at: 0), in: entry.path)!]
+										return entry.path == fullMatch
+									}) else {
+										os_log("Invalid source regex for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), regexString)
+										return
+									}
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
 								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							}
 						}
 					} else {
 						guard let rootEntry = releaseArchive.first(where: { URL(string: $0.path)?.lastPathComponent == release.modID } ) else {

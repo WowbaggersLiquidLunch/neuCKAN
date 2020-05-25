@@ -122,11 +122,11 @@ struct Version: Hashable {
 		//	Comparable conformance
 		static func < (lhs: Version.CKANVersionMinimalComparableUnit, rhs: Version.CKANVersionMinimalComparableUnit) -> Bool {
 			switch (lhs, rhs) {
-			case (.numerical(let lhs), .numerical(let rhs)):
-				return lhs < rhs
-			case (.nonNumerical(let lhs), .nonNumerical(let rhs)):
-				return lhs < rhs
-			default:
+				case (.numerical(let lhs), .numerical(let rhs)):
+					return lhs < rhs
+				case (.nonNumerical(let lhs), .nonNumerical(let rhs)):
+					return lhs < rhs
+				default:
 				return false
 			}
 		}
@@ -368,10 +368,10 @@ extension Version.CKANVersionMinimalComparableUnit: CustomStringConvertible {
 	///	A textual representation of the smallest comparable unit.
 	var description: String {
 		switch self {
-		case .nonNumerical(let string):
-			return string
-		case .numerical(let number):
-			return String(number)
+			case .nonNumerical(let string):
+				return string
+			case .numerical(let number):
+				return String(number)
 		}
 	}
 }

@@ -512,12 +512,12 @@ class ModsViewController: NSViewController {
 	///	- Parameter viewType: The view type to set up the mods list view to.
 	private func setupModsListView(as viewType: ViewType) {
 //		switch viewType {
-//		case .outlineView:
+//			case .outlineView:
 //
-//		case .tableView:
+//			case .tableView:
 //
-//		default:
-//			<#code#>
+//			default:
+//				<#code#>
 //		}
 	}
 	///	Sets up menu bar menus.
@@ -676,9 +676,9 @@ fileprivate extension NSControl.StateValue {
 	///	Toggles a control's state.
 	mutating func toggle() {
 		switch self {
-		case .on, .mixed: self = .off
-		case .off: self = .on
-		default: break
+			case .on, .mixed: self = .off
+			case .off: self = .on
+			default: break
 		}
 	}
 }

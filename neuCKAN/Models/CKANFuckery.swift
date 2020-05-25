@@ -77,12 +77,12 @@ extension CKANFuckery: Codable where Item: Codable & DefaultProviding {
 	///	- Parameter encoder: The encoder to encode data to.
 	func encode(to encoder: Encoder) throws {
 		switch self {
-		case .item(let value):
-			var container = encoder.singleValueContainer()
-			try container.encode(value)
-		case .items(let values):
-			var container = encoder.unkeyedContainer()
-			try container.encode(values)
+			case .item(let value):
+				var container = encoder.singleValueContainer()
+				try container.encode(value)
+			case .items(let values):
+				var container = encoder.unkeyedContainer()
+				try container.encode(values)
 		}
 	}
 }
@@ -122,8 +122,8 @@ extension CKANFuckery: Collection {
 	///	- See Also: `startIndex`.
 	var endIndex: Index {
 		switch self {
-		case .item(let item): return OrderedSet([item]).endIndex
-		case .items(let items): return items.endIndex
+			case .item(let item): return OrderedSet([item]).endIndex
+			case .items(let items): return items.endIndex
 		}
 	}
 	
@@ -133,8 +133,8 @@ extension CKANFuckery: Collection {
 	///	- See Also: `endIndex`.
 	func index(after i: Index) -> Index {
 		switch self {
-		case .item(let item): return OrderedSet([item]).index(after: i)
-		case .items(let items): return items.index(after: i)
+			case .item(let item): return OrderedSet([item]).index(after: i)
+			case .items(let items): return items.index(after: i)
 		}
 	}
 	
@@ -145,24 +145,24 @@ extension CKANFuckery: Collection {
 	subscript(position: Index) -> Item {
 		get {
 			switch self {
-			case .item(let item): return OrderedSet([item])[position]
-			case .items(let items): return items[position]
+				case .item(let item): return OrderedSet([item])[position]
+				case .items(let items): return items[position]
 			}
 		}
 		set(newItem) {
 			switch self {
-			case .item(let item):
-				guard item != newItem else { return }
-				self = .items([item, newItem])
-			case .items(let items):
-				if items.count == 0 {
-					self = .item(newItem)
-				} else  {
-					var variableItems = items
-					variableItems[position] = newItem
-					self = .items(variableItems)
+				case .item(let item):
+					guard item != newItem else { return }
+					self = .items([item, newItem])
+				case .items(let items):
+					if items.count == 0 {
+						self = .item(newItem)
+					} else  {
+						var variableItems = items
+						variableItems[position] = newItem
+						self = .items(variableItems)
+					}
 				}
-			}
 		}
 	}
 }
@@ -179,10 +179,10 @@ extension CKANFuckery: CustomStringConvertible {
 	///	A human-readable representation of its content.
 	var description: String {
 		switch self {
-		case .item(let item):
-			return String(describing: item)
-		case .items(let items):
-			return items.map{ String(describing: $0) }.sorted(by: <).joined(separator: ", ")
+			case .item(let item):
+				return String(describing: item)
+			case .items(let items):
+				return items.map{ String(describing: $0) }.sorted(by: <).joined(separator: ", ")
 		}
 	}
 }

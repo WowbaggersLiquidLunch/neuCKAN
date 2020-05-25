@@ -18,14 +18,14 @@ struct ModResourceButton: View {
 		self.resourceTitle = resourceTitle
 		self.resourceURL = resourceURL
 		switch resourceTitle {
-		case "Home Page": hostLogo = Image("safari.fill")
-		case "GitHub": hostLogo = Image("GitHub Mark")
-		case "SpaceDock": hostLogo = Image("SpaceDock Badge")
-		case "CurseForge": hostLogo = Image("CurseForge Anvil")
-		case "CI": hostLogo = Image("Bot")
-		case "Bug Tracker": hostLogo = Image("exclamationmark.bubble")
-		case "Manual": hostLogo = Image("book.fill")
-		default: hostLogo = Image("safari.fill")
+			case "Home Page": hostLogo = Image("safari.fill")
+			case "GitHub": hostLogo = Image("GitHub Mark")
+			case "SpaceDock": hostLogo = Image("SpaceDock Badge")
+			case "CurseForge": hostLogo = Image("CurseForge Anvil")
+			case "CI": hostLogo = Image("Bot")
+			case "Bug Tracker": hostLogo = Image("exclamationmark.bubble")
+			case "Manual": hostLogo = Image("book.fill")
+			default: hostLogo = Image("safari.fill")
 		}
 	}
 	///	The resource's logo's height, calculated from its title's heights.

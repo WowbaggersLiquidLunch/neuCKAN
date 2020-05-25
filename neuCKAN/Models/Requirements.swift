@@ -52,12 +52,12 @@ indirect enum Requirements: Hashable {
 	///	A logic expression describing the `Requirements` instance.
 	var logicExpression: String {
 		switch self {
-		case let .leaf(requirement):
-			return String(describing: requirement)
-		case let .disjunction(requirements):
-			return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∨ ")
-		case let .conjunction(requirements):
-			return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∧ ")
+			case let .leaf(requirement):
+				return String(describing: requirement)
+			case let .disjunction(requirements):
+				return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∨ ")
+			case let .conjunction(requirements):
+				return requirements.map { "(\(String(describing: $0)))" }.joined(separator: " ∧ ")
 		}
 	}
 }
@@ -87,12 +87,12 @@ extension Requirements: Codable {
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.unkeyedContainer()
 		switch self {
-		case .leaf(let requirement):
-			try container.encode(requirement)
-		case .conjunction(let requirements):
-			try container.encode(contentsOf: requirements)
-		case .disjunction(let requirements):
-			try container.encode(IntermediateDisjunctionService(Requirements.disjunction(requirements)))
+			case .leaf(let requirement):
+				try container.encode(requirement)
+			case .conjunction(let requirements):
+				try container.encode(contentsOf: requirements)
+			case .disjunction(let requirements):
+				try container.encode(IntermediateDisjunctionService(Requirements.disjunction(requirements)))
 		}
 	}
 	

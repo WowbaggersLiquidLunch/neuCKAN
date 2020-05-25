@@ -43,9 +43,9 @@ class MainVerticalSplitViewController: NSSplitViewController {
 	///	- Parameter notification: The notification that the user initiated a window layout change.
 	@objc func userDidInitiateWindowLayoutChange(_ notification: Notification) {
 		switch (notification.object as? NSSegmentedControl)?.selectedSegment {
-		case 0: toggleCollapse(of: targetsSplitViewItem)
-		case 2: toggleCollapse(of: detailsSplitViewItem)
-		default: break
+			case 0: toggleCollapse(of: targetsSplitViewItem)
+			case 2: toggleCollapse(of: detailsSplitViewItem)
+			default: break
 		}
 	}
 	

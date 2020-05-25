@@ -33,8 +33,8 @@ struct Targets: Hashable {
 		targets.compactMap { $0?.asTarget() } .forEach { target in
 			if let oldTargetIndex = temporaryTargets.firstIndex(where: { $0.inode == target.inode } ) {
 				switch conflictHandlingScheme {
-				case .preserveFirstOccurence: break
-				case .updatePreviousOccurence: temporaryTargets[oldTargetIndex] = target
+					case .preserveFirstOccurence: break
+					case .updatePreviousOccurence: temporaryTargets[oldTargetIndex] = target
 				}
 			} else {
 				temporaryTargets.append(target)

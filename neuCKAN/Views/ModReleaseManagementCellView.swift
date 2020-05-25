@@ -35,39 +35,39 @@ class ModReleaseManagementCellView: NSTableCellView {
 		
         // Drawing code here.
 		switch state {
-		case .uninstalled:
-			actionButton.title = "Install"
-		case .upgradable:
-			actionButton.title = "Upgrade"
-		case .downgradable:
-			actionButton.title = "Downgrade"
-		case .installed:
-			actionButton.title = "Uninstall"
-		default: break
+			case .uninstalled:
+				actionButton.title = "Install"
+			case .upgradable:
+				actionButton.title = "Upgrade"
+			case .downgradable:
+				actionButton.title = "Downgrade"
+			case .installed:
+				actionButton.title = "Uninstall"
+			default: break
 		}
     }
 	///	Manages the mod release.
 	@IBAction func manageModRelease(_ sender: NSButton) {
 		var managedRelease: Release!
 		switch managedInstanceType {
-		case .mod(let mod):
-			managedRelease = mod.first!
-		case .release(let release):
-			managedRelease = release
-		case .none:
-			assertionFailure("managedInstanceType can't be nil")
+			case .mod(let mod):
+				managedRelease = mod.first!
+			case .release(let release):
+				managedRelease = release
+			case .none:
+				assertionFailure("managedInstanceType can't be nil")
 		}
 		switch state {
-		case .upgradable, .downgradable:
-			//	TODO: Uninstall currently installed version.
-			fallthrough
-		case .uninstalled:
-			GC.shared.install(managedRelease, for: managedTargets)
-		case .installed:
-			//	TODO: Uninstall selected version.
-			break
-		case .none:
-			assertionFailure("state can't be nil")
+			case .upgradable, .downgradable:
+				//	TODO: Uninstall currently installed version.
+				fallthrough
+			case .uninstalled:
+				GC.shared.install(managedRelease, for: managedTargets)
+			case .installed:
+				//	TODO: Uninstall selected version.
+				break
+			case .none:
+				assertionFailure("state can't be nil")
 		}
 	}
 }
