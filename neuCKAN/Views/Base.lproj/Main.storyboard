@@ -998,6 +998,7 @@
                                 <viewController key="viewController" id="Z1N-1r-pFy">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1hI-H8-r0A" userLabel="Touch Bar Launch KSP Button">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarPlayTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T4D-TI-zOt">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1014,6 +1015,7 @@
                                 <viewController key="viewController" id="zmA-NX-w10">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r43-cO-AbP">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Axu-8k-zqc">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1064,6 +1066,7 @@
                                 <viewController key="viewController" id="sv7-kA-B9t">
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAx-SF-FF4">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="Touch Bar Mods Layout Switch - Unexpandable" imagePosition="only" alignment="center" alternateImage="Touch Bar Mods Layout Switch - Expandable" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rcL-ce-OvW">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1078,6 +1081,7 @@
                                 <viewController key="viewController" id="euE-lY-rJt">
                                     <segmentedControl key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLP-Ie-PPD">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectAny" id="DKS-Sa-5rH">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -1479,7 +1483,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lzQ-lV-Rg2">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="TTm-qi-rTw"/>
                                                                     </constraints>
@@ -1518,7 +1522,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-GY-T2a">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="UlQ-iR-rP8"/>
                                                                     </constraints>
@@ -1557,7 +1561,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="zfH-pa-BXq">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="pdP-Bb-g9h"/>
                                                                     </constraints>
@@ -1674,7 +1678,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Jsg-kC-1w7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="S78-gb-KgL"/>
                                                                     </constraints>
@@ -1713,7 +1717,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5uV-H4-0tn">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="2yy-cy-rHW"/>
                                                                     </constraints>
@@ -1752,7 +1756,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="MD2-gR-RwG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="Jqj-46-5tV"/>
                                                                     </constraints>
@@ -1791,7 +1795,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="n5r-zm-4vN">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="T6j-At-wTm"/>
                                                                     </constraints>
@@ -1830,7 +1834,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="H3I-yQ-Vd0">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="oax-SO-Zdf"/>
                                                                     </constraints>
@@ -1869,7 +1873,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TWe-Sf-gcG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="bzU-qx-m44"/>
                                                                     </constraints>
@@ -1908,7 +1912,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d8r-9f-PeK">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="bAl-8R-cpZ"/>
                                                                     </constraints>
@@ -1947,7 +1951,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3fG-RJ-kxy">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="1sr-bX-3Wo"/>
                                                                     </constraints>
@@ -1986,7 +1990,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="RgM-Bb-mlp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="74k-p8-gl4"/>
                                                                     </constraints>
@@ -2025,7 +2029,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wF9-fr-C31">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="Ust-Wj-Vrz"/>
                                                                     </constraints>
@@ -2064,7 +2068,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kDQ-4w-tQi">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="WTm-n9-fDI"/>
                                                                     </constraints>
@@ -2103,7 +2107,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rak-nm-i50">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="97W-9g-dC5"/>
                                                                     </constraints>
@@ -2142,7 +2146,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wsy-Xu-ihp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="hJf-Wx-feD"/>
                                                                     </constraints>
@@ -2181,7 +2185,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7Ag-Bi-lnC">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="rfz-R3-FXf"/>
                                                                     </constraints>
@@ -2220,7 +2224,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vE5-aX-uSr">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="17"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="4" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="TQc-So-bN4"/>
                                                                     </constraints>
