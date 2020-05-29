@@ -90,6 +90,7 @@
 		B4C1DFBA23EA830300E31F81 /* Mods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFB923EA830300E31F81 /* Mods.swift */; };
 		B4C1DFBC23EBFB0100E31F81 /* GroundControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */; };
 		B4C1DFBF23F074F000E31F81 /* AirTrafficControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */; };
+		B4CCF9EE2481BCF900F702E1 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CCF9ED2481BCF900F702E1 /* Operators.swift */; };
 		B4D073A8245160B5008FF72C /* CollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */; };
 		B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A9245160EA008FF72C /* OrderedSet.swift */; };
 		B4D073AB245160EA008FF72C /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073A9245160EA008FF72C /* OrderedSet.swift */; };
@@ -201,6 +202,7 @@
 		B4C1DFBB23EBFB0100E31F81 /* GroundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundControl.swift; sourceTree = "<group>"; };
 		B4C1DFBD23EE951B00E31F81 /* ACKNOWLEDGEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGEMENTS.md; sourceTree = "<group>"; };
 		B4C1DFBE23F074F000E31F81 /* AirTrafficControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControl.swift; sourceTree = "<group>"; };
+		B4CCF9ED2481BCF900F702E1 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		B4D073A7245160B5008FF72C /* CollectionOfUniqueElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionOfUniqueElements.swift; sourceTree = "<group>"; };
 		B4D073A9245160EA008FF72C /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		B4D073AD245164E2008FF72C /* OrderedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedCollection.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */,
 				B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */,
 				B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */,
+				B4CCF9ED2481BCF900F702E1 /* Operators.swift */,
 				B4DAAA8024783F6400EF7320 /* Common Extensions.swift */,
 				B469D12F24031D9D00DA5EF0 /* Notification Names.swift */,
 			);
@@ -616,6 +619,7 @@
 				B46E75792372995C00C09306 /* Requirement.swift in Sources */,
 				B4C1DFBF23F074F000E31F81 /* AirTrafficControl.swift in Sources */,
 				B4991D4423C9E58D005735FC /* MainWindowController.swift in Sources */,
+				B4CCF9EE2481BCF900F702E1 /* Operators.swift in Sources */,
 				B46E75702372782200C09306 /* InstallationDirective.swift in Sources */,
 				B46E757223727BC700C09306 /* Version.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
