@@ -98,6 +98,8 @@
 		B4D073AF245164E2008FF72C /* OrderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073AD245164E2008FF72C /* OrderedCollection.swift */; };
 		B4D073B124516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */; };
 		B4D073B224516536008FF72C /* OrderedCollectionOfUniqueElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */; };
+		B4DAAA8124783F6500EF7320 /* Common Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DAAA8024783F6400EF7320 /* Common Extensions.swift */; };
+		B4DAAA8224783FF200EF7320 /* Common Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DAAA8024783F6400EF7320 /* Common Extensions.swift */; };
 		B4FB2F0E24397D3F001E3655 /* ModPreviewSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */; };
 		B4FD6EE623B34CAB00A57174 /* CKANFuckery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */; };
 /* End PBXBuildFile section */
@@ -203,6 +205,7 @@
 		B4D073A9245160EA008FF72C /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		B4D073AD245164E2008FF72C /* OrderedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedCollection.swift; sourceTree = "<group>"; };
 		B4D073B024516536008FF72C /* OrderedCollectionOfUniqueElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedCollectionOfUniqueElements.swift; sourceTree = "<group>"; };
+		B4DAAA8024783F6400EF7320 /* Common Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Common Extensions.swift"; sourceTree = "<group>"; };
 		B4FB2F0D24397D3F001E3655 /* ModPreviewSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModPreviewSlide.swift; sourceTree = "<group>"; };
 		B4FD6EE523B34CAB00A57174 /* CKANFuckery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKANFuckery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,6 +380,7 @@
 				B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */,
 				B4B46DE22411FF7D00900B9E /* TargetConvertible.swift */,
 				B4ADB8572415EE3E00CA2930 /* TargetsConvertible.swift */,
+				B4DAAA8024783F6400EF7320 /* Common Extensions.swift */,
 				B469D12F24031D9D00DA5EF0 /* Notification Names.swift */,
 			);
 			path = Models;
@@ -593,6 +597,7 @@
 				B4ADB85E2419ADAC00CA2930 /* EmptyInstanceProviding.swift in Sources */,
 				B4625E3B23F78A6A00EFDFA2 /* Targets.swift in Sources */,
 				B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */,
+				B4DAAA8124783F6500EF7320 /* Common Extensions.swift in Sources */,
 				B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */,
 				B4D073A8245160B5008FF72C /* CollectionOfUniqueElements.swift in Sources */,
 				B4ADB8582415EE3E00CA2930 /* TargetsConvertible.swift in Sources */,
@@ -678,6 +683,7 @@
 				B421B5BB241389C700955DC5 /* CKANFuckery.swift in Sources */,
 				B421B5BC241389C700955DC5 /* FileURLConvertible.swift in Sources */,
 				B4ADB85424144BE900CA2930 /* NEUCKAN.Tree.swift in Sources */,
+				B4DAAA8224783FF200EF7320 /* Common Extensions.swift in Sources */,
 				B421B5BD241389C700955DC5 /* TargetConvertible.swift in Sources */,
 				B4ADB844241449A900CA2930 /* NEUCKAN.Target.swift in Sources */,
 				B421B5BE241389C700955DC5 /* Notification Names.swift in Sources */,

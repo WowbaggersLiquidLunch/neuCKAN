@@ -87,12 +87,6 @@ extension CKANFuckery: Codable where Item: Codable & DefaultProviding {
 	}
 }
 
-extension NSRegularExpression: Comparable {
-	public static func < (lhs: NSRegularExpression, rhs: NSRegularExpression) -> Bool {
-		return lhs.pattern < rhs.pattern
-	}
-}
-
 //	MARK: - Collection Conformance
 extension CKANFuckery: Collection {
 	
