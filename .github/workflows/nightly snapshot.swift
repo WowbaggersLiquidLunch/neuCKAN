@@ -17,7 +17,7 @@ let lastTag = tags.first(where: { tag in
 	return tagComponents.count > 1 && tagComponents[1] == branch
 })
 
-guard lastTag == nil || bash("git show-ref -s \(lastTag!)") != headCommitSHA else { exit(EXIT_SUCCESS) }
+guard lastTag == nil || bash("git show-ref -s \(lastTag!)") != headCommitSHA else { print("") }
 
 let date = Date()
 let dateFormatter = ISO8601DateFormatter()
