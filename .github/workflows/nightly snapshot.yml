@@ -17,7 +17,7 @@ jobs:
         run:  echo "::set-output name=newTag::$(swift $GITHUB_WORKSPACE/.github/workflows/nightly\ snapshot.swift)"
           
       - name: Tag Snapshot
-        if:   steps.newTag.outputs.newTag != ""
+        if:   steps.newTag.outputs.newTag != ''
         uses: tvdias/github-tagger@v0.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
