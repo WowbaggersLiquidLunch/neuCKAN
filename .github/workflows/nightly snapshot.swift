@@ -29,6 +29,7 @@ print("neuCKAN-\(branch)-snapshot-\(dateFormatter.string(from: date))")
 /// Executes a shell command with `/bin/bash`.
 /// - Parameter command: The command to execute.
 /// - Returns: The standard output from executing `command`.
+@discardableResult
 func bash(_ command: String) -> String {
 	let process = Process()
 	let pipe = Pipe()
