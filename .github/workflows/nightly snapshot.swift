@@ -12,10 +12,7 @@ let branch = bash("git rev-parse --abbrev-ref HEAD").split(separator: "\n")[0]
 let headCommitSHA = bash("git rev-parse HEAD")
 let tags = bash("git rev-parse --abbrev-ref --tags").split(separator: "\n")
 
-let lastTag = tags.first(where: { tag in
-	let tagComponents = tag.split(separator: "-")
-	return tagComponents.count > 1 && tagComponents[1] == branch
-})
+let lastTag = tags.first(where: { $0.hasPrefix("neuCKAN-\(branch)-snapshot-") })
 
 guard lastTag == nil || bash("git rev-parse \(lastTag!)") != headCommitSHA else { exit(EXIT_SUCCESS) }
 
