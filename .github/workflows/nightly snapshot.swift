@@ -8,7 +8,7 @@
 
 import Foundation
 
-let branch = bash("git rev-parse --abbrev-ref HEAD").split(separator: "\n")[0]
+let branch = bash("git rev-parse --abbrev-ref HEAD")
 let headCommitSHA = bash("git rev-parse HEAD")
 let tags = bash("git rev-parse --abbrev-ref --tags").split(separator: "\n")
 
@@ -38,5 +38,17 @@ func bash(_ command: String) -> String {
 	//	process.waitUntilExit()
 	
 	let data = pipe.fileHandleForReading.readDataToEndOfFile()
-	return String(data: data, encoding: .utf8)!
+	
+	guard let standardOutput = String(data: data, encoding: .utf8) else {
+		FileHandle.standardError.write(Data("Error in reading standard output data".utf8))
+		exit(EXIT_FAILURE)
+	}
+	
+	if standardOutput.last == "\n" {
+		var standardOutputCopy = standardOutput
+		standardOutputCopy.removeLast()
+		return standardOutputCopy
+	} else {
+		return standardOutput
+	}
 }
