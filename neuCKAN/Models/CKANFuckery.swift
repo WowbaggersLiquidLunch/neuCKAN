@@ -156,7 +156,7 @@ extension CKANFuckery: Collection {
 						variableItems[position] = newItem
 						self = .items(variableItems)
 					}
-				}
+			}
 		}
 	}
 }
