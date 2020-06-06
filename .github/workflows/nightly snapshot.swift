@@ -12,9 +12,10 @@ let branch = bash("git rev-parse --abbrev-ref HEAD")
 let headCommitSHA = bash("git rev-parse HEAD")
 let tags = bash("git rev-parse --abbrev-ref --tags").split(separator: "\n")
 
-let lastTag = tags.last(where: { $0.hasPrefix("neuCKAN-\(branch)-snapshot-") })
+let branchSnapshots = tags.filter { $0.hasPrefix("neuCKAN-\(branch)-snapshot-") }
+let branchSnapshotsAreOutdated = branchSnapshots.allSatisfy { bash("git show-ref -s \($0)") != headCommitSHA }
 
-guard lastTag == nil || bash("git rev-parse \(lastTag!)") != headCommitSHA else { exit(EXIT_SUCCESS) }
+guard branchSnapshotsAreOutdated else { exit(EXIT_SUCCESS) }
 
 let date = Date()
 let dateFormatter = ISO8601DateFormatter()
