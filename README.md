@@ -46,18 +46,19 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 
 ### Tentative alpha roadmap
 
-| status                    | version | features                                                  |
-| ------------------------- | ------- | --------------------------------------------------------- |
-| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare-minimum proof of concept.                        |
-| [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                       |
-| In progress               | 0.0.3   | Sorting by some columns, and row actions.                 |
-| Planned                   | 0.0.4   | Persistant data storage through Core Data integration.    |
-| Planned                   | 0.0.5   | Mod dependencies/conflicts/suggestions/recommendations... |
-| Planned                   | 0.0.6   | CLI                                                       |
-| Planned                   | 0.0.7   | Undo/redo actions through Core Data integration.          |
-| Planned                   | 0.0.8   | Search and filter through Core Spotlight integration.     |
-| Planned                   | 0.0.9   | Preferences.                                              |
-| Planned                   | 0.0.10  | Metapackages.                                            |
+| status                    | version | features                                                     |
+| ------------------------- | ------- | ------------------------------------------------------------ |
+| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare-minimum proof of concept.                           |
+| [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                          |
+| In progress               | 0.0.3   | ~~Sorting by some columns, and row actions.~~ (Delayed to after data persitence)<br />"Under-the-hood" structural changes. |
+| In progress               | 0.0.4   | Data persistence.                                            |
+| In progress               | 0.0.5   | Sorting by some columns, and row actions.                    |
+| Planned                   | 0.0.6   | Mod dependencies/conflicts/suggestions/recommendations...    |
+| Planned                   | 0.0.7   | CLI                                                          |
+| Planned                   | 0.0.8   | Undo/redo actions through Core Data integration.             |
+| Planned                   | 0.0.9   | Search and filter through Core Spotlight integration.        |
+| Planned                   | 0.0.10  | Preferences.                                                 |
+| Planned                   | 0.0.11  | Metapackages.                                                |
 
 ### Other features unassigned to or depending on future alpha releases
 
@@ -80,7 +81,7 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ### Urgent
 
-- Dependency graph for mods. (PRIORITY for 0.0.5)
+- Dependency graph for mods. (PRIORITY for 0.0.6)
 - spacedock URLs aren't very friendly.
 	- Some spacedock URLs can not be parsed from CKAN metadata files into Swift's `URL` type, although the links themselves are correct.
 	- Mods hosted on spacedock can not be downloaded using [Alamofire](https://github.com/Alamofire/Alamofire), although the links themselves are correct.
