@@ -75,6 +75,10 @@ In general, ["being consistent is better than being right. You will experience f
 	
 	For documentation with multiple lines.
 	*/
+	
+	///	Or this style.
+	///	
+	///	For visual consistency.
 	```
 	and
 	```
