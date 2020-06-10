@@ -453,7 +453,7 @@ struct Release: Hashable {
 //	MARK: - Identifiable Conformance
 //	TODO: Add Identifiable conformance once tuples have Hashable conformance.
 extension Release {
-	/// The unique identifier of the mod release, composed of the mod ID and version.
+	///	The unique identifier of the mod release, composed of the mod ID and version.
 	var id: (String, Version) { (modID, version) }
 }
 

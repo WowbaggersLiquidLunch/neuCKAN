@@ -63,8 +63,8 @@ class MainWindowController: NSWindowController {
 	@IBAction func initiateModsLayoutChange(_ sender: Any) {
 		NotificationCenter.default.post(name: .userDidInitiateModsLayoutChange, object: sender)
 	}
-	/// Called when the main window controller receives a notification that the mods layout did change.
-	/// - Parameter notification: The notification that the mod layout did change.
+	///	Called when the main window controller receives a notification that the mods layout did change.
+	///	- Parameter notification: The notification that the mod layout did change.
 	@objc func modsLayoutDidChange(_ notification: Notification) {
 		guard let modsLayoutIsHierarchical = notification.object as? Bool else { return }
 		toolbarModsLayoutButton.state = NSControl.StateValue(rawValue: modsLayoutIsHierarchical ? 0 : 1)
@@ -83,4 +83,9 @@ class MainWindowController: NSWindowController {
 			touchBarWindowLayoutControl.setSelected(!splitViewItem.isCollapsed, forSegment: index)
 		}
 	}
+}
+
+//	MARK: NSMenuDelegate Conformance
+extension MainWindowController: NSMenuDelegate {
+	
 }

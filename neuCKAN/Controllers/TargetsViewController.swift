@@ -164,10 +164,10 @@ extension TargetsViewController: NSOutlineViewDataSource {
 		//
 		func targetsCount(of targets: Targets) -> Int {
 			switch targets.groupingLevel {
-			case .root: if targetsAreGroupedByMajorVersion { return targets.majorVersionGroups.count }; fallthrough
-			case .major: if targetsAreGroupedByMinorVersion { return targets.minorVersionGroups.count }; fallthrough
-			case .minor: if targetsAreGroupedByPatchVersion { return targets.patchVersionGroups.count }; fallthrough
-			default: return targets.count
+				case .root: if targetsAreGroupedByMajorVersion { return targets.majorVersionGroups.count }; fallthrough
+				case .major: if targetsAreGroupedByMinorVersion { return targets.minorVersionGroups.count }; fallthrough
+				case .minor: if targetsAreGroupedByPatchVersion { return targets.patchVersionGroups.count }; fallthrough
+				default: return targets.count
 			}
 		}
 		//
@@ -184,10 +184,10 @@ extension TargetsViewController: NSOutlineViewDataSource {
 		//
 		func child(of targets: Targets) -> Any {
 			switch targets.groupingLevel {
-			case .root: if targetsAreGroupedByMajorVersion { return targets.majorVersionGroups[targets.majorVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
-			case .major: if targetsAreGroupedByMinorVersion { return targets.minorVersionGroups[targets.minorVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
-			case .minor: if targetsAreGroupedByPatchVersion { return targets.patchVersionGroups[targets.patchVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
-			default: return targets[index]
+				case .root: if targetsAreGroupedByMajorVersion { return targets.majorVersionGroups[targets.majorVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
+				case .major: if targetsAreGroupedByMinorVersion { return targets.minorVersionGroups[targets.minorVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
+				case .minor: if targetsAreGroupedByPatchVersion { return targets.patchVersionGroups[targets.patchVersionGroups.keys.sorted(by: >)[index]] ?? 0 }; fallthrough
+				default: return targets[index]
 			}
 		}
 		
@@ -210,10 +210,10 @@ extension TargetsViewController: NSOutlineViewDelegate {
 	func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
 		if let targets = item as? Targets {
 			switch targets.groupingLevel {
-			case .root: if targetsAreGroupedByMajorVersion { return true }
-			case .major: if targetsAreGroupedByMinorVersion { return true }
-			case .minor: if targetsAreGroupedByPatchVersion { return true }
-			default: break
+				case .root: if targetsAreGroupedByMajorVersion { return true }
+				case .major: if targetsAreGroupedByMinorVersion { return true }
+				case .minor: if targetsAreGroupedByPatchVersion { return true }
+				default: break
 			}
 		}
 		return false

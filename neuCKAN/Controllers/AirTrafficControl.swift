@@ -10,7 +10,7 @@ import Foundation
 
 ///	Acronym for Air Traffic Control.
 typealias ATC = AirTrafficControl
-/// The main controller for managing queues and file system-facing tasks.
+///	The main controller for managing queues and file system-facing tasks.
 class AirTrafficControl {
 	///	Initialises a `AirTrafficControl` instance.
 	private init() {}

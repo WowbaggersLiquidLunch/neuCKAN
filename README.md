@@ -1,15 +1,17 @@
+<p align="center">
+	<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN logo" height="256"  />
+</p>
 <h1 align="center">
-	<sub>
-		<img src="neuCKAN/Assets.xcassets/AppIcon.appiconset/draft-3.png" alt="neuCKAN's logo" height="256"  />
-	</sub>
-	<br>
 	not entirely unlike CKAN
 </h1>
-<p align="center">	<!-- Pronounciation -->
+<p align="center">
 	Or, neuCKAN, pronounced as <code>| n(j)u(ː)(siː)kæn, n(j)u(ː)(siː)kan, nɔʏ̯t͡seːkan, nœ(se)kɑ̃ |</code> or however you like, a mod manager for Kerbal Space Program that's not entirely unlike CKAN.
 </p>
 
-![nightly snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=develop&event=schedule)
+| branch      | status                                                       |
+| ----------- | ------------------------------------------------------------ |
+| master      | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=master) |
+| development | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=development) |
 
 ---
 
@@ -18,6 +20,8 @@
 - [Why?](#why)
 - [What is neuCKAN exactly?](#what-is-neuckan-exactly)
 - [Some features, as planed so far](#some-features-as-planed-so-far)
+	- [Tentative alpha roadmap](#tentative-alpha-roadmap)
+	- [Unscheduled features](#other-features-unassigned-to-or-depending-on-future-alpha-releases)
 - [Help, please...](#help-please)
 
 ---
@@ -30,15 +34,33 @@ In addition to [CKAN's GUI not being supported on macOS Catalina](https://github
 
 neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with [CKAN](https://github.com/KSP-CKAN/CKAN), and it uses [CKAN metadata](https://github.com/KSP-CKAN/CKAN-meta), but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
 
-This is what the GUI looks like in [neuCKAN 0.0.2](https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2):
+This is what the GUI looks like in [neuCKAN 0.0.3][neuCKAN 0.0.3]:
 
-![neuCKAN 0.0.2 screenshot](Documentation/Screenshots/0.0.2/windowed.png)
+![neuCKAN 0.0.3 screenshot](Documentation/Screenshots/0.0.3/windowed.png)
 
-As you can see from the screenshot, the mod manager is very much incomplete. In future releases, the blank space on the right will show details of a mod release, and the blank space on the bottom will show statistics, such as system resource usage and distribution of mods installed by their keywords. Functionally, as of now, it can only install mods that are not hosted on [spacedock](https://spacedock.info). If you would like to help make neuCKAN better, propel it forward, please check out the [contribution guide](CONTRIBUTING.md)
+As you can see from the screenshot, the mod manager is very much incomplete. In future releases, the blank space on the bottom will show statistics, such as system resource usage and distribution of mods installed by their keywords. Functionally, as of now, it can only install mods that are not hosted on [spacedock](https://spacedock.info). If you would like to help make neuCKAN better, propel it forward, please check out the [contribution guide](CONTRIBUTING.md)
 
-Although this project started as a KSP mod manager on macOS, it will not end in just being a KSP mod manger on macOS. With Swift already on Linux, and Swift 5.3 officialy coming to Windows in 6 months, there is no reason not to expand the project's scope to building for Linux and Windows in the future.
+Although this project started as a KSP mod manager on macOS, it will not end in just being a KSP mod manger on macOS. With Swift already on Linux, Swift 5.3 officialy coming to Windows in 6 months, and [WinUI support under way](https://forums.swift.org/t/documenting-winui-support-progress/35592), there is no reason not to expand the project's scope to building for Linux and Windows in the future.
 
-## Some features, as planed so far:
+## Some features, as planed so far
+
+### Tentative alpha roadmap
+
+| status                    | version | features                                                     |
+| ------------------------- | ------- | ------------------------------------------------------------ |
+| [Released][neuCKAN 0.0.1] | 0.0.1   | The bare-minimum proof of concept.                           |
+| [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                          |
+| [Released][neuCKAN 0.0.3] | 0.0.3   | ~~Sorting by some columns, and row actions.~~ (Delayed to after data persitence)<br />"Under-the-hood" structural changes. |
+| In progress               | 0.0.4   | Data persistence.                                            |
+| In progress               | 0.0.5   | Sorting by some columns, and row actions.                    |
+| Planned                   | 0.0.6   | Mod dependencies/conflicts/suggestions/recommendations...    |
+| Planned                   | 0.0.7   | CLI                                                          |
+| Planned                   | 0.0.8   | Undo/redo actions through Core Data integration.             |
+| Planned                   | 0.0.9   | Search and filter through Core Spotlight integration.        |
+| Planned                   | 0.0.10  | Preferences.                                                 |
+| Planned                   | 0.0.11  | Metapackages.                                                |
+
+### Other features unassigned to or depending on future alpha releases
 
 - Full localization, with automatic text directionality handled by cocoa natively.
 - Full help manual.
@@ -59,11 +81,11 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ### Urgent
 
+- Dependency graph for mods. (PRIORITY for 0.0.6)
 - spacedock URLs aren't very friendly.
 	- Some spacedock URLs can not be parsed from CKAN metadata files into Swift's `URL` type, although the links themselves are correct.
 	- Mods hosted on spacedock can not be downloaded using [Alamofire](https://github.com/Alamofire/Alamofire), although the links themselves are correct.
 - CKAN metadata parsing fails when files are parsed concurrently.
-- Dependency graph for mods.
 - Unit tests and all sorts of tests.
 
 ### Not so urgent
@@ -81,7 +103,7 @@ Here are some areas in the project with which I absolutely need help from more t
 
 ## Release Process
 
-The alpha phase will have a fast iterative development process. There will be nightly snapshots, as well as proper, versioned alpha releases. Because of the program is still far from stable, there will be no installers provided in the alpha phase.
+The alpha phase will have a fast iterative development process. There will be nightly snapshots, as well as proper, versioned alpha releases. Because the program is still far from stable, there will be no installers provided in the alpha phase.
 
 ---
 
@@ -92,3 +114,7 @@ The alpha phase will have a fast iterative development process. There will be ni
 		</a>
 	</sub>
 </p>	
+
+[neuCKAN 0.0.1]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.1
+[neuCKAN 0.0.2]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2
+[neuCKAN 0.0.3]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.3

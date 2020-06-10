@@ -25,7 +25,7 @@ An instance of `GroundControl` serves to abstract out many common data-processin
 - TODO: Offload file system-facing data activities to `AirTrafficController`.
 */
 class GroundControl {
-	/// Initialises a `GroundControl` instance.
+	///	Initialises a `GroundControl` instance.
 	private init() {}
 	///	The shared, and only, `GroundControl` instance of this neuCKAN instance.
 	static let shared = GC()
@@ -144,26 +144,26 @@ class GroundControl {
 			//	FIXME: Check internet connection first.
 			AF.request(metadataRepository).validate().responseData(queue: ATC.shared.concurrentNetworkResponseQueue) { response in
 				guard let responseData = response.data else {
-					os_log("Failed to receive data from CKAN metadata repository.", log: .default, type: .info)
+					os_log("Failed to receive data from CKAN metadata repository.", type: .info)
 					return
 				}
 				guard let ckanMetadataArchive = Archive(data: responseData, accessMode: .read) else { return }
 				
 				var temporaryMods: Mods = Synecdoche.shared.mods
 				
-				//	Currently, there are 2 schemes for parding the metadata files: one-by-one sequentially, and all-at-once concurrently. The sequential scheme is the default, until the concurrent scheme becomes stable. The user will retain both of these options, until the sequential scheme is rendered completely obsolete.
+				//	Currently, there are 2 schemes for parsing the metadata files: one-by-one sequentially, and all-at-once concurrently. The sequential scheme is the default, until the concurrent scheme becomes stable. The user will retain both of these options, until the sequential scheme is rendered completely obsolete.
 				switch Preferences.metadataParsingScheme {
-				case .sequential:
-					ckanMetadataArchive.forEach { parseCKANMetadata(in: $0) }
-				case .concurrent:
-					//	TODO: Add progress bar.
-					//	FIXME: Foundation.Data.CompressionError in ZIPFoundation domain.
-					//	FIXME: Unstable behaviour: About ⅓ - ⅕ of all metadata fail to be parsed each time; results vary by run.
-					ckanMetadataArchive.forEach { entry in
-						ATC.shared.concurrentCKANMetadataParsingQueue.async(group: ATC.shared.metadataParsingGroup) {
-							parseCKANMetadata(in: entry)
+					case .sequential:
+						ckanMetadataArchive.forEach { parseCKANMetadata(in: $0) }
+					case .concurrent:
+						//	TODO: Add progress bar.
+						//	FIXME: Foundation.Data.CompressionError in ZIPFoundation domain.
+						//	FIXME: Unstable behaviour: About ⅓ - ⅕ of all metadata fail to be parsed each time; results vary by run.
+						ckanMetadataArchive.forEach { entry in
+							ATC.shared.concurrentCKANMetadataParsingQueue.async(group: ATC.shared.metadataParsingGroup) {
+								parseCKANMetadata(in: entry)
+							}
 						}
-					}
 				}
 				
 				//	FIXME: Redundant data: Fix logic to render temporaryMods and data-copy unnecessary.
@@ -173,7 +173,7 @@ class GroundControl {
 				func parseCKANMetadata(in entry: Entry) {
 					//	Ignore directories, symlinks, and top-level files.
 					guard let standardisedEntryPath = URL(string: entry.path)?.standardized else {
-						os_log("Unable to form an URL from entry path %@.", log: .default, type: .debug, entry.path)
+						os_log("Unable to form an URL from entry path %@.", log: .default, type: .error, entry.path)
 						return
 					}
 					guard entry.type == .file && standardisedEntryPath.deletingLastPathComponent().lastPathComponent != "CKAN-meta-master" else { return }
@@ -183,25 +183,25 @@ class GroundControl {
 							ATC.shared.modsAssemblyQueue.sync { temporaryMods.insert(release) }
 						}
 					} catch Archive.ArchiveError.unreadableArchive {
-						os_log("Unable to extract %@: Archive file damaged or otherwise inaccessible.", log: .default, type: .error, entry.path)
+						os_log("Unable to extract %@: Archive file damaged or otherwise inaccessible.", type: .error, entry.path)
 					} catch Archive.ArchiveError.invalidEntryPath {
-						os_log("Unable to extract %@: Entry path invalid.", log: .default, type: .error, entry.path)
+						os_log("Unable to extract %@: Entry path invalid.", type: .error, entry.path)
 					} catch Archive.ArchiveError.invalidCompressionMethod {
-						os_log("Unable to extract %@: Compression method invalid.", log: .default, type: .error, entry.path)
+						os_log("Unable to extract %@: Compression method invalid.", type: .error, entry.path)
 					} catch Archive.ArchiveError.cancelledOperation {
-						os_log("Unable to extract %@: Extraction cancelled.", log: .default, type: .error, entry.path)
+						os_log("Unable to extract %@: Extraction cancelled.", type: .error, entry.path)
 					} catch DecodingError.dataCorrupted(let context) {
-						os_log("Unable to decode %@: JSON data corrupted or otherwise invalid.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", log: .default, type: .error, entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
+						os_log("Unable to decode %@: JSON data corrupted or otherwise invalid.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", type: .error, entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
 					} catch DecodingError.keyNotFound(let key, let context){
-						os_log("Unable to decode for key %@ in %@: Key not found.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", log: .default, type: .error, key.debugDescription, entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
+						os_log("Unable to decode for key %@ in %@: Key not found.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", type: .error, key.debugDescription, entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
 					} catch DecodingError.typeMismatch(let type, let context){
-						os_log("Unable to decode for type %@ in %@: Type mismatch.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", log: .default, type: .error, String(describing: type), entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
+						os_log("Unable to decode for type %@ in %@: Type mismatch.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", type: .error, String(describing: type), entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
 					} catch DecodingError.valueNotFound(let type, let context){
-						os_log("Unable to decode non-optional value of type %@ in %@: Value not found.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", log: .default, type: .error, String(describing: type), entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
+						os_log("Unable to decode non-optional value of type %@ in %@: Value not found.\n\tThe decode call failed at %@.\n\tDetails: %@\n\tUnderlying error: %@.", type: .error, String(describing: type), entry.path, context.codingPath.debugDescription, context.debugDescription, context.underlyingError?.localizedDescription ?? "Unspecified")
 					} catch let nsError as NSError {
-						os_log("Unable to decude %@ due to error in domain %@: %@", log: .default, type: .error, entry.path, nsError.domain, nsError.localizedDescription)
-					} catch {
-						os_log("Unable to decode %@ due to an unknown error.", log: .default, type: .error, entry.path)
+						os_log("Unable to decude %@ due to error in domain %@: %@", type: .error, entry.path, nsError.domain, nsError.localizedDescription)
+					} catch let error {
+						os_log("Unable to decode %@ due to an error: %@.", type: .error, entry.path, error.localizedDescription)
 					}
 				}
 			}
@@ -221,7 +221,7 @@ class GroundControl {
 		//	Check if the targets provided are valid. There is no point in doing anything if the targets are invalid.
 		let targets = targets.compactMap { $0.asTarget() }
 		guard !targets.isEmpty else {
-			os_log("Invalid target(s):\n\t%@.", log: .default, type: .error, String(describing: targets))
+			os_log("Invalid target(s):\n\t%@.", type: .error, String(describing: targets))
 			return
 		}
 		//	TODO: Add locking mechanism.
@@ -232,7 +232,7 @@ class GroundControl {
 			releases.forEach { release in
 				AF.request(release.downloadLink).validate().responseData(queue: ATC.shared.concurrentNetworkResponseQueue) { response in
 					guard let responseData = response.data else {
-						os_log("Failed to receive data from %@.", log: .default, type: .info, release.downloadLink.absoluteString)
+						os_log("Failed to receive data from %@.", type: .info, release.downloadLink.absoluteString)
 						return
 					}
 					
@@ -242,35 +242,35 @@ class GroundControl {
 					if let installationDirectives = release.installationDirectives {
 						installationDirectives.forEach { installationDirective in
 							switch installationDirective.source {
-							case .absolutePath(let path):
-								guard let rootEntry = releaseArchive[path] else {
-									os_log("Invalid source path for %@ %@:\n\t%@.", log: .default, type: .info, release.name, String(describing: release.version), path)
-									return
-								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							case .topMostMatch(let name):
-								guard let rootEntry = releaseArchive.first(where: { URL(fileURLWithPath: $0.path).lastPathComponent == name } ) else {
-									os_log("Invalid source name for %@ %@:\n\t%@.", log: .default, type: .info, release.name, String(describing: release.version), name)
-									return
-								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							case .topMostMatchByRegex(let regexString):
-								guard let rootEntry = releaseArchive.first(where: { entry in
-									guard let topMostRegexMatch = installationDirective.source.regex?.firstMatch(in: entry.path, range: NSRange(entry.path.startIndex..., in: entry.path)) else {
-										return false
+								case .absolutePath(let path):
+									guard let rootEntry = releaseArchive[path] else {
+										os_log("Invalid source path for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), path)
+										return
 									}
-									let fullMatch = entry.path[Range(topMostRegexMatch.range(at: 0), in: entry.path)!]
-									return entry.path == fullMatch
-								}) else {
-									os_log("Invalid source regex for %@ %@:\n\t%@.", log: .default, type: .info, release.name, String(describing: release.version), regexString)
-									return
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
+								case .topMostMatch(let name):
+									guard let rootEntry = releaseArchive.first(where: { URL(fileURLWithPath: $0.path).lastPathComponent == name } ) else {
+										os_log("Invalid source name for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), name)
+										return
+									}
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
+								case .topMostMatchByRegex(let regexString):
+									guard let rootEntry = releaseArchive.first(where: { entry in
+										guard let topMostRegexMatch = installationDirective.source.regex?.firstMatch(in: entry.path, range: NSRange(entry.path.startIndex..., in: entry.path)) else {
+											return false
+										}
+										let fullMatch = entry.path[Range(topMostRegexMatch.range(at: 0), in: entry.path)!]
+										return entry.path == fullMatch
+									}) else {
+										os_log("Invalid source regex for %@ %@:\n\t%@.", type: .info, release.name, String(describing: release.version), regexString)
+										return
+									}
+									unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
 								}
-								unzip(releaseArchive, forEntriesUnder: rootEntry, using: installationDirective)
-							}
 						}
 					} else {
 						guard let rootEntry = releaseArchive.first(where: { URL(string: $0.path)?.lastPathComponent == release.modID } ) else {
-							os_log("Invalid directory structure for %@ %@:\n\tNo GameData/ in lieu of installation directives.", log: .default, type: .info, release.name, String(describing: release.version))
+							os_log("Invalid directory structure for %@ %@:\n\tNo GameData/ in lieu of installation directives.", type: .info, release.name, String(describing: release.version))
 							return
 						}
 						unzip(releaseArchive, forEntriesUnder: rootEntry)
@@ -280,7 +280,7 @@ class GroundControl {
 				//	TODO: Optimise.
 				func unzip(_ archive: Archive, forEntriesUnder rootEntry: Entry, using directive: InstallationDirective? = nil) {
 					guard let baseEntryPath = directive?.alias != nil ? rootEntry.path : URL(string: rootEntry.path)?.deletingLastPathComponent().path else {
-						os_log("Unable to form an URL from entry path %@.", log: .default, type: .debug, rootEntry.path)
+						os_log("Unable to form an URL from entry path %@.", type: .error, rootEntry.path)
 						return
 					}
 					archive.filter {
@@ -297,19 +297,19 @@ class GroundControl {
 							do {
 								_ = try archive.extract(entry, to: target.path.appendingPathComponent(directive?.destination ?? "GameData").appendingPathComponent(String(relativeEntryPath)).standardized.resolvingSymlinksInPath(), skipCRC32: true, progress: nil)
 							} catch Archive.ArchiveError.unreadableArchive {
-								os_log("Unable to extract %@ for %@ %@: Archive file damaged or otherwise inaccessible.", log: .default, type: .error, entry.path, release.name, String(describing: release.version))
+								os_log("Unable to extract %@ for %@ %@: Archive file damaged or otherwise inaccessible.", type: .error, entry.path, release.name, String(describing: release.version))
 							} catch Archive.ArchiveError.invalidEntryPath {
-								os_log("Unable to extract %@ for %@ %@: Entry path invalid.", log: .default, type: .error, entry.path, release.name, String(describing: release.version))
+								os_log("Unable to extract %@ for %@ %@: Entry path invalid.", type: .error, entry.path, release.name, String(describing: release.version))
 							} catch Archive.ArchiveError.invalidCompressionMethod {
-								os_log("Unable to extract %@ for %@ %@: Compression method invalid.", log: .default, type: .error, entry.path, release.name, String(describing: release.version))
+								os_log("Unable to extract %@ for %@ %@: Compression method invalid.", type: .error, entry.path, release.name, String(describing: release.version))
 							} catch Archive.ArchiveError.cancelledOperation {
-								os_log("Unable to extract %@ for %@ %@: Extraction cancelled.", log: .default, type: .error, entry.path, release.name, String(describing: release.version))
+								os_log("Unable to extract %@ for %@ %@: Extraction cancelled.", type: .error, entry.path, release.name, String(describing: release.version))
 							} catch let cocoaError as CocoaError {
-								os_log("Unable to extract %@ for %@ %@ due to a cocoa error: %@.", log: .default, type: .debug, entry.path, release.name, String(describing: release.version), cocoaError.localizedDescription)
+								os_log("Unable to extract %@ for %@ %@ due to a cocoa error: %@.", type: .debug, entry.path, release.name, String(describing: release.version), cocoaError.localizedDescription)
 							} catch let nsError as NSError {
-								os_log("Unable to extract %@ for %@ %@ due to an error in domain %@: %@.", log: .default, type: .debug, entry.path, release.name, String(describing: release.version), nsError.domain, nsError.localizedDescription)
-							} catch {
-								os_log("Unable to extract %@ for %@ %@ due to an unknown error.", log: .default, type: .debug, entry.path, release.name, String(describing: release.version))
+								os_log("Unable to extract %@ for %@ %@ due to an error in domain %@: %@.", type: .debug, entry.path, release.name, String(describing: release.version), nsError.domain, nsError.localizedDescription)
+							} catch let error {
+								os_log("Unable to extract %@ for %@ %@ due to an error: %@.", type: .debug, entry.path, release.name, String(describing: release.version), error.localizedDescription)
 							}
 						}
 					}

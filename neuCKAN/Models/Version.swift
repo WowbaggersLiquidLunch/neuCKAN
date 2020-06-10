@@ -122,11 +122,11 @@ struct Version: Hashable {
 		//	Comparable conformance
 		static func < (lhs: Version.CKANVersionMinimalComparableUnit, rhs: Version.CKANVersionMinimalComparableUnit) -> Bool {
 			switch (lhs, rhs) {
-			case (.numerical(let lhs), .numerical(let rhs)):
-				return lhs < rhs
-			case (.nonNumerical(let lhs), .nonNumerical(let rhs)):
-				return lhs < rhs
-			default:
+				case (.numerical(let lhs), .numerical(let rhs)):
+					return lhs < rhs
+				case (.nonNumerical(let lhs), .nonNumerical(let rhs)):
+					return lhs < rhs
+				default:
 				return false
 			}
 		}
@@ -217,22 +217,32 @@ extension Version: Comparable {
 //		if universalCompatibilityExistsIn(lhs, rhs) {
 //			return true
 //		}
-		if let lhs = lhs.epoch, let rhs = rhs.epoch {
-			return lhs < rhs
+		if let lhsEpoch = lhs.epoch, let rhsEpoch = rhs.epoch {
+			//	Compare epoches, if present.
+			return lhsEpoch < rhsEpoch
 		} else {
-			for i in 0..<Swift.min(lhs.quasiSemanticVersion.count, rhs.quasiSemanticVersion.count) {
-				if lhs.quasiSemanticVersion[i] != rhs.quasiSemanticVersion[i] {
-					return lhs.quasiSemanticVersion[i] < rhs.quasiSemanticVersion[i]
-				}
-			}
-			if lhs.quasiSemanticVersion.count == rhs.quasiSemanticVersion.count {
-				if let lhs = lhs.releaseSuffix, let rhs = rhs.releaseSuffix {
-					return lhs < rhs
+			//	Compare the rest, if without epoches.
+			if lhs.quasiSemanticVersion != rhs.quasiSemanticVersion {
+				//	FIXME: Add Comparable conformance to VersionSegment.
+				//	Compare the quasi-semantic components, if they are not equal.
+				return lhs.quasiSemanticVersion.lexicographicallyPrecedes(rhs.quasiSemanticVersion, by: { lhsVersionSegment, rhsVersionSegment in
+					lhsVersionSegment.lexicographicallyPrecedes(rhsVersionSegment)
+				})
+			} else {
+				//	If the quasi-semantic components are equal, check the release suffixes.
+				if let lhsReleaseSuffix = lhs.releaseSuffix, let rhsReleaseSuffix = rhs.releaseSuffix, lhsReleaseSuffix != rhsReleaseSuffix {
+					//	Compare the release suffixes, if they are present and unequal.
+					return lhsReleaseSuffix < rhsReleaseSuffix
+				} else if lhs.releaseSuffix == nil && rhs.releaseSuffix != nil {
+					//	Left-hand side > right-hand side, if left-hand side has no release suffix but right-hand side does.
+					return false
+				} else if lhs.releaseSuffix != nil && rhs.releaseSuffix == nil {
+					//	Left-hand side < right-hand side, if left-hand side has release suffix but right-hand side doesn't.
+					return true
 				} else {
+					//	As the last resort, compare the original version strings directly.
 					return lhs.originalString < rhs.originalString
 				}
-			} else {
-				return lhs.quasiSemanticVersion.count < rhs.quasiSemanticVersion.count
 			}
 		}
 	}
@@ -251,35 +261,6 @@ extension Version: Comparable {
 //	static func universalCompatibilityExistsIn(_ lhs: Self, _ rhs: Self) -> Bool {
 //		return lhs.originalString == universallyCompatibleVersionString || rhs.originalString == universallyCompatibleVersionString
 //	}
-}
-
-//	MARK: "Comparable Conformance" for [CKANVersionMinimalComparableUnit]
-//	Extends Array, so it knows how to compare 2 CKANVersionMinimalComparableUnit instances.
-fileprivate extension Array where Element == Version.CKANVersionMinimalComparableUnit {
-	static func < (lhs: [Element], rhs: [Element]) -> Bool {
-		for i in 0..<Swift.min(lhs.count, rhs.count) {
-			if lhs[i] < rhs[i] {
-				return true
-			}
-		}
-		return lhs.count < rhs.count
-	}
-}
-
-//	MARK: Comparable Conformance for String?
-//	Extendes Optional for String? comparison.
-extension Optional: Comparable where Wrapped == String {
-	public static func < (lhs: Optional<Wrapped>, rhs: Optional<Wrapped>) -> Bool {
-		if let lhs = lhs {
-			if let rhs = rhs {
-				return lhs < rhs
-			} else {
-				return false
-			}
-		} else {
-			return rhs != nil
-		}
-	}
 }
 
 //	MARK: - Collection Conformance
@@ -350,6 +331,27 @@ extension Version: Collection {
 	subscript<R>(r: R) -> String where R : RangeExpression, R.Bound == Index { self[r.relative(to: self)] }
 }
 
+//	MARK: - ExpressibleByStringLiteral Conformance
+extension Version: ExpressibleByStringLiteral {
+	init(stringLiteral value: String) {
+		self.init(value)
+	}
+}
+
+//	MARK: ExpressibleByExtendedGraphemeClusterLiteral Conformance
+extension Version: ExpressibleByExtendedGraphemeClusterLiteral {
+	public init(extendedGraphemeClusterLiteral value: String) {
+		self.init(stringLiteral: value)
+	}
+}
+
+//	MARK: ExpressibleByUnicodeScalarLiteral Conformance
+extension Version: ExpressibleByUnicodeScalarLiteral {
+	public init(unicodeScalarLiteral value: String) {
+		self.init(stringLiteral: value)
+	}
+}
+
 //	MARK: - CustomStringConvertible Conformance
 extension Version: CustomStringConvertible {
 	///	A textual representation of the version.
@@ -366,10 +368,10 @@ extension Version.CKANVersionMinimalComparableUnit: CustomStringConvertible {
 	///	A textual representation of the smallest comparable unit.
 	var description: String {
 		switch self {
-		case .nonNumerical(let string):
-			return string
-		case .numerical(let number):
-			return String(number)
+			case .nonNumerical(let string):
+				return string
+			case .numerical(let number):
+				return String(number)
 		}
 	}
 }

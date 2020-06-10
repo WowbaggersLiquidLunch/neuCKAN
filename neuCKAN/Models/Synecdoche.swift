@@ -18,13 +18,13 @@ The single, shared instance of this type represents all essential data for conti
 
 - Remark: synecdoche | sɪˈnɛkdəki | _noun_ a figure of speech in which a part is made to represent the whole or vice versa, as in _England lost by six wickets_ (meaning "the English cricket team").
 */
-struct Synecdoche{
-	/// Initialises a `Synecdoche` instance.
+struct Synecdoche {
+	///	Initialises a `Synecdoche` instance.
 	private init() {
 		//	TODO: Load from persistent data storage; continue from last session.
-		self.targets = Targets()
-		self.mods = Mods()
-		self.selectedTargets = Targets()
+		targets = []
+		mods = []
+		selectedTargets = []
 	}
 	
 	//	MARK: - Singleton

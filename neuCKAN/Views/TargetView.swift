@@ -19,7 +19,7 @@ struct TargetView: View {
 	@State private var cursorIsHoveringOverFollowLinkButton: Bool = false
 	///	A flag indicating whether the ancillary text should take more than one line.
 	@State private var ancillaryTextSpansMultipleLines: Bool = false
-	/// KSP logo's height, calculated from its `HStack` siblings' heights.
+	///	KSP logo's height, calculated from its `HStack` siblings' heights.
 	@State private var kspLogoHeight: CGFloat = 0
 	///	The target to display.
 	let target: Target
@@ -51,7 +51,6 @@ struct TargetView: View {
 					.fontWeight(.medium)
 					.font(.system(.title, design: .default))
 					.lineLimit(1)
-					.allowsTightening(true)
 					.layoutPriority(1)
 				
 				//	TODO: Render "GameData/" in code format
@@ -60,8 +59,8 @@ struct TargetView: View {
 					.font(.system(.caption, design: (cursorIsHoveringOverRevealButton || cursorIsHoveringOverFollowLinkButton) ? .default : .monospaced))
 					.lineLimit(ancillaryTextSpansMultipleLines ? 5 : 1)
 					.onTapGesture { self.ancillaryTextSpansMultipleLines.toggle() }
-				
 			}
+			.allowsTightening(true)
 			.alignmentGuide(VerticalAlignment.center) { d in
 				DispatchQueue.main.async {
 					self.kspLogoHeight = d.height
@@ -125,7 +124,7 @@ struct TargetView: View {
 
 //	https://stackoverflow.com/questions/59129089/swiftui-how-to-display-tooltip-hint-on-mouse-move-on-some-object
 //extension View {
-//	/// Overlays this view with a view that provides a toolTip with the given string.
+//	///	Overlays this view with a view that provides a toolTip with the given string.
 //	func toolTip(_ toolTip: String?) -> some View {
 //		self.overlay(TooltipView(toolTip))
 //	}

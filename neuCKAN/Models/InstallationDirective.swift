@@ -78,10 +78,10 @@ struct InstallationDirective: Hashable {
 		*/
 		var regex: NSRegularExpression? {
 			switch self {
-			case .topMostMatchByRegex(let regexString):
-				return try? NSRegularExpression(pattern: regexString, options: .caseInsensitive)
-			default:
-				return nil
+				case .topMostMatchByRegex(let regexString):
+					return try? NSRegularExpression(pattern: regexString, options: .caseInsensitive)
+				default:
+					return nil
 			}
 		}
 	}
@@ -220,12 +220,12 @@ extension InstallationDirective: Codable {
 		
 		//	MARK: Encode Source Directive
 		switch source {
-		case .absolutePath(let directive):
-			try container.encode(directive, forKey: .absolutePath)
-		case .topMostMatch(let directive):
-			try container.encode(directive, forKey: .topMostMatch)
-		case .topMostMatchByRegex(let directive):
-			try container.encode(directive, forKey: .topMostMatchByRegex)
+			case .absolutePath(let directive):
+				try container.encode(directive, forKey: .absolutePath)
+			case .topMostMatch(let directive):
+				try container.encode(directive, forKey: .topMostMatch)
+			case .topMostMatchByRegex(let directive):
+				try container.encode(directive, forKey: .topMostMatchByRegex)
 		}
 		
 		//	MARK: Decode Destination Directive
