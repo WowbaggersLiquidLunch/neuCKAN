@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Target" representedClassName="ManagedTarget" syncable="YES" codeGenerationType="class">
+        <attribute name="inode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="path" optional="YES" attributeType="URI" spotlightIndexingEnabled="YES"/>
+        <attribute name="version" optional="YES" attributeType="Transformable" spotlightIndexingEnabled="YES"/>
+    </entity>
+    <elements>
+        <element name="Target" positionX="-54" positionY="-9" width="128" height="88"/>
+    </elements>
 </model>
