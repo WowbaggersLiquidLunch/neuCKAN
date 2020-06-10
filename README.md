@@ -10,8 +10,9 @@
 
 | branch      | status                                                       |
 | ----------- | ------------------------------------------------------------ |
-| master      | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=master) |
-| development | ![Nightly Snapshot](https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=development) |
+| master      | ![master branch nightly snapshot][nightly snapshot master]   |
+| development | ![development branch nightly snapshot][nightly snapshot development] |
+| persistence | ![persistence branch nightly snapshot][nightly snapshot persistence] |
 
 ---
 
@@ -118,3 +119,7 @@ The alpha phase will have a fast iterative development process. There will be ni
 [neuCKAN 0.0.1]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.1
 [neuCKAN 0.0.2]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2
 [neuCKAN 0.0.3]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.3
+
+[nightly snapshot master]: https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=master
+[nightly snapshot development]: https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=development
+[nightly snapshot persistence]: https://github.com/WowbaggersLiquidLunch/neuCKAN/workflows/Nightly%20Snapshot/badge.svg?branch=persistence
