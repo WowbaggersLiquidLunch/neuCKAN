@@ -385,6 +385,7 @@
 				B4CCF9ED2481BCF900F702E1 /* Operators.swift */,
 				B4DAAA8024783F6400EF7320 /* Common Extensions.swift */,
 				B469D12F24031D9D00DA5EF0 /* Notification Names.swift */,
+				B4E45A1B24918975009B58A7 /* Persistent Data Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -419,6 +420,13 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4E45A1B24918975009B58A7 /* Persistent Data Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Persistent Data Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
