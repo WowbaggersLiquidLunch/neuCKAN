@@ -34,9 +34,9 @@ In addition to [CKAN's GUI not being supported on macOS Catalina](https://github
 
 neuCKAN is a mod manager for Kerbal Space Program. It shares some similarities in functionalities with [CKAN](https://github.com/KSP-CKAN/CKAN), and it uses [CKAN metadata](https://github.com/KSP-CKAN/CKAN-meta), but it's not a skin of CKAN. neuCKAN is written from scratch in Swift, and designed with macOS in mind. It strives to be scalable, safe, efficient, responsive, and modern overall. It has both a GUI and a CLI as well, like CKAN does.
 
-This is what the GUI looks like in [neuCKAN 0.0.2][neuCKAN 0.0.2]:
+This is what the GUI looks like in [neuCKAN 0.0.3][neuCKAN 0.0.3]:
 
-![neuCKAN 0.0.2 screenshot](Documentation/Screenshots/0.0.2/windowed.png)
+![neuCKAN 0.0.3 screenshot](Documentation/Screenshots/0.0.3/windowed.png)
 
 As you can see from the screenshot, the mod manager is very much incomplete. In future releases, the blank space on the bottom will show statistics, such as system resource usage and distribution of mods installed by their keywords. Functionally, as of now, it can only install mods that are not hosted on [spacedock](https://spacedock.info). If you would like to help make neuCKAN better, propel it forward, please check out the [contribution guide](CONTRIBUTING.md)
 
@@ -50,7 +50,7 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 | ------------------------- | ------- | ------------------------------------------------------------ |
 | [Released][neuCKAN 0.0.1] | 0.0.1   | The bare-minimum proof of concept.                           |
 | [Released][neuCKAN 0.0.2] | 0.0.2   | The details view on the right side.                          |
-| In progress               | 0.0.3   | ~~Sorting by some columns, and row actions.~~ (Delayed to after data persitence)<br />"Under-the-hood" structural changes. |
+| [Released][neuCKAN 0.0.3] | 0.0.3   | ~~Sorting by some columns, and row actions.~~ (Delayed to after data persitence)<br />"Under-the-hood" structural changes. |
 | In progress               | 0.0.4   | Data persistence.                                            |
 | In progress               | 0.0.5   | Sorting by some columns, and row actions.                    |
 | Planned                   | 0.0.6   | Mod dependencies/conflicts/suggestions/recommendations...    |
@@ -117,3 +117,4 @@ The alpha phase will have a fast iterative development process. There will be ni
 
 [neuCKAN 0.0.1]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.1
 [neuCKAN 0.0.2]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.2
+[neuCKAN 0.0.3]: https://github.com/WowbaggersLiquidLunch/neuCKAN/releases/tag/0.0.3
