@@ -47,9 +47,9 @@ class ModsViewController: NSViewController {
 	///	A map between mandatorily visible leading columns' titles and their configurations.
 	private let mandatoryLeadingColumnsConfigurations: [String: ColumnConfigurations] = [
 		"Name": (
-			.visible,
-			NSSortDescriptor(key: "name", ascending: true),
-			{ cell, item in
+			visibility: .visible,
+			sortDescriptor: NSSortDescriptor(key: "name", ascending: true),
+			drawing: { cell, item in
 				if let mod = item as? Mod {
 					cell.textField?.stringValue = mod.name
 				} else if let release = item as? Release {
@@ -64,9 +64,9 @@ class ModsViewController: NSViewController {
 	private var optionalColumnsConfigurations: [OrderedDictionary<String, ColumnConfigurations>] = [
 		[
 			"CKAN Meta Spec Version": (
-				.hidden,
-				NSSortDescriptor(key: "ckanMetadataSpecificationVersion", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "ckanMetadataSpecificationVersion", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.ckanMetadataSpecificationVersion, ofType: Version.self)
 					} else if let release = item as? Release {
@@ -78,9 +78,9 @@ class ModsViewController: NSViewController {
 		],
 		[
 			"ID": (
-				.hidden,
-				NSSortDescriptor(key: "modID", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "modID", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.id
 					} else if let release = item as? Release {
@@ -90,9 +90,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Abstract": (
-				.visible,
-				nil,
-				{ cell, item in
+				visibility: .visible,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.abstract, ofType: String.self)
 					} else if let release = item as? Release {
@@ -100,11 +100,10 @@ class ModsViewController: NSViewController {
 					}
 					return cell
 			}),
-			"Description":
-				(
-				.hidden,
-				nil,
-				{ cell, item in
+			"Description": (
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.description, ofType: (String?).self)
 					} else if let release = item as? Release, let releaseDescription = release.description {
@@ -114,9 +113,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Tags": (
-				.visible,
-				nil,
-				{ cell, item in
+				visibility: .visible,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttributeElements(forKey: \Release.tags, ofType: (Set<String>?).self)
 					} else if let release = item as? Release, let releaseTags = release.tags {
@@ -126,9 +125,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Author(s)": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.authors, ofType: (CKANFuckery<String>?).self)
 					} else if let release = item as? Release, let releaseAuthors = release.authors {
@@ -138,9 +137,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Licence(s)": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.licences, ofType: CKANFuckery<String>.self)
 					} else if let release = item as? Release {
@@ -150,9 +149,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Supported Languages": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.locales, ofType: (Set<String>?).self)
 					} else if let release = item as? Release, let releasesLocales = release.locales {
@@ -162,9 +161,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Release Status": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.status, ofType: (String?).self)
 					} else if let release = item as? Release, let releaseStstus = release.status {
@@ -174,9 +173,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Version": (
-				.visible,
-				nil,
-				{ cell, item in
+				visibility: .visible,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.version, ofType: Version.self)
 					} else if let release = item as? Release {
@@ -188,9 +187,9 @@ class ModsViewController: NSViewController {
 		],
 		[
 			"Supported KSP Versions": (
-				.visible,
-				nil,
-				{ cell, item in
+				visibility: .visible,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.kspVersionRequirement, ofType: Requirement.self)
 					} else if let release = item as? Release {
@@ -200,9 +199,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Dependencies": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.dependencies, ofType: (Requirements?).self)
 					} else if let release = item as? Release, let releaseDependencies = release.dependencies {
@@ -212,9 +211,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Conflicts": (
-				.hidden,
-				nil,
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: nil,
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.conflicts, ofType: (Requirements?).self)
 					} else if let release = item as? Release, let releaseConflicts = release.conflicts {
@@ -226,9 +225,9 @@ class ModsViewController: NSViewController {
 		],
 		[
 			"Download Link": (
-				.hidden,
-				NSSortDescriptor(key: "downloadLink", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "downloadLink", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.downloadLink, ofType: URL.self)
 					} else if let release = item as? Release {
@@ -238,9 +237,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"Home Page": (
-				.hidden,
-				NSSortDescriptor(key: "homepage", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "homepage", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.homepage, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseHomePage = release.resources?.homepage {
@@ -249,9 +248,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"Repository": (
-				.hidden,
-				NSSortDescriptor(key: "repository", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "repository", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.repository, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseRepository = release.resources?.repository {
@@ -261,9 +260,9 @@ class ModsViewController: NSViewController {
 				}
 			),
 			"SpaceDock": (
-				.hidden,
-				NSSortDescriptor(key: "spaceDock", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "spaceDock", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.spaceDock, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseSpacedock = release.resources?.spaceDock {
@@ -272,9 +271,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"CurseForge": (
-				.hidden,
-				NSSortDescriptor(key: "curseForge", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "curseForge", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.curseForge, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseCurse = release.resources?.curseForge {
@@ -283,9 +282,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"Continuous Integration": (
-				.hidden,
-				NSSortDescriptor(key: "ci", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "ci", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.ci, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseCI = release.resources?.ci {
@@ -294,9 +293,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"Bug Tracker": (
-				.hidden,
-				NSSortDescriptor(key: "bugTracker", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "bugTracker", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.bugTracker, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseBugTracker = release.resources?.bugTracker {
@@ -305,9 +304,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"Manual": (
-				.hidden,
-				NSSortDescriptor(key: "manual", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "manual", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.manual, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseManual = release.resources?.manual {
@@ -316,9 +315,9 @@ class ModsViewController: NSViewController {
 					return cell
 			}),
 			"netkan": (
-				.hidden,
-				NSSortDescriptor(key: "netkan", ascending: true),
-				{ cell, item in
+				visibility: .hidden,
+				sortDescriptor: NSSortDescriptor(key: "netkan", ascending: true),
+				drawing: { cell, item in
 					if let mod = item as? Mod {
 						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.resources?.netkan, ofType: (URL?).self)
 					} else if let release = item as? Release, let releaseNetkan = release.resources?.netkan {
@@ -331,9 +330,9 @@ class ModsViewController: NSViewController {
 	///	A map between mandatorily visible trailing columns' titles and their configurations.
 	private let mandatoryOutlineViewTrailingColumnsConfigurations: [String: ColumnConfigurations] = [
 		"Action": (
-			.visible,
-			nil,
-			{ cell, item in
+			visibility: .visible,
+			sortDescriptor: nil,
+			drawing: { cell, item in
 				guard let modReleaseManagementCell = cell as? ModReleaseManagementCellView else { return cell }
 				if let mod = item as? Mod {
 					modReleaseManagementCell.managedInstanceType = .mod(mod)
