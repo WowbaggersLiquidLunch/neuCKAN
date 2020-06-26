@@ -72,6 +72,9 @@ Although this project started as a KSP mod manager on macOS, it will not end in 
 - A developer mode that allows modders to submit CKAN metadata for new mod releases through neuCKAN.
 - Compatibility with CKAN save files.
 - KSP 2 support, although there is little information on how it handles mods, and virtually none on its macOS support.
+- Markdown support in mod description.
+- Siri integration.
+- Passwork protection and Touch ID support. (Authentication in general.)
 
 There is a lot more of features that I have planned for neuCKAN, but they all sound too crazy to be listed here at this moment. 
 
