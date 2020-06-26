@@ -234,18 +234,6 @@ extension TargetsViewController: NSOutlineViewDelegate {
 			return nil
 		}
 	}
-	//	FIXME: Use Auto Layout, instead of hard-coded values.
-	//
-	func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-		//
-		if item is Targets {
-			return 17
-		} else if item is Target {
-			return 59
-		} else {
-			return 0
-		}
-	}
 	//
 	func outlineViewSelectionDidChange(_ notification: Notification) {
 		//
