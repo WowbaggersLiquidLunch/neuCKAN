@@ -39,7 +39,7 @@ enum CKANFuckery<Item: Hashable & Comparable & CustomStringConvertible>: Hashabl
 	///
 	///	- Parameter items: The sequence of items to initialse the `CKANFuckery` instance with.
 	///	- See Also: `init(item: Item?)`.
-	init<Items: Sequence>(items: Items?) where Items.Element == Item?{
+	init<Items: Sequence>(items: Items?) where Items.Element == Item? {
 		if let newItems = items {
 			let orderedSetOfItems = OrderedSet(newItems.compactMap { $0 } )
 			if orderedSetOfItems.count == 1 {
@@ -163,7 +163,8 @@ extension CKANFuckery: Collection {
 
 //	MARK: - ExpressibleByArrayLiteral Conformance
 extension CKANFuckery: ExpressibleByArrayLiteral {
-	init(arrayLiteral elements: Item...) {
+	//	FIXME: find permanent fix using init(arrayLiteral elements: Item...)
+	init(arrayLiteral elements: Item?...) {
 		self.init(items: elements)
 	}
 }
