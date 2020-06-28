@@ -51,6 +51,9 @@ struct Requirement: Hashable {
 	
 	//	MARK: - Optional Fields
 	
+	//	FIXME: Replace version, versionMin, and versionMax with Range<Version>.
+	//	Thus avoid using universallyCompatibleVersionString, and avoid special treatment in Comparable conformance.
+	
 	//	TODO: Check for confict between version, versionMin, and versionMax.
 	
 	/**

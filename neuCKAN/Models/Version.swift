@@ -48,6 +48,23 @@ struct Version: Hashable {
 		self.init(String(format: "%f", versionDigits).replacingOccurrences(of: "\\.*0+$", with: "", options: .regularExpression))
 	}
 	
+	//	FIXME: Use Range<Version>.
+	//	Avoid using universallyCompatibleVersionString.
+	//	Avoid special treatment in Comparable conformance.
+	//	Do something like this:
+	//		enum Version: Comparable {
+	//			case 无穷小
+	//			case finite(_Version)
+	//			case 无穷大
+	//			private struct _Version: Comparable {
+	//				let originalString: String
+	//				private let epoch: Int?
+	//				private let quasiSemanticVersion: [VersionSegment]
+	//				private let releaseSuffix: String?
+	//				let metadataSuffix: String?
+	//			}
+	//		}
+	
 	//	TODO: Find a better name for universallyCompatibleVersionString.
 	/**
 	A nerdy and mathematically incorrect expression for CKAN metadata's `"any"` version.
@@ -214,6 +231,7 @@ extension Version: Codable {
 extension Version: Comparable {
 	//	Compares verisons exactly how the CKAN metadata specification wants it, but better, but favors semantic versioning when in face of ambiguity.
 	static func < (lhs: Self, rhs: Self) -> Bool {
+		//	TODO: Replace if-else with switch-case.
 //		if universalCompatibilityExistsIn(lhs, rhs) {
 //			return true
 //		}
