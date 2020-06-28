@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="16002"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -879,7 +880,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" imagePosition="leading" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" arrowPosition="arrowAtCenter" selectedItem="Boe-1l-rnz" id="qpn-0p-bwY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" id="kcp-Kf-BvD">
                                                 <items>
                                                     <menuItem title="Item 1" state="on" id="Boe-1l-rnz"/>
@@ -892,7 +893,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="AFFD4B70-E079-4263-9617-4D809FEBC119" label="Filter" paletteLabel="Filter" image="Filter" sizingBehavior="auto" id="gpb-3j-dai">
                                     <nil key="toolTip"/>
-                                    <button key="view" canDrawConcurrently="YES" verticalHuggingPriority="750" id="wyv-wX-J2d">
+                                    <button key="view" verticalHuggingPriority="750" id="wyv-wX-J2d">
                                         <rect key="frame" x="1" y="14" width="32" height="24"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Filter" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mYX-Nv-RkR">
@@ -903,7 +904,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="40B77887-BD5E-4AB5-A30D-116EAC21B56F" label="Search" paletteLabel="Search" sizingBehavior="auto" id="VlW-yx-DZp">
                                     <nil key="toolTip"/>
-                                    <searchField key="view" wantsLayer="YES" canDrawConcurrently="YES" verticalHuggingPriority="750" id="eZK-FD-VAR">
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="eZK-FD-VAR">
                                         <rect key="frame" x="0.0" y="14" width="168" height="22"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search mods" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="Cha-7s-b9q">
@@ -915,7 +916,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1DDDA0DC-63CD-49A0-9F3A-F3A36CB6DAE5" label="Refresh" paletteLabel="Refresh" image="NSRefreshTemplate" sizingBehavior="auto" id="Rx1-ad-NgB">
                                     <nil key="toolTip"/>
-                                    <button key="view" canDrawConcurrently="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" springLoaded="YES" id="o4e-Lw-MD8">
+                                    <button key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" springLoaded="YES" id="o4e-Lw-MD8">
                                         <rect key="frame" x="8" y="14" width="32" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="old-Fm-OWD">
@@ -940,7 +941,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="51E31383-D39C-4B45-823B-89AE431BE8E6" label="Mods Layout" paletteLabel="Mods Layout" image="Mods Layout Switch - Unexpandable" sizingBehavior="auto" id="lXS-6w-CZq">
                                     <nil key="toolTip"/>
-                                    <button key="view" canDrawConcurrently="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="9gg-F3-84J">
+                                    <button key="view" verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="9gg-F3-84J">
                                         <rect key="frame" x="22" y="14" width="32" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Mods Layout Switch - Unexpandable" imagePosition="overlaps" alignment="center" alternateImage="Mods Layout Switch - Expandable" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pi9-cp-0Mi">
