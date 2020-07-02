@@ -44,9 +44,9 @@ struct OrdinalVersion: Hashable {
 	
 	//	MARK: - Initialisers
 	
-	/// Instanciates an ordinal version from the given version string.
-	/// - Parameter versionString: The version string as defined by the CKAN metadata specification.
-	/// - Throws: A `VersionError` instance.
+	///	Instanciates an ordinal version from the given version string.
+	///	- Parameter versionString: The version string as defined by the CKAN metadata specification.
+	///	- Throws: A `VersionError` instance.
 	init(_ versionString: String) throws {
 		assert(versionString != "any", "'any' versions require special handling, and shouldn't be passed in 'OrdinalVersion.init_)'")
 		guard !versionString.isEmpty else {
@@ -56,13 +56,13 @@ struct OrdinalVersion: Hashable {
 		(epoch, quasiSemanticVersion, releaseSuffix, metadataSuffix) = try Self.deconstruct(from: versionString)
 	}
 	
-	/// Instanciates an ordinal version from its individual and unprocessed components.
-	/// - Parameters:
-	///   - epoch: The version's epoch, a fail-safe insurance to the versioning sequence..
-	///   - quasiSemanticVersionString: The mandatory quasi-semantic version component that serves as the primary versioning information.
-	///   - releaseSuffix: The version's release suffix.
-	///   - metadataSuffix: The version's metadata suffix.
-	/// - Throws: A `VersionError` instance.
+	///	Instanciates an ordinal version from its individual and unprocessed components.
+	///	- Parameters:
+	///	  - epoch: The version's epoch, a fail-safe insurance to the versioning sequence..
+	///	  - quasiSemanticVersionString: The mandatory quasi-semantic version component that serves as the primary versioning information.
+	///	  - releaseSuffix: The version's release suffix.
+	///	  - metadataSuffix: The version's metadata suffix.
+	///	- Throws: A `VersionError` instance.
 	init(
 		epoch: Int?,
 		quasiSemanticVersionString: String,
@@ -88,9 +88,9 @@ struct OrdinalVersion: Hashable {
 		)
 	}
 	
-	/// Instanciates an ordinal version from its grouped and processed components.
-	/// - Parameter ordinalVersionComponents: The ordinal version's components.
-	/// - Throws: A `VersionError` instance.
+	///	Instanciates an ordinal version from its grouped and processed components.
+	///	- Parameter ordinalVersionComponents: The ordinal version's components.
+	///	- Throws: A `VersionError` instance.
 	private init(ordinalVersionComponents: OrdinalVersionComponents) throws {
 		var reconstructedVersionString = ""
 		
@@ -182,10 +182,10 @@ struct OrdinalVersion: Hashable {
 	
 	//	MARK: - Static Methods
 	
-	/// Extracts the epoch, quasi-semantic version, release suffix, and metadata suffix components from the given complete ordinal version string.
-	/// - Parameter versionString: The complete ordinal version string to deconstruct.
-	/// - Returns: The ordinal version's components.
-	/// - Throws: A `VersionError` instance.
+	///	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffix components from the given complete ordinal version string.
+	///	- Parameter versionString: The complete ordinal version string to deconstruct.
+	///	- Returns: The ordinal version's components.
+	///	- Throws: A `VersionError` instance.
 	private static func deconstruct(from versionString: String) throws -> OrdinalVersionComponents {
 		//	Split the version string into its components by their distinctive markers ":", "+", and "-" before processing them.
 		let versionStringSplitByColons: [Substring] = versionString.split(separator: ":")
@@ -205,10 +205,10 @@ struct OrdinalVersion: Hashable {
 		
 		//	Both nonNumericalLeadingComparableUnits(of:) and numericalLeadingComparableUnits(of:) use substrings heavily for time, memory, and energy efficiency.
 		
-		/// Parses a non-numerical characters-leading ordinal version segments cluster from the given partial version string.
-		/// - Parameter versionSegmentSubString: The partial version string to parse.
-		/// - Returns: A non-numerical characters-leading ordinal version segments.
-		/// - Throws: `VersionError.minimalComparableUnitOversize`.
+		///	Parses a non-numerical characters-leading ordinal version segments cluster from the given partial version string.
+		///	- Parameter versionSegmentSubString: The partial version string to parse.
+		///	- Returns: A non-numerical characters-leading ordinal version segments.
+		///	- Throws: `VersionError.minimalComparableUnitOversize`.
 		func nonNumericalLeadingComparableUnits(of versionSegmentSubString: String) throws -> QuasiSemanticVersionSegment {
 			var versionSegment: QuasiSemanticVersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) } )
@@ -220,10 +220,10 @@ struct OrdinalVersion: Hashable {
 			return versionSegment
 		}
 		
-		/// Parses a numerical characters-leading ordinal version segments cluster from the given partial version string.
-		/// - Parameter versionSegmentSubString: The partial version string to parse.
-		/// - Returns: A numerical characters-leading ordinal version segments.
-		/// - Throws: `VersionError.minimalComparableUnitOversize`.
+		///	Parses a numerical characters-leading ordinal version segments cluster from the given partial version string.
+		///	- Parameter versionSegmentSubString: The partial version string to parse.
+		///	- Returns: A numerical characters-leading ordinal version segments.
+		///	- Throws: `VersionError.minimalComparableUnitOversize`.
 		func numericalLeadingComparableUnits(of versionSegmentSubString: String) throws -> QuasiSemanticVersionSegment {
 			var versionSegment: QuasiSemanticVersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { "0"..."9" ~= $0 } )
@@ -252,17 +252,17 @@ struct OrdinalVersion: Hashable {
 //	MARK: - Codable Conformance
 extension OrdinalVersion: Codable {
 	
-	/// Initialises a `OrdinalVersion` instance by decoding from the given `decoder`.
-	/// - Parameter decoder: The decoder to read data from.
-	/// - Throws: A `DecodingError` or `VersionError` instance.
+	///	Initialises a `OrdinalVersion` instance by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
+	///	- Throws: A `DecodingError` or `VersionError` instance.
 	init(from decoder: Decoder) throws {
 		let versionString = try decoder.singleValueContainer().decode(String.self)
 		self = try Self(versionString)
 	}
 	
-	/// Encodes a `OrdinalVersion` instance`.
-	/// - Parameter encoder: The encoder to encode data to.
-	/// - Throws: An `EncodingError` instance, which shouldn't happen.
+	///	Encodes a `OrdinalVersion` instance`.
+	///	- Parameter encoder: The encoder to encode data to.
+	///	- Throws: An `EncodingError` instance, which shouldn't happen.
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		try container.encode(originalString)

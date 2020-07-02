@@ -44,7 +44,7 @@ class TargetsViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Do any additional setup after loading the view.
+		//	Do any additional setup after loading the view.
 		targetsSourceListView.dataSource = self
 		targetsSourceListView.delegate = self
 		setupMenus()
@@ -53,7 +53,7 @@ class TargetsViewController: NSViewController {
 	//
 	override var representedObject: Any? {
 		didSet {
-			// Update the view, if already loaded.
+			//	Update the view, if already loaded.
 		}
 	}
 	

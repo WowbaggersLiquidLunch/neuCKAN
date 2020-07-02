@@ -11,7 +11,7 @@ import Cocoa
 ///	A controller that manages the main vertical split view of neuCKAN.
 class MainVerticalSplitViewController: NSSplitViewController {
 	
-	// MARK: - IBOutlet Properties
+	//	MARK: - IBOutlet Properties
 	
 	///	The main verticle split view in neuCKAN's main window.
 	@IBOutlet weak var mainVerticalSplitView: NSSplitView!
@@ -22,7 +22,7 @@ class MainVerticalSplitViewController: NSSplitViewController {
 	///	The split view item for details view.
 	@IBOutlet weak var detailsSplitViewItem: NSSplitViewItem!
 	
-	// MARK: - View Life Cycle
+	//	MARK: - View Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()

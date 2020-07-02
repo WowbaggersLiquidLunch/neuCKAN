@@ -11,7 +11,7 @@ import Cocoa
 ///	A controller that manages the main window of neuCKAN.
 class MainWindowController: NSWindowController {
 	
-	// MARK: - IBOutlet Properties
+	//	MARK: - IBOutlet Properties
 	
 	///	neuCKAN's navigation control on toolbar.
 	@IBOutlet weak var toolbarNavigationControl: NSSegmentedControl!
@@ -42,12 +42,12 @@ class MainWindowController: NSWindowController {
 	///	neuCKAN's window layout control on touch bar.
 	@IBOutlet weak var touchBarWindowLayoutControl: NSSegmentedControl!
 	
-	// MARK: -
+	//	MARK: -
 	
 	override func windowDidLoad() {
 		super.windowDidLoad()
 		
-		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+		//	Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 		NotificationCenter.default.addObserver(self, selector: #selector(windowLayoutDidChange(_:)), name: .windowLayoutDidChange, object: nil)
 	}
 	

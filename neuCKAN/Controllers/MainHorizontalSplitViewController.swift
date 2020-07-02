@@ -16,11 +16,11 @@ class MainHorizontalSplitViewController: NSSplitViewController {
 	///	The split view item for stats view.
 	@IBOutlet weak var statsSplitViewItem: NSSplitViewItem!
 	
-	// MARK: - View Life Cycle
+	//	MARK: - View Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        //	Do view setup here.
 		NotificationCenter.default.addObserver(self, selector: #selector(userDidInitiateWindowLayoutChange(_:)), name: .userDidInitiateWindowLayoutChange, object: nil)
     }
 	

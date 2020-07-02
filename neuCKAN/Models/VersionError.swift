@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// An error that occurs during the instanciation of `Version` and `OrdinalVersion`.
+///	An error that occurs during the instanciation of `Version` and `OrdinalVersion`.
 enum VersionError: Error {
 	///	An indication that a non-empty string was expected, but an empty one was given.
 	case stringEmpty

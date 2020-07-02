@@ -18,7 +18,7 @@ class DetailsViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Do any additional setup after loading the view.
+		//	Do any additional setup after loading the view.
 		NotificationCenter.default.addObserver(self, selector: #selector(modReleaseSelectionDidChange(_:)), name: .modReleaseSelectionDidChange, object: nil)
 		
 		//	MARK: Subview Configurations
@@ -32,7 +32,7 @@ class DetailsViewController: NSViewController {
 	
 	override var representedObject: Any? {
 		didSet {
-			// Update the view, if already loaded.
+			//	Update the view, if already loaded.
 		}
 	}
 	

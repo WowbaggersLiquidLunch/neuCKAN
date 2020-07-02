@@ -28,9 +28,9 @@ import Foundation
 ///	["ksp\_version\_strict" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_strict
 ///	[CKAN's version ordering algorithm]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 enum Version: Hashable {
-	/// Instanciates an ordinal version from the given version string.
+	///	Instanciates an ordinal version from the given version string.
 	///	- Parameter versionString: The version string as defined by the CKAN metadata specification.
-	/// - Throws: A `VersionError` instance.
+	///	- Throws: A `VersionError` instance.
 	init(_ versionString: String) throws {
 		self = .ordinal(version: try OrdinalVersion(versionString))
 	}
@@ -51,16 +51,16 @@ enum Version: Hashable {
 //	MARK: - Codable Conformance
 extension Version: Codable {
 	
-	/// Initialises a `Version` instance by decoding from the given `decoder`.
-	/// - Parameter decoder: The decoder to read data from.
-	/// - Throws: A `DecodingError` or `VersionError` instance.
+	///	Initialises a `Version` instance by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
+	///	- Throws: A `DecodingError` or `VersionError` instance.
 	init(from decoder: Decoder) throws {
 		self = .ordinal(version: try decoder.singleValueContainer().decode(OrdinalVersion.self))
 	}
 	
-	/// Encodes a `Version` instance`.
-	/// - Parameter encoder: The encoder to encode data to.
-	/// - Throws: `EncodingError.invalidValue`.
+	///	Encodes a `Version` instance`.
+	///	- Parameter encoder: The encoder to encode data to.
+	///	- Throws: `EncodingError.invalidValue`.
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		switch self {
