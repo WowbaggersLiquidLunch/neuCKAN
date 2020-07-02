@@ -10,7 +10,9 @@ import Foundation
 
 ///	A version type capable of representing the abstract extremities.
 ///
-///	This is equivalent to a unified representation of the ["spec\_version"]["spec\_version" attribute], ["version"]["version" attribute], ["ksp\_version"]["ksp\_version" attribute], ["ksp\_version\_min"]["ksp\_version\_min" attribute], ["ksp\_version\_max"]["ksp\_version\_max" attribute], and ["ksp\_version\_strict"]["ksp\_version\_strict" attribute] attributes in a `.ckan` file.
+///	`Version` acts as an wrapper for `OrdinalVersion`. It is necessary only because Swift doesn't have a `RangeExpression`-conforming unbounded range type.
+///
+///	`OrdinalVersion` is equivalent to a unified representation of the ["spec\_version"]["spec\_version" attribute], ["version"]["version" attribute], ["ksp\_version"]["ksp\_version" attribute], ["ksp\_version\_min"]["ksp\_version\_min" attribute], ["ksp\_version\_max"]["ksp\_version\_max" attribute], and ["ksp\_version\_strict"]["ksp\_version\_strict" attribute] attributes in a `.ckan` file.
 ///
 ///	When comparing two versions, the compiler synthesizes the comparison order that `.infinitesimal` \< `.ordinal` \< `.infinity`. When both versions are `.ordinal`, they are compared by their associated values: first the `epoch` of each are compared, then the `quasiSemanticVersion` if epoch is equal.The epoches are compared numerically; the quasi-semantic version is compared lexicographically precedingly. For more details, check `OrdinalVersion`'s `Comparable` conformance in the source code.
 ///
@@ -24,7 +26,6 @@ import Foundation
 ///	["ksp\_version\_min" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
 ///	["ksp\_version\_max" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 ///	["ksp\_version\_strict" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_strict
-///
 ///	[CKAN's version ordering algorithm]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 enum Version: Hashable {
 	/// Instanciates an ordinal version from the given version string.

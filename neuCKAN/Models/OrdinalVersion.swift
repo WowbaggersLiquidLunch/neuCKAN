@@ -24,7 +24,6 @@ import Foundation
 ///	["ksp\_version\_min" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
 ///	["ksp\_version\_max" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 ///	["ksp\_version\_strict" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_strict
-///
 ///	[CKAN's version ordering algorithm]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
 struct OrdinalVersion: Hashable {
 	
