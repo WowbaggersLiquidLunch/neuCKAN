@@ -14,9 +14,9 @@ import Foundation
 ///
 ///	When comparing two versions, the compiler synthesizes the comparison order that `.infinitesimal` \< `.ordinal` \< `.infinity`. When both versions are `.ordinal`, they are compared by their associated values: first the `epoch` of each are compared, then the `quasiSemanticVersion` if epoch is equal.The epoches are compared numerically; the quasi-semantic version is compared lexicographically precedingly. For more details, check `OrdinalVersion`'s `Comparable` conformance in the source code.
 ///
-///	- Important: Special treatments apply to the `"any"` value and the `"ksp_version_strict"` attribute:
+///	- Important: Special treatments apply to the `"any"` value and the `"ksp_version"` attribute:
 ///	  - The `"any"` value is decoded as `Version.infinitesimal...Version.infinity` directly.
-///	  - The `"ksp_version_strict"` attribute is frst decoded as a `Version` instance, then coverted to the smallest open range. For example, the key-value pair `"ksp_version_strict": "69.42"` becomes `Version("69.42")..<Version("69.43")`.
+///	  - The `"ksp_version"` attribute is frst decoded as a `Version` instance, then coverted to the smallest open range. For example, the key-value pair `"ksp_version": "69.42"` becomes `Version("69.42")..<Version("69.43")`.
 ///
 ///	["spec\_version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
 ///	["version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version

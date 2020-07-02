@@ -16,7 +16,7 @@ import Foundation
 ///
 ///	- Important: Special treatments apply to the `"any"` value and the `"ksp_version_strict"` attribute:
 ///	  - The `"any"` value is decoded as `Version.infinitesimal...Version.infinity` directly.
-///	  - The `"ksp_version_strict"` attribute is frst decoded as a `Version` instance, then coverted to the smallest open range. For example, the key-value pair `"ksp_version_strict": "69.42"` becomes `Version("69.42")..<Version("69.43")`.
+///	  - The `"ksp_version"` attribute is frst decoded as a `Version` instance, then coverted to the smallest open range. For example, the key-value pair `"ksp_version": "69.42"` becomes `Version("69.42")..<Version("69.43")`.
 ///
 ///	["spec\_version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
 ///	["version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
