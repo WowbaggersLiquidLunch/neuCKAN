@@ -316,7 +316,7 @@ extension Mod: OrderedCollectionOfUniqueElements {
 	///
 	///	- Parameter version: The version of the release to find in the mod.
 	///	- Returns: The release associated with `version` if `version` is in the mod; otherwise, `nil`.
-	subscript(version: Version) -> Release? {
+	subscript(version: OrdinalVersion) -> Release? {
 		get {
 			releases.first(where: { $0.version == version } )
 		}

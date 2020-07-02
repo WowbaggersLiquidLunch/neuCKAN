@@ -112,7 +112,7 @@ struct Target: Hashable {
 		}
 		
 		//	KSP's build ID acts as its verion's epoch. Not all KSP versions ship with the build ID information. If no build ID is found prior to this step, kspBuildID is an empty substring. If build ID is found, kspBuildID is appended with ":".
-		self.version = Version("\(kspBuildID)\(kspVersion)")
+		self.version = OrdinalVersion("\(kspBuildID)\(kspVersion)")
 	}
 	
 	var filterDidChange: Bool = false
@@ -128,7 +128,7 @@ struct Target: Hashable {
 	
 	The version can contain the target's build ID as its epoch.
 	*/
-	let version: Version
+	let version: OrdinalVersion
 	
 	/**
 	The KSP logo correspoding to the target's version.

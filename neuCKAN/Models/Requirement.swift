@@ -51,7 +51,7 @@ struct Requirement: Hashable {
 	
 	//	MARK: - Optional Fields
 	
-	//	FIXME: Replace version, versionMin, and versionMax with Range<Version>.
+	//	FIXME: Replace version, versionMin, and versionMax with Range<OrdinalVersion>.
 	//	Thus avoid using universallyCompatibleVersionString, and avoid special treatment in Comparable conformance.
 	
 	//	TODO: Check for confict between version, versionMin, and versionMax.
@@ -65,7 +65,7 @@ struct Requirement: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 	*/
-	let version: Version?
+	let version: OrdinalVersion?
 	
 	/**
 	Mod minimum version.
@@ -74,7 +74,7 @@ struct Requirement: Hashable {
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
-	let versionMin: Version?
+	let versionMin: OrdinalVersion?
 	
 	/**
 	Mod maximum version.
@@ -83,7 +83,7 @@ struct Requirement: Hashable {
 	
 	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	*/
-	let versionMax: Version?
+	let versionMax: OrdinalVersion?
 }
 
 //	MARK: - CustomStringConvertible Conformance

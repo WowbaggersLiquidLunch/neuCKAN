@@ -14,7 +14,7 @@ import os.log
 struct Targets: Hashable {
 	///	Initialises a collection of targets from the given sequence of target convertibles.
 	///
-	///	Because of [a problem with generic default parameters][generic default parameters problem], use `init(groupVersion: Version, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption)` to initialise an empty collection of targets.
+	///	Because of [a problem with generic default parameters][generic default parameters problem], use `init(groupVersion: OrdinalVersion, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption)` to initialise an empty collection of targets.
 	///
 	///	- Parameters:
 	///	  - targets: The sequence of target convertibles to initialise the collection of targets from.
@@ -23,7 +23,7 @@ struct Targets: Hashable {
 	///	  - conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	///
 	///	[generic default parameters problem]: https:stackoverflow.com/questions/38326992/default-parameter-as-generic-type
-	init<T: Sequence>(targets: T, groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == TargetConvertible? {
+	init<T: Sequence>(targets: T, groupVersion: OrdinalVersion = OrdinalVersion(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) where T.Element == TargetConvertible? {
 		var temporaryTargets: [Target] = []
 		targets.compactMap { $0?.asTarget() } .forEach { target in
 			if let oldTargetIndex = temporaryTargets.firstIndex(where: { $0.inode == target.inode } ) {
@@ -42,7 +42,7 @@ struct Targets: Hashable {
 	
 	///	Initialises an empty collection of targets from the given sequence of target convertibles.
 	///
-	///	This initialiser exists because of [a problem with generic default parameters][generic default parameters problem]. Use `init<T: Sequence>(targets: T, groupVersion: Version, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption) where T.Element == Target` to initialise a non-empty collection of targets.
+	///	This initialiser exists because of [a problem with generic default parameters][generic default parameters problem]. Use `init<T: Sequence>(targets: T, groupVersion: OrdinalVersion, groupingLevel: GroupingLevel, conflictHandlingScheme: ConflictHandlingOption) where T.Element == Target` to initialise a non-empty collection of targets.
 	///
 	///	- Parameters:
 	///	  - groupVersion: The shared version among the group members.
@@ -50,7 +50,7 @@ struct Targets: Hashable {
 	///	  - conflictHandlingScheme: The scheme for handeling possible targets with the same inode value in the sequence of targets.
 	///
 	///	[generic default parameters problem]: https://stackoverflow.com/questions/38326992/default-parameter-as-generic-type
-	init(groupVersion: Version = Version(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) {
+	init(groupVersion: OrdinalVersion = OrdinalVersion(""), groupingLevel: GroupingLevel = .none, conflictHandlingScheme: ConflictHandlingOption = .preserveFirstOccurence) {
 		self.init(targets: [], groupVersion: groupVersion, groupingLevel: groupingLevel, conflictHandlingScheme: conflictHandlingScheme)
 	}
 	
@@ -60,8 +60,8 @@ struct Targets: Hashable {
 	///	Mods that satisfy all targets' filtering criteria.
 	var mods: Mods { Synecdoche.shared.mods }
 	///	A dictionary of collections of targets grouped by their major versions.
-	var majorVersionGroups: [Version: Targets] {
-		Set<Version>(targets.map { Version($0.version[..<1]) } ).reduce(into: [:]) { groups, version in
+	var majorVersionGroups: [OrdinalVersion: Targets] {
+		Set<OrdinalVersion>(targets.map { OrdinalVersion($0.version[..<1]) } ).reduce(into: [:]) { groups, version in
 			groups[version] = Targets(
 				targets: targets.filter { $0.version[..<1] == version.description },
 				groupVersion: version,
@@ -71,8 +71,8 @@ struct Targets: Hashable {
 		}
 	}
 	///	A dictionary of collections of targets grouped by their minor versions.
-	var minorVersionGroups: [Version: Targets] {
-		Set<Version>(targets.map { Version($0.version[..<2]) } ).reduce(into: [:]) { groups, version in
+	var minorVersionGroups: [OrdinalVersion: Targets] {
+		Set<OrdinalVersion>(targets.map { OrdinalVersion($0.version[..<2]) } ).reduce(into: [:]) { groups, version in
 			groups[version] = Targets(
 				targets: targets.filter { $0.version[..<2] == version.description },
 				groupVersion: version,
@@ -82,8 +82,8 @@ struct Targets: Hashable {
 		}
 	}
 	///	A dictionary of collections of targets grouped by their patch versions.
-	var patchVersionGroups: [Version: Targets] {
-		Set<Version>(targets.map { Version($0.version[..<3]) } ).reduce(into: [:]) { groups, version in
+	var patchVersionGroups: [OrdinalVersion: Targets] {
+		Set<OrdinalVersion>(targets.map { OrdinalVersion($0.version[..<3]) } ).reduce(into: [:]) { groups, version in
 			groups[version] = Targets(
 				targets: targets.filter { $0.version[..<3] == version.description },
 				groupVersion: version,
@@ -93,7 +93,7 @@ struct Targets: Hashable {
 		}
 	}
 	///	The shared version among group members.
-	let groupVersion: Version
+	let groupVersion: OrdinalVersion
 	///	The level this collection of targets is grouped by.
 	let groupingLevel: GroupingLevel
 	

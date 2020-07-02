@@ -12,7 +12,7 @@
 		B421B5B2241389C700955DC5 /* Mods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C1DFB923EA830300E31F81 /* Mods.swift */; };
 		B421B5B3241389C700955DC5 /* Mod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8654236C23F300DF758C /* Mod.swift */; };
 		B421B5B4241389C700955DC5 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B8652236C1C3F00DF758C /* Release.swift */; };
-		B421B5B5241389C700955DC5 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757123727BC700C09306 /* Version.swift */; };
+		B421B5B5241389C700955DC5 /* OrdinalVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757123727BC700C09306 /* OrdinalVersion.swift */; };
 		B421B5B6241389C700955DC5 /* InstallationDirective.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E756F2372782200C09306 /* InstallationDirective.swift */; };
 		B421B5B7241389C700955DC5 /* Requirements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E7575237290DD00C09306 /* Requirements.swift */; };
 		B421B5B8241389C700955DC5 /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E75782372995C00C09306 /* Requirement.swift */; };
@@ -40,7 +40,7 @@
 		B469D13024031D9D00DA5EF0 /* Notification Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469D12F24031D9D00DA5EF0 /* Notification Names.swift */; };
 		B469D13224106DAC00DA5EF0 /* FileURLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */; };
 		B46E75702372782200C09306 /* InstallationDirective.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E756F2372782200C09306 /* InstallationDirective.swift */; };
-		B46E757223727BC700C09306 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757123727BC700C09306 /* Version.swift */; };
+		B46E757223727BC700C09306 /* OrdinalVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757123727BC700C09306 /* OrdinalVersion.swift */; };
 		B46E7576237290DD00C09306 /* Requirements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E7575237290DD00C09306 /* Requirements.swift */; };
 		B46E75792372995C00C09306 /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E75782372995C00C09306 /* Requirement.swift */; };
 		B46E757B2372A73C00C09306 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E757A2372A73C00C09306 /* Resources.swift */; };
@@ -159,7 +159,7 @@
 		B469D12F24031D9D00DA5EF0 /* Notification Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification Names.swift"; sourceTree = "<group>"; };
 		B469D13124106DAC00DA5EF0 /* FileURLConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileURLConvertible.swift; sourceTree = "<group>"; };
 		B46E756F2372782200C09306 /* InstallationDirective.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationDirective.swift; sourceTree = "<group>"; };
-		B46E757123727BC700C09306 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		B46E757123727BC700C09306 /* OrdinalVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdinalVersion.swift; sourceTree = "<group>"; };
 		B46E7575237290DD00C09306 /* Requirements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requirements.swift; sourceTree = "<group>"; };
 		B46E7577237294E300C09306 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B46E75782372995C00C09306 /* Requirement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requirement.swift; sourceTree = "<group>"; };
@@ -370,7 +370,7 @@
 				B4C1DFB923EA830300E31F81 /* Mods.swift */,
 				B49B8654236C23F300DF758C /* Mod.swift */,
 				B49B8652236C1C3F00DF758C /* Release.swift */,
-				B46E757123727BC700C09306 /* Version.swift */,
+				B46E757123727BC700C09306 /* OrdinalVersion.swift */,
 				B46E756F2372782200C09306 /* InstallationDirective.swift */,
 				B46E7575237290DD00C09306 /* Requirements.swift */,
 				B46E75782372995C00C09306 /* Requirement.swift */,
@@ -628,7 +628,7 @@
 				B4991D4423C9E58D005735FC /* MainWindowController.swift in Sources */,
 				B4CCF9EE2481BCF900F702E1 /* Operators.swift in Sources */,
 				B46E75702372782200C09306 /* InstallationDirective.swift in Sources */,
-				B46E757223727BC700C09306 /* Version.swift in Sources */,
+				B46E757223727BC700C09306 /* OrdinalVersion.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
 				B46E7576237290DD00C09306 /* Requirements.swift in Sources */,
 				B4991D9823CDD755005735FC /* TargetView.swift in Sources */,
@@ -679,7 +679,7 @@
 				B421B5B2241389C700955DC5 /* Mods.swift in Sources */,
 				B421B5B3241389C700955DC5 /* Mod.swift in Sources */,
 				B421B5B4241389C700955DC5 /* Release.swift in Sources */,
-				B421B5B5241389C700955DC5 /* Version.swift in Sources */,
+				B421B5B5241389C700955DC5 /* OrdinalVersion.swift in Sources */,
 				B421B5B6241389C700955DC5 /* InstallationDirective.swift in Sources */,
 				B421B5B7241389C700955DC5 /* Requirements.swift in Sources */,
 				B4ADB84C24144B2C00CA2930 /* NEUCKAN.Install.swift in Sources */,

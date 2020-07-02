@@ -39,7 +39,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
 	*/
-	let ckanMetadataSpecificationVersion: Version
+	let ckanMetadataSpecificationVersion: OrdinalVersion
 	
 	/**
 	The mod's name.
@@ -135,7 +135,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
 	*/
-	let version: Version
+	let version: OrdinalVersion
 	
 	//	MARK: - Optional Fields
 	//	All optional fields must be of Optional types.
@@ -200,7 +200,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
 	*/
-	private let supportedKSPVersion: Version?
+	private let supportedKSPVersion: OrdinalVersion?
 	
 	/**
 	The minimum version of KSP required by the mod release.
@@ -211,7 +211,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
 	*/
-	private let supportedMinimumKSPVersion: Version?
+	private let supportedMinimumKSPVersion: OrdinalVersion?
 	
 	/**
 	The maximum version of KSP required by the mod release.
@@ -222,7 +222,7 @@ struct Release: Hashable {
 	
 	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
 	*/
-	private let supportedMaximumKSPVersion: Version?
+	private let supportedMaximumKSPVersion: OrdinalVersion?
 	
 	/**
 	KSP versions supported by this mod release.
@@ -454,7 +454,7 @@ struct Release: Hashable {
 //	TODO: Add Identifiable conformance once tuples have Hashable conformance.
 extension Release {
 	///	The unique identifier of the mod release, composed of the mod ID and version.
-	var id: (String, Version) { (modID, version) }
+	var id: (String, OrdinalVersion) { (modID, version) }
 }
 
 //	MARK: - Codable Conformance
