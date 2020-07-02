@@ -1,9 +1,9 @@
 //
-//  ModResourcesButtons.swift
-//  neuCKAN
+//	ModResourcesButtons.swift
+//	neuCKAN
 //
-//  Created by you on 20-04-07.
-//  Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 20-04-07.
+//	Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import SwiftUI

@@ -1,9 +1,9 @@
 //
-//  neuCKANTests.swift
-//  neuCKANTests
+//	neuCKANTests.swift
+//	neuCKANTests
 //
-//  Created by you on 2019-10-31.
-//  Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 2019-10-31.
+//	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import XCTest

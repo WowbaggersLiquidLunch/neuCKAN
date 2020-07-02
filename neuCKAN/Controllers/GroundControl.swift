@@ -1,9 +1,9 @@
 //
-//  GroundControl.swift
-//  neuCKAN
+//	GroundControl.swift
+//	neuCKAN
 //
-//  Created by you on 20-02-06.
-//  Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 20-02-06.
+//	Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation

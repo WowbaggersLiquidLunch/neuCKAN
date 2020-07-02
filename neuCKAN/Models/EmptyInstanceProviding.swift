@@ -1,9 +1,9 @@
 //
-//  EmptyInstanceProviding.swift
-//  neuCKAN
+//	EmptyInstanceProviding.swift
+//	neuCKAN
 //
-//  Created by you on 20-03-11.
-//  Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 20-03-11.
+//	Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import Foundation

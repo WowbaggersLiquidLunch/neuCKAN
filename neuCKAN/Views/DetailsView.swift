@@ -1,9 +1,9 @@
 //
-//  DetailsView.swift
-//  neuCKAN
+//	DetailsView.swift
+//	neuCKAN
 //
-//  Created by you on 20-03-31.
-//  Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
+//	Created by you on 20-03-31.
+//	Copyleft © 2020 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
 import SwiftUI

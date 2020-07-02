@@ -1,9 +1,9 @@
 //
-//  Operators.swift
-//  neuCKAN
+//	Operators.swift
+//	neuCKAN
 //
-//  Created by 冀卓疌 on 20-05-29.
-//  Copyright © 2020 Wowbagger & His Liquid Lunch. All rights reserved.
+//	Created by 冀卓疌 on 20-05-29.
+//	Copyright © 2020 Wowbagger & His Liquid Lunch. All rights reserved.
 //
 
 import Foundation
