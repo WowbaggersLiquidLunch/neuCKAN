@@ -1,1 +1,1 @@
-Be nice.
+Be bold.
