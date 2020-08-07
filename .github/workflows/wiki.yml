@@ -1,0 +1,26 @@
+name: Swift
+
+on:
+  push:
+    branches: [ development ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+      
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Generate Documentation
+        uses: SwiftDocOrg/swift-doc@master
+        with:
+          inputs: "./neuCKAN"
+          module-name: neuCKAN
+      
+      - name: Upload Documentation to Wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
