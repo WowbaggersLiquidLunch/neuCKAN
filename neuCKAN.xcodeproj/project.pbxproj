@@ -37,6 +37,7 @@
 		B451D564236B9D5500441195 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B451D562236B9D5500441195 /* Main.storyboard */; };
 		B451D570236B9D5500441195 /* neuCKANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D56F236B9D5500441195 /* neuCKANTests.swift */; };
 		B451D57B236B9D5500441195 /* neuCKANUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D57A236B9D5500441195 /* neuCKANUITests.swift */; };
+		B461556424E4ED00002C0020 /* Interval in Frameworks */ = {isa = PBXBuildFile; productRef = B461556324E4ED00002C0020 /* Interval */; };
 		B4625E3923F6A29300EFDFA2 /* MainHorizontalSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4625E3823F6A29300EFDFA2 /* MainHorizontalSplitViewController.swift */; };
 		B4625E3B23F78A6A00EFDFA2 /* Targets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4625E3A23F78A6A00EFDFA2 /* Targets.swift */; };
 		B469D12B23FCC1EE00DA5EF0 /* StandardLibraryPreview in Frameworks */ = {isa = PBXBuildFile; productRef = B469D12A23FCC1EE00DA5EF0 /* StandardLibraryPreview */; };
@@ -230,6 +231,7 @@
 				B469D12B23FCC1EE00DA5EF0 /* StandardLibraryPreview in Frameworks */,
 				B4AA8A52243D14A800FE2CE6 /* URLImage in Frameworks */,
 				B469D12E23FCC38B00DA5EF0 /* ZIPFoundation in Frameworks */,
+				B461556424E4ED00002C0020 /* Interval in Frameworks */,
 				B4E45A1E24919CD5009B58A7 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +458,7 @@
 				B4AA8A51243D14A800FE2CE6 /* URLImage */,
 				B4E45A1D24919CD5009B58A7 /* Kingfisher */,
 				B4E45A1F24919CD5009B58A7 /* KingfisherSwiftUI */,
+				B461556324E4ED00002C0020 /* Interval */,
 			);
 			productName = neuCKAN;
 			productReference = B451D556236B9D5400441195 /* neuCKAN.app */;
@@ -562,6 +565,7 @@
 				B4ADB83E24138DB500CA2930 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				B4AA8A50243D14A800FE2CE6 /* XCRemoteSwiftPackageReference "url-image" */,
 				B4E45A1C24919CD5009B58A7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B461556224E4ED00002C0020 /* XCRemoteSwiftPackageReference "Interval" */,
 			);
 			productRefGroup = B451D557236B9D5400441195 /* Products */;
 			projectDirPath = "";
@@ -1069,6 +1073,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B461556224E4ED00002C0020 /* XCRemoteSwiftPackageReference "Interval" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WowbaggersLiquidLunch/Interval.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		B469D12923FCC1EE00DA5EF0 /* XCRemoteSwiftPackageReference "swift-standard-library-preview" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-standard-library-preview.git";
@@ -1120,6 +1132,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B461556324E4ED00002C0020 /* Interval */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B461556224E4ED00002C0020 /* XCRemoteSwiftPackageReference "Interval" */;
+			productName = Interval;
+		};
 		B469D12A23FCC1EE00DA5EF0 /* StandardLibraryPreview */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B469D12923FCC1EE00DA5EF0 /* XCRemoteSwiftPackageReference "swift-standard-library-preview" */;

@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Interval",
+        "repositoryURL": "https://github.com/WowbaggersLiquidLunch/Interval.git",
+        "state": {
+          "branch": "main",
+          "revision": "15059279ba6f693961c60d162d7e064e408b8e0a",
+          "version": null
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
