@@ -50,6 +50,27 @@ struct SemanticVersion {
 		self.buildMetadataIdentifiers = buildMetadataIdentifiers
 	}
 	
+	///	The dummy version that serves as a placeholder.
+	static let dummy: Self = "0.0.0"
+	
+	///	The major version according to the semantic versioning standard.
+	let major: Int
+	
+	///	The minor version according to the semantic versioning standard.
+	let minor: Int
+	
+	///	The patch version according to the semantic versioning standard.
+	let patch: Int
+	
+	///	The pre-release identifier according to the semantic versioning standard, such as `-beta.1`.
+	let prereleaseIdentifiers: [String]
+	
+	///	The build metadata of this version according to the semantic versioning standard, such as a commit hash.
+	let buildMetadataIdentifiers: [String]
+	
+}
+
+extension SemanticVersion {
 	///	Creates a semantic version with the provided version string.
 	///	- Parameter versionString: A version string to use for creating a new version struct.
 	init(_ versionString: String) {
@@ -85,25 +106,6 @@ struct SemanticVersion {
 			end: metadataStartIndex ?? versionString.endIndex)
 		self.buildMetadataIdentifiers = identifiers(start: metadataStartIndex, end: versionString.endIndex)
 	}
-	
-	///	The dummy version that serves as a placeholder.
-	static let dummy: Self = "0.0.0"
-	
-	///	The major version according to the semantic versioning standard.
-	let major: Int
-	
-	///	The minor version according to the semantic versioning standard.
-	let minor: Int
-	
-	///	The patch version according to the semantic versioning standard.
-	let patch: Int
-	
-	///	The pre-release identifier according to the semantic versioning standard, such as `-beta.1`.
-	let prereleaseIdentifiers: [String]
-	
-	///	The build metadata of this version according to the semantic versioning standard, such as a commit hash.
-	let buildMetadataIdentifiers: [String]
-	
 }
 
 //	MARK: - Codable Conformance
