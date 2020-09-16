@@ -31,10 +31,6 @@
 		B4315B6E23D57B0D005FC675 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315B6D23D57B0D005FC675 /* Filter.swift */; };
 		B43B879224B03E8200F8CE02 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43B879124B03E8200F8CE02 /* SemanticVersion.swift */; };
 		B43B879324B03E8200F8CE02 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43B879124B03E8200F8CE02 /* SemanticVersion.swift */; };
-		B44BF55E24AE4BC000A6DB66 /* VersionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44BF55D24AE4BC000A6DB66 /* VersionError.swift */; };
-		B44BF56024AE4BC700A6DB66 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44BF55F24AE4BC700A6DB66 /* Version.swift */; };
-		B44BF56124AE4C5000A6DB66 /* VersionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44BF55D24AE4BC000A6DB66 /* VersionError.swift */; };
-		B44BF56224AE4C5300A6DB66 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44BF55F24AE4BC700A6DB66 /* Version.swift */; };
 		B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D559236B9D5400441195 /* AppDelegate.swift */; };
 		B451D55C236B9D5400441195 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451D55B236B9D5400441195 /* ViewController.swift */; };
 		B451D55F236B9D5400441195 /* neuCKAN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B451D55D236B9D5400441195 /* neuCKAN.xcdatamodeld */; };
@@ -153,8 +149,6 @@
 		B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVerticalSplitViewController.swift; sourceTree = "<group>"; };
 		B4315B6D23D57B0D005FC675 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		B43B879124B03E8200F8CE02 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
-		B44BF55D24AE4BC000A6DB66 /* VersionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionError.swift; sourceTree = "<group>"; };
-		B44BF55F24AE4BC700A6DB66 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		B451D556236B9D5400441195 /* neuCKAN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = neuCKAN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B451D559236B9D5400441195 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B451D55B236B9D5400441195 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -389,11 +383,9 @@
 				B49B8652236C1C3F00DF758C /* Release.swift */,
 				B46E7575237290DD00C09306 /* Requirements.swift */,
 				B46E75782372995C00C09306 /* Requirement.swift */,
-				B44BF55F24AE4BC700A6DB66 /* Version.swift */,
 				B43B879124B03E8200F8CE02 /* SemanticVersion.swift */,
 				B427B0A52511A0C4009B0A3A /* ExtendedSemanticVersion.swift */,
 				B46E757123727BC700C09306 /* OrdinalVersion.swift */,
-				B44BF55D24AE4BC000A6DB66 /* VersionError.swift */,
 				B46E756F2372782200C09306 /* InstallationDirective.swift */,
 				B46E757A2372A73C00C09306 /* Resources.swift */,
 				B46E757C2372B13400C09306 /* Hash.swift */,
@@ -632,7 +624,6 @@
 				B4D073AA245160EA008FF72C /* OrderedSet.swift in Sources */,
 				B4DAAA8124783F6500EF7320 /* Common Extensions.swift in Sources */,
 				B4991D4823C9E7A9005735FC /* TargetsViewController.swift in Sources */,
-				B44BF56024AE4BC700A6DB66 /* Version.swift in Sources */,
 				B4D073A8245160B5008FF72C /* CollectionOfUniqueElements.swift in Sources */,
 				B4ADB8582415EE3E00CA2930 /* TargetsConvertible.swift in Sources */,
 				B46E757D2372B13400C09306 /* Hash.swift in Sources */,
@@ -651,7 +642,6 @@
 				B4C1DFBF23F074F000E31F81 /* AirTrafficControl.swift in Sources */,
 				B4991D4423C9E58D005735FC /* MainWindowController.swift in Sources */,
 				B4CCF9EE2481BCF900F702E1 /* Operators.swift in Sources */,
-				B44BF55E24AE4BC000A6DB66 /* VersionError.swift in Sources */,
 				B46E75702372782200C09306 /* InstallationDirective.swift in Sources */,
 				B46E757223727BC700C09306 /* OrdinalVersion.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
@@ -722,14 +712,12 @@
 				B421B5BB241389C700955DC5 /* CKANFuckery.swift in Sources */,
 				B421B5BC241389C700955DC5 /* FileURLConvertible.swift in Sources */,
 				B427B0A72511A0C4009B0A3A /* ExtendedSemanticVersion.swift in Sources */,
-				B44BF56124AE4C5000A6DB66 /* VersionError.swift in Sources */,
 				B43B879324B03E8200F8CE02 /* SemanticVersion.swift in Sources */,
 				B4ADB85424144BE900CA2930 /* NEUCKAN.Tree.swift in Sources */,
 				B4DAAA8224783FF200EF7320 /* Common Extensions.swift in Sources */,
 				B421B5BD241389C700955DC5 /* TargetConvertible.swift in Sources */,
 				B4ADB844241449A900CA2930 /* NEUCKAN.Target.swift in Sources */,
 				B421B5BE241389C700955DC5 /* Notification Names.swift in Sources */,
-				B44BF56224AE4C5300A6DB66 /* Version.swift in Sources */,
 				B4D073AB245160EA008FF72C /* OrderedSet.swift in Sources */,
 				B4B46DF624132BBF00900B9E /* Synecdoche.swift in Sources */,
 				B4B46DF524132BB400900B9E /* AirTrafficControl.swift in Sources */,
