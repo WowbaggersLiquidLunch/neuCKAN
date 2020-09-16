@@ -24,6 +24,8 @@
 		B421B5BE241389C700955DC5 /* Notification Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469D12F24031D9D00DA5EF0 /* Notification Names.swift */; };
 		B421B5BF241389DF00955DC5 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315B5F23D3F621005FC675 /* Preferences.swift */; };
 		B427B08D2511976C009B0A3A /* VersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427B08C2511976C009B0A3A /* VersionTests.swift */; };
+		B427B0A62511A0C4009B0A3A /* ExtendedSemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427B0A52511A0C4009B0A3A /* ExtendedSemanticVersion.swift */; };
+		B427B0A72511A0C4009B0A3A /* ExtendedSemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427B0A52511A0C4009B0A3A /* ExtendedSemanticVersion.swift */; };
 		B4315B6023D3F621005FC675 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315B5F23D3F621005FC675 /* Preferences.swift */; };
 		B4315B6823D54F12005FC675 /* MainVerticalSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */; };
 		B4315B6E23D57B0D005FC675 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315B6D23D57B0D005FC675 /* Filter.swift */; };
@@ -146,6 +148,7 @@
 
 /* Begin PBXFileReference section */
 		B427B08C2511976C009B0A3A /* VersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTests.swift; sourceTree = "<group>"; };
+		B427B0A52511A0C4009B0A3A /* ExtendedSemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSemanticVersion.swift; sourceTree = "<group>"; };
 		B4315B5F23D3F621005FC675 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		B4315B6723D54F12005FC675 /* MainVerticalSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVerticalSplitViewController.swift; sourceTree = "<group>"; };
 		B4315B6D23D57B0D005FC675 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -388,6 +391,7 @@
 				B46E75782372995C00C09306 /* Requirement.swift */,
 				B44BF55F24AE4BC700A6DB66 /* Version.swift */,
 				B43B879124B03E8200F8CE02 /* SemanticVersion.swift */,
+				B427B0A52511A0C4009B0A3A /* ExtendedSemanticVersion.swift */,
 				B46E757123727BC700C09306 /* OrdinalVersion.swift */,
 				B44BF55D24AE4BC000A6DB66 /* VersionError.swift */,
 				B46E756F2372782200C09306 /* InstallationDirective.swift */,
@@ -651,6 +655,7 @@
 				B46E75702372782200C09306 /* InstallationDirective.swift in Sources */,
 				B46E757223727BC700C09306 /* OrdinalVersion.swift in Sources */,
 				B451D55A236B9D5400441195 /* AppDelegate.swift in Sources */,
+				B427B0A62511A0C4009B0A3A /* ExtendedSemanticVersion.swift in Sources */,
 				B46E7576237290DD00C09306 /* Requirements.swift in Sources */,
 				B43B879224B03E8200F8CE02 /* SemanticVersion.swift in Sources */,
 				B4991D9823CDD755005735FC /* TargetView.swift in Sources */,
@@ -716,6 +721,7 @@
 				B4ADB85224144BC300CA2930 /* NEUCKAN.Leaves.swift in Sources */,
 				B421B5BB241389C700955DC5 /* CKANFuckery.swift in Sources */,
 				B421B5BC241389C700955DC5 /* FileURLConvertible.swift in Sources */,
+				B427B0A72511A0C4009B0A3A /* ExtendedSemanticVersion.swift in Sources */,
 				B44BF56124AE4C5000A6DB66 /* VersionError.swift in Sources */,
 				B43B879324B03E8200F8CE02 /* SemanticVersion.swift in Sources */,
 				B4ADB85424144BE900CA2930 /* NEUCKAN.Tree.swift in Sources */,
