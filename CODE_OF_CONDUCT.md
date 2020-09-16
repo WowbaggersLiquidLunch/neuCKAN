@@ -1,1 +1,1 @@
-Be bold.
+Behave.
