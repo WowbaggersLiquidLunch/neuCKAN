@@ -7,6 +7,7 @@
 //
 
 import os.log
+import Interval
 
 ///	A version according to the semantic versioning specification.
 ///
@@ -208,3 +209,6 @@ extension SemanticVersion: ExpressibleByStringLiteral {
 	}
 	
 }
+
+//	MARK: - IntervalMember Conformance
+extension SemanticVersion: IntervalMember {}

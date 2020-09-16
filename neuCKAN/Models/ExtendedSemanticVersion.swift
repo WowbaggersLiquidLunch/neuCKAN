@@ -7,6 +7,7 @@
 //
 
 import os.log
+import Interval
 
 ///	An otherwise semantic version extended with a build.
 ///
@@ -121,3 +122,6 @@ extension ExtendedSemanticVersion: ExpressibleByStringLiteral {
 	}
 	
 }
+
+//	MARK: - IntervalMember Conformance
+extension ExtendedSemanticVersion: IntervalMember {}
