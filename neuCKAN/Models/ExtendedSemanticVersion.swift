@@ -29,7 +29,7 @@ import Interval
 ///
 ///	Increase the build every time when (but not only when) the semantic version increases.
 @dynamicMemberLookup
-struct ExtendedSemanticVersion {
+struct ExtendedSemanticVersion: Hashable {
 	///	The semantic version.
 	let semanticVersion: SemanticVersion
 	///	The build.

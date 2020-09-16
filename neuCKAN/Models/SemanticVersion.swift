@@ -26,7 +26,7 @@ import Interval
 ///	Increase the third digit of a version, or _patch version_, if you are making a backward-compatible bug fix. This allows clients to benefit from bugfixes to your package without incurring any maintenance burden.
 ///
 ///	- Remark: `SemanticVersion`'s implementation is adapted from Swift Package Manager's `Version`. They're largely identical.
-struct SemanticVersion {
+struct SemanticVersion: Hashable {
 	
 	///	Creates a version with the provided components of a semantic version.
 	///
