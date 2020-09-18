@@ -68,7 +68,7 @@ class ModsViewController: NSViewController {
 				sortDescriptor: NSSortDescriptor(key: "ckanMetadataSpecificationVersion", ascending: true),
 				drawing: { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.ckanMetadataSpecificationVersion, ofType: OrdinalVersion.self)
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.ckanMetadataSpecificationVersion, ofType: CKANMetadataVersion.self)
 					} else if let release = item as? Release {
 						cell.textField?.stringValue = String(describing: release.ckanMetadataSpecificationVersion)
 					}
@@ -177,7 +177,7 @@ class ModsViewController: NSViewController {
 				sortDescriptor: nil,
 				drawing: { cell, item in
 					if let mod = item as? Mod {
-						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.version, ofType: OrdinalVersion.self)
+						cell.textField?.stringValue = mod.readableAttribute(forKey: \Release.version, ofType: CKANMetadataVersion.self)
 					} else if let release = item as? Release {
 						cell.textField?.stringValue = String(describing: release.version)
 					}

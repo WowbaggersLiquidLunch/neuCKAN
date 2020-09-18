@@ -1,41 +1,33 @@
 //
-//	OrdinalVersion.swift
+//	CKANMetadataVersion.swift
 //	neuCKAN
 //
 //	Created by you on 19-11-05.
 //	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
-import Foundation
+import os.log
+import Interval
 
-///	An ordinal version consisting of an epoch, a quasi-semantic versioning sequence, a release annotation, and a metadata annotation.
+///	A CKAN metadata version consisting of an epoch, a quasi-semantic versioning sequence, a release annotation, and a metadata annotation.
 ///
-///	This is equivalent to a unified representation of the ["spec\_version"]["spec\_version" attribute], ["version"]["version" attribute], ["ksp\_version"]["ksp\_version" attribute], ["ksp\_version\_min"]["ksp\_version\_min" attribute], ["ksp\_version\_max"]["ksp\_version\_max" attribute], and ["ksp\_version\_strict"]["ksp\_version\_strict" attribute] attributes in a `.ckan` file.
+///	This is a representation of the ["version" attribute]["version" attribute] in a `.ckan` file.
 ///
-///	When comparing two ordinal version numbers, first the `epoch` of each are compared, then the `quasiSemanticVersion` if epoches are equal. The epoches are compared numerically; the quasi-semantic version is compared lexicographically precedingly. For more details, check `OrdinalVersion`'s `Comparable` conformance in the source code.
+///	When comparing two CKAN metadata version numbers, first the `epoch` of each are compared, then the `quasiSemanticVersion` if epoches are equal. The epoches are compared numerically; the quasi-semantic version is compared lexicographically precedingly. For more details, check `CKANMetadataVersion`'s `Comparable` conformance in the source code.
 ///
-///	- Important: Special treatments apply to the `"any"` value and the `"ksp_version_strict"` attribute:
-///	  - The `"any"` value is decoded as `Version.infinitesimal...Version.infinity` directly.
-///	  - The `"ksp_version"` attribute is frst decoded as a `Version` instance, then coverted to the smallest open range. For example, the key-value pair `"ksp_version": "69.42"` becomes `Version("69.42")..<Version("69.43")`.
-///
-///	["spec\_version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
 ///	["version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
-///	["ksp\_version" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
-///	["ksp\_version\_min" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
-///	["ksp\_version\_max" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
-///	["ksp\_version\_strict" attribute]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_strict
 ///	[CKAN's version ordering algorithm]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version-ordering
-struct OrdinalVersion: Hashable {
+struct CKANMetadataVersion: Hashable {
 	
 	//	MARK: Policies
 	
 	///	An array of alternating strings and integers.
 	///
-	///	An instance of this type represents the entirety or a part of the ordinal version compoent separated by dots.
+	///	An instance of this type represents the entirety or a part of the CKAN metadata version compoent separated by dots.
 	typealias QuasiSemanticVersionSegment = [MinimalComparableUnit]
 	
-	///	A labeled tuple of ordinal version components.
-	private typealias OrdinalVersionComponents = (
+	///	A labeled tuple of CKAN metadata version components.
+	private typealias CKANMetadataVersionComponents = (
 		epoch: Int?,
 		quasiSemanticVersion: [QuasiSemanticVersionSegment],
 		releaseSuffix: String?,
@@ -44,84 +36,64 @@ struct OrdinalVersion: Hashable {
 	
 	//	MARK: - Initialisers
 	
-	///	Instanciates an ordinal version from the given version string.
+	///	Creates a CKAN metadata version with the given version string.
 	///	- Parameter versionString: The version string as defined by the CKAN metadata specification.
-	///	- Throws: A `VersionError` instance.
-	init(_ versionString: String) throws {
-		assert(versionString != "any", "'any' versions require special handling, and shouldn't be passed in 'OrdinalVersion.init_)'")
-		guard !versionString.isEmpty else {
-			throw VersionError.stringEmpty
-		}
+	init(_ versionString: String) {
 		originalString = versionString
-		(epoch, quasiSemanticVersion, releaseSuffix, metadataSuffix) = try Self.deconstruct(from: versionString)
+		(epoch, quasiSemanticVersion, releaseSuffix, metadataSuffix) = Self.deconstruct(from: versionString)
 	}
 	
-	///	Instanciates an ordinal version from its individual and unprocessed components.
+	///	Creates a CKAN metadata version with its individual unprocessed components.
 	///	- Parameters:
 	///	  - epoch: The version's epoch, a fail-safe insurance to the versioning sequence..
 	///	  - quasiSemanticVersionString: The mandatory quasi-semantic version component that serves as the primary versioning information.
 	///	  - releaseSuffix: The version's release suffix.
 	///	  - metadataSuffix: The version's metadata suffix.
-	///	- Throws: A `VersionError` instance.
 	init(
 		epoch: Int?,
 		quasiSemanticVersionString: String,
 		releaseSuffix: String?,
 		metadataSuffix: String?
-	) throws {
-		//	Catch the error before deconstruct(from:) does. deconstruct(from:) won't have enough information to reconstuct the full version string.
-		guard !quasiSemanticVersionString.isEmpty else {
-			//	Reconstruct the version string as it would appear in a CKAN metadata file, so as to give the error thrown a context.
-			var reconstructedVersionString = ""
-			if let epoch = epoch { reconstructedVersionString += "\(epoch): " }
-			if let releaseSuffix = releaseSuffix { reconstructedVersionString += "-\(releaseSuffix)" }
-			if let metadataSuffix = metadataSuffix { reconstructedVersionString += "+\(metadataSuffix)" }
-			throw VersionError.quasiSemanticVersionNotFound(versionString: reconstructedVersionString)
-		}
-		try self.init(
-			ordinalVersionComponents: (
+	) {
+		self.init(
+			ckanMetadataVersionComponents: (
 				epoch: epoch,
-				quasiSemanticVersion: try Self.deconstruct(from: quasiSemanticVersionString).quasiSemanticVersion,	//	Use deconstruct(from:) here because quasiSemanticVersionString can be considered as a version string without epoch, release suffix, and metadata suffix.
+				quasiSemanticVersion: Self.deconstruct(from: quasiSemanticVersionString).quasiSemanticVersion,	//	A quasi-semantic version string can be considered as a valid CKAN metadata version string without epoch, release suffix, and metadata suffix.
 				releaseSuffix: releaseSuffix,
 				metadataSuffix: metadataSuffix
 			)
 		)
 	}
 	
-	///	Instanciates an ordinal version from its grouped and processed components.
-	///	- Parameter ordinalVersionComponents: The ordinal version's components.
-	///	- Throws: A `VersionError` instance.
-	private init(ordinalVersionComponents: OrdinalVersionComponents) throws {
+	///	Creates a CKAN metadata version with its grouped and processed components.
+	///	- Parameter ckanMetadataVersionComponents: The CKAN metadata version's components.
+	private init(ckanMetadataVersionComponents: CKANMetadataVersionComponents) {
 		var reconstructedVersionString = ""
 		
-		if let epoch = ordinalVersionComponents.epoch {
+		if let epoch = ckanMetadataVersionComponents.epoch {
 			reconstructedVersionString += "\(epoch): "
 		}
 		
-		reconstructedVersionString += ordinalVersionComponents.quasiSemanticVersion.map { quasiSemanticVersionSegment in
+		reconstructedVersionString += ckanMetadataVersionComponents.quasiSemanticVersion.map { quasiSemanticVersionSegment in
 			quasiSemanticVersionSegment.map { minimalComparableUnit in
 				String(describing: minimalComparableUnit)
 			} .joined()
 		} .joined(separator: ".")
 		
-		if let releaseSuffix = ordinalVersionComponents.releaseSuffix {
+		if let releaseSuffix = ckanMetadataVersionComponents.releaseSuffix {
 			reconstructedVersionString += "-\(releaseSuffix)"
 		}
 		
-		if let metadataSuffix = ordinalVersionComponents.metadataSuffix {
+		if let metadataSuffix = ckanMetadataVersionComponents.metadataSuffix {
 			reconstructedVersionString += "+\(metadataSuffix)"
 		}
 		
-		guard !ordinalVersionComponents.quasiSemanticVersion.isEmpty else {
-			throw VersionError.quasiSemanticVersionNotFound(versionString: reconstructedVersionString)
-		}
-		
 		self.originalString = reconstructedVersionString
-		(self.epoch, self.quasiSemanticVersion, self.releaseSuffix, self.metadataSuffix) = ordinalVersionComponents
+		(self.epoch, self.quasiSemanticVersion, self.releaseSuffix, self.metadataSuffix) = ckanMetadataVersionComponents
 	}
 	
-	//	Initialisation from numbers is disabled, incompliance with the CKAN metadata specification.
-	//	///	Instanciate an ordinal version instance from the given version number.
+	//	Initialisation from numbers is disabled, in compliance with the CKAN metadata specification.
+	//	///	Instanciate a CKAN metadata version instance from the given version number.
 	//	///
 	//	///	This initialiser takes care of CKAN metadata files that do not respect the current specification, and use numbers for versions.
 	//	///
@@ -182,22 +154,16 @@ struct OrdinalVersion: Hashable {
 	
 	//	MARK: - Static Methods
 	
-	///	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffix components from the given complete ordinal version string.
-	///	- Parameter versionString: The complete ordinal version string to deconstruct.
-	///	- Returns: The ordinal version's components.
+	///	Extracts the epoch, quasi-semantic version, release suffix, and metadata suffix components from the given complete CKAN metadata version string.
+	///	- Parameter versionString: The complete CKAN metadata version string to deconstruct.
+	///	- Returns: The CKAN metadata version's components.
 	///	- Throws: A `VersionError` instance.
-	private static func deconstruct(from versionString: String) throws -> OrdinalVersionComponents {
+	private static func deconstruct(from versionString: String) -> CKANMetadataVersionComponents {
 		//	Split the version string into its components by their distinctive markers ":", "+", and "-" before processing them.
 		let versionStringSplitByColons: [Substring] = versionString.split(separator: ":")
 		let versionStringRemainderSplitByPluses: [Substring] = versionStringSplitByColons.last?.split(separator: "+") ?? []
 		let versionStringRemainderSplitByMinuses: [Substring] = versionStringRemainderSplitByPluses.first?.split(separator: "-") ?? []	//	technically hyphen-minus
 		let versionStringRemainderSplitByDots: [Substring] = versionStringRemainderSplitByMinuses.first?.split(separator: ".") ?? []
-		
-		//	The quasi-semantic version component cannot be empty.
-		//	In practice, all version-related operations (e.g. version comparison) will do just fine without it, even if the entire original version string is empty. However, CKAN metadata specification implicitly demands a non-empty value for the quasi-semantic version. Thus, for the sake of specification-compliance and maintining a consistent behaviour across all CKAN client, version strings without the quasi-semantic version component are disallowed.
-		guard !versionStringRemainderSplitByDots.isEmpty else {
-			throw VersionError.quasiSemanticVersionNotFound(versionString: versionString)
-		}
 		
 		//	TODO: Refactor getNonNumericalLeadingCluster(from:) and getNumericalLeadingCluster(from:); DRY.
 		//	TODO: Replace ~= (pattern:value:) with .contains(_:).
@@ -205,44 +171,45 @@ struct OrdinalVersion: Hashable {
 		
 		//	Both nonNumericalLeadingComparableUnits(of:) and numericalLeadingComparableUnits(of:) use substrings heavily for time, memory, and energy efficiency.
 		
-		///	Parses a non-numerical characters-leading ordinal version segments cluster from the given partial version string.
+		///	Parses a non-numerical characters-leading CKAN metadata version segments cluster from the given partial version string.
 		///	- Parameter versionSegmentSubString: The partial version string to parse.
-		///	- Returns: A non-numerical characters-leading ordinal version segments.
+		///	- Returns: A non-numerical characters-leading CKAN metadata version segments.
 		///	- Throws: `VersionError.minimalComparableUnitOversize`.
-		func nonNumericalLeadingComparableUnits(of versionSegmentSubString: String) throws -> QuasiSemanticVersionSegment {
+		func nonNumericalLeadingComparableUnits(of versionSegmentSubString: String) -> QuasiSemanticVersionSegment {
 			var versionSegment: QuasiSemanticVersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { !("0"..."9" ~= $0) } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			versionSegment.append(MinimalComparableUnit.nonNumerical(String(nextComparableUnit)))
 			if !remainingVersionSegmentSubString.isEmpty {
-				versionSegment.append(contentsOf: try numericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
+				versionSegment.append(contentsOf: numericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
 			return versionSegment
 		}
 		
-		///	Parses a numerical characters-leading ordinal version segments cluster from the given partial version string.
+		///	Parses a numerical characters-leading CKAN metadata version segments cluster from the given partial version string.
 		///	- Parameter versionSegmentSubString: The partial version string to parse.
-		///	- Returns: A numerical characters-leading ordinal version segments.
+		///	- Returns: A numerical characters-leading CKAN metadata version segments.
 		///	- Throws: `VersionError.minimalComparableUnitOversize`.
-		func numericalLeadingComparableUnits(of versionSegmentSubString: String) throws -> QuasiSemanticVersionSegment {
+		func numericalLeadingComparableUnits(of versionSegmentSubString: String) -> QuasiSemanticVersionSegment {
 			var versionSegment: QuasiSemanticVersionSegment = []
 			let nextComparableUnit = versionSegmentSubString.prefix(while: { "0"..."9" ~= $0 } )
 			let remainingVersionSegmentSubString = versionSegmentSubString.suffix(from: nextComparableUnit.endIndex)
 			let nextComparableUnitString = String(nextComparableUnit)
-			//	The project's CKAN metadata-parsing logic ensures that, at this point, integer overflow is the only possible cause for failure of unsigned integer initialisation from string.
+			//	The project's CKAN metadata -parsing logic ensures that, at this point, integer overflow is the only possible cause for failure of unsigned integer initialisation from string.
 			guard let nextNumericalComparableUnit = UInt(nextComparableUnitString) else {
-				throw VersionError.minimalComparableUnitOversize(comparableUnitString: nextComparableUnitString, versionString: versionString)
+				os_log("Integer overflow: %@.", log: .default, type: .error, nextComparableUnitString)
+				return versionSegment
 			}
 			versionSegment.append(MinimalComparableUnit.numerical(nextNumericalComparableUnit))
 			if !remainingVersionSegmentSubString.isEmpty {
-				versionSegment.append(contentsOf: try nonNumericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
+				versionSegment.append(contentsOf: nonNumericalLeadingComparableUnits(of: String(remainingVersionSegmentSubString)))
 			}
 			return versionSegment
 		}
 		
 		return (
 			epoch: versionStringSplitByColons.count > 1 ? Int(versionStringSplitByColons[0]) : nil,
-			quasiSemanticVersion: try versionStringRemainderSplitByDots.map { try nonNumericalLeadingComparableUnits(of: String($0)) },
+			quasiSemanticVersion: versionStringRemainderSplitByDots.map { nonNumericalLeadingComparableUnits(of: String($0)) },
 			releaseSuffix: versionStringRemainderSplitByMinuses.count > 1 ? String(versionStringRemainderSplitByMinuses.last!) : nil,
 			metadataSuffix: versionStringRemainderSplitByPluses.count > 1 ? String(versionStringRemainderSplitByPluses.last!) : nil
 		)
@@ -250,19 +217,19 @@ struct OrdinalVersion: Hashable {
 }
 
 //	MARK: - Codable Conformance
-extension OrdinalVersion: Codable {
+extension CKANMetadataVersion: Codable {
 	
-	///	Initialises a `OrdinalVersion` instance by decoding from the given `decoder`.
+	///	Initialises a `CKANMetadataVersion` instance by decoding from the given `decoder`.
 	///	- Parameter decoder: The decoder to read data from.
-	///	- Throws: A `DecodingError` or `VersionError` instance.
+	///	- Throws: A `DecodingError` instance.
 	init(from decoder: Decoder) throws {
 		let versionString = try decoder.singleValueContainer().decode(String.self)
-		self = try Self(versionString)
+		self.init(versionString)
 	}
 	
-	///	Encodes a `OrdinalVersion` instance`.
+	///	Encodes a `CKANMetadataVersion` instance`.
 	///	- Parameter encoder: The encoder to encode data to.
-	///	- Throws: An `EncodingError` instance, which shouldn't happen.
+	///	- Throws: An `EncodingError` instance.
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		try container.encode(originalString)
@@ -270,8 +237,8 @@ extension OrdinalVersion: Codable {
 }
 
 //	MARK: - Comparable Conformance
-extension OrdinalVersion: Comparable {
-	//	Compares ordinal verisons exactly how the CKAN metadata specification wants it, but with a twist (perhaps better) by favoring semantic versioning when in face of ambiguity.
+extension CKANMetadataVersion: Comparable {
+	//	Compares CKAN metadata verisons exactly how the CKAN metadata specification wants it, but with a twist (perhaps better) by favoring semantic versioning when in face of ambiguity.
 	static func < (lhs: Self, rhs: Self) -> Bool {
 		//	TODO: Replace if-else with switch-case.
 		if let lhsEpoch = lhs.epoch, let rhsEpoch = rhs.epoch {
@@ -302,7 +269,7 @@ extension OrdinalVersion: Comparable {
 	}
 }
 
-extension OrdinalVersion.QuasiSemanticVersionSegment: Comparable {
+extension CKANMetadataVersion.QuasiSemanticVersionSegment: Comparable {
 	public static func < (lhs: Self, rhs: Self) -> Bool {
 		lhs.lexicographicallyPrecedes(rhs)
 	}
@@ -310,7 +277,7 @@ extension OrdinalVersion.QuasiSemanticVersionSegment: Comparable {
 	
 }
 
-extension OrdinalVersion.MinimalComparableUnit: Comparable {
+extension CKANMetadataVersion.MinimalComparableUnit: Comparable {
 	//	Swift has synthetic Comparable conformance since version 5.3, so a custom implementation is no longer necessary.
 	//	The only caveat is that with the synthetic Comparable conformance, all .numerical cases now precede .nonNumerical cases. This behaviour is not necessarily bad, but it's not necessarily good either. It's just something to note here, and to keep in mind of.
 	//	static func < (lhs: Self, rhs: Self) -> Bool {
@@ -327,7 +294,7 @@ extension OrdinalVersion.MinimalComparableUnit: Comparable {
 }
 
 //	MARK: - Collection Conformance
-extension OrdinalVersion: Collection {
+extension CKANMetadataVersion: Collection {
 	
 	typealias Index = Array<QuasiSemanticVersionSegment>.Index
 	
@@ -369,29 +336,29 @@ extension OrdinalVersion: Collection {
 }
 
 ////	MARK: - ExpressibleByStringLiteral Conformance
-//extension OrdinalVersion: ExpressibleByStringLiteral {
+//extension CKANMetadataVersion: ExpressibleByStringLiteral {
 //	init(stringLiteral value: String) {
 //		self.init(value)
 //	}
 //}
 //
 ////	MARK: ExpressibleByExtendedGraphemeClusterLiteral Conformance
-//extension OrdinalVersion: ExpressibleByExtendedGraphemeClusterLiteral {
+//extension CKANMetadataVersion: ExpressibleByExtendedGraphemeClusterLiteral {
 //	public init(extendedGraphemeClusterLiteral value: String) {
 //		self.init(stringLiteral: value)
 //	}
 //}
 //
 ////	MARK: ExpressibleByUnicodeScalarLiteral Conformance
-//extension OrdinalVersion: ExpressibleByUnicodeScalarLiteral {
+//extension CKANMetadataVersion: ExpressibleByUnicodeScalarLiteral {
 //	public init(unicodeScalarLiteral value: String) {
 //		self.init(stringLiteral: value)
 //	}
 //}
 
 //	MARK: - CustomStringConvertible Conformance
-extension OrdinalVersion: CustomStringConvertible {
-	///	A textual representation of the ordinal version.
+extension CKANMetadataVersion: CustomStringConvertible {
+	///	A textual representation of the CKAN metadata version.
 	var description: String {
 		var quasiSemanticVersionString = quasiSemanticVersion.map { quasiSemanticVersionSegment in
 			quasiSemanticVersionSegment.map { minimalComparableUnit in
@@ -408,12 +375,12 @@ extension OrdinalVersion: CustomStringConvertible {
 }
 
 //	FIXME: Fix String(describing: QuasiSemanticVersionSegment).
-//extension OrdinalVersion.QuasiSemanticVersionSegment: CustomStringConvertible {
+//extension CKANMetadataVersion.QuasiSemanticVersionSegment: CustomStringConvertible {
 //	///	A textual representation of the version segment.
 //	var description: String { self.map { String(describing: $0) }.joined() }
 //}
 
-extension OrdinalVersion.MinimalComparableUnit: CustomStringConvertible {
+extension CKANMetadataVersion.MinimalComparableUnit: CustomStringConvertible {
 	///	A textual representation of the lowest, indivisible comparable unit.
 	var description: String {
 		switch self {
@@ -427,10 +394,12 @@ extension OrdinalVersion.MinimalComparableUnit: CustomStringConvertible {
 
 //	TODO: Add LosslessStringConvertible conformance.
 //	MARK: - LosslessStringConvertible Conformance
-//extension OrdinalVersion.QuasiSemanticVersionSegment: LosslessStringConvertible {
+//extension CKANMetadataVersion.QuasiSemanticVersionSegment: LosslessStringConvertible {
 //
 //}
 //
-//extension OrdinalVersion.MinimalComparableUnit: LosslessStringConvertible {
+//extension CKANMetadataVersion.MinimalComparableUnit: LosslessStringConvertible {
 //
 //}
+
+extension CKANMetadataVersion: IntervalMember {}

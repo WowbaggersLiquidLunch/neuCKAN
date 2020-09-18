@@ -35,7 +35,7 @@ struct Release: Hashable {
 	///	In a .ckan file, the value is formatted as `vx.x` string (eg: `"v1.2"`), and it's the minimum version of the reference CKAN client that will read this file. For compatibility with CKAN pre-release clients, and the CKAN v1.0 client, the special integer 1 is encouraged by CKAN project.
 	///
 	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#spec_version
-	let ckanMetadataSpecificationVersion: OrdinalVersion
+	let ckanMetadataSpecificationVersion: CKANMetadataVersion
 	
 	///	The mod's name.
 	///
@@ -119,7 +119,7 @@ struct Release: Hashable {
 	///	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
 	///
 	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
-	let version: OrdinalVersion
+	let version: CKANMetadataVersion
 	
 	//	MARK: - Optional Fields
 	//	All optional fields must be of Optional types.
@@ -172,7 +172,7 @@ struct Release: Hashable {
 	///	In a .ckan file, this may be the string `"any"` which will be changed to` "∀x∈ℍ.∀x∈ℍ.∀x∈ℍ"` in neuCKAN internally, a number, e.g. `"0.23.5"`, or may contain only the first two parts of the version string, e.g. `"0.25"`. In the latter example, any release version starting with `"0.25"` is acceptable.
 	///
 	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version
-	private let supportedKSPVersion: OrdinalVersion?
+	private let supportedKSPVersion: ExtendedSemanticVersion?
 	
 	///	The minimum version of KSP required by the mod release.
 	///
@@ -181,7 +181,7 @@ struct Release: Hashable {
 	///	It is an error to have both `supportedMinimumKSPVersion` and the `supportedKSPVersion` not `nil`.
 	///
 	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_min
-	private let supportedMinimumKSPVersion: OrdinalVersion?
+	private let supportedMinimumKSPVersion: ExtendedSemanticVersion?
 	
 	///	The maximum version of KSP required by the mod release.
 	///
@@ -190,12 +190,12 @@ struct Release: Hashable {
 	///	It is an error to have both `supportedMaximumKSPVersion` and the `supportedKSPVersion` not `nil`.
 	///
 	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#ksp_version_max
-	private let supportedMaximumKSPVersion: OrdinalVersion?
 	
 	//	TODO: Change this to a stored property, instead of computed.
 	///	KSP versions supported by this mod release.
 	///	- TODO: Change this to a stored property, instead of computed.
 	var kspVersionRequirement: Requirement { Requirement(id: "KSP", version: supportedKSPVersion, versionMin: supportedMinimumKSPVersion, versionMax: supportedMaximumKSPVersion) }
+	private let supportedMaximumKSPVersion: ExtendedSemanticVersion?
 	
 	///	Whether checks for KSP version verbatim.
 	///
@@ -390,7 +390,7 @@ struct Release: Hashable {
 //	TODO: Add Identifiable conformance once tuples have Hashable conformance.
 extension Release {
 	///	The unique identifier of the mod release, composed of the mod ID and version.
-	var id: (String, OrdinalVersion) { (modID, version) }
+	var id: (String, CKANMetadataVersion) { (modID, version) }
 }
 
 //	MARK: - Codable Conformance
