@@ -6,125 +6,92 @@
 //	Copyleft © 2019 Wowbagger & His Liquid Lunch. All wrongs reserved.
 //
 
-import Foundation
+import Interval
 
 //	FIXME: Find a more appropriate name than "Requirement".
+//	Could be "ModVersionInterval" or "ModReleasesSlice".
 
-/**
-A range of release versions of a mod.
-
-This type serves as a building block of `Requirements`
-
-- See Also: `Requirements`
-*/
+///	A range of release versions of a mod.
+///
+///	This type serves as a building block of `Requirements`
+///
+///	- SeeAlso: `Requirements`
 struct Requirement: Hashable {
 	
-	//	MARK: Mandatory Field
+	///	The mod's unique identifier.
+	///
+	///	This is equivalent to the ["identifier" attribute][0] in a .ckan file. The identifier is used whenever the mod is referenced (by `dependencies`, `conflicts`, and elsewhere).
+	///
+	///	The identifier is both case sensitive for machines, and unique regardless of capitalization for human consumption and case-ignorant systems. For example: the hypothetical identifier `"MyMod"` must always be expressed as `"MyMod"` everywhere, but another module cannot assume the `"mymod"` identifier.
+	///
+	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
+	let modID: String
 	
-	/**
-	The globally unique identifier for the mod.
+	///	The mod's name.
+	///
+	///	This is the human readable name of the mod, and may contain any printable characters.
+	///
+	///	This is equivalent to the ["name" attribute][0] in a .ckan file.
+	///
+	///	For example:
+	///	- "Ferram Aerospace Research (FAR)"
+	///	- "Real Solar System".
+	///
+	///	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
+	///
+	///	- ToDo: Replace the implementation's reliance on `Synecdoche`.
+	var modName: String? { Synecdoche.shared.mods[modID]?.name }
 	
-	This is equivalent to the ["identifier" attribute][0] in a .ckan file. The identifier is used whenever the mod is referenced (by `dependencies`, `conflicts`, and elsewhere).
-	
-	The identifier is both case sensitive for machines, and unique regardless of capitalization for human consumption and case-ignorant systems. For example: the hypothetical identifier `"MyMod"` must always be expressed as `"MyMod"` everywhere, but another module cannot assume the `"mymod"` identifier.
-	
-	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#identifier
-	*/
-	let id: String
-	
-	/**
-	Mod name.
-	
-	This is the human readable name of the mod, and may contain any printable characters.
-	
-	This is equivalent to the ["name" attribute][0] in a .ckan file.
-	
-	For example:
-	- "Ferram Aerospace Research (FAR)"
-	- "Real Solar System".
-	
-	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#name
-	*/
-	var name: String? {
-		Synecdoche.shared.mods[id]?.name
-	}
-	
-	//	MARK: - Optional Fields
-	
-	//	FIXME: Replace version, versionMin, and versionMax with Range<OrdinalVersion>.
+	//	FIXME: Replace version, versionMin, and versionMax with Range<CKANMetadataVersion>.
 	//	Thus avoid using universallyCompatibleVersionString, and avoid special treatment in Comparable conformance.
+	///	An interval of mod versions.
+	let versions: Interval<CKANMetadataVersion>
 	
-	//	TODO: Check for confict between version, versionMin, and versionMax.
-	
-	/**
-	Mod version.
-	
-	This is equivalent to the ["version" attribute][0] in a .ckan file.
-	
-	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
-	
-	[0]: https://github.com/KSP-CKAN/CKAN/blob/master/Spec.md#version
-	*/
-	let version: OrdinalVersion?
-	
-	/**
-	Mod minimum version.
-	
-	This is equivalent to the `"min_version"` attribute in a .ckan file.
-	
-	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
-	*/
-	let versionMin: OrdinalVersion?
-	
-	/**
-	Mod maximum version.
-	
-	This is equivalent to the `"max_version"` attribute in a .ckan file.
-	
-	In a .ckan file, this is formatted as `"[epoch:]mod_version"`.
-	*/
-	let versionMax: OrdinalVersion?
 }
 
 //	MARK: - CustomStringConvertible Conformance
 extension Requirement: CustomStringConvertible {
 	//	TODO: Recursively handle a release's equivalents without running into an infinite loop.
-	/**
-	A logic expression describing the relation.
-	
-	The value will be one of the following
-	- `"mod's name"` if no versions are specified in the relation.
-	- `"mod's name ( ≥ minimum version)"` if only the minimum version is specified.
-	- `"mod's name ( ≤ maximum version)"` if only the maximum version is specified.
-	- `"mod's name [minimum version, maximum version]"` if both the minimum and maximum versions are specified.
-	*/
+	///	A description the requirement.
 	var description: String {
-		var prefix: String = ""
-		if id != "KSP" {
-			guard let name = name else { return "mod by ID \(id) not found" }
-			prefix = name + " "
-		}
-		if let version = version {
-			return prefix + "\(version.originalString)"
-		} else if let versionMin = versionMin, let versionMax = versionMax {
-			return prefix + "∈ [\(versionMin.originalString), \(versionMax.originalString)]"
-		} else if let versionMin = versionMin {
-			return prefix + "≥ \(versionMin.originalString)"
-		} else if let versionMax = versionMax {
-			return prefix + "≤ \(versionMax.originalString)"
-		} else {
-			return prefix
-		}
+		guard let modName = modName else { return "mod by ID \(modID) not found" }
+		return "\(modName) ∈ \(versions)"
 	}
 }
 
 //	MARK: - Codable Conformance
-extension Requirement: Codable {
-	//	Maps between Swift names and JSON names; adds Codable conformance.
+extension Requirement: Decodable {
+	
+	///	Instantiate `Requirement` by decoding from the given `decoder`.
+	///	- Parameter decoder: The decoder to read data from.
+	///	- Throws: A `DecodingError` instance.
+	init(from decoder: Decoder) throws {
+		
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		modID = try container.decode(String.self, forKey: .id)
+		
+		if let exactVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .exactVersion) {
+			versions = exactVersion≤∙≤exactVersion
+		} else {
+			let minimalVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .minimalVersion)
+			let lowerBoundedVersions = minimalVersion?≤∙∙ ?? .unbounded
+			//	TODO: Propose supporting optional chaining with prefix operators.
+			var upperBoundedVersions = Interval<CKANMetadataVersion>.unbounded
+			if let maximalVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .maximalVersion) {
+				upperBoundedVersions = ∙∙≤maximalVersion
+			}
+			versions = lowerBoundedVersions ∩ upperBoundedVersions
+		}
+		
+	}
+	
+	///	A key for encoding and decoding a mod's requirement..
 	private enum CodingKeys: String, CodingKey {
 		case id = "name"
-		case version
-		case versionMin = "min_version"
-		case versionMax = "max_version"
+		case exactVersion = "version"
+		case minimalVersion = "min_version"
+		case maximalVersion = "max_version"
 	}
+	
 }
