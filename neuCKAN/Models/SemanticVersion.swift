@@ -71,44 +71,6 @@ struct SemanticVersion: Hashable {
 	
 }
 
-extension SemanticVersion {
-	///	Creates a semantic version with the provided version string.
-	///	- Parameter versionString: A version string to use for creating a new version struct.
-	init(_ versionString: String) {
-		let prereleaseStartIndex = versionString.firstIndex(of: "-")
-		let metadataStartIndex = versionString.firstIndex(of: "+")
-		
-		let requiredEndIndex = prereleaseStartIndex ?? metadataStartIndex ?? versionString.endIndex
-		let requiredCharacters = versionString.prefix(upTo: requiredEndIndex)
-		let requiredComponents = requiredCharacters
-			.split(separator: ".", maxSplits: 2, omittingEmptySubsequences: false)
-			.map(String.init)
-			.compactMap({ Int($0) })
-			.filter({ $0 >= 0 })
-		
-		guard requiredComponents.count >= 1 && requiredComponents.count <= 3 else {
-			self = Self.dummy
-			os_log("Unable to create a semantic version from string \"%@\". A dummy version 0.0.0 is used as a placeholder.", log: .default, type: .error, versionString)
-			return
-		}
-		
-		self.major = requiredComponents[0]
-		self.minor = requiredComponents.count >= 2 ? requiredComponents[1] : 0
-		self.patch = requiredComponents.count >= 3 ? requiredComponents[2] : 0
-		
-		func identifiers(start: String.Index?, end: String.Index) -> [String] {
-			guard let start = start else { return [] }
-			let identifiers = versionString[versionString.index(after: start)..<end]
-			return identifiers.split(separator: ".").map(String.init)
-		}
-		
-		self.prereleaseIdentifiers = identifiers(
-			start: prereleaseStartIndex,
-			end: metadataStartIndex ?? versionString.endIndex)
-		self.buildMetadataIdentifiers = identifiers(start: metadataStartIndex, end: versionString.endIndex)
-	}
-}
-
 //	MARK: - Codable Conformance
 extension SemanticVersion: Codable {
 	
@@ -184,6 +146,45 @@ extension SemanticVersion: CustomStringConvertible {
 			base += "+" + buildMetadataIdentifiers.joined(separator: ".")
 		}
 		return base
+	}
+}
+
+//	MARK: - LosslessStringConvertible Conformance
+extension SemanticVersion: LosslessStringConvertible {
+	///	Creates a semantic version with the provided version string.
+	///	- Parameter versionString: A version string to use for creating a new version struct.
+	init(_ versionString: String) {
+		let prereleaseStartIndex = versionString.firstIndex(of: "-")
+		let metadataStartIndex = versionString.firstIndex(of: "+")
+		
+		let requiredEndIndex = prereleaseStartIndex ?? metadataStartIndex ?? versionString.endIndex
+		let requiredCharacters = versionString.prefix(upTo: requiredEndIndex)
+		let requiredComponents = requiredCharacters
+			.split(separator: ".", maxSplits: 2, omittingEmptySubsequences: false)
+			.map(String.init)
+			.compactMap({ Int($0) })
+			.filter({ $0 >= 0 })
+		
+		guard requiredComponents.count >= 1 && requiredComponents.count <= 3 else {
+			self = Self.dummy
+			os_log("Unable to create a semantic version from string \"%@\". A dummy version 0.0.0 is used as a placeholder.", log: .default, type: .error, versionString)
+			return
+		}
+		
+		self.major = requiredComponents[0]
+		self.minor = requiredComponents.count >= 2 ? requiredComponents[1] : 0
+		self.patch = requiredComponents.count >= 3 ? requiredComponents[2] : 0
+		
+		func identifiers(start: String.Index?, end: String.Index) -> [String] {
+			guard let start = start else { return [] }
+			let identifiers = versionString[versionString.index(after: start)..<end]
+			return identifiers.split(separator: ".").map(String.init)
+		}
+		
+		self.prereleaseIdentifiers = identifiers(
+			start: prereleaseStartIndex,
+			end: metadataStartIndex ?? versionString.endIndex)
+		self.buildMetadataIdentifiers = identifiers(start: metadataStartIndex, end: versionString.endIndex)
 	}
 }
 

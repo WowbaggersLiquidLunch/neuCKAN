@@ -43,22 +43,6 @@ struct ExtendedSemanticVersion: Hashable {
 	}
 }
 
-extension ExtendedSemanticVersion {
-	init(_ versionString: String) {
-		let buildStartIndex = versionString.firstIndex(of: " ") ?? versionString.endIndex
-		let semanticVersionString = versionString.prefix(upTo: buildStartIndex)
-		let buildStringWithParentheses = versionString.suffix(from: buildStartIndex)
-		let buildString = buildStringWithParentheses
-			.suffix(from: buildStringWithParentheses.firstIndex(of: "(") ?? buildStringWithParentheses.startIndex)
-			.prefix(upTo: buildStringWithParentheses.lastIndex(of: ")") ?? buildStringWithParentheses.endIndex)
-		let build = Int(buildString)
-		if build == nil {
-			os_log("Unable to parse build value from string \"%@\"", log: .default, type: .error, versionString)
-		}
-		self.init(semanticVersion: SemanticVersion(String(semanticVersionString)), build: build)
-	}
-}
-
 //	MARK: - Codable Conformance
 extension ExtendedSemanticVersion: Codable {
 	
@@ -97,6 +81,22 @@ extension ExtendedSemanticVersion: CustomStringConvertible {
 		let semanticVersionString = String(describing: semanticVersion)
 		guard let build = build else { return semanticVersionString }
 		return "\(semanticVersionString) (\(build)"
+	}
+}
+
+extension ExtendedSemanticVersion: LosslessStringConvertible {
+	init(_ versionString: String) {
+		let buildStartIndex = versionString.firstIndex(of: " ") ?? versionString.endIndex
+		let semanticVersionString = versionString.prefix(upTo: buildStartIndex)
+		let buildStringWithParentheses = versionString.suffix(from: buildStartIndex)
+		let buildString = buildStringWithParentheses
+			.suffix(from: buildStringWithParentheses.firstIndex(of: "(") ?? buildStringWithParentheses.startIndex)
+			.prefix(upTo: buildStringWithParentheses.lastIndex(of: ")") ?? buildStringWithParentheses.endIndex)
+		let build = Int(buildString)
+		if build == nil {
+			os_log("Unable to parse build value from string \"%@\"", log: .default, type: .error, versionString)
+		}
+		self.init(semanticVersion: SemanticVersion(String(semanticVersionString)), build: build)
 	}
 }
 
