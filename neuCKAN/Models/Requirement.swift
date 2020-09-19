@@ -59,7 +59,9 @@ extension Requirement: CustomStringConvertible {
 	}
 }
 
-//	MARK: - Codable Conformance
+//	TODO: Add Encodable conformance.
+
+//	MARK: - Decodable Conformance
 extension Requirement: Decodable {
 	
 	///	Instantiate `Requirement` by decoding from the given `decoder`.
