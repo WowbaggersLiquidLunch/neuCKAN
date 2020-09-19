@@ -77,12 +77,9 @@ extension Requirement: Decodable {
 			versions = exactVersion≤∙≤exactVersion
 		} else {
 			let minimalVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .minimalVersion)
-			let lowerBoundedVersions = minimalVersion?≤∙∙ ?? .unbounded
-			//	TODO: Propose supporting optional chaining with prefix operators.
-			var upperBoundedVersions = Interval<CKANMetadataVersion>.unbounded
-			if let maximalVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .maximalVersion) {
-				upperBoundedVersions = ∙∙≤maximalVersion
-			}
+			let lowerBoundedVersions = minimalVersion.map { $0≤∙∙ } ?? .unbounded
+			let maximalVersion = try container.decodeIfPresent(CKANMetadataVersion.self, forKey: .maximalVersion)
+			let upperBoundedVersions = maximalVersion.map { ∙∙≤$0 } ?? .unbounded
 			versions = lowerBoundedVersions ∩ upperBoundedVersions
 		}
 		
